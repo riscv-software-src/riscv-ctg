@@ -1,4 +1,4 @@
-# See LICENSE for details
+# See LICENSE.incore for details
 
 #!/usr/bin/env bash
 

@@ -1,0 +1,4 @@
+click
+ruamel.yaml>=0.16.0
+colorlog
+pytest

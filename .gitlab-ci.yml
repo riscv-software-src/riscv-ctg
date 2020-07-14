@@ -1,7 +1,29 @@
 stages:
+  - pre-merge
   - build
   - doc
   - deploy
+
+pre-merge:
+  stage: pre-merge
+  script: 
+    - export PATH="/home/gitlab-runner/.pyenv/bin:$PATH"
+    - eval "$(pyenv init -)"
+    - eval "$(pyenv virtualenv-init -)"
+    - source /tools/setup.sh
+    - pyenv shell 3.7.0
+    - pip install -r riscv_ctg/requirements.txt
+    - cd docs
+    - pip install -r requirements.txt
+    - make latexpdf
+    - cd ../tests/
+    - pytest test_riscv_ctg.py -v
+
+  only:
+    refs:
+      - merge_requests
+  tags:
+    - incore-group
 
 riscv_ctg:
   stage: build
@@ -20,7 +42,13 @@ riscv_ctg:
 doc:
   stage: doc
   script:
+    - export PATH="/home/gitlab-runner/.pyenv/bin:$PATH"
+    - eval "$(pyenv init -)"
+    - eval "$(pyenv virtualenv-init -)"
+    - source /tools/setup.sh
+    - pyenv shell 3.7.0
     - cd docs
+    - pip install -r requirements.txt
     - make latexpdf
     - cd ..
     - cp docs/build/latex/riscv_ctg.pdf .

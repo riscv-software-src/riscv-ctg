@@ -1,4 +1,4 @@
-# See LICENSE file for details
+# See LICENSE.incore file for details
 import sys
 import os
 import shutil

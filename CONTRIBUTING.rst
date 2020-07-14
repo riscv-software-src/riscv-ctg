@@ -1,4 +1,4 @@
-.. See LICENSE for details
+.. See LICENSE.incore for details
 
 .. highlight:: shell
 
@@ -16,12 +16,12 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg//riscv_ctg/issues.
+Report bugs at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/issues.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg//riscv_ctg/issues.
+The best way to send feedback is to file an issue at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/issues.
 
 If you are proposing a feature:
 
@@ -38,9 +38,9 @@ Ready to contribute? Here's how to set up `riscv_ctg` for local development.
 1. Fork the `riscv_ctg` repo on GitLab.
 2. Clone your fork locally::
 
-    $ git clone  https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg//riscv_ctg.git
+    $ git clone  https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg.git
 
-3. Create an issue and WIP merge request that creates a working branch fro you
+3. Create an issue and WIP merge request that creates a working branch for you::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
