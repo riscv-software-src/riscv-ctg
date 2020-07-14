@@ -1,0 +1,35 @@
+stages:
+  - build
+  - doc
+  - deploy
+
+riscv_ctg:
+  stage: build
+  script:
+    - export PYTHONPATH=$PWD/riscv_ctg:$PYTHONPATH
+    - cd tests
+    - pytest test_riscv_ctg.py -v
+  only:
+    refs:
+      - master
+  tags:
+    - incore-group
+  except:
+    - schedules
+
+doc:
+  stage: doc
+  script:
+    - cd docs
+    - make latexpdf
+    - cd ..
+    - cp docs/build/latex/riscv_ctg.pdf .
+  only:
+    refs:
+      - master
+  artifacts:
+    name: riscv_ctg
+    paths: 
+      - ./riscv_ctg.pdf
+  tags:
+    - incore-group
