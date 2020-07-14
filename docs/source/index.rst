@@ -16,11 +16,8 @@ please refer to the :ref:`Revisions <revisions>` documentation.
   :numbered:
 
   overview
-  getting_started
-  features
   installation
   cli
-  tests
-  contriburing
+  contributing
   revisions
   licensing

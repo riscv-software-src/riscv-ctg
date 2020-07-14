@@ -1,4 +1,4 @@
-# See LICENSE for details
+# See LICENSE.incore for details
 
 """Top-level package for RISC-V Compliance Test Generator."""
 

@@ -1,8 +1,7 @@
-# See LICENSE for details
-
+# See LICENSE.incore for details
 #!/bin/bash
 
-### Pre Commit Hook For The Shakti BLUESPEC codebase
+### Pre Commit Hook For riscv_ctg codebase
 status=0;
 ### Check for Dependencies 
 yapf --help

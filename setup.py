@@ -1,8 +1,9 @@
-# See LICENSE.incore for details
+# See LICENSE.incore.incore for details
 
 """The setup script."""
 
 from setuptools import setup, find_packages
+import os
 
 # Base directory of package
 here = os.path.abspath(os.path.dirname(__file__))
@@ -26,21 +27,21 @@ test_requirements = [ ]
 setup(
     name='riscv_ctg',
     version='0.1.0',
-    description="RISC-V Compliance Test Generator",
+    description="RISC-V CTG",
     long_description=readme + '\n\n',
     classifiers=[
           "Programming Language :: Python :: 3.6",
           "License :: OSI Approved :: BSD License",
           "Development Status :: 4 - Beta"
     ],
-    url='https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg//riscv_ctg',
+    url='https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg',
     author="InCore Semiconductors Pvt. Ltd.",
     author_email='incorebot@gmail.com',
-    license="MIT license",
+    license="BSD-3-Clause",
     packages=find_packages(),
     package_dir={'riscv_ctg': 'riscv_ctg'},
     package_data={
-        riscv_ctg: [
+        'riscv_ctg': [
             'requirements.txt'
             ]
         },
@@ -48,7 +49,7 @@ setup(
     python_requires='>=3.6.0',
     entry_points={
         'console_scripts': [
-            'riscv_ctg=riscv_ctg.main:riscv_ctg',
+            'riscv_ctg=riscv_ctg.main:cli',
         ],
     },
     include_package_data=True,

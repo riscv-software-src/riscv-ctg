@@ -1,4 +1,4 @@
-# See LICENSE for details
+# See LICENSE.incore for details
 
 """Common Utils """
 import sys
