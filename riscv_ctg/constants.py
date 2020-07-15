@@ -1,6 +1,7 @@
 # See LICENSE.incore for details
 
 import os
+from string import Template
 
 root = os.path.abspath(os.path.dirname(__file__))
 
@@ -23,3 +24,39 @@ xlen = 32
 int32_min = -50
 int32_max = 50
 template_file = os.path.join(root,"data/template.yaml")
+
+test_template = Template('''
+#include "compliance_model.h"
+#include "compliance_test.h"
+
+RVTEST_ISA("$isa")
+
+RVMODEL_BOOT
+RVTEST_CODE_BEGIN
+$test
+
+RVMODEL_HALT
+RVTEST_CODE_END
+
+RVTEST_DATA_BEGIN
+.align 4
+$data
+RVTEST_DATA_END
+
+RVMODEL_DATA_BEGIN
+$sig
+RVMODEL_DATA_END
+''')
+
+case_template = Template('''
+#ifdef TEST_CASE_$num
+RVTEST_CASE($num,"//$cond;def TEST_CASE_$num=True")
+$code
+#endif
+''')
+
+signode_template = Template('''
+$label:
+    .fill $n,4,0xafacadee
+''')
+

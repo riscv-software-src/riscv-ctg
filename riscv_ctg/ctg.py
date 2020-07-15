@@ -6,13 +6,28 @@ import riscv_ctg.constants as const
 from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
 
-def create_instr(instr_dict, op_node):
+def create_test(file_name,node,label,instr_dict, op_node):
+    sreg = instr_dict[0]['swreg']
+    code = ["la "+sreg+",signature_"+sreg]
+    sign = [".align 4"]
+    data = [".align 4"]
+    n = 0
     for instr in instr_dict:
         res = op_node['template']
         for value in sorted(instr.keys(), key = len, reverse = True):
             res = re.sub(value, instr[value], res)
-        print(res)
-    return instr_dict
+        if instr['swreg'] != sreg:
+            sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg}))
+            n = 1
+            sreg = instr['swreg']
+            code.append("la "+sreg+",signature_"+sreg)
+        else:
+            n+=1
+        code.append(res)
+    sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg}))
+    test = const.case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
+    with open(file_name,"w") as fd:
+        fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32I"))
 
 def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
 
@@ -21,7 +36,8 @@ def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
     for label,node in cgf.items():
         opcode = node['opcode']
         op_node = cgf_op[opcode]
-        print('Generating Test for :' + opcode )
+        fname = os.path.join(out_dir,str(label.capitalize()+".S"))
+        logger.info('Generating Test for :' + opcode)
         formattype  = cgf_op[opcode]['formattype']
         op_comb = eval(formattype+'_opcomb(node,randomize)')
         val_comb = eval(formattype+'_valcomb(node, op_node,randomize)')
@@ -31,4 +47,5 @@ def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
         append_testreg = eval(formattype+'_testreg(append_swreg)')
         instr_dict = eval(formattype+'_correct_val(append_testreg, op_node)')
 
-        create_instr(instr_dict, op_node)
+        logger.info("Writing test to "+str(fname))
+        create_test(fname,node,label,instr_dict, op_node)

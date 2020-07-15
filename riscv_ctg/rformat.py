@@ -182,7 +182,7 @@ def rformat_inst(op_comb, val_comb, cgf, op_node):
 def rformat_swreg(instr_dict):
     total_instr = len(instr_dict)
     available_reg = default_regset.copy()
-    available_reg.remove('x1')
+    available_reg.remove('x0')
     count = 0
     assigned = 0
     offset = 0
