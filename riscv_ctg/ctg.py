@@ -34,6 +34,8 @@ def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
     cgf_op = utils.load_yaml(const.template_file)
     cgf = utils.load_yaml(cgf_file)
     for label,node in cgf.items():
+        if 'opcode' not in node:
+            continue
         opcode = node['opcode']
         op_node = cgf_op[opcode]
         fname = os.path.join(out_dir,str(label.capitalize()+".S"))

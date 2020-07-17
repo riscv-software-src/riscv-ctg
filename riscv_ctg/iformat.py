@@ -4,7 +4,6 @@ import re
 from riscv_ctg.constants import *
 
 def iformat_opcomb(cgf, randomization):
-    print(randomization)
     rs1_picked = []
     rd_picked = []
     op_comb = []
@@ -91,14 +90,16 @@ def iformat_opcomb(cgf, randomization):
                 problem.reset()
     return op_comb
 
-def iformat_valcomb(cgf,randomization):
+def iformat_valcomb(cgf,op_node,randomization):
     val_comb = []
     for req_val_comb in cgf['val_comb']:
+        print(req_val_comb)
         if randomization:
             problem = Problem(MinConflictsSolver())
         else:
-            problem = Problem()
-        problem.addVariables(['rs1_val', 'imm_val'], range(-2**12, 2**12))
+            problem = Problem(RecursiveBacktrackingSolver())
+        problem.addVariables(['rs1_val'], list(range(-50, 50))+[-2**(xlen-1),2**(xlen-1)-1])
+        problem.addVariables(['imm_val'], list(range(-5, 5))+[-2**11,(2**11)-1])
         problem.addConstraint(lambda rs1_val, imm_val: eval(req_val_comb) ,\
                         ('rs1_val', 'imm_val'))
         solution = problem.getSolution()
@@ -113,7 +114,7 @@ def iformat_valcomb(cgf,randomization):
         problem.reset()
     return val_comb
 
-def iformat_inst(op_comb, val_comb, cgf):
+def iformat_inst(op_comb, val_comb, cgf,op_node):
     instr_dict = []
     if len(op_comb) >= len(val_comb):
         for i in range(len(op_comb)):

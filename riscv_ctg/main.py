@@ -6,6 +6,7 @@ import click,os,shutil
 from riscv_ctg.log import logger
 from riscv_ctg.ctg import ctg
 from riscv_ctg.__init__ import __version__
+from riscv_ctg.constants import env
 
 @click.command()
 @click.version_option(prog_name="RISC-V Compliance Test Generator",version=__version__)
@@ -27,4 +28,6 @@ def cli(verbose, out_dir, randomize ,clean, xlen, cgf):
             os.mkdir(out_dir)
     elif not os.path.exists(out_dir):
         os.mkdir(out_dir)
+    logger.info("Copying env folder to Output directory.")
+    shutil.copytree(env,os.path.join(out_dir,"env"))
     ctg(verbose, out_dir, randomize ,xlen, cgf)
