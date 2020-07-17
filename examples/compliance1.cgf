@@ -1,0 +1,1246 @@
+add-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: add
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val == rs2_val'
+        - '(rs1_val + rs2_val) == -1'
+        - '(rs1_val + rs2_val) == 0'
+        - '(rs1_val + rs2_val) > 0'
+        - '(rs1_val + rs2_val) < 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == 0xFFFFFFFFFFF % xlen'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+and-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: and
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val == 0 and rs2_val == -1'
+        - 'rs1_val == -1 and rs2_val == 0'
+        - 'rs1_val == rs2_val'
+        - '(rs1_val & rs2_val) == -1'
+        - '(rs1_val & rs2_val) > 0'
+        - '(rs1_val & rs2_val) < 0'
+        - '(rs1_val & rs2_val) == 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == -1'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+or-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: or
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val == 0 and rs2_val == -1'
+        - 'rs1_val == -1 and rs2_val == 0'
+        - 'rs1_val == rs2_val'
+        - '(rs1_val | rs2_val) == -1'
+        - '(rs1_val | rs2_val) > 0'
+        - '(rs1_val | rs2_val) < 0'
+        - '(rs1_val | rs2_val) == 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == -1'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+slt-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: slt
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val < rs2_val'
+        - 'rs1_val >= rs2_val'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == -1'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+sltu-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: sltu
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val > 0 and rs1_val < rs2_val'
+        - 'rs1_val > 0 and rs2_val > 0 and rs1_val >= rs2_val'
+        - 'rs1_val > 0'
+        - 'rs1_val == 0'
+        - 'rs2_val > 0'
+        - 'rs2_val == 0'
+xor-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: xor
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val == 0 and rs2_val == -1'
+        - 'rs1_val == -1 and rs2_val == 0'
+        - 'rs1_val == rs2_val'
+        - '(rs1_val ^ rs2_val)  == -1'
+        - '(rs1_val ^ rs2_val)  > 0'
+        - '(rs1_val ^ rs2_val)  < 0'
+        - '(rs1_val ^ rs2_val)  == 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == -1'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+sub-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: sub
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val > 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val < 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs1_val == rs2_val'
+        - '(rs1_val - rs2_val) == -1'
+        - '(rs1_val - rs2_val) == 0'
+        - '(rs1_val - rs2_val) > 0'
+        - '(rs1_val - rs2_val) < 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+        - 'rs2_val == -1'
+        - 'rs2_val > 0'
+        - 'rs2_val < 0'
+        - 'rs2_val == 0'
+srl-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: srl
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > (xlen - 1)'
+        - 'rs1_val < 0 and rs2_val > (xlen - 1)'
+        - 'rs1_val > 0 and rs2_val < (xlen - 1) and rs2_val != 0'
+        - 'rs1_val < 0 and rs2_val < (xlen - 1) and rs2_val != 0'
+        - 'rs1_val > 0 and rs2_val == 0'
+        - 'rs1_val < 0 and rs2_val == 0'
+        - 'rs2_val < (xlen -1) and rs1_val == rs2_val != 0'
+        - 'rs2_val > (xlen -1) and rs1_val == rs2_val != 0'
+        - '(rs1_val >> (rs2_val%32)) == -1 and rs2_val !=0'
+        - '(rs1_val >> (rs2_val%32)) > 0 and rs2_val !=0'
+        - '(rs1_val >> (rs2_val%32)) < 0 and rs2_val !=0'
+        - '(rs1_val >> (rs2_val%32)) == 0 and rs2_val !=0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+sra-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: sra
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > (xlen - 1)'
+        - 'rs1_val < 0 and rs2_val > (xlen - 1)'
+        - 'rs1_val > 0 and rs2_val < (xlen - 1) and rs2_val != 0'
+        - 'rs1_val < 0 and rs2_val < (xlen - 1) and rs2_val != 0'
+        - 'rs1_val > 0 and rs2_val == 0'
+        - 'rs1_val < 0 and rs2_val == 0'
+        - 'rs2_val < (xlen -1) and rs1_val == rs2_val != 0'
+        - 'rs2_val > (xlen -1) and rs1_val == rs2_val != 0'
+        - 'rs2_val !=0 and sra(rs1_val ,(rs2_val%32)) > 0'
+        - 'rs2_val !=0 and sra(rs1_val ,(rs2_val%32)) & 0xF0000000 != 0'
+        - 'rs2_val !=0 and sra(rs1_val ,(rs2_val%32)) == 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
+sll-cov:
+    config: check ISA:=regex(.*32I.*)
+    opcode: sll
+    rs1: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rs2: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    rd: 
+        - x0
+        - x1
+        - x2
+        - x3
+        - x4
+        - x5
+        - x6
+        - x7
+        - x8
+        - x9
+        - x10
+        - x11
+        - x12
+        - x13
+        - x14
+        - x15
+        - x16
+        - x17
+        - x18
+        - x19
+        - x20
+        - x21
+        - x22
+        - x23
+        - x24
+        - x25
+        - x26
+        - x27
+        - x28
+        - x29
+        - x30
+        - x31
+    op_comb: 
+        - 'rs1 == rs2 != rd'
+        - 'rs1 == rd != rs2'
+        - 'rs2 == rd != rs1'
+        - 'rs1 == rs2 == rd'
+        - 'rs1 != rs2  and rs1 != rd and rs2 != rd'
+    val_comb:
+        - 'rs1_val > 0 and rs2_val > 0'
+        - 'rs1_val < 0 and rs2_val > 0'
+        - 'rs2_val > (xlen-1)'
+        - 'rs2_val < (xlen-1) and rs2_val > 0'
+        - 'rs2_val == 0'
+        - 'rs1_val == rs2_val'
+        - 'rs2_val > 0 and (rs1_val << (rs2_val%32)) == 0'
+        - 'rs2_val > 0 and (rs1_val << (rs2_val%32)) & (0xFFFFFFFF)  > 0'
+        - 'rs2_val > 0 and (rs1_val << (rs2_val%32)) < 0'
+        - 'rs1_val == -1'
+        - 'rs1_val > 0'
+        - 'rs1_val < 0'
+        - 'rs1_val == 0'
