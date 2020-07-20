@@ -52,7 +52,7 @@ RVMODEL_DATA_END
 
 case_template = Template('''
 #ifdef TEST_CASE_$num
-RVTEST_CASE($num,"//$cond;def TEST_CASE_$num=True")
+RVTEST_CASE($num,"//$cond;def TEST_CASE_$num=True;",$cov_label)
 $code
 #endif
 ''')
