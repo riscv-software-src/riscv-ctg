@@ -10,7 +10,7 @@ from riscv_ctg.constants import env,gen_sign_dataset,gen_usign_dataset
 
 @click.command()
 @click.version_option(prog_name="RISC-V Compliance Test Generator",version=__version__)
-@click.option('--verbose', '-v', default='info', help='Set verbose level', type=click.Choice(['info','error','debug'],case_sensitive=False))
+@click.option('--verbose', '-v', default='error', help='Set verbose level', type=click.Choice(['info','error','debug'],case_sensitive=False))
 @click.option('--out-dir', '-d', default='./', type=click.Path(resolve_path=True,writable=True), help='Output directory path')
 @click.option('--clean','-c', default=False,is_flag='True', help='Clean builds')
 @click.option('--randomize','-r', default=False , is_flag='True', help='Randomize Outputs.')

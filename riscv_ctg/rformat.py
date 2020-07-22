@@ -118,20 +118,11 @@ def rformat_valcomb(cgf, op_node, randomization):
         problem.addVariable('rs2_val', rs2_val_data)
         problem.addConstraint(lambda rs1_val, rs2_val: eval(req_val_comb) ,\
                         ('rs1_val', 'rs2_val'))
-        if randomization:
-            solution = problem.getSolution()
-        else:
-            temp = problem.getSolutions()
-            random.shuffle(temp)
-            solution = temp[0]
+        solution = problem.getSolution()
         count = 0
-        while (solution is None and count < 5):
-            if randomization:
-                solution = problem.getSolution()
-            else:
-                temp = problem.getSolutions()
-                random.shuffle(temp)
-                solution = temp[0]
+        while (solution != {} and count < 5):
+            solution = problem.getSolution()
+            count+=1
         if solution is None:
             print("Can't find a solution - 3")
             exit(0)
@@ -143,6 +134,8 @@ def rformat_inst(op_comb, val_comb, cgf, op_node):
     instr_dict = []
     rs1_val_data = eval(op_node['rs1_val_data'])
     rs2_val_data = eval(op_node['rs2_val_data'])
+    cont = []
+    regs = list(range(1,31))
     if len(op_comb) >= len(val_comb):
         for i in range(len(op_comb)):
             instr = {}
@@ -154,6 +147,16 @@ def rformat_inst(op_comb, val_comb, cgf, op_node):
             if i < len(val_comb):
                 instr['rs1_val'] = val_comb[i][0]
                 instr['rs2_val'] = val_comb[i][1]
+                if instr['rs1'] == 'x0' or instr['rs2'] == 'x0' or instr['rd'] == 'x0' or instr['rs1'] == instr['rs2']:
+                    cont.append(val_comb[i])
+            elif cont:
+                if instr['rs1'] == 'x0' or instr['rs2'] == 'x0' or instr['rd'] == 'x0' or instr['rs1'] == instr['rs2']:
+                    instr['rs1_val'] = str(random.choice(rs1_val_data))
+                    instr['rs2_val'] = str(random.choice(rs2_val_data))
+                else:
+                    temp = cont.pop()
+                    instr['rs1_val'] = temp[0]
+                    instr['rs2_val'] = temp[1]
             else:
                 instr['rs1_val'] = str(random.choice(rs1_val_data))
                 instr['rs2_val'] = str(random.choice(rs2_val_data))
@@ -166,12 +169,28 @@ def rformat_inst(op_comb, val_comb, cgf, op_node):
                 instr['rd'] = op_comb[i][0]
                 instr['rs1'] = op_comb[i][1]
                 instr['rs2'] = op_comb[i][2]
+
+                if instr['rs1'] == 'x0' or instr['rs2'] == 'x0' or instr['rd'] == 'x0' or instr['rs1'] == instr['rs2']:
+                    cont.append(val_comb[i])
             else:
                 instr['rd'] =  'x' + str(random.randint(1,31))
-                instr['rs1'] = 'x' + str(random.randint(1,31))
-                instr['rs2'] = 'x' + str(random.randint(1,31))
+                instr['rs1'] =  'x' + str(random.randint(1,31))
+                instr['rs2'] =  'x' + str(random.randint(1,31))
+                while instr['rs1'] == instr['rs2']:
+                    instr['rs2'] =  'x' + str(random.randint(1,31))
             instr['rs1_val'] = val_comb[i][0]
             instr['rs2_val'] = val_comb[i][1]
+            instr_dict.append(instr)
+    for entry in cont:
+            instr = {}
+            instr['inst'] = cgf['opcode']
+            instr['rd'] =  'x' + str(random.randint(1,31))
+            instr['rs1'] =  'x' + str(random.randint(1,31))
+            instr['rs2'] =  'x' + str(random.randint(1,31))
+            while instr['rs1'] == instr['rs2']:
+                instr['rs2'] =  'x' + str(random.randint(1,31))
+            instr['rs1_val'] = entry[0]
+            instr['rs2_val'] = entry[1]
             instr_dict.append(instr)
     return instr_dict
 
