@@ -1,92 +1,72 @@
 add:
   operation: '(rs1_val + rs2_val) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 and:
   operation: '(rs1_val & rs2_val) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 or:
   operation: '(rs1_val | rs2_val) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 slt:
   operation: 'int(rs1_val < rs2_val) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sltu:
   operation: 'int(rs1_val < rs2_val) & (0xFFFFFFFF) '
   formattype: 'rformat'
-  rs1_val_min: '0'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: '0'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 xor:
   operation: '(rs1_val ^ rs2_val) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sll:
   operation: '(rs1_val << (rs2_val%32)) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: '0'
-  rs2_val_max: '40'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 
 srl:
   operation: '((rs1_val & 0xFFFFFFFF) >> (rs2_val%32)) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: '-50'
-  rs1_val_max: '100'
-  rs2_val_min: '0'
-  rs2_val_max: '40'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sra:
   operation: 'sra(rs1_val & 0xFFFFFFFF, (rs2_val%32)) & (0xFFFFFFFF)'
   formattype: 'rformat'
-  rs1_val_min: '-50'
-  rs1_val_max: '100'
-  rs2_val_min: '0'
-  rs2_val_max: '40'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sub:
   operation: 'rs1_val - rs2_val'
   formattype: 'rformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  rs2_val_min: 'int32_min'
-  rs2_val_max: 'int32_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 addi:

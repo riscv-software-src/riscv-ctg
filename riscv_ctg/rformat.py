@@ -9,15 +9,15 @@ def rformat_opcomb(cgf,randomization):
     rd_picked = []
     op_comb = []
     if 'rs1' in cgf:
-        rs1_range = cgf['rs1']
+        rs1_range = list(cgf['rs1'].keys())
     else:
         rs1_range = ['x'+str(random.randint(1,31))]
     if 'rs2' in cgf:
-        rs2_range = cgf['rs2']
+        rs2_range = list(cgf['rs2'].keys())
     else:
         rs2_range = ['x'+str(random.randint(1,31))]
     if 'rd' in cgf:
-        rd_range = cgf['rd']
+        rd_range = list(cgf['rd'].keys())
     else:
         rd_range = ['x'+str(random.randint(1,31))]
     variables = ['rs1', 'rs2', 'rd']
@@ -107,17 +107,15 @@ def rformat_opcomb(cgf,randomization):
 
 def rformat_valcomb(cgf, op_node, randomization):
     val_comb = []
-    rs1_val_max = eval(op_node['rs1_val_max'])
-    rs2_val_max = eval(op_node['rs2_val_max'])
-    rs1_val_min = eval(op_node['rs1_val_min'])
-    rs2_val_min = eval(op_node['rs2_val_min'])
+    rs1_val_data = eval(op_node['rs1_val_data'])
+    rs2_val_data = eval(op_node['rs2_val_data'])
     for req_val_comb in cgf['val_comb']:
         if randomization:
             problem = Problem(BacktrackingSolver())
         else:
             problem = Problem()
-        problem.addVariable('rs1_val', range(rs1_val_min, rs1_val_max))
-        problem.addVariable('rs2_val', range(rs2_val_min, rs2_val_max))
+        problem.addVariable('rs1_val', rs1_val_data)
+        problem.addVariable('rs2_val', rs2_val_data)
         problem.addConstraint(lambda rs1_val, rs2_val: eval(req_val_comb) ,\
                         ('rs1_val', 'rs2_val'))
         if randomization:
@@ -143,10 +141,8 @@ def rformat_valcomb(cgf, op_node, randomization):
 
 def rformat_inst(op_comb, val_comb, cgf, op_node):
     instr_dict = []
-    rs1_val_max = eval(op_node['rs1_val_max'])
-    rs2_val_max = eval(op_node['rs2_val_max'])
-    rs1_val_min = eval(op_node['rs1_val_min'])
-    rs2_val_min = eval(op_node['rs2_val_min'])
+    rs1_val_data = eval(op_node['rs1_val_data'])
+    rs2_val_data = eval(op_node['rs2_val_data'])
     if len(op_comb) >= len(val_comb):
         for i in range(len(op_comb)):
             instr = {}
@@ -159,8 +155,8 @@ def rformat_inst(op_comb, val_comb, cgf, op_node):
                 instr['rs1_val'] = val_comb[i][0]
                 instr['rs2_val'] = val_comb[i][1]
             else:
-                instr['rs1_val'] = str(random.randint(rs1_val_min, rs1_val_max+1))
-                instr['rs2_val'] = str(random.randint(rs2_val_min, rs2_val_max+1))
+                instr['rs1_val'] = str(random.choice(rs1_val_data))
+                instr['rs2_val'] = str(random.choice(rs2_val_data))
             instr_dict.append(instr)
     else:
         for i in range(len(val_comb)):

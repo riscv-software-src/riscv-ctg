@@ -5,10 +5,12 @@ import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
+from collections import defaultdict
 
 def create_test(file_name,node,label,instr_dict, op_node):
+    regs = defaultdict(lambda: 0)
     sreg = instr_dict[0]['swreg']
-    code = ["la "+sreg+",signature_"+sreg]
+    code = ["la "+sreg+",signature_"+sreg+"_"+str(regs[sreg])]
     sign = [".align 4"]
     data = [".align 4"]
     n = 0
@@ -17,14 +19,15 @@ def create_test(file_name,node,label,instr_dict, op_node):
         for value in sorted(instr.keys(), key = len, reverse = True):
             res = re.sub(value, instr[value], res)
         if instr['swreg'] != sreg:
-            sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg}))
+            sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
             n = 1
+            regs[sreg]+=1
             sreg = instr['swreg']
-            code.append("la "+sreg+",signature_"+sreg)
+            code.append("la "+sreg+",signature_"+sreg+"_"+str(regs[sreg]))
         else:
             n+=1
         code.append(res)
-    sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg}))
+    sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
     test = const.case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
     with open(file_name,"w") as fd:
         fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32I"))

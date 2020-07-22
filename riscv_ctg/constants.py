@@ -7,16 +7,44 @@ root = os.path.abspath(os.path.dirname(__file__))
 
 cwd = os.getcwd()
 env = os.path.join(root,"env")
-default_regset = ['x0' ,'x1' ,'x2' ,'x3' ,'x4' ,'x5' ,'x6' ,'x7' ,'x8' ,'x9'
-        ,'x10' ,'x11' ,'x12' ,'x13' ,'x14' ,'x15' ,'x16' ,'x17' ,'x18' ,'x19'
-        ,'x20' ,'x21' ,'x22' ,'x23' ,'x24' ,'x25' ,'x26' ,'x27' ,'x28' ,'x29'
-        ,'x30' ,'x31']
-default_regset_mx0 = ['x1' ,'x2' ,'x3' ,'x4' ,'x5' ,'x6' ,'x7' ,'x8' ,'x9'
-        ,'x10' ,'x11' ,'x12' ,'x13' ,'x14' ,'x15' ,'x16' ,'x17' ,'x18' ,'x19'
-        ,'x20' ,'x21' ,'x22' ,'x23' ,'x24' ,'x25' ,'x26' ,'x27' ,'x28' ,'x29'
-        ,'x30' ,'x31']
+
 def sra(val, n):
     return val>>n if val >= 0 else (val+0x100000000) >> n
+default_regset = ['x0' ,'x1' ,'x2' ,'x3' ,'x4' ,'x5' ,'x6' ,'x7' ,'x8' ,'x9'
+            ,'x10' ,'x11' ,'x12' ,'x13' ,'x14' ,'x15' ,'x16' ,'x17' ,'x18' ,'x19'
+            ,'x20' ,'x21' ,'x22' ,'x23' ,'x24' ,'x25' ,'x26' ,'x27' ,'x28' ,'x29'
+            ,'x30' ,'x31']
+default_regset_mx0 = ['x1' ,'x2' ,'x3' ,'x4' ,'x5' ,'x6' ,'x7' ,'x8' ,'x9'
+            ,'x10' ,'x11' ,'x12' ,'x13' ,'x14' ,'x15' ,'x16' ,'x17' ,'x18' ,'x19'
+            ,'x20' ,'x21' ,'x22' ,'x23' ,'x24' ,'x25' ,'x26' ,'x27' ,'x28' ,'x29'
+            ,'x30' ,'x31']
+
+def twos(val,bits):
+    if isinstance(val,str):
+        if '0x' in val:
+            val = int(val,16)
+        else:
+            val = int(val,2)
+    if (val & (1 << (bits - 1))) != 0:
+        val = val - (1 << bits)
+    return val
+
+def gen_sign_dataset(bit_width):
+    rval_w0_base = ['1']*(bit_width-1)+['0']
+    rval_w1_base = ['0']*(bit_width-1)+['1']
+    data = [(-2**(bit_width-1)),int((-2**(bit_width-1))/2),0,(2**(bit_width-1)-1),int((2**(bit_width-1)-1)/2)] + list(range(-10,10))
+    data += [twos(''.join(rval_w1_base[n:] + rval_w1_base[:n]),bit_width) for n in range(bit_width)]
+    data += [twos(''.join(rval_w0_base[n:] + rval_w0_base[:n]),bit_width) for n in range(bit_width)]
+    return list(set(data))
+
+def gen_usign_dataset(bit_width):
+    rval_w0_base = ['1']*(bit_width-1)+['0']
+    rval_w1_base = ['0']*(bit_width-1)+['1']
+    data = [0,((2**bit_width)-1),int(((2**bit_width)-1)/2)] + list(range(0,20))
+    data += [int(''.join(rval_w1_base[n:] + rval_w1_base[:n]),2) for n in range(bit_width)]
+    data += [int(''.join(rval_w0_base[n:] + rval_w0_base[:n]),2) for n in range(bit_width)]
+    return list(set(data))
+
 imm_min = -2**12
 imm_max = 2**12
 shift_min = 0
