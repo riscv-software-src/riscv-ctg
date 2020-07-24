@@ -6,6 +6,7 @@ import riscv_ctg.constants as const
 from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
 from collections import defaultdict
+from riscv_isac.cgf_normalize import expand_cgf
 
 def create_test(file_name,node,label,instr_dict, op_node):
     regs = defaultdict(lambda: 0)
@@ -35,11 +36,14 @@ def create_test(file_name,node,label,instr_dict, op_node):
 def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
 
     cgf_op = utils.load_yaml(const.template_file)
-    cgf = utils.load_yaml(cgf_file)
+    cgf = expand_cgf(utils.load_yaml(cgf_file),int(xlen))
     for label,node in cgf.items():
         if 'opcode' not in node:
             continue
         opcode = node['opcode']
+        if opcode not in cgf_op:
+            logger.info("Skipping :" + str(opcode))
+            continue
         op_node = cgf_op[opcode]
         fname = os.path.join(out_dir,str(label.capitalize()+".S"))
         logger.info('Generating Test for :' + opcode)

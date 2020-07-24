@@ -7,7 +7,7 @@ from riscv_ctg.log import logger
 from riscv_ctg.ctg import ctg
 from riscv_ctg.__init__ import __version__
 from riscv_ctg.constants import env,gen_sign_dataset,gen_usign_dataset
-
+from riscv_isac.cgf_normalize import expand_cgf
 @click.command()
 @click.version_option(prog_name="RISC-V Compliance Test Generator",version=__version__)
 @click.option('--verbose', '-v', default='error', help='Set verbose level', type=click.Choice(['info','error','debug'],case_sensitive=False))

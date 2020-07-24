@@ -29,7 +29,7 @@ def rformat_opcomb(cgf,randomization):
 
     for i in range(combination_num):
         if randomization:
-            problem = Problem(BacktrackingSolver())
+            problem = Problem(MinConflictsSolver())
         else:
             problem = Problem()
 
@@ -80,7 +80,7 @@ def rformat_opcomb(cgf,randomization):
                     break;
             if not satisfied:
                 if randomization:
-                    problem = Problem(BacktrackingSolver())
+                    problem = Problem(MinConflictsSolver())
                 else:
                     problem = Problem()
                 problem.addVariable('rs1', rs1_range)
@@ -111,7 +111,7 @@ def rformat_valcomb(cgf, op_node, randomization):
     rs2_val_data = eval(op_node['rs2_val_data'])
     for req_val_comb in cgf['val_comb']:
         if randomization:
-            problem = Problem(BacktrackingSolver())
+            problem = Problem(MinConflictsSolver())
         else:
             problem = Problem()
         problem.addVariable('rs1_val', rs1_val_data)
