@@ -1,47 +1,47 @@
 add:
-  operation: '(rs1_val + rs2_val) & (0xFFFFFFFF)'
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 and:
-  operation: '(rs1_val & rs2_val) & (0xFFFFFFFF)'
+  operation: '(rs1_val & rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 or:
-  operation: '(rs1_val | rs2_val) & (0xFFFFFFFF)'
+  operation: '(rs1_val | rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 slt:
-  operation: 'int(rs1_val < rs2_val) & (0xFFFFFFFF)'
+  operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sltu:
-  operation: 'int(rs1_val < rs2_val) & (0xFFFFFFFF) '
+  operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1) '
   formattype: 'rformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 xor:
-  operation: '(rs1_val ^ rs2_val) & (0xFFFFFFFF)'
+  operation: '(rs1_val ^ rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sll:
-  operation: '(rs1_val << (rs2_val%32)) & (0xFFFFFFFF)'
+  operation: '(rs1_val << (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(5)'
@@ -49,14 +49,14 @@ sll:
 
 
 srl:
-  operation: '((rs1_val & 0xFFFFFFFF) >> (rs2_val%32)) & (0xFFFFFFFF)'
+  operation: '((rs1_val & 0xFFFFFFFF) >> (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sra:
-  operation: 'sra(rs1_val & 0xFFFFFFFF, (rs2_val%32)) & (0xFFFFFFFF)'
+  operation: 'sra(rs1_val & 0xFFFFFFFF, (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(5)'
@@ -71,18 +71,63 @@ sub:
 
 addi:
   operation: 'rs1_val + imm_val'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  imm_val_min: 'imm_min'
-  imm_val_max: 'imm_max'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  formattype: 'iformat'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+slti:
+  operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  formattype: 'iformat'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+sltiu:
+  operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_usign_dataset(12)'
+  formattype: 'iformat'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+andi:
+  operation: '(rs1_val & imm_val) & (-2**(xlen-1)-1)'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  formattype: 'iformat'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+ori:
+  operation: '(rs1_val | imm_val) & (-2**(xlen-1)-1)'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  formattype: 'iformat'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+xori:
+  operation: '(rs1_val ^ imm_val) & (-2**(xlen-1)-1)'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
   formattype: 'iformat'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slli:
-  operation: '(rs1_val << imm_val) & (0xFFFFFFFF)'
+  operation: '(rs1_val << imm_val) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
-  rs1_val_min: 'int32_min'
-  rs1_val_max: 'int32_max'
-  imm_val_min: '0'
-  imm_val_max: '31'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_usign_dataset(5)'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+srli:
+  operation: '((rs1_val & 0xFFFFFFFF) >> imm_val) & (-2**(xlen-1)-1)'
+  formattype: 'iformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_usign_dataset(5)'
+  template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+srai:
+  operation: 'sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (-2**(xlen-1)-1)'
+  formattype: 'iformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
