@@ -131,3 +131,15 @@ srai:
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_usign_dataset(5)'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+lui:
+  operation: 'imm_val << (xlen-20)'
+  formattype: 'uformat'
+  imm_val_data: 'gen_usign_dataset(20)'
+  template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd,imm_val)'
+
+auipc:
+  operation: 'imm_val << (xlen-20)'
+  formattype: 'uformat'
+  imm_val_data: 'gen_usign_dataset(20)'
+  template: 'TEST_AUIPC(inst, rd, correctval, imm_val, swreg, offset, testreg)'

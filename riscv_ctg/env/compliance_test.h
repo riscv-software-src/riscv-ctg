@@ -416,8 +416,8 @@ mscratch_save:
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       1: \
       inst destreg, imm; \
-      la swreg, 1b; \
-      sub destreg, destreg, swreg; \
+      la testreg, 1b; \
+      sub destreg, destreg, testreg; \
       )
 
 //Tests for a instructions with register-immediate operand

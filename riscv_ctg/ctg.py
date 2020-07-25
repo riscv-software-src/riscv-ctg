@@ -5,6 +5,7 @@ import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
+from riscv_ctg.uformat import *
 from collections import defaultdict
 from riscv_isac.cgf_normalize import expand_cgf
 
