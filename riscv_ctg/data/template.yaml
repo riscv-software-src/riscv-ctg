@@ -143,3 +143,47 @@ auipc:
   formattype: 'uformat'
   imm_val_data: 'gen_usign_dataset(20)'
   template: 'TEST_AUIPC(inst, rd, correctval, imm_val, swreg, offset, testreg)'
+
+beq:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+bge:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+bgeu:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+blt:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+bltu:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+bne:
+  formattype: 'bformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
+  template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
+

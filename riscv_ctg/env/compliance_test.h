@@ -395,6 +395,38 @@ mscratch_save:
 
 #define SEXT_IMM(x) ((x) | (-(((x) >> 11) & 1) << 11))
 
+#define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset) \
+    li reg1, MASK_XLEN(val1)                  ;\
+    li reg2, MASK_XLEN(val2)                  ;\
+    j 2f                                      ;\
+                                              ;\
+1:  li tempreg, 0x1                           ;\
+    j 4f                                      ;\
+    .if (imm/4) - 2 >= 0                      ;\
+        .set num,(imm/4)-2                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    nop                                       ;\
+    .endr                                     ;\
+                                              ;\
+2:  inst reg1, reg2, label                    ;\
+    li tempreg, 0x2                           ;\
+    j 4f                                      ;\
+    .if (imm/4) - 3 >= 0                      ;\
+        .set num,(imm/4)-3                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    nop                                       ;\
+    .endr                                     ;\
+                                              ;\
+3:  li tempreg, 0x3                           ;\
+                                              ;\
+4:  sw tempreg, offset(swreg);                
+
 #define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
     li TEMP_REG,VAL;\
     and TEMP_REG,TEMP_REG,MASK_REG;\
