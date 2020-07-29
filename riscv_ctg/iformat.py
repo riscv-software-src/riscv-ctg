@@ -30,11 +30,12 @@ def iformat_opcomb(cgf, randomization):
         problem.addVariable('rs1', rs1_range)
         problem.addVariable('rd',  rd_range)
 
-        def opconstraint(rs1=0, rd=0):
-            if rs1 not in rs1_picked and rd not in rd_picked\
-                    and rs1 != rd :
-                return True
-
+        if len(rs1_range) == len(rs1_picked):
+            opconstraint = lambda rs1,rd: True if rd not in rd_picked and rs1 != rd else False
+        elif len(rd_range) == len(rd_picked):
+            opconstraint = lambda rs1,rd: True if rs1 not in rs1_picked and rs1!= rd else False
+        else:
+            opconstraint = lambda rs1,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs1!= rd else False
         problem.addConstraint(opconstraint, variables)
 
         count = 0

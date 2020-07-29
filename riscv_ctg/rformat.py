@@ -38,10 +38,22 @@ def rformat_opcomb(cgf,randomization):
         problem.addVariable('rs2', rs2_range)
         problem.addVariable('rd',  rd_range)
 
-        def opconstraint(rs1=0, rs2=0, rd=0):
-            if rs1 not in rs1_picked and rs2 not in rs2_picked and rd not in rd_picked\
-                    and rs1 != rs2 and rs1 != rd and rs2 != rd:
-                return True
+        if len(rs1_range) == len(rs1_picked):
+            if len(rs2_range) == len(rs2_picked):
+                opconstraint = lambda rs1,rs2,rd: True if rd not in rd_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+            elif len(rd_range) == len(rd_picked):
+                opconstraint = lambda rs1,rs2,rd: True if rs2 not in rs2_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+            else:
+                opconstraint = lambda rs1,rs2,rd: True if rs2 not in rs2_picked and rd not in rd_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+        elif len(rd_range) == len(rd_picked):
+            if len(rs2_range) == len(rs2_picked):
+                opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+            else:
+                opconstraint = lambda rs1,rs2,rd: True if rs2 not in rs2_picked and rd not in rd_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+        elif len(rs2_range) == len(rs2_picked):
+            opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
+        else:
+            opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs1!= rd else False
 
         problem.addConstraint(opconstraint, variables)
 

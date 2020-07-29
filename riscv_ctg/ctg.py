@@ -7,6 +7,7 @@ from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
 from riscv_ctg.uformat import *
 from riscv_ctg.bformat import *
+from riscv_ctg.ldstformat import *
 from collections import defaultdict
 from riscv_isac.cgf_normalize import expand_cgf
 
@@ -15,7 +16,7 @@ def create_test(file_name,node,label,instr_dict, op_node):
     sreg = instr_dict[0]['swreg']
     code = ["la "+sreg+",signature_"+sreg+"_"+str(regs[sreg])]
     sign = [".align 4"]
-    data = [".align 4"]
+    data = [".align 4","rvtest_data:",".word 0xbebecafe"]
     n = 0
     for instr in instr_dict:
         res = op_node['template']

@@ -186,4 +186,23 @@ bne:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
+lw:
+  formattype: 'ldstformat'
+  rs1_val_data: '[0]'
+  size: '4'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 
+lh:
+  formattype: 'ldstformat'
+  rs1_val_data: '[0,1,2,3]'
+  size: '2'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
+lb:
+  formattype: 'ldstformat'
+  rs1_val_data: '[0,1,2,3]'
+  size: '1'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
