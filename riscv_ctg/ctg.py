@@ -16,7 +16,7 @@ def create_test(file_name,node,label,instr_dict, op_node):
     sreg = instr_dict[0]['swreg']
     code = ["la "+sreg+",signature_"+sreg+"_"+str(regs[sreg])]
     sign = [".align 4"]
-    data = [".align 4","rvtest_data:",".word 0xbebecafe"]
+    data = [".align 4","rvtest_data:",".word 0xbabecafe"]
     n = 0
     for instr in instr_dict:
         res = op_node['template']

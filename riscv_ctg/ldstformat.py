@@ -95,7 +95,6 @@ def ldstformat_valcomb(cgf,op_node,randomization):
     rs1_val_data = eval(op_node['rs1_val_data'])
     imm_val_data = eval(op_node['imm_val_data'])
     size = eval(op_node['size'])
-    print(imm_val_data)
     def boundconstraint(rs1_val,imm_val):
         temp = rs1_val+imm_val-(imm_val+(-1 if imm_val>0 else 1)*(rs1_val%size))+size
         if temp>=0 and temp<=4:
@@ -103,7 +102,6 @@ def ldstformat_valcomb(cgf,op_node,randomization):
         else:
             return False
     for req_val_comb in cgf['val_comb']:
-        print(req_val_comb)
         if randomization:
             problem = Problem(MinConflictsSolver())
         else:

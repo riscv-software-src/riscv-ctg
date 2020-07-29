@@ -192,14 +192,24 @@ lw:
   size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
-
+lhu:
+  formattype: 'ldstformat'
+  rs1_val_data: '[0,1,2,3]'
+  size: '2'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lh:
   formattype: 'ldstformat'
   rs1_val_data: '[0,1,2,3]'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
-
+lbu:
+  formattype: 'ldstformat'
+  rs1_val_data: '[0,1,2,3]'
+  size: '1'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lb:
   formattype: 'ldstformat'
   rs1_val_data: '[0,1,2,3]'
