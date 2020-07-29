@@ -55,7 +55,7 @@ def ldstformat_opcomb(cgf, randomization):
         problem.reset()
 
     if 'op_comb' in cgf:
-        rs1_range = default_regset.copy()
+        rs1_range = default_regset_mx0.copy()
         rd_range = default_regset.copy()
 
         for req_op_comb in cgf['op_comb']:
@@ -96,7 +96,7 @@ def ldstformat_valcomb(cgf,op_node,randomization):
     imm_val_data = eval(op_node['imm_val_data'])
     size = eval(op_node['size'])
     def boundconstraint(rs1_val,imm_val):
-        temp = rs1_val+imm_val-(imm_val+(-1 if imm_val>0 else 1)*(rs1_val%size))+size
+        temp = rs1_val+imm_val-(imm_val+(1 if imm_val>0 else -1)*(rs1_val%size))+size
         if temp>=0 and temp<=4:
             return True
         else:
@@ -121,7 +121,6 @@ def ldstformat_valcomb(cgf,op_node,randomization):
         if solution is None:
             print("Can't find a solution - 3")
             exit(0)
-        print(solution)
         val_comb.append((str(solution['rs1_val']), str(solution['imm_val'])))
         problem.reset()
     return val_comb
@@ -142,10 +141,10 @@ def ldstformat_inst(op_comb, val_comb, cgf,op_node):
             if i < len(val_comb):
                 instr['rs1_val'] = val_comb[i][0]
                 instr['imm_val'] = val_comb[i][1]
-                if instr['rs1'] == 'x0' or instr['rd'] == 'x0':
+                if instr['rd'] == 'x0':
                     cont.append(val_comb[i])
             elif cont:
-                if instr['rs1'] == 'x0' or instr['rd'] == 'x0':
+                if instr['rd'] == 'x0':
                     instr['rs1_val'] = str(random.choice(rs1_val_data))
                     instr['imm_val'] = str(random.choice(imm_val_data))
                 else:
@@ -164,7 +163,7 @@ def ldstformat_inst(op_comb, val_comb, cgf,op_node):
                 instr['rd'] = op_comb[i][0]
                 instr['rs1'] = op_comb[i][1]
 
-                if instr['rs1'] == 'x0' or instr['rd'] == 'x0':
+                if instr['rd'] == 'x0':
                     cont.append(val_comb[i])
             else:
                 instr['rd'] =  'x' + str(random.randint(1,31))

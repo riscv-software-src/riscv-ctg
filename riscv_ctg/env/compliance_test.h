@@ -430,9 +430,9 @@ mscratch_save:
 #define TEST_LW(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 la rs1,rvtest_data+(index*4)+adj                                           ;\
 .if imm_val >= 0                                                            ;\
-    .set off,-1*adj                                                        ;\
+    .set off,adj                                                        ;\
 .else                                                                      ;\
-    .set off,1*adj                                                         ;\
+    .set off,-1*adj                                                         ;\
 .endif                                                                    ;\
 li testreg,imm_val+off                                                     ;\
 sub rs1,rs1,testreg                                                          ;\
@@ -449,9 +449,9 @@ sw destreg, offset(swreg);
 #define TEST_LH(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 la rs1,rvtest_data+(index*4)+adj                                           ;\
 .if imm_val >= 0                                                            ;\
-    .set off,-1*(adj%2)                                                        ;\
+    .set off,(adj%2)                                                        ;\
 .else                                                                      ;\
-    .set off,adj%2                                                        ;\
+    .set off,-1*(adj%2)                                                        ;\
 .endif                                                                    ;\
 li testreg,imm_val+off                                                     ;\
 sub rs1,rs1,testreg                                                          ;\
