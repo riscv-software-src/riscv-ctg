@@ -427,6 +427,37 @@ mscratch_save:
                                               ;\
 4:  sw tempreg, offset(swreg);                
 
+#define TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
+addi rs1,swreg,offset+adj                                                     ;\
+li rs2,rs2_val                                                             ;\
+.if imm_val >= 0                                                            ;\
+    .set off,adj                                                        ;\
+.else                                                                      ;\
+    .set off,-1*adj                                                         ;\
+.endif                                                                    ;\
+li testreg,imm_val+off                                                     ;\
+sub rs1,rs1,testreg                                                          ;\
+inst rs2, imm_val(rs1)                                                   
+
+#define TEST_SB(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
+addi rs1,swreg,offset+adj                                                     ;\
+li rs2,rs2_val                                                             ;\
+li testreg,imm_val                                                     ;\
+sub rs1,rs1,testreg                                                          ;\
+inst rs2, imm_val(rs1)
+
+#define TEST_SH(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
+addi rs1,swreg,offset+adj                                                     ;\
+li rs2,rs2_val                                                             ;\
+.if imm_val >= 0                                                            ;\
+    .set off,adj%2                                                        ;\
+.else                                                                      ;\
+    .set off,-1*(adj%2)                                                    ;\
+.endif                                                                    ;\
+li testreg,imm_val+off                                                     ;\
+sub rs1,rs1,testreg                                                          ;\
+inst rs2, imm_val(rs1)    
+
 #define TEST_LW(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 la rs1,rvtest_data+(index*4)+adj                                           ;\
 .if imm_val >= 0                                                            ;\
