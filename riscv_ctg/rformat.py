@@ -53,7 +53,7 @@ def rformat_opcomb(cgf,randomization):
         elif len(rs2_range) == len(rs2_picked):
             opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs1 != rd and rs1!=rs2 and rs2!=rd else False
         else:
-            opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs1!= rd else False
+            opconstraint = lambda rs1,rs2,rd: True if rs1 not in rs1_picked and rd not in rd_picked and rs2 not in rs2_picked and rs1!= rd else False
 
         problem.addConstraint(opconstraint, variables)
 
