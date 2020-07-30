@@ -12,7 +12,6 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.version_option(prog_name="RISC-V Compliance Test Generator",version=__version__)
 @click.option('--verbose', '-v', default='error', help='Set verbose level', type=click.Choice(['info','error','debug'],case_sensitive=False))
 @click.option('--out-dir', '-d', default='./', type=click.Path(resolve_path=True,writable=True), help='Output directory path')
-@click.option('--clean','-c', default=False,is_flag='True', help='Clean builds')
 @click.option('--randomize','-r', default=False , is_flag='True', help='Randomize Outputs.')
 @click.option('--xlen','-x',type=click.Choice(['32','64']),help="XLEN value for the ISA.")
 @click.option('--cgf','-cf',type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file.")
@@ -21,12 +20,7 @@ def cli(verbose, out_dir, randomize ,clean, xlen, cgf):
     logger.critical('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
     logger.critical('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
     logger.critical('All Rights Reserved.')
-    if clean:
-        if os.path.exists(out_dir):
-            logger.debug('Removing old work directory: ' + out_dir)
-            shutil.rmtree(out_dir)
-            os.mkdir(out_dir)
-    elif not os.path.exists(out_dir):
+    if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     logger.info("Copying env folder to Output directory.")
     shutil.copytree(env,os.path.join(out_dir,"env"))
