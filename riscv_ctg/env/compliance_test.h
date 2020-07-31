@@ -407,6 +407,9 @@ mscratch_save:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
+    .if label == 3f                           ;\
+        .set num,0                            ;\
+    .endif                                    ;\
     .rept num                                 ;\
     nop                                       ;\
     .endr                                     ;\
@@ -417,6 +420,9 @@ mscratch_save:
     .if (imm/4) - 3 >= 0                      ;\
         .set num,(imm/4)-3                    ;\
     .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+     .if label == 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\

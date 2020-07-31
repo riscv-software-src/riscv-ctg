@@ -15,7 +15,7 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.option('--randomize','-r', default=False , is_flag='True', help='Randomize Outputs.')
 @click.option('--xlen','-x',type=click.Choice(['32','64']),help="XLEN value for the ISA.")
 @click.option('--cgf','-cf',type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file.")
-def cli(verbose, out_dir, randomize ,clean, xlen, cgf):
+def cli(verbose, out_dir, randomize , xlen, cgf):
     logger.level(verbose)
     logger.critical('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
     logger.critical('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
