@@ -182,16 +182,16 @@ def stformat_inst(op_comb, val_comb, cgf,op_node):
             instr['rs2_val'] = val_comb[i][2]
             instr_dict.append(instr)
     for entry in cont:
-            instr = {'index':'0'}
-            instr['inst'] = cgf['opcode']
-            instr['rs2'] =  'x' + str(random.randint(1,31))
+        instr = {'index':'0'}
+        instr['inst'] = cgf['opcode']
+        instr['rs2'] =  'x' + str(random.randint(1,31))
+        instr['rs1'] =  'x' + str(random.randint(1,31))
+        while(instr['rs2'] == instr['rs1']):
             instr['rs1'] =  'x' + str(random.randint(1,31))
-            while(instr['rs2'] == instr['rs1']):
-                instr['rs1'] =  'x' + str(random.randint(1,31))
-            instr['rs1_val'] = entry[0]
-            instr['imm_val'] = entry[1]
-            instr['rs2_val'] = entry[0]
-            instr_dict.append(instr)
+        instr['rs1_val'] = entry[0]
+        instr['imm_val'] = entry[1]
+        instr['rs2_val'] = entry[2]
+        instr_dict.append(instr)
     return instr_dict
 
 def stformat_swreg(instr_dict):
