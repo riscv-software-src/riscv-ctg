@@ -121,7 +121,10 @@ def rformat_valcomb(cgf, op_node, randomization):
     val_comb = []
     rs1_val_data = eval(op_node['rs1_val_data'])
     rs2_val_data = eval(op_node['rs2_val_data'])
-    for req_val_comb in cgf['val_comb']:
+    conds = list(cgf['val_comb'].keys())
+    inds = set(range(len(conds)))
+    while inds:
+        req_val_comb = conds[inds.pop()]
         if randomization:
             problem = Problem(MinConflictsSolver())
         else:
@@ -138,6 +141,12 @@ def rformat_valcomb(cgf, op_node, randomization):
         if solution is None:
             print("Can't find a solution - 3")
             exit(0)
+        def eval_func(cond):
+            rs1_val = solution['rs1_val']
+            rs2_val = solution['rs2_val']
+            return eval(cond)
+        inds = inds - set(filter(lambda x: eval_func(conds[x]),inds))
+
         val_comb.append((str(solution['rs1_val']), str(solution['rs2_val'])))
         problem.reset()
     return val_comb

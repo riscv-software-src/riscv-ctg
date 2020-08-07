@@ -395,54 +395,29 @@ mscratch_save:
 
 #define SEXT_IMM(x) ((x) | (-(((x) >> 11) & 1) << 11))
 
-#define TEST_JALR_OP(tempreg, rd, rs1, imm, label, swreg, offset) \
-5:                                        ;\
-    la rs1, label                             ;\
+#define TEST_JALR_OP(tempreg, rd, rs1, imm, swreg, offset) \
+5:                                            ;\
+    la rs1, 3f-imm                         ;\
     j 2f                                      ;\
                                               ;\
-1:  xori rd, 0x1                           ;\
+2:  jalr rd, imm(rs1)                         ;\
+    xori rd,rd, 0x2                           ;\
     j 4f                                      ;\
-    .if (imm/4) - 2 >= 0                      ;\
-        .set num,(imm/4)-2                    ;\
-    .else                                     ;\
-        .set num,0                            ;\
-    .endif                                    ;\
-     .if label == 3f                          ;\
-        .set num,0                            ;\
-    .endif                                    ;\
-    .rept num                                 ;\
-    nop                                       ;\
-    .endr                                     ;\
                                               ;\
-2:  jalr rd, imm(rs1)                       ;\
-    xori rd, 0x2                           ;\
-    j 4f                                      ;\
-    .if (imm/4) - 3 >= 0                      ;\
-        .set num,(imm/4)-3                    ;\
-    .else                                     ;\
-        .set num,0                            ;\
-    .endif                                    ;\
-     .if label == 1b                          ;\
-        .set num,0                            ;\
-    .endif                                    ;\
-    .rept num                                 ;\
-    nop                                       ;\
-    .endr                                     ;\
+3:  xori rd,rd, 0x3                           ;\
                                               ;\
-3:  xori rd, 0x3                           ;\
-                                              ;\
-4: li tempreg, 5b&(~(0x3))                             ;\
-   sub rd,rd,tempreg                          ;\
+4: la tempreg, 5b                             ;\
+   andi tempreg,tempreg,~(3)                  ;\
+    sub rd,rd,tempreg                          ;\
   sw rd, offset(swreg);
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset) \
 5:                                           ;\
    j 2f                                      ;\
-                                              ;\
-1:  xori rd, 0x1                           ;\
+1:  xori rd,rd, 0x1                           ;\
     j 4f                                      ;\
-    .if (imm/4) - 2 >= 0                      ;\
-        .set num,(imm/4)-2                    ;\
+    .if (imm/2) - 2 >= 0                      ;\
+        .set num,(imm/2)-2                    ;\
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
@@ -454,10 +429,10 @@ mscratch_save:
     .endr                                     ;\
                                               ;\
 2:  jal rd, label                       ;\
-    xori rd, 0x2                           ;\
+    xori rd,rd, 0x2                           ;\
     j 4f                                      ;\
-    .if (imm/4) - 3 >= 0                      ;\
-        .set num,(imm/4)-3                    ;\
+    .if (imm/2) - 3 >= 0                      ;\
+        .set num,(imm/2)-3                    ;\
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
@@ -468,11 +443,12 @@ mscratch_save:
     nop                                       ;\
     .endr                                     ;\
                                               ;\
-3:  xori rd, 0x3                           ;\
+3:  xori rd,rd, 0x3                           ;\
                                               ;\
-4: li tempreg, 5b&(~(0x3))                             ;\
-   sub rd,rd,tempreg                          ;\
-  sw rd, offset(swreg);     
+4: la tempreg, 5b                             ;\
+   andi tempreg,tempreg,~(3)                  ;\
+    sub rd,rd,tempreg                          ;\
+  sw rd, offset(swreg);
 
 #define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset) \
     li reg1, MASK_XLEN(val1)                  ;\

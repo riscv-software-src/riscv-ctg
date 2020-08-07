@@ -236,3 +236,11 @@ lb:
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+jal:
+  formattype: 'jformat'
+  imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(20)))'
+  template: 'TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset)'
+jalr:
+  formattype: 'iformat'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: 'TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)'

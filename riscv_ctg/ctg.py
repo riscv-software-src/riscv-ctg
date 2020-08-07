@@ -7,6 +7,7 @@ from riscv_ctg.iformat import *
 from riscv_ctg.rformat import *
 from riscv_ctg.uformat import *
 from riscv_ctg.bformat import *
+from riscv_ctg.jformat import *
 from riscv_ctg.stformat import *
 from riscv_ctg.ldformat import *
 from collections import defaultdict

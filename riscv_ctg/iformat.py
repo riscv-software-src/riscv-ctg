@@ -93,8 +93,14 @@ def iformat_opcomb(cgf, randomization):
 
 def iformat_valcomb(cgf,op_node,randomization):
     val_comb = []
-    rs1_val_data = eval(op_node['rs1_val_data'])
-    imm_val_data = eval(op_node['imm_val_data'])
+    if 'rs1_val_data' in op_node:
+        rs1_val_data = eval(op_node['rs1_val_data'])
+    else:
+        rs1_val_data = [0]
+    if 'imm_val_data' in op_node:
+        imm_val_data = eval(op_node['imm_val_data'])
+    else:
+        imm_val_data = [0]
     for req_val_comb in cgf['val_comb']:
         if randomization:
             problem = Problem(MinConflictsSolver())
@@ -119,8 +125,14 @@ def iformat_valcomb(cgf,op_node,randomization):
 def iformat_inst(op_comb, val_comb, cgf,op_node):
 
     instr_dict = []
-    rs1_val_data = eval(op_node['rs1_val_data'])
-    imm_val_data = eval(op_node['imm_val_data'])
+    if 'rs1_val_data' in op_node:
+        rs1_val_data = eval(op_node['rs1_val_data'])
+    else:
+        rs1_val_data = [0]
+    if 'imm_val_data' in op_node:
+        imm_val_data = eval(op_node['imm_val_data'])
+    else:
+        imm_val_data = [0]
     cont = []
     if len(op_comb) >= len(val_comb):
         for i in range(len(op_comb)):
@@ -239,11 +251,12 @@ def iformat_testreg(instr_dict):
     return instr_dict
 
 def iformat_correct_val(instr_dict, op_node):
-    for i in range(len(instr_dict)):
-        rs1_val = int(instr_dict[i]['rs1_val'])
-        imm_val = int(instr_dict[i]['imm_val'])
-        correctval = eval(op_node['operation'])
-        instr_dict[i]['correctval'] = str(correctval)
+    if 'operation' in op_node:
+        for i in range(len(instr_dict)):
+            rs1_val = int(instr_dict[i]['rs1_val'])
+            imm_val = int(instr_dict[i]['imm_val'])
+            correctval = eval(op_node['operation'])
+            instr_dict[i]['correctval'] = str(correctval)
     return instr_dict
 
 
