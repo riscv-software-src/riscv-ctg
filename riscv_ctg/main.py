@@ -23,5 +23,7 @@ def cli(verbose, out_dir, randomize , xlen, cgf):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     logger.info("Copying env folder to Output directory.")
-    shutil.copytree(env,os.path.join(out_dir,"env"))
+    env_dir = os.path.join(out_dir,"env")
+    if not os.path.exists(env_dir):
+        shutil.copytree(env,env_dir)
     ctg(verbose, out_dir, randomize ,xlen, cgf)
