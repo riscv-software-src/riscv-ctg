@@ -244,3 +244,60 @@ jalr:
   formattype: 'iformat'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)'
+
+mul:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+mulh:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+mulhu:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+mulhsu:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+div:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+divu:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+rem:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
+remu:
+  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
+  formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
+
