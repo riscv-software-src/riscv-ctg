@@ -186,52 +186,52 @@ bne:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 sw:
-  formattype: 'stformat'
+  formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
 sh:
-  formattype: 'stformat'
+  formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SH(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
 sb:
-  formattype: 'stformat'
+  formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SB(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
 lw:
-  formattype: 'ldformat'
+  formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lhu:
-  formattype: 'ldformat'
+  formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lh:
-  formattype: 'ldformat'
+  formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lbu:
-  formattype: 'ldformat'
+  formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 lb:
-  formattype: 'ldformat'
+  formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -246,56 +246,48 @@ jalr:
   template: 'TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)'
 
 mul:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulh:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhu:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhsu:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 div:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 divu:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 rem:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 remu:
-  operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'

@@ -286,11 +286,12 @@ def rformat_testreg(instr_dict):
     return instr_dict
 
 def rformat_correct_val(instr_dict, op_node):
-    for i in range(len(instr_dict)):
-        rs1_val = int(instr_dict[i]['rs1_val'])
-        rs2_val = int(instr_dict[i]['rs2_val'])
-        correctval = eval(op_node['operation'])
-        instr_dict[i]['correctval'] = str(correctval)
+    if 'operation' in instr_dict:
+        for i in range(len(instr_dict)):
+            rs1_val = int(instr_dict[i]['rs1_val'])
+            rs2_val = int(instr_dict[i]['rs2_val'])
+            correctval = eval(op_node['operation'])
+            instr_dict[i]['correctval'] = str(correctval)
     return instr_dict
 
 
