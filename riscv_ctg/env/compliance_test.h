@@ -589,3 +589,11 @@ sw destreg, offset(swreg);
       li  reg2, MASK_XLEN(val2); \
       inst destreg, reg1, reg2; \
     )
+#define TEST_CR_OP( inst, destreg, reg, correctval, val1, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      li reg, MASK_XLEN(val1); \
+      li destreg, MASK_XLEN(val2); \
+      inst destreg, reg; \
+      )
+
+

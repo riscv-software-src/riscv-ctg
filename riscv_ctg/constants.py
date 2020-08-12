@@ -35,6 +35,9 @@ def gen_sign_dataset(bit_width):
     data = [(-2**(bit_width-1)),int((-2**(bit_width-1))/2),0,(2**(bit_width-1)-1),int((2**(bit_width-1)-1)/2)] + list(range(-10,10))
     data += [twos(''.join(rval_w1_base[n:] + rval_w1_base[:n]),bit_width) for n in range(bit_width)]
     data += [twos(''.join(rval_w0_base[n:] + rval_w0_base[:n]),bit_width) for n in range(bit_width)]
+    t1 =( '' if bit_width%2 == 0 else '1') + ''.join(['01']*int(bit_width/2))
+    t2 =( '' if bit_width%2 == 0 else '0') + ''.join(['10']*int(bit_width/2))
+    data += [twos(t1,bit_width),twos(t2,bit_width)]
     return list(set(data))
 
 def gen_usign_dataset(bit_width):
@@ -43,6 +46,9 @@ def gen_usign_dataset(bit_width):
     data = [0,((2**bit_width)-1),int(((2**bit_width)-1)/2)] + list(range(0,20))
     data += [int(''.join(rval_w1_base[n:] + rval_w1_base[:n]),2) for n in range(bit_width)]
     data += [int(''.join(rval_w0_base[n:] + rval_w0_base[:n]),2) for n in range(bit_width)]
+    t1 =( '' if bit_width%2 == 0 else '1') + ''.join(['01']*int(bit_width/2))
+    t2 =( '' if bit_width%2 == 0 else '0') + ''.join(['10']*int(bit_width/2))
+    data += [int(t1,2),int(t2,2)]
     return list(set(data))
 
 imm_min = -2**12

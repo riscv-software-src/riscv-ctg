@@ -37,7 +37,7 @@ def create_test(file_name,node,label,instr_dict, op_node):
     sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
     test = const.case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
     with open(file_name,"w") as fd:
-        fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32IM"))
+        fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32IMC"))
 
 def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
 
@@ -61,4 +61,4 @@ def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
 
         logger.info("Writing test to "+str(fname))
-        create_test(fname,node,label,instr_dict_temp, op_node)
+        create_test(fname,node,label,instr_dict, op_node)

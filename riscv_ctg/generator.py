@@ -10,6 +10,16 @@ ops = {
     'bformat': ['rs1','rs2'],
     'uformat': ['rd'],
     'jformat': ['rd'],
+    'crformat': ['rs1','rs2'],
+    'ciformat': ['rs1'],
+    'cssformat': ['rs2'],
+    'ciwformat': ['rd'],
+    'clformat': ['rd','rs1'],
+    'csformat': ['rs1','rs2'],
+    'caformat': ['rs1','rs2'],
+    'cbformat': ['rs2'],
+    'cjformat': []
+
 }
 vals = {
     'rformat': ['rs1_val','rs2_val'],
@@ -18,6 +28,15 @@ vals = {
     'bformat': ['rs1_val','rs2_val','imm_val'],
     'uformat': ['imm_val'],
     'jformat': ['imm_val'],
+    'crformat': ['rs1_val','rs2_val'],
+    'ciformat': ['rs1_val','imm_val'],
+    'cssformat': ['rs2_val','imm_val'],
+    'ciwformat': ['imm_val'],
+    'clformat': ['rs1_val','imm_val'],
+    'csformat': ['rs1_val','rs2_val','imm_val'],
+    'caformat': ['rs1_val','rs2_val'],
+    'cbformat': ['rs2_val','imm_val'],
+    'cjformat': ['imm_val']
 }
 class Generator():
     def __init__(self,fmt,opnode,opcode,randomization):
@@ -55,7 +74,6 @@ class Generator():
             op_picked.append([])
 
         combination_num = max([len(x) for x in op_datasets])
-
         for i in range(combination_num):
             if self.random:
                 problem = Problem(MinConflictsSolver())

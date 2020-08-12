@@ -293,3 +293,14 @@ remu:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
+c.mv:
+  formattype: 'crformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.add:
+  formattype: 'crformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+
