@@ -1,4 +1,6 @@
 click
 ruamel.yaml>=0.16.0
 colorlog
+python-constraint
 pytest
+riscv_isac
