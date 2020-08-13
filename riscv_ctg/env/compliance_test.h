@@ -1,3 +1,4 @@
+// See License.incore for details.
 #ifndef _COMPLIANCE_TEST_H
 #define _COMPLIANCE_TEST_H
 
