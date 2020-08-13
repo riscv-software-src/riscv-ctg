@@ -1,3 +1,4 @@
+# See Licence.incore for details.
 from click.testing import CliRunner
 from riscv_ctg.main import cli
 import pytest
