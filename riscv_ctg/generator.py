@@ -1,3 +1,5 @@
+# See LICENSE.incore for details
+
 from constraint import *
 import random
 import re
