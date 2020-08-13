@@ -413,7 +413,8 @@ mscratch_save:
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset) \
 5:                                           ;\
-   j 2f                                      ;\
+    la tempreg, 2f                           ;\
+    jalr x0,0(tempreg)                       ;\
 1:  xori rd,rd, 0x1                           ;\
     j 4f                                      ;\
     .if (imm/2) - 2 >= 0                      ;\

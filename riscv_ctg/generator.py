@@ -4,6 +4,8 @@ from constraint import *
 import random
 import re
 from riscv_ctg.constants import *
+from riscv_ctg.log import logger
+
 
 ops = {
     'rformat': ['rs1','rs2','rd'],
@@ -101,8 +103,8 @@ class Generator():
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
-                print("Can't find a solution - 1")
-                exit(0)
+                logger.warn("Cannot find solution for Op combination "+str(combination_num))
+                continue
 
             op_tuple = []
             for ind,key in enumerate(self.op_vars):
@@ -138,8 +140,9 @@ class Generator():
                         solution = problem.getSolution()
                         count = count + 1
                     if solution is None:
-                        print("Can't find a solution - 2")
-                        exit(0)
+                        logger.warn("Cannot find solution for Op condition "+str(req_op_comb))
+                        continue
+
                     op_tuple = []
                     for i,key in enumerate(self.op_vars):
                         op_tuple.append(solution[key])
@@ -186,8 +189,8 @@ class Generator():
                 solution = problem.getSolution()
                 count+=1
             if solution is None:
-                print("Can't find a solution - 3")
-                exit(0)
+                logger.warn("Cannot find solution for Val condition "+str(req_val_comb))
+                continue
             val_tuple = []
             for i,key in enumerate(self.val_vars):
                 val_tuple.append(solution[key])

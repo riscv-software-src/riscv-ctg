@@ -6,7 +6,7 @@ import colorlog
 # a theme is just a dict of strings to represent each level
 THEME = {logging.CRITICAL: "    critical ",
          logging.ERROR:    "       error ",
-         logging.WARNING:  "     command ",
+         logging.WARNING:  "     warning ",
          logging.INFO:     "        info ",
          logging.DEBUG:    "       debug "}
 

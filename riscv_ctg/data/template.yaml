@@ -1,4 +1,5 @@
 add:
+  isa: I
   operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -6,6 +7,7 @@ add:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 and:
+  isa: I
   operation: '(rs1_val & rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -13,6 +15,7 @@ and:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 or:
+  isa: I
   operation: '(rs1_val | rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -20,6 +23,7 @@ or:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 slt:
+  isa: I
   operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -27,6 +31,7 @@ slt:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sltu:
+  isa: I
   operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1) '
   formattype: 'rformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
@@ -34,6 +39,7 @@ sltu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 xor:
+  isa: I
   operation: '(rs1_val ^ rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -41,6 +47,7 @@ xor:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sll:
+  isa: I
   operation: '(rs1_val << (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -49,6 +56,7 @@ sll:
 
 
 srl:
+  isa: I
   operation: '((rs1_val & 0xFFFFFFFF) >> (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -56,6 +64,7 @@ srl:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sra:
+  isa: I
   operation: 'sra(rs1_val & 0xFFFFFFFF, (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -63,6 +72,7 @@ sra:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sub:
+  isa: I
   operation: 'rs1_val - rs2_val'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -70,6 +80,7 @@ sub:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 addi:
+  isa: I
   operation: 'rs1_val + imm_val'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -77,6 +88,7 @@ addi:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slti:
+  isa: I
   operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -84,6 +96,7 @@ slti:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 sltiu:
+  isa: I
   operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   imm_val_data: 'gen_usign_dataset(12)'
@@ -91,6 +104,7 @@ sltiu:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 andi:
+  isa: I
   operation: '(rs1_val & imm_val) & (-2**(xlen-1)-1)'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -98,6 +112,7 @@ andi:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 ori:
+  isa: I
   operation: '(rs1_val | imm_val) & (-2**(xlen-1)-1)'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -105,6 +120,7 @@ ori:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 xori:
+  isa: I
   operation: '(rs1_val ^ imm_val) & (-2**(xlen-1)-1)'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -112,6 +128,7 @@ xori:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slli:
+  isa: I
   operation: '(rs1_val << imm_val) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -119,6 +136,7 @@ slli:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srli:
+  isa: I
   operation: '((rs1_val & 0xFFFFFFFF) >> imm_val) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -126,6 +144,7 @@ srli:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srai:
+  isa: I
   operation: 'sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
@@ -133,18 +152,21 @@ srai:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 lui:
+  isa: I
   operation: 'imm_val << (xlen-20)'
   formattype: 'uformat'
   imm_val_data: 'gen_usign_dataset(20)'
   template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd,imm_val)'
 
 auipc:
+  isa: I
   operation: 'imm_val << (xlen-20)'
   formattype: 'uformat'
   imm_val_data: 'gen_usign_dataset(20)'
   template: 'TEST_AUIPC(inst, rd, correctval, imm_val, swreg, offset, testreg)'
 
 beq:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
@@ -152,6 +174,7 @@ beq:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bge:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
@@ -159,6 +182,7 @@ bge:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bgeu:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(xlen)'
@@ -166,6 +190,7 @@ bgeu:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 blt:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
@@ -173,6 +198,7 @@ blt:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bltu:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(xlen)'
@@ -180,127 +206,156 @@ bltu:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bne:
+  isa: I
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
+
 sw:
+  isa: I
   formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+
 sh:
+  isa: I
   formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SH(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+
 sb:
+  isa: I
   formattype: 'sformat'
   rs1_val_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_SB(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+
 lw:
+  isa: I
   formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
 lhu:
+  isa: I
   formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
 lh:
+  isa: I
   formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
 lbu:
+  isa: I
   formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
 lb:
+  isa: I
   formattype: 'iformat'
   rs1_val_data: '[0,1,2,3]'
   size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
 jal:
+  isa: I
   formattype: 'jformat'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(20)))'
   template: 'TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset)'
+
 jalr:
+  isa: I
   formattype: 'iformat'
   imm_val_data: 'gen_sign_dataset(12)'
   template: 'TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)'
 
 mul:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulh:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhu:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhsu:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 div:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 divu:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 rem:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 remu:
+  isa: IM
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 c.mv:
+  isa: IC
   formattype: 'crformat'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.add:
+  isa: IC
   formattype: 'crformat'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
-
-

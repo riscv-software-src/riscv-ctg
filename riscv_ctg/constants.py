@@ -61,7 +61,6 @@ int32_max = 50
 template_file = os.path.join(root,"data/template.yaml")
 
 test_template = Template('''
-# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 #include "compliance_model.h"
 #include "compliance_test.h"
 

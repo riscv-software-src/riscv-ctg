@@ -1,5 +1,7 @@
 # See LICENSE.incore file for details
 
+import os,re
+
 from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
@@ -30,7 +32,7 @@ def create_test(file_name,node,label,instr_dict, op_node):
     sign.append(const.signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
     test = const.case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
     with open(file_name,"w") as fd:
-        fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32IMC"))
+        fd.write(const.test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32"+op_node['isa']))
 
 def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
 
