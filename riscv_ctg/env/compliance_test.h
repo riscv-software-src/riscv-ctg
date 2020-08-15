@@ -593,9 +593,18 @@ sw destreg, offset(swreg);
     )
 #define TEST_CR_OP( inst, destreg, reg, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
-      li reg, MASK_XLEN(val1); \
-      li destreg, MASK_XLEN(val2); \
+      li reg, MASK_XLEN(val2); \
+      li destreg, MASK_XLEN(val1); \
       inst destreg, reg; \
       )
 
-
+#define TEST_CI_OP( inst, destreg, correctval, val, imm, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      li destreg, MASK_XLEN(val); \
+      inst destreg, imm; \
+      )
+#define TEST_CADDI4SPN_OP( inst, destreg, correctval, imm, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      li x2, 0; \
+      inst destreg, x2,imm; \
+      )

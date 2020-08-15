@@ -352,10 +352,87 @@ c.mv:
   isa: IC
   formattype: 'crformat'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, 0, rs2_val, swreg, offset, testreg)' 
 
 c.add:
   isa: IC
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.and:
+  isa: IC
+  formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.or:
+  isa: IC
+  formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.xor:
+  isa: IC
+  formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.sub:
+  isa: IC
+  formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
+
+c.andi:
+  isa: IC
+  formattype: 'cbformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.addi:
+  isa: IC
+  formattype: 'ciformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.addi16sp:
+  isa: IC
+  formattype: 'ciformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter( lambda x: x!=0 and x%16==0 , gen_sign_dataset(10))) + [496]'
+  template: 'TEST_CI_OP( inst, x2, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.addi4spn:
+  isa: IC
+  formattype: 'ciwformat'
+  imm_val_data: 'list(filter( lambda x: x!=0 , [ 4*x for x in gen_usign_dataset(8)]))'
+  template: 'TEST_CADDI4SPN_OP( inst, rd, correctval, imm_val, swreg, offset, testreg)'
+
+c.slli:
+  isa: IC
+  formattype: 'ciformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.srli:
+  isa: IC
+  formattype: 'cbformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.srai:
+  isa: IC
+  formattype: 'cbformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'

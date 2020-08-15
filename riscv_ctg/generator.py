@@ -21,7 +21,7 @@ ops = {
     'clformat': ['rd','rs1'],
     'csformat': ['rs1','rs2'],
     'caformat': ['rs1','rs2'],
-    'cbformat': ['rs2'],
+    'cbformat': ['rs1'],
     'cjformat': []
 
 }
@@ -39,7 +39,7 @@ vals = {
     'clformat': ['rs1_val','imm_val'],
     'csformat': ['rs1_val','rs2_val','imm_val'],
     'caformat': ['rs1_val','rs2_val'],
-    'cbformat': ['rs2_val','imm_val'],
+    'cbformat': ['rs1_val','imm_val'],
     'cjformat': ['imm_val']
 }
 class Generator():
@@ -103,7 +103,7 @@ class Generator():
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
-                logger.warn("Cannot find solution for Op combination "+str(combination_num))
+                logger.warn("Cannot find solution for Op combination "+str(i))
                 continue
 
             op_tuple = []
@@ -267,7 +267,7 @@ class Generator():
                 instr[var] = str(val[i])
         else:
             for var in self.val_vars:
-                instr[var] = '0'
+                instr[var] = str(self.datasets[var][0])
         return instr
 
     def gen_inst(self,op_comb, val_comb, cgf):
