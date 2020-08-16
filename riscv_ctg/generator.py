@@ -275,6 +275,23 @@ class Generator():
                     instr[var] = '0'
         return instr
 
+    def __cmemsp_instr__(self, op=None, val=None):
+        instr = {'inst':self.opcode,'index':'0'}
+        if op:
+            for var,reg in zip(self.op_vars,op):
+                instr[var] = str(reg)
+        else:
+            for i,var in enumerate(self.op_vars):
+                instr[var] = 'x'+str(i+10)
+        if val:
+            for i,var in enumerate(self.val_vars):
+                instr[var] = str(val[i])
+        else:
+            for var in self.val_vars:
+                instr[var] = str(self.datasets[var][0])
+        instr['rs1'] = 'x2'
+        return instr
+
     def __instr__(self, op=None, val=None):
         instr = {'inst':self.opcode,'index':'0'}
         if op:
@@ -305,6 +322,10 @@ class Generator():
                 cont.append(val)
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
+            elif self.opcode in ['c.lwsp','c.swsp']:
+                if any([x == 'x2' for x in op]):
+                    cont.append(val)
+                instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat':
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.fmt == 'jformat':
@@ -315,6 +336,8 @@ class Generator():
         for val in cont:
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
+            elif self.opcode in ['c.lwsp','c.swsp']:
+                instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat':
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.fmt == 'jformat':
@@ -369,6 +392,7 @@ class Generator():
         available_reg.remove('x0')
         count = 0
         assigned = 0
+
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])

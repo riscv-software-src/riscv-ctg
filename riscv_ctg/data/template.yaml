@@ -442,7 +442,7 @@ c.li:
   isa: IC
   formattype: 'ciformat'
   imm_val_data: 'gen_sign_dataset(6)'
-  template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd, imm_val; )'
+  template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd, imm_val;)'
 
 c.lui:
   isa: IC
@@ -450,3 +450,31 @@ c.lui:
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0 ,gen_usign_dataset(6)))'
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
+
+c.sw:
+  isa: IC
+  formattype: 'csformat'
+  rs1_val_data: '[0]'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
+  template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+
+c.lw:
+  isa: IC
+  formattype: 'clformat'
+  rs1_val_data: '[0]'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
+  template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+
+c.lwsp:
+  isa: IC
+  formattype: 'ciformat'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
+  template: 'TEST_LW(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)'
+
+c.swsp:
+  isa: IC
+  formattype: 'cssformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
+  template: 'TEST_SW(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'

@@ -491,8 +491,8 @@ mscratch_save:
 4:  sw tempreg, offset(swreg);                
 
 #define TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
-addi rs1,swreg,offset+adj                                                     ;\
 li rs2,rs2_val                                                             ;\
+addi rs1,swreg,offset+adj                                                     ;\
 .if imm_val >= 0                                                            ;\
     .set off,adj                                                        ;\
 .else                                                                      ;\
