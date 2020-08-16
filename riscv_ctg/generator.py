@@ -15,7 +15,7 @@ ops = {
     'uformat': ['rd'],
     'jformat': ['rd'],
     'crformat': ['rs1','rs2'],
-    'ciformat': ['rs1'],
+    'ciformat': ['rd'],
     'cssformat': ['rs2'],
     'ciwformat': ['rd'],
     'clformat': ['rd','rs1'],
@@ -253,6 +253,27 @@ class Generator():
                     instr[var] = '0'
         return instr
 
+    def __clui_instr__(self,op=None,val=None):
+        instr = {'inst':self.opcode,'index':'0'}
+        if op:
+            for var,reg in zip(self.op_vars,op):
+                instr[var] = str(reg)
+        else:
+            for i,var in enumerate(self.op_vars):
+                instr[var] = 'x'+str(i+10)
+        if val:
+            for i,var in enumerate(self.val_vars):
+                if var == "imm_val":
+                    instr[var] = str(val[i]) if val[i] < 32 else str(val[i]+1048512)
+                else:
+                    instr[var] = str(val[i])
+        else:
+            for var in self.val_vars:
+                if var == "imm_val":
+                    instr[var] = '16'
+                else:
+                    instr[var] = '0'
+        return instr
 
     def __instr__(self, op=None, val=None):
         instr = {'inst':self.opcode,'index':'0'}
@@ -282,7 +303,9 @@ class Generator():
         for op,val in zip(op_comb,val_comb):
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
                 cont.append(val)
-            if self.fmt == 'bformat':
+            if self.opcode == 'c.lui':
+                instr_dict.append(self.__clui_instr__(op,val))
+            elif self.fmt == 'bformat':
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
@@ -290,7 +313,9 @@ class Generator():
                 instr_dict.append(self.__instr__(op,val))
 
         for val in cont:
-            if self.fmt == 'bformat':
+            if self.opcode == 'c.lui':
+                instr_dict.append(self.__clui_instr__(op,val))
+            elif self.fmt == 'bformat':
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
