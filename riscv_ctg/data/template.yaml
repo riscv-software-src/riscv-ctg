@@ -478,3 +478,40 @@ c.swsp:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
   template: 'TEST_SW(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
+
+c.beqz:
+  isa: IC
+  formattype: 'cbformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) or (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
+  template: 'TEST_CBRANCH_OP(inst, testreg, rs1, rs1_val, imm_val, label, swreg, offset)'
+
+c.bnez:
+  isa: IC
+  formattype: 'cbformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) if x>0 else (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
+  template: 'TEST_CBRANCH_OP(inst, testreg, rs1, rs1_val, imm_val, label, swreg, offset)'
+
+c.j:
+  isa: IC
+  formattype: 'cbformat'
+  imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
+  template: 'TEST_CJ_OP(inst, testreg, imm_val, label, swreg, offset)'
+
+c.jal:
+  isa: IC
+  formattype: 'cbformat'
+  imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
+  template: 'TEST_CJAL_OP(inst, testreg, imm_val, label, swreg, offset)'
+
+c.jr:
+  isa: IC
+  formattype: 'crformat'
+  template: 'TEST_CJR_OP(testreg, rs1, swreg, offset)'
+
+c.jalr:
+  isa: IC
+  formattype: 'crformat'
+  template: 'TEST_CJALR_OP(testreg, rs1, swreg, offset)'
+

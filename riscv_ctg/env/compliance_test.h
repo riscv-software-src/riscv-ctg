@@ -603,8 +603,168 @@ sw destreg, offset(swreg);
       li destreg, MASK_XLEN(val); \
       inst destreg, imm; \
       )
+
 #define TEST_CADDI4SPN_OP( inst, destreg, correctval, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       li x2, 0; \
       inst destreg, x2,imm; \
       )
+
+#define TEST_CBRANCH_OP(inst, tempreg, reg2, val2, imm, label, swreg, offset) \
+    li reg2, MASK_XLEN(val2)                  ;\
+    j 2f                                      ;\
+                                              ;\
+    .option push                              ;\
+    .option norvc                             ;\
+1:  li tempreg, 0x1                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 4 >= 0                      ;\
+        .set num,(imm/2)-4                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .if label == 3f                           ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+2:  inst reg2, label                          ;\
+    .option push                              ;\
+    .option norvc                             ;\
+    li tempreg, 0x2                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 5 >= 0                      ;\
+        .set num,(imm/2)-5                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+     .if label == 1b                          ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+                                              ;\
+3:  li tempreg, 0x3                           ;\
+                                              ;\
+4:  sw tempreg, offset(swreg);              
+
+
+#define TEST_CJ_OP(inst, tempreg, imm, label, swreg, offset) \
+    j 2f                                      ;\
+                                              ;\
+    .option push                              ;\
+    .option norvc                             ;\
+1:  li tempreg, 0x1                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 4 >= 0                      ;\
+        .set num,(imm/2)-4                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .if label == 3f                           ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+2:  inst label                          ;\
+    .option push                              ;\
+    .option norvc                             ;\
+    li tempreg, 0x2                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 5 >= 0                      ;\
+        .set num,(imm/2)-5                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+     .if label == 1b                          ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+                                              ;\
+3:  li tempreg, 0x3                           ;\
+                                              ;\
+4:  sw tempreg, offset(swreg);
+
+#define TEST_CJAL_OP(inst, tempreg, imm, label, swreg, offset) \
+5:                                            ;\
+    j 2f                                      ;\
+                                              ;\
+    .option push                              ;\
+    .option norvc                             ;\
+1:  xori x1,x1, 0x1                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 4 >= 0                      ;\
+        .set num,(imm/2)-4                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .if label == 3f                           ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+2:  inst label                          ;\
+    .option push                              ;\
+    .option norvc                             ;\
+    xori x1,x1, 0x2                           ;\
+    j 4f                                      ;\
+    .option pop                               ;\
+    .if (imm/2) - 5 >= 0                      ;\
+        .set num,(imm/2)-5                    ;\
+    .else                                     ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+     .if label == 1b                          ;\
+        .set num,0                            ;\
+    .endif                                    ;\
+    .rept num                                 ;\
+    c.nop                                     ;\
+    .endr                                     ;\
+                                              ;\
+3:  xori x1,x1, 0x3                           ;\
+                                              ;\
+4: la tempreg, 5b                             ;\
+   andi tempreg,tempreg,~(3)                  ;\
+    sub x1,x1,tempreg                          ;\
+  sw x1, offset(swreg);
+
+#define TEST_CJR_OP(tempreg, rs1, swreg, offset) \
+5:                                            ;\
+    la rs1, 3f                                ;\
+                                              ;\
+2:  c.jr rs1                                  ;\
+    xori rs1,rs1, 0x2                           ;\
+    j 4f                                      ;\
+                                              ;\
+3:  xori rs1,rs1, 0x3                           ;\
+                                              ;\
+4: la tempreg, 5b                             ;\
+   andi tempreg,tempreg,~(3)                  ;\
+    sub rs1,rs1,tempreg                          ;\
+  sw rs1, offset(swreg);
+
+#define TEST_CJALR_OP(tempreg, rs1, swreg, offset) \
+5:                                            ;\
+    la rs1, 3f                                ;\
+                                              ;\
+2:  c.jalr rs1                                  ;\
+    xori x1,x1, 0x2                           ;\
+    j 4f                                      ;\
+                                              ;\
+3:  xori x1,x1, 0x3                           ;\
+                                              ;\
+4: la tempreg, 5b                             ;\
+   andi tempreg,tempreg,~(3)                  ;\
+    sub x1,x1,tempreg                          ;\
+  sw x1, offset(swreg);

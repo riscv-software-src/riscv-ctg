@@ -91,7 +91,7 @@ class Generator():
                 res = True
                 temp = []
                 for j,val in enumerate(argv):
-                    if len(op_picked[j]) == len(op_datasets[j]):
+                    if len(op_picked[j]) >= len(op_datasets[j]):
                         continue
                     res = res and val not in op_picked[j] and val not in temp
                     temp.append(val)
@@ -152,6 +152,8 @@ class Generator():
 
 
     def valcomb(self, cgf):
+        if 'val_comb' not in cgf:
+            return []
         val_comb = []
 
         if self.opcode in ['lw','lb','lhu','lh','lbu','sw','sb','sh']:
@@ -253,6 +255,55 @@ class Generator():
                     instr[var] = '0'
         return instr
 
+    def __cb_instr__(self,op=None,val=None):
+        instr = {'inst':self.opcode,'index':'0'}
+        labelize = lambda x: (str((-x)%257),'1b') if x < 0 else (str((x%257)),'3f')
+
+        if op:
+            for var,reg in zip(self.op_vars,op):
+                instr[var] = str(reg)
+        else:
+            for i,var in enumerate(self.op_vars):
+                instr[var] = 'x'+str(i+10)
+        if val:
+            for i,var in enumerate(self.val_vars):
+                if var == "imm_val":
+                    instr[var],instr['label'] = labelize(val[i])
+                else:
+                    instr[var] = str(val[i])
+        else:
+            for var in self.val_vars:
+                if var == "imm_val":
+                    instr[var],instr['label'] = '0','3f'
+                else:
+                    instr[var] = '0'
+        return instr
+
+    def __cj_instr__(self,op=None,val=None):
+        instr = {'inst':self.opcode,'index':'0'}
+        labelize = lambda x: (str((-x)%2048),'1b') if x < 0 else (str((x%2048)),'3f')
+
+        if op:
+            for var,reg in zip(self.op_vars,op):
+                instr[var] = str(reg)
+        else:
+            for i,var in enumerate(self.op_vars):
+                instr[var] = 'x'+str(i+10)
+        if val:
+            for i,var in enumerate(self.val_vars):
+                if var == "imm_val":
+                    instr[var],instr['label'] = labelize(val[i])
+                else:
+                    instr[var] = str(val[i])
+        else:
+            for var in self.val_vars:
+                if var == "imm_val":
+                    instr[var],instr['label'] = '0','3f'
+                else:
+                    instr[var] = '0'
+        instr['rs2'] = 'x1'
+        return instr
+
     def __clui_instr__(self,op=None,val=None):
         instr = {'inst':self.opcode,'index':'0'}
         if op:
@@ -322,20 +373,26 @@ class Generator():
                 cont.append(val)
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
+            elif self.opcode in ['c.beqz','c.bnez']:
+                instr_dict.append(self.__cb_instr__(op,val))
             elif self.opcode in ['c.lwsp','c.swsp']:
                 if any([x == 'x2' for x in op]):
                     cont.append(val)
                 instr_dict.append(self.__cmemsp_instr__(op,val))
-            elif self.fmt == 'bformat':
+            elif self.fmt == 'bformat' or self.opcode in ['c.j']:
                 instr_dict.append(self.__bfmt_instr__(op,val))
+            elif self.opcode in ['c.jal','c.jalr']:
+                instr_dict.append(self.__cj_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
                 instr_dict.append(self.__instr__(op,val))
-
+        op = None
         for val in cont:
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
+            elif self.opcode in ['c.beqz','c.bneqz']:
+                instr_dict.append(self.__cb_instr__(op,val))
             elif self.opcode in ['c.lwsp','c.swsp']:
                 instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat':
