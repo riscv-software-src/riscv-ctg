@@ -401,7 +401,7 @@ c.addi:
   isa: IC
   formattype: 'ciformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_sign_dataset(6)'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_sign_dataset(6)))'
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addi16sp:
