@@ -48,6 +48,8 @@ class Generator():
         self.opcode = opcode
         self.op_vars = ops[fmt]
         self.val_vars = vals[fmt]
+        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu']:
+            self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
         if 'operation' in opnode:
@@ -156,16 +158,16 @@ class Generator():
             return []
         val_comb = []
 
-        if self.opcode in ['lw','lb','lhu','lh','lbu','sw','sb','sh']:
-            size = int(self.opnode['size'])
-            def boundconstraint(rs1_val,imm_val):
-                temp = rs1_val+imm_val-(imm_val+(1 if imm_val>0 else -1)*(rs1_val%size))+size
-                if temp>=0 and temp<=4:
-                    return True
-                else:
-                    return False
-        else:
-            boundconstraint=None
+        # if self.opcode in ['lw','lb','lhu','lh','lbu','sw','sb','sh']:
+        #     size = int(self.opnode['size'])
+        #     def boundconstraint(rs1_val,imm_val):
+        #         temp = rs1_val+imm_val-(imm_val+(1 if imm_val>0 else -1)*(rs1_val%size))+size
+        #         if temp>=0 and temp<=4:
+        #             return True
+        #         else:
+        #             return False
+        # else:
+        #     boundconstraint=None
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
         while inds:
@@ -174,8 +176,12 @@ class Generator():
                 problem = Problem(MinConflictsSolver())
             else:
                 problem = Problem()
+
             for var in self.val_vars:
-                problem.addVariable(var, self.datasets[var])
+                if var == 'ea_align' and var not in req_val_comb:
+                    problem.addVariable(var, [0])
+                else:
+                    problem.addVariable(var, self.datasets[var])
 
             def condition(*argv):
                 for var,val in zip(self.val_vars,argv):
@@ -183,8 +189,8 @@ class Generator():
                 return eval(req_val_comb)
 
             problem.addConstraint(condition,tuple(self.val_vars))
-            if boundconstraint:
-                problem.addConstraint(boundconstraint,tuple(['rs1_val','imm_val']))
+            # if boundconstraint:
+            #     problem.addConstraint(boundconstraint,tuple(['rs1_val','imm_val']))
             solution = problem.getSolution()
             count = 0
             while (solution != {} and count < 5):

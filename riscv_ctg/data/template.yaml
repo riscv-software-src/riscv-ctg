@@ -217,69 +217,61 @@ bne:
 sw:
   isa: I
   formattype: 'sformat'
-  rs1_val_data: '[0,1,2,3]'
+  ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  size: '4'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 sh:
   isa: I
   formattype: 'sformat'
-  rs1_val_data: '[0,1,2,3]'
+  ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  size: '2'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_SH(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 sb:
   isa: I
   formattype: 'sformat'
-  rs1_val_data: '[0,1,2,3]'
+  ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  size: '1'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_SB(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 lw:
   isa: I
   formattype: 'iformat'
-  rs1_val_data: '[0,1,2,3]'
-  size: '4'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lhu:
   isa: I
   formattype: 'iformat'
-  rs1_val_data: '[0,1,2,3]'
-  size: '2'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lh:
   isa: I
   formattype: 'iformat'
-  rs1_val_data: '[0,1,2,3]'
-  size: '2'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_LH(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lbu:
   isa: I
   formattype: 'iformat'
-  rs1_val_data: '[0,1,2,3]'
-  size: '1'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lb:
   isa: I
   formattype: 'iformat'
-  rs1_val_data: '[0,1,2,3]'
-  size: '1'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
-  template: 'TEST_LB(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 jal:
   isa: I
