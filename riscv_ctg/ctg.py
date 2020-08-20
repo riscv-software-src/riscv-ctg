@@ -8,6 +8,7 @@ import riscv_ctg.constants as const
 from collections import defaultdict
 from riscv_isac.cgf_normalize import expand_cgf
 from riscv_ctg.generator import Generator
+from math import *
 
 def create_test(file_name,node,label,instr_dict, op_node):
     regs = defaultdict(lambda: 0)
@@ -43,14 +44,14 @@ def ctg(verbose, out_dir, randomize ,xlen, cgf_file):
             continue
         opcode = node['opcode']
         if opcode not in cgf_op:
-            logger.info("Skipping :" + str(opcode))
+            logger.warn("Skipping :" + str(opcode))
             continue
         op_node = cgf_op[opcode]
         fname = os.path.join(out_dir,str(label.capitalize()+".S"))
 
         logger.info('Generating Test for :' + opcode)
         formattype  = cgf_op[opcode]['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize)
+        gen = Generator(formattype,op_node,opcode,randomize, int(xlen))
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
