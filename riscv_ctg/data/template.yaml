@@ -52,7 +52,7 @@ sll:
   operation: '(rs1_val << (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(5)'
+  rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 
@@ -61,7 +61,7 @@ srl:
   operation: '((rs1_val & 0xFFFFFFFF) >> (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(5)'
+  rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sra:
@@ -69,7 +69,7 @@ sra:
   operation: 'sra(rs1_val & 0xFFFFFFFF, (rs2_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(5)'
+  rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sub:
@@ -133,7 +133,7 @@ slli:
   operation: '(rs1_val << imm_val) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_usign_dataset(5)'
+  imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srli:
@@ -141,7 +141,7 @@ srli:
   operation: '((rs1_val & 0xFFFFFFFF) >> imm_val) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_usign_dataset(5)'
+  imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srai:
@@ -149,7 +149,7 @@ srai:
   operation: 'sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (-2**(xlen-1)-1)'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_usign_dataset(5)'
+  imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 lui:
@@ -343,9 +343,9 @@ remu:
 
 c.mv:
   isa: IC
-  formattype: 'crformat'
+  formattype: 'cmvformat'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  template: 'TEST_CR_OP( inst, rs1, rs2, correctval, 0, rs2_val, swreg, offset, testreg)' 
+  template: 'TEST_CMV_OP( inst, rd, rs2, correctval, rs2_val, swreg, offset, testreg)' 
 
 c.add:
   isa: IC
@@ -389,18 +389,24 @@ c.andi:
   imm_val_data: 'gen_sign_dataset(6)'
   template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
+c.nop:
+  isa: IC
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: 'TEST_CNOP_OP(inst, testreg, imm_val, swreg, offset)'
+
 c.addi:
   isa: IC
   formattype: 'ciformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'list(filter(lambda x: x!=0, gen_sign_dataset(6)))'
+  imm_val_data: 'gen_sign_dataset(6)'
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addi16sp:
   isa: IC
   formattype: 'ciformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'list(filter( lambda x: x!=0 and x%16==0 , gen_sign_dataset(10))) + [496]'
+  imm_val_data: 'list(filter( lambda x: x!=0 , [ 16*x for x in gen_sign_dataset(6)])) + [496]'
   template: 'TEST_CI_OP( inst, x2, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addi4spn:
@@ -413,21 +419,21 @@ c.slli:
   isa: IC
   formattype: 'ciformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.srli:
   isa: IC
   formattype: 'cbformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.srai:
   isa: IC
   formattype: 'cbformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(4)))'
+  imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.li:
@@ -449,27 +455,29 @@ c.sw:
   rs1_val_data: '[0]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
-  template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,0)'
+  #  template: 'TEST_SW(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,rs1_val)'
 
 c.lw:
   isa: IC
   formattype: 'clformat'
   rs1_val_data: '[0]'
   imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
-  template: 'TEST_LW(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
+  template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 
 c.lwsp:
   isa: IC
   formattype: 'ciformat'
-  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
-  template: 'TEST_LW(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
+  template: 'TEST_LOAD(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)'
 
 c.swsp:
   isa: IC
   formattype: 'cssformat'
   rs2_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
-  template: 'TEST_SW(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
+  imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
+  template: 'TEST_STORE(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
+  #  template: 'TEST_SW(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
 
 c.beqz:
   isa: IC
@@ -487,7 +495,7 @@ c.bnez:
 
 c.j:
   isa: IC
-  formattype: 'cbformat'
+  formattype: 'cjformat'
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
   template: 'TEST_CJ_OP(inst, testreg, imm_val, label, swreg, offset)'
 
