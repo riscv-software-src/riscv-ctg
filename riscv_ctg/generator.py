@@ -5,7 +5,8 @@ import random
 import re
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
-
+import time
+from math import *
 
 ops = {
     'rformat': ['rs1','rs2','rd'],
@@ -15,6 +16,7 @@ ops = {
     'uformat': ['rd'],
     'jformat': ['rd'],
     'crformat': ['rs1','rs2'],
+    'cmvformat': ['rd', 'rs2'],
     'ciformat': ['rd'],
     'cssformat': ['rs2'],
     'ciwformat': ['rd'],
@@ -33,6 +35,7 @@ vals = {
     'uformat': ['imm_val'],
     'jformat': ['imm_val'],
     'crformat': ['rs1_val','rs2_val'],
+    'cmvformat': ['rs2_val'],
     'ciformat': ['rs1_val','imm_val'],
     'cssformat': ['rs2_val','imm_val'],
     'ciwformat': ['imm_val'],
@@ -43,7 +46,7 @@ vals = {
     'cjformat': ['imm_val']
 }
 class Generator():
-    def __init__(self,fmt,opnode,opcode,randomization):
+    def __init__(self,fmt,opnode,opcode,randomization, xlen):
         self.fmt = fmt
         self.opcode = opcode
         self.op_vars = ops[fmt]
@@ -52,6 +55,7 @@ class Generator():
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
+        self.xlen = xlen
         if 'operation' in opnode:
             self.operation = opnode['operation']
         else:
@@ -67,6 +71,7 @@ class Generator():
         self.random=randomization
 
     def opcomb(self,cgf):
+        logger.debug('Generating OpComb')
         op_picked = []
         op_comb = []
         op_datasets = []
@@ -79,8 +84,8 @@ class Generator():
                 i+=1
             op_picked.append([])
 
-        combination_num = max([len(x) for x in op_datasets])
-        for i in range(combination_num):
+        combination_num = max([0] + [len(x) for x in op_datasets])
+        for k in range(combination_num):
             if self.random:
                 problem = Problem(MinConflictsSolver())
             else:
@@ -92,6 +97,7 @@ class Generator():
             def condition(*argv):
                 res = True
                 temp = []
+                xlen = self.xlen
                 for j,val in enumerate(argv):
                     if len(op_picked[j]) >= len(op_datasets[j]):
                         continue
@@ -105,7 +111,7 @@ class Generator():
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
-                logger.warn("Cannot find solution for Op combination "+str(i))
+                logger.warn("Cannot find solution for Op combination "+str(k))
                 continue
 
             op_tuple = []
@@ -154,6 +160,8 @@ class Generator():
 
 
     def valcomb(self, cgf):
+        logger.debug('Generating ValComb')
+        xlen = self.xlen
         if 'val_comb' not in cgf:
             return []
         val_comb = []
@@ -184,6 +192,7 @@ class Generator():
                     problem.addVariable(var, self.datasets[var])
 
             def condition(*argv):
+                xlen = self.xlen
                 for var,val in zip(self.val_vars,argv):
                     locals()[var]=val
                 return eval(req_val_comb)
