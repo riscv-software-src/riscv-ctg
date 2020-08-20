@@ -574,6 +574,18 @@ sw destreg, offset(swreg);
       li  reg2, MASK_XLEN(val2); \
       inst destreg, reg1, reg2; \
     )
+
+#define TEST_CNOP_OP( inst, testreg, imm_val, swreg, offset) \
+    TEST_CASE(testreg, x0, 0, swreg, offset, \
+      inst imm_val; \
+      )
+
+#define TEST_CMV_OP( inst, destreg, reg, correctval, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      li reg, MASK_XLEN(val2); \
+      inst destreg, reg; \
+      )
+
 #define TEST_CR_OP( inst, destreg, reg, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       li reg, MASK_XLEN(val2); \
