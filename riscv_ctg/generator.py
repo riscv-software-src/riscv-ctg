@@ -1,5 +1,6 @@
 # See LICENSE.incore for details
 
+from collections import defaultdict
 from constraint import *
 import random
 import re
@@ -503,4 +504,29 @@ class Generator():
                 instr_dict[i]['correctval'] = '0'
         return instr_dict
 
+    @staticmethod
+    def write_test(file_name,node,label,instr_dict, op_node):
+        regs = defaultdict(lambda: 0)
+        sreg = instr_dict[0]['swreg']
+        code = ["la "+sreg+",signature_"+sreg+"_"+str(regs[sreg])]
+        sign = [".align 4"]
+        data = [".align 4","rvtest_data:",".word 0xbabecafe"]
+        n = 0
+        for instr in instr_dict:
+            res = op_node['template']
+            for value in sorted(instr.keys(), key = len, reverse = True):
+                res = re.sub(value, instr[value], res)
+            if instr['swreg'] != sreg:
+                sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
+                n = 1
+                regs[sreg]+=1
+                sreg = instr['swreg']
+                code.append("la "+sreg+",signature_"+sreg+"_"+str(regs[sreg]))
+            else:
+                n+=1
+            code.append(res)
+        sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
+        test = case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
+        with open(file_name,"w") as fd:
+            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32"+op_node['isa']))
 

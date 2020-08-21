@@ -15,7 +15,8 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.option('--randomize','-r', default=False , is_flag='True', help='Randomize Outputs.')
 @click.option('--xlen','-x',type=click.Choice(['32','64']),help="XLEN value for the ISA.")
 @click.option('--cgf','-cf',type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file.")
-def cli(verbose, out_dir, randomize , xlen, cgf):
+@click.option('--procs','-p',type=int,default=1,help='Max number of processes to spawn')
+def cli(verbose, out_dir, randomize , xlen, cgf,procs):
     logger.level(verbose)
     logger.critical('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
     logger.critical('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
@@ -26,4 +27,4 @@ def cli(verbose, out_dir, randomize , xlen, cgf):
     env_dir = os.path.join(out_dir,"env")
     if not os.path.exists(env_dir):
         shutil.copytree(env,env_dir)
-    ctg(verbose, out_dir, randomize ,xlen, cgf)
+    ctg(verbose, out_dir, randomize ,xlen, cgf,procs)
