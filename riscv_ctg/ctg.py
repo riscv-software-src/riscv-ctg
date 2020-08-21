@@ -14,6 +14,7 @@ def create_test(node,label):
     global cgf_op
     global ramdomize
     global out_dir
+    global xlen
     if 'opcode' not in node:
         return
     opcode = node['opcode']
@@ -21,26 +22,29 @@ def create_test(node,label):
         logger.info("Skipping :" + str(opcode))
         return
     op_node = cgf_op[opcode]
+    if xlen not in op_node['xlen']:
+        return
     fname = os.path.join(out_dir,str(label.capitalize()+".S"))
     logger.info('Generating Test for :' + opcode)
     formattype  = op_node['formattype']
-    gen = Generator(formattype,op_node,opcode,randomize,32)
+    gen = Generator(formattype,op_node,opcode,randomize,xlen)
     op_comb = gen.opcomb(node)
     val_comb = gen.valcomb(node)
     instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
-
     logger.info("Writing test to "+str(fname))
     gen.write_test(fname,node,label,instr_dict, op_node)
 
-def ctg(verbose, out, random ,xlen, cgf_file,num_procs):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     global cgf_op
     global randomize
     global out_dir
+    global xlen
+    xlen = int(xlen_arg)
     out_dir = out
     randomize = random
     cgf_op = utils.load_yaml(const.template_file)
-    cgf = expand_cgf(utils.load_yaml(cgf_file),int(xlen))
-
+    cgf = expand_cgf(utils.load_yaml(cgf_file),xlen)
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test,[(node,label) for label,node in cgf.items()])
     pool.close()
+

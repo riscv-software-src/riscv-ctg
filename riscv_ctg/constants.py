@@ -51,13 +51,6 @@ def gen_usign_dataset(bit_width):
     data += [int(t1,2),int(t2,2)]
     return list(set(data))
 
-imm_min = -2**12
-imm_max = 2**12
-shift_min = 0
-shift_max = 31
-xlen = 32
-int32_min = -50
-int32_max = 50
 template_file = os.path.join(root,"data/template.yaml")
 
 test_template = Template('''
@@ -92,6 +85,6 @@ $code
 
 signode_template = Template('''
 $label:
-    .fill $n,4,0xafacadee
+    .fill $n*(XLEN/32),4,0xafacadee
 ''')
 

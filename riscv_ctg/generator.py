@@ -47,16 +47,17 @@ vals = {
     'cjformat': ['imm_val']
 }
 class Generator():
-    def __init__(self,fmt,opnode,opcode,randomization, xlen):
+    def __init__(self,fmt,opnode,opcode,randomization, xl):
+        global xlen
+        xlen = xl
         self.fmt = fmt
         self.opcode = opcode
         self.op_vars = ops[fmt]
         self.val_vars = vals[fmt]
-        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu']:
+        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu','ld','lwu','sd']:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
-        self.xlen = xlen
         if 'operation' in opnode:
             self.operation = opnode['operation']
         else:
@@ -98,7 +99,6 @@ class Generator():
             def condition(*argv):
                 res = True
                 temp = []
-                xlen = self.xlen
                 for j,val in enumerate(argv):
                     if len(op_picked[j]) >= len(op_datasets[j]):
                         continue
@@ -162,7 +162,6 @@ class Generator():
 
     def valcomb(self, cgf):
         logger.debug('Generating ValComb')
-        xlen = self.xlen
         if 'val_comb' not in cgf:
             return []
         val_comb = []
@@ -193,7 +192,6 @@ class Generator():
                     problem.addVariable(var, self.datasets[var])
 
             def condition(*argv):
-                xlen = self.xlen
                 for var,val in zip(self.val_vars,argv):
                     locals()[var]=val
                 return eval(req_val_comb)
@@ -391,7 +389,7 @@ class Generator():
                 instr_dict.append(self.__clui_instr__(op,val))
             elif self.opcode in ['c.beqz','c.bnez']:
                 instr_dict.append(self.__cb_instr__(op,val))
-            elif self.opcode in ['c.lwsp','c.swsp']:
+            elif self.opcode in ['c.lwsp','c.swsp','c.ldsp','c.sdsp']:
                 if any([x == 'x2' for x in op]):
                     cont.append(val)
                 instr_dict.append(self.__cmemsp_instr__(op,val))
@@ -442,9 +440,10 @@ class Generator():
                     if 'swreg' not in instr_dict[i]:
                         instr_dict[i]['swreg'] = curr_swreg
                         instr_dict[i]['offset'] = str(offset)
-                        offset += 4
+                        offset += int(xlen/8)
                         assigned += 1
-
+                        if offset == 2048:
+                            offset = 0
                 available_reg = default_regset.copy()
                 available_reg.remove('x0')
             count += 1
@@ -455,7 +454,9 @@ class Generator():
                 if 'swreg' not in instr_dict[i]:
                     instr_dict[i]['swreg'] = curr_swreg
                     instr_dict[i]['offset'] = str(offset)
-                    offset += 4
+                    offset += int(xlen/8)
+                    if offset == 2048:
+                        offset = 0
         return instr_dict
 
     @staticmethod
@@ -508,7 +509,7 @@ class Generator():
     def write_test(file_name,node,label,instr_dict, op_node):
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
-        code = ["la "+sreg+",signature_"+sreg+"_"+str(regs[sreg])]
+        code = []
         sign = [".align 4"]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
         n = 0
@@ -516,7 +517,7 @@ class Generator():
             res = op_node['template']
             for value in sorted(instr.keys(), key = len, reverse = True):
                 res = re.sub(value, instr[value], res)
-            if instr['swreg'] != sreg:
+            if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
                 regs[sreg]+=1
@@ -528,5 +529,5 @@ class Generator():
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
         test = case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
         with open(file_name,"w") as fd:
-            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV32"+op_node['isa']))
+            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa']))
 

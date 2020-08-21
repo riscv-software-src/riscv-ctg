@@ -410,7 +410,7 @@ mscratch_save:
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
-  sw rd, offset(swreg);
+  SREG rd, offset(swreg);
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset) \
 5:                                           ;\
@@ -450,7 +450,7 @@ mscratch_save:
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
-  sw rd, offset(swreg);
+  SREG rd, offset(swreg);
 
 #define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset) \
     li reg1, MASK_XLEN(val1)                  ;\
@@ -488,7 +488,7 @@ mscratch_save:
                                               ;\
 3:  li tempreg, 0x3                           ;\
                                               ;\
-4:  sw tempreg, offset(swreg);                
+4:  SREG tempreg, offset(swreg);                
 
 #define TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
 li rs2,rs2_val                                                             ;\
@@ -497,43 +497,10 @@ li testreg,imm_val                                                         ;\
 sub rs1,rs1,testreg                                                          ;\
 inst rs2, imm_val(rs1)                                                   
 
-#define TEST_SB(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
-addi rs1,swreg,offset+adj                                                     ;\
-li rs2,rs2_val                                                             ;\
-li testreg,imm_val                                                     ;\
-sub rs1,rs1,testreg                                                          ;\
-inst rs2, imm_val(rs1)
-
-#define TEST_SH(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
-addi rs1,swreg,offset+adj                                                     ;\
-li rs2,rs2_val                                                             ;\
-li testreg,imm_val                                                     ;\
-sub rs1,rs1,testreg                                                          ;\
-inst rs2, imm_val(rs1)    
-
 #define TEST_LOAD(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 la rs1,rvtest_data+(index*4)+adj-imm_val                                      ;\
 inst destreg, imm_val(rs1)                                                   ;\
-sw destreg, offset(swreg);
-
-#define TEST_LB(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
-la rs1,rvtest_data+(index*4)+adj                                           ;\
-li testreg,imm_val                                                          ;\
-sub rs1,rs1,testreg                                                          ;\
-inst destreg, imm_val(rs1)                                                   ;\
-sw destreg, offset(swreg);
-
-#define TEST_LH(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
-la rs1,rvtest_data+(index*4)+adj                                           ;\
-.if imm_val >= 0                                                            ;\
-    .set off,(adj%2)                                                        ;\
-.else                                                                      ;\
-    .set off,-1*(adj%2)                                                        ;\
-.endif                                                                    ;\
-li testreg,imm_val+off                                                     ;\
-sub rs1,rs1,testreg                                                          ;\
-inst destreg, imm_val(rs1)                                                   ;\
-sw destreg, offset(swreg);
+SREG destreg, offset(swreg);
 
 #define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
     li TEMP_REG,VAL;\
@@ -548,7 +515,7 @@ sw destreg, offset(swreg);
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
     code; \
-    sw destreg, offset(swreg); \
+    SREG destreg, offset(swreg); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval) \
 
 
@@ -645,7 +612,7 @@ sw destreg, offset(swreg);
                                               ;\
 3:  li tempreg, 0x3                           ;\
                                               ;\
-4:  sw tempreg, offset(swreg);              
+4:  SREG tempreg, offset(swreg);              
 
 
 #define TEST_CJ_OP(inst, tempreg, imm, label, swreg, offset) \
@@ -687,7 +654,7 @@ sw destreg, offset(swreg);
                                               ;\
 3:  li tempreg, 0x3                           ;\
                                               ;\
-4:  sw tempreg, offset(swreg);
+4:  SREG tempreg, offset(swreg);
 
 #define TEST_CJAL_OP(inst, tempreg, imm, label, swreg, offset) \
 5:                                            ;\
@@ -732,7 +699,7 @@ sw destreg, offset(swreg);
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
-  sw x1, offset(swreg);
+  SREG x1, offset(swreg);
 
 #define TEST_CJR_OP(tempreg, rs1, swreg, offset) \
 5:                                            ;\
@@ -747,7 +714,7 @@ sw destreg, offset(swreg);
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rs1,rs1,tempreg                          ;\
-  sw rs1, offset(swreg);
+  SREG rs1, offset(swreg);
 
 #define TEST_CJALR_OP(tempreg, rs1, swreg, offset) \
 5:                                            ;\
@@ -762,4 +729,4 @@ sw destreg, offset(swreg);
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
-  sw x1, offset(swreg);
+  SREG x1, offset(swreg);
