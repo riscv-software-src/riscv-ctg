@@ -17,22 +17,22 @@ def create_test(node,label):
     global xlen
     if 'opcode' not in node:
         return
-    opcode = node['opcode']
-    if opcode not in cgf_op:
-        logger.info("Skipping :" + str(opcode))
-        return
-    op_node = cgf_op[opcode]
-    if xlen not in op_node['xlen']:
-        return
-    fname = os.path.join(out_dir,str(label.capitalize()+".S"))
-    logger.info('Generating Test for :' + opcode)
-    formattype  = op_node['formattype']
-    gen = Generator(formattype,op_node,opcode,randomize,xlen)
-    op_comb = gen.opcomb(node)
-    val_comb = gen.valcomb(node)
-    instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
-    logger.info("Writing test to "+str(fname))
-    gen.write_test(fname,node,label,instr_dict, op_node)
+    for opcode in node['opcode']:
+        if opcode not in cgf_op:
+            logger.info("Skipping :" + str(opcode))
+            return
+        op_node = cgf_op[opcode]
+        if xlen not in op_node['xlen']:
+            return
+        fname = os.path.join(out_dir,str(label.capitalize()+".S"))
+        logger.info('Generating Test for :' + opcode)
+        formattype  = op_node['formattype']
+        gen = Generator(formattype,op_node,opcode,randomize,xlen)
+        op_comb = gen.opcomb(node)
+        val_comb = gen.valcomb(node)
+        instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
+        logger.info("Writing test to "+str(fname))
+        gen.write_test(fname,node,label,instr_dict, op_node)
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     global cgf_op
