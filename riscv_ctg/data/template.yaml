@@ -1,15 +1,26 @@
 # See LICENSE.incore for details
+metadata:
+  all_regs: &all_regs "['x'+str(x) for x in range(0,32)]"
+  all_regs_mx0: &all_regs_mx0 "['x'+str(x) for x in range(1,32)]"
+  c_regs: &c_regs "['x'+str(x) for x in range(8,16)]"
+
 add:
   xlen: [32,64]
   isa: I
   operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
   formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sub:
   xlen: [32,64]
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   isa: I
   operation: 'rs1_val - rs2_val'
   formattype: 'rformat'
@@ -18,6 +29,9 @@ sub:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 addw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: '(rs1_val + rs2_val) & (-2**(xlen-1)-1)'
@@ -27,6 +41,9 @@ addw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 subw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: 'rs1_val - rs2_val'
@@ -36,6 +53,9 @@ subw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 and:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val & rs2_val) & (-2**(xlen-1)-1)'
@@ -45,6 +65,9 @@ and:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 or:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val | rs2_val) & (-2**(xlen-1)-1)'
@@ -54,6 +77,9 @@ or:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 slt:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1)'
@@ -63,6 +89,9 @@ slt:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sltu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'int(rs1_val < rs2_val) & (-2**(xlen-1)-1) '
@@ -72,6 +101,9 @@ sltu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 xor:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val ^ rs2_val) & (-2**(xlen-1)-1)'
@@ -81,6 +113,9 @@ xor:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sllw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: i
   operation: '(rs1_val << (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -90,6 +125,9 @@ sllw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 srlw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: i
   operation: '((rs1_val & 0xffffffff) >> (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -99,6 +137,9 @@ srlw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sraw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: i
   operation: 'sra(rs1_val & 0xffffffff, (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -108,6 +149,9 @@ sraw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sll:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
   operation: '(rs1_val << (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -117,6 +161,9 @@ sll:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 srl:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
   operation: '((rs1_val & 0xffffffff) >> (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -126,6 +173,9 @@ srl:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 sra:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
   operation: 'sra(rs1_val & 0xffffffff, (rs2_val%32)) & (-2**(xlen-1)-1)'
@@ -135,6 +185,8 @@ sra:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 addi:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'rs1_val + imm_val'
@@ -144,6 +196,8 @@ addi:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 addiw:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: 'rs1_val + imm_val'
@@ -153,6 +207,8 @@ addiw:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slti:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
@@ -162,6 +218,8 @@ slti:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 sltiu:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'int(rs1_val < imm_val) & (-2**(xlen-1)-1)'
@@ -171,6 +229,8 @@ sltiu:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 andi:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val & imm_val) & (-2**(xlen-1)-1)'
@@ -180,6 +240,8 @@ andi:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 ori:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val | imm_val) & (-2**(xlen-1)-1)'
@@ -189,6 +251,8 @@ ori:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 xori:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val ^ imm_val) & (-2**(xlen-1)-1)'
@@ -198,6 +262,8 @@ xori:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slli:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '(rs1_val << imm_val) & (-2**(xlen-1)-1)'
@@ -207,6 +273,8 @@ slli:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srli:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: '((rs1_val & 0xFFFFFFFF) >> imm_val) & (-2**(xlen-1)-1)'
@@ -216,6 +284,8 @@ srli:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srai:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (-2**(xlen-1)-1)'
@@ -225,6 +295,8 @@ srai:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 slliw:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: '(rs1_val << imm_val) & (-2**(xlen-1)-1)'
@@ -234,6 +306,8 @@ slliw:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 srliw:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: '((rs1_val & 0xFFFFFFFF) >> imm_val) & (-2**(xlen-1)-1)'
@@ -243,6 +317,8 @@ srliw:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 sraiw:
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   operation: 'sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (-2**(xlen-1)-1)'
@@ -252,6 +328,7 @@ sraiw:
   template: 'TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 lui:
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'imm_val << (xlen-20)'
@@ -260,6 +337,7 @@ lui:
   template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd,imm_val)'
 
 auipc:
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   operation: 'imm_val << (xlen-20)'
@@ -268,6 +346,8 @@ auipc:
   template: 'TEST_AUIPC(inst, rd, correctval, imm_val, swreg, offset, testreg)'
 
 beq:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -277,6 +357,8 @@ beq:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bge:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -286,6 +368,8 @@ bge:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bgeu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -295,6 +379,8 @@ bgeu:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 blt:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -304,6 +390,8 @@ blt:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bltu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -313,6 +401,8 @@ bltu:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 bne:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'bformat'
@@ -322,6 +412,9 @@ bne:
   template: 'TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)'
 
 sd:
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: I
   formattype: 'sformat'
@@ -331,6 +424,8 @@ sd:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 sw:
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'sformat'
@@ -340,6 +435,8 @@ sw:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 sh:
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'sformat'
@@ -349,6 +446,8 @@ sh:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 sb:
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'sformat'
@@ -358,6 +457,8 @@ sb:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)'
 
 ld:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   isa: I
   xlen: [64]
   formattype: 'iformat'
@@ -366,6 +467,8 @@ ld:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lwu:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   isa: I
   xlen: [64]
   formattype: 'iformat'
@@ -374,6 +477,8 @@ lwu:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lw:
+  rs1_op_data: *all_regs_mx0 
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -382,6 +487,8 @@ lw:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lhu:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -390,6 +497,8 @@ lhu:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lh:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -398,6 +507,8 @@ lh:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lbu:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -406,6 +517,8 @@ lbu:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 lb:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -414,6 +527,7 @@ lb:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)'
 
 jal:
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'jformat'
@@ -421,6 +535,8 @@ jal:
   template: 'TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset)'
 
 jalr:
+  rs1_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
@@ -428,6 +544,9 @@ jalr:
   template: 'TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)'
 
 mul:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -436,6 +555,9 @@ mul:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulh:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -444,6 +566,9 @@ mulh:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -452,6 +577,9 @@ mulhu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulhsu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -460,6 +588,9 @@ mulhsu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 div:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -468,6 +599,9 @@ div:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 divu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -476,6 +610,9 @@ divu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 rem:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -484,6 +621,9 @@ rem:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 remu:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
@@ -492,6 +632,9 @@ remu:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 mulw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: IM
   formattype: 'rformat'
@@ -500,6 +643,9 @@ mulw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 divw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: IM
   formattype: 'rformat'
@@ -508,6 +654,9 @@ divw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 divuw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: IM
   formattype: 'rformat'
@@ -516,6 +665,9 @@ divuw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 remw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: IM
   formattype: 'rformat'
@@ -524,6 +676,9 @@ remw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 remuw:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   xlen: [64]
   isa: IM
   formattype: 'rformat'
@@ -532,6 +687,8 @@ remuw:
   template: 'TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)'
 
 c.mv:
+  rs2_op_data: *all_regs_mx0
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cmvformat'
@@ -539,6 +696,8 @@ c.mv:
   template: 'TEST_CMV_OP( inst, rd, rs2, correctval, rs2_val, swreg, offset, testreg)' 
 
 c.add:
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs_mx0
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
@@ -547,6 +706,8 @@ c.add:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.addw:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [64]
   isa: IC
   formattype: 'crformat'
@@ -555,6 +716,8 @@ c.addw:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.and:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
@@ -563,6 +726,8 @@ c.and:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.or:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
@@ -571,6 +736,8 @@ c.or:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.xor:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
@@ -579,6 +746,8 @@ c.xor:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.sub:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
@@ -587,6 +756,8 @@ c.sub:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.subw:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [64]
   isa: IC
   formattype: 'crformat'
@@ -595,6 +766,7 @@ c.subw:
   template: 'TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)' 
 
 c.andi:
+  rs1_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
@@ -610,6 +782,7 @@ c.nop:
   template: 'TEST_CNOP_OP(inst, testreg, imm_val, swreg, offset)'
 
 c.addi:
+  rd_op_data: *all_regs_mx0
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -618,6 +791,7 @@ c.addi:
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addiw:
+  rd_op_data: *all_regs_mx0
   xlen: [64]
   isa: IC
   formattype: 'ciformat'
@@ -626,6 +800,7 @@ c.addiw:
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addi16sp:
+  rd_op_data: "['x2']"
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -634,6 +809,7 @@ c.addi16sp:
   template: 'TEST_CI_OP( inst, x2, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.addi4spn:
+  rd_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'ciwformat'
@@ -641,6 +817,7 @@ c.addi4spn:
   template: 'TEST_CADDI4SPN_OP( inst, rd, correctval, imm_val, swreg, offset, testreg)'
 
 c.slli:
+  rd_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -649,6 +826,7 @@ c.slli:
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.srli:
+  rs1_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
@@ -657,6 +835,7 @@ c.srli:
   template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.srai:
+  rs1_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
@@ -665,6 +844,7 @@ c.srai:
   template: 'TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.li:
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -672,6 +852,7 @@ c.li:
   template: 'TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd, imm_val;)'
 
 c.lui:
+  rd_op_data: *all_regs
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -680,6 +861,8 @@ c.lui:
   template: 'TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)'
 
 c.sw:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'csformat'
@@ -689,6 +872,8 @@ c.sw:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,0)'
 
 c.sd:
+  rs1_op_data: *c_regs
+  rs2_op_data: *c_regs
   xlen: [64]
   isa: IC
   formattype: 'csformat'
@@ -698,6 +883,8 @@ c.sd:
   template: 'TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,0)'
 
 c.ld:
+  rs1_op_data: *c_regs
+  rd_op_data: *c_regs 
   xlen: [64]
   isa: IC
   formattype: 'clformat'
@@ -706,6 +893,8 @@ c.ld:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 
 c.lw:
+  rs1_op_data: *c_regs
+  rd_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'clformat'
@@ -714,6 +903,7 @@ c.lw:
   template: 'TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)'
 
 c.lwsp:
+  rd_op_data: *all_regs_mx0
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
@@ -721,6 +911,7 @@ c.lwsp:
   template: 'TEST_LOAD(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)'
 
 c.ldsp:
+  rd_op_data: *all_regs_mx0
   xlen: [64]
   isa: IC
   formattype: 'ciformat'
@@ -728,6 +919,7 @@ c.ldsp:
   template: 'TEST_LOAD(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)'
 
 c.swsp:
+  rs2_op_data: *all_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cssformat'
@@ -736,6 +928,7 @@ c.swsp:
   template: 'TEST_STORE(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
 
 c.sdsp:
+  rs2_op_data: *all_regs
   xlen: [64]
   isa: IC
   formattype: 'cssformat'
@@ -744,6 +937,7 @@ c.sdsp:
   template: 'TEST_STORE(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)'
 
 c.beqz:
+  rs1_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
@@ -752,6 +946,7 @@ c.beqz:
   template: 'TEST_CBRANCH_OP(inst, testreg, rs1, rs1_val, imm_val, label, swreg, offset)'
 
 c.bnez:
+  rs1_op_data: *c_regs
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
@@ -774,12 +969,14 @@ c.jal:
   template: 'TEST_CJAL_OP(inst, testreg, imm_val, label, swreg, offset)'
 
 c.jr:
+  rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
   template: 'TEST_CJR_OP(testreg, rs1, swreg, offset)'
 
 c.jalr:
+  rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
