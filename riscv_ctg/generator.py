@@ -63,6 +63,14 @@ class Generator():
         else:
             self.operation = None
         datasets = {}
+        i=10
+        for entry in self.op_vars:
+            key = entry+"_op_data"
+            if key in opnode:
+                datasets[entry] = eval(opnode[key])
+            else:
+                datasets[entry] = ['x'+str(i)]
+                i+=1
         for entry in self.val_vars:
             key = entry+"_data"
             if key in opnode:
@@ -72,92 +80,72 @@ class Generator():
         self.datasets = datasets
         self.random=randomization
 
-    def opcomb(self,cgf):
+    def opcomb(self, cgf):
         logger.debug('Generating OpComb')
-        op_picked = []
-        op_comb = []
-        op_datasets = []
-        i = 10
-        for var in self.op_vars:
-            if var in cgf:
-                op_datasets.append(list(cgf[var].keys()))
+        solutions = []
+        op_conds = {}
+        if "op_comb" in cgf:
+            op_comb = set(cgf["op_comb"])
+        else:
+            op_comb = set([])
+        for op in self.op_vars:
+            if op in cgf:
+                op_conds[op] = set(cgf[op])
             else:
-                op_datasets.append(['x'+str(i)])
-                i+=1
-            op_picked.append([])
-
-        combination_num = max([0] + [len(x) for x in op_datasets])
-        for k in range(combination_num):
+                op_conds[op] = set([])
+        individual = False
+        nodiff = False
+        construct_constraint = lambda val: (lambda x: bool(x in val))
+        while any([len(op_conds[x])!=0 for x in op_conds]):
             if self.random:
                 problem = Problem(MinConflictsSolver())
             else:
                 problem = Problem()
 
-            for i,var in enumerate(self.op_vars):
-                problem.addVariable(var, op_datasets[i])
-
-            def condition(*argv):
-                res = True
-                temp = []
-                for j,val in enumerate(argv):
-                    if len(op_picked[j]) >= len(op_datasets[j]):
-                        continue
-                    res = res and val not in op_picked[j] and val not in temp
-                    temp.append(val)
-                return res
-            problem.addConstraint(condition, tuple(self.op_vars))
+            done = False
+            for var in self.op_vars:
+                problem.addVariable(var, list(self.datasets[var]))
+                if op_conds[var] and not(individual and done):
+                    problem.addConstraint(construct_constraint(op_conds[var]),tuple([var]))
+                    done = True
+            if op_comb:
+                cond = op_comb.pop()
+                def comb_constraint(*args):
+                    for var,val in zip(self.op_vars,args):
+                        locals()[var] = val
+                    return eval(cond)
+                problem.addConstraint(comb_constraint,tuple(self.op_vars))
+            elif not nodiff:
+                problem.addConstraint(AllDifferentConstraint())
             count = 0
             solution = problem.getSolution()
             while (solution is None and count < 5):
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
-                logger.warn("Cannot find solution for Op combination "+str(k))
+                if individual:
+                    if nodiff:
+                        logger.warn("Cannot find solution for Op combination")
+                        break
+                    else:
+                        nodiff = True
+                else:
+                    individual = True
                 continue
 
             op_tuple = []
-            for ind,key in enumerate(self.op_vars):
+            for key in self.op_vars:
                 op_tuple.append(solution[key])
-                op_picked[ind].append(solution[key])
-            op_comb.append( tuple(op_tuple) )
+                op_conds[key].discard(solution[key])
+            solutions.append( tuple(op_tuple) )
+            def eval_func(cond):
+                for var,val in zip(self.op_vars,op_tuple):
+                    locals()[var] = val
+                return eval(cond)
+            op_comb = op_comb - set(filter(eval_func,op_comb))
+            problem.reset()
+        return solutions
 
-        if 'op_comb' in cgf:
-
-            for req_op_comb in cgf['op_comb']:
-                satisfied = False
-                for comb in op_comb:
-                    for var,val in zip(self.op_vars,comb):
-                        locals()[var]=val
-                    if eval(req_op_comb):
-                        satisfied = True
-                        break;
-                if not satisfied:
-                    if self.random:
-                        problem = Problem(MinConflictsSolver())
-                    else:
-                        problem = Problem()
-                    for i,var in enumerate(self.op_vars):
-                        problem.addVariable(var, op_datasets[i])
-                    def condition(*argv):
-                        for var,val in zip(self.op_vars,argv):
-                            locals()[var]=val
-                        return eval(req_op_comb)
-                    problem.addConstraint(condition, tuple(self.op_vars))
-                    count = 0
-                    solution = problem.getSolution()
-                    while (solution is None and count < 5):
-                        solution = problem.getSolution()
-                        count = count + 1
-                    if solution is None:
-                        logger.warn("Cannot find solution for Op condition "+str(req_op_comb))
-                        continue
-
-                    op_tuple = []
-                    for i,key in enumerate(self.op_vars):
-                        op_tuple.append(solution[key])
-                    op_comb.append( tuple(op_tuple) )
-                    problem.reset()
-        return op_comb
 
 
     def valcomb(self, cgf):
