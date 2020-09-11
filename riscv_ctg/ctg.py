@@ -17,6 +17,10 @@ def create_test(node,label):
     global xlen
     if 'opcode' not in node:
         return
+    if 'ignore' in node:
+        logger.info("Ignoring :" + str(label))
+        if node['ignore']:
+            return
     for opcode in node['opcode']:
         if opcode not in cgf_op:
             logger.info("Skipping :" + str(opcode))
