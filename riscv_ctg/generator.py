@@ -8,6 +8,7 @@ from riscv_ctg.constants import *
 from riscv_ctg.log import logger
 import time
 from math import *
+import struct
 
 ops = {
     'rformat': ['rs1','rs2','rd'],
@@ -46,6 +47,14 @@ vals = {
     'cbformat': ['rs1_val','imm_val'],
     'cjformat': ['imm_val']
 }
+
+def isInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 class Generator():
     def __init__(self,fmt,opnode,opcode,randomization, xl):
         global xlen
@@ -504,7 +513,8 @@ class Generator():
         for instr in instr_dict:
             res = op_node['template']
             for value in sorted(instr.keys(), key = len, reverse = True):
-                res = re.sub(value, instr[value], res)
+                substitute = instr[value]
+                res = re.sub(value, substitute, res)
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
