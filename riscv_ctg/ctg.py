@@ -28,7 +28,7 @@ def create_test(node,label):
         op_node = cgf_op[opcode]
         if xlen not in op_node['xlen']:
             return
-        fname = os.path.join(out_dir,str(label.capitalize()+".S"))
+        fname = os.path.join(out_dir,str(label+".S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
         gen = Generator(formattype,op_node,opcode,randomize,xlen)
@@ -36,7 +36,8 @@ def create_test(node,label):
         val_comb = gen.valcomb(node)
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
         logger.info("Writing test to "+str(fname))
-        gen.write_test(fname,node,label,instr_dict, op_node)
+        mydict = gen.reformat_instr(instr_dict)
+        gen.write_test(fname,node,label,mydict, op_node)
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     global cgf_op
@@ -51,4 +52,6 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test,[(node,label) for label,node in cgf.items()])
     pool.close()
+#    for label, node in cgf.items():
+#        create_test(node, label)
 

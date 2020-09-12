@@ -499,8 +499,34 @@ class Generator():
                 instr_dict[i]['correctval'] = str(correctval)
         else:
             for i in range(len(instr_dict)):
-                instr_dict[i]['correctval'] = '0'
+                instr_dict[i]['correctval'] = '0x' + '0'.zfill(int(xlen/4))
         return instr_dict
+
+    def reformat_instr(self, instr_dict):
+        mydict = instr_dict.copy()
+        for i in range(len(instr_dict)):
+            for field in instr_dict[i]:
+                if xlen == 32:
+                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                        size = '>I'
+                    else:
+                        size = '>i'
+                else:
+                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                        size = '>Q'
+                    else:
+                        size = '>q'
+                if 'val' in field and field != 'correctval' and field != 'imm_val':
+                    value = instr_dict[i][field]
+                    if '0x' in value:
+                        value = '0x' + value[2:].zfill(int(xlen/4))
+                        value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
+                    else:
+                        value = int(value)
+                    value = '0x' + struct.pack(size,value).hex()
+                    instr_dict[i][field] = value
+        return instr_dict
+
 
     @staticmethod
     def write_test(file_name,node,label,instr_dict, op_node):
