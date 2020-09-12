@@ -49,7 +49,7 @@ vals = {
 }
 
 def isInt(s):
-    try: 
+    try:
         int(s)
         return True
     except ValueError:
@@ -536,6 +536,8 @@ class Generator():
         sign = [".align 4"]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
         n = 0
+        opcode = instr_dict[0]['inst']
+        extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
         for instr in instr_dict:
             res = op_node['template']
             for value in sorted(instr.keys(), key = len, reverse = True):
@@ -553,5 +555,5 @@ class Generator():
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
         test = case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
         with open(file_name,"w") as fd:
-            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa']))
+            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
 

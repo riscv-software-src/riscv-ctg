@@ -52,8 +52,12 @@ def gen_usign_dataset(bit_width):
     return list(set(data))
 
 template_file = os.path.join(root,"data/template.yaml")
+copyright_string = ''''''
+comment_template = '''
+This assembly file tests the $opcode instruction of the RISC-V $extension extension for the $label covergroup.
 
-test_template = Template('''
+'''
+test_template = Template(copyright_string+comment_template+'''
 #include "compliance_model.h"
 #include "compliance_test.h"
 
