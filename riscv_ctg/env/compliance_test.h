@@ -64,14 +64,10 @@
 
   //trap_handler_prolog; enter with t1..t6 available
   
-  // TODO: The initial piece of code kept the mscratch to point to mtrap_sigptr. I have modified it to
-  // point to the trapreg_sv. The first entry of the trapreg_sv holds the pointer to the mtrap_sigptr
-  // + OFFSET. This allows the trapreg_sv to be outside the signature and independent of relative
-  // position from the mtrap_sigptr
   init_mscratch:
   	la	t1, trapreg_sv
   	csrrw	t1, mscratch, t1	// swap old mscratch. mscratch not points to trapreg_sv
-  	la	t2, mscratch_save   // TODO Lost t2 here
+  	la	t2, mscratch_save    
   	SREG	t1, 0(t2)		        // save old mscratch in mscratch_save region
     csrr t1, mscratch       // read the trapreg_sv address
     la  t2, mtrap_sigptr    // locate the start of the trap signature
@@ -90,11 +86,6 @@
   /****************************************************************/
   
   init_tramp:	/**** copy trampoline at mtvec tgt ****/
-  // TODO: its possible that the mtvec is at reset value and not initialized by
-  // the Boot-code. But you reached here because the trampoline address does not 
-  // satify the alignment constraints of the mtvec. restoring with t2 doesn't 
-  // achieve anything. What could be done here is to load the mtvec with a legal 
-  // value from the WARL field of the YAML.
   
   	csrw	mtvec, t2		// restore orig mtvec, will now attemp to copy trampoline to it
   	la	t3, tramptbl_sv		// addr of save area
@@ -128,13 +119,11 @@
   	
   	j	rvtest_code_end			  // failure to replace trampoline
   
-  // TODO: All the above needs to be put up in a separate macro of subsumed inside the
-  // RVTEST_CODE_BEGIN macro but before the rvtest_code_begin
 
   #define mhandler			\
     csrrw   sp, mscratch, sp;	\
     SREG      t6, 6*REGWIDTH(sp);	\
-  	la t6, common_mhandler		\
+  	la t6, common_mhandler;		\
   	jalr	t6, t6;			\
     nop; \
   
@@ -146,7 +135,6 @@
   /**** to a return for anything above that (which causes a mismatch)****/
   /**********************************************************************/
   mtrampoline:		// 64 or 32 entry table
-  // TODO: Earlier routine did not iterate the way expected.
   value = 0
   .rept NUM_SPECD_INTCAUSES     	  // located at each possible int vectors
      j	mtrap_handler + 32*(value)  //offset < +/- 1MB
@@ -199,8 +187,6 @@
   /**** is relocated by code start, and restored adjusted depending****/ 
   /**** on op alignment so trapped op isn't re-executed.           ****/ 
   /********************************************************************/ 
-  // TODO: the sigptr also grows downwards (i.e. increments from the previous value) just like the
-  // rest of the signature.
   common_mexcpt_handler:
           csrr   t2, mepc
   sv_mepc:	
@@ -257,7 +243,6 @@
           li      t3, 1
           sll     t3, t3, t2      /* create mask 1<<mcause */
           csrrc   t4, mip, t3     /* read, then attempt to clear int pend bit */
-          // TODO added the following to ensure the same interrupt is not taken again.
           csrrc   t4, mie, t3     /* read, then attempt to clear int pend bit */
   sv_mip:	/* note: clear has no effect on MxIP */
           SREG      t4, 2*REGWIDTH(t1) /* save 3rd sig value, (mip)  */
@@ -269,7 +254,6 @@
   	LREG	t3, 0(t3)       
   	jr	t3
   
-  // TODO: do we need to add DUT specific intrrupt clearing macros ??
   clr_sw_int:
           RVMODEL_CLEAR_MSW_INT
           j       resto_rtn   
@@ -316,8 +300,6 @@
   	.dword	resto_rtn	/* int cause 1D is reserved, just return */
   	.dword	resto_rtn	/* int cause 1E is reserved, just return */
   	.dword	resto_rtn	/* int cause 1F is reserved, just return */
-  // TODO: Maybe ensure we allocate enough space for the upcoming extensions like hypervisor
-  /* Note: add more entries if mcause>=16 are ratified */
   	
   1:	// xtvec_installed:
   ret
@@ -327,9 +309,6 @@
   // ----------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------
 
-  // TODO: The following 2 labels need to be put under the RVTEST_CODE_END. Need to ensure its after
-  // rvtest_code_end so that the entire test is within the rvtest_code_begin and rvtest_code_end and
-  // none of the boot, trap, etc. routines are part of this region.
   exit_cleanup://COMPLIANCE_HALT should get here
   	la	t3, tramptbl_sv+ 64+NUM_SPECD_INTCAUSES*8	// end of save area
   
