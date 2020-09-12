@@ -404,6 +404,7 @@ mscratch_save:
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset, adj)\
 5:                                           ;\
+    la rd,5b                                  ;\
     la tempreg, 2f                           ;\
     jalr x0,0(tempreg)                       ;\
 1:  .if adj & 2 == 2                         ;\
