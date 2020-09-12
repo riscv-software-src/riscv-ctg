@@ -445,11 +445,12 @@ beq:
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 bge:
   rs1_op_data: *all_regs
@@ -459,11 +460,12 @@ bge:
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 bgeu:
   rs1_op_data: *all_regs
@@ -473,11 +475,12 @@ bgeu:
   formattype: 'bformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 blt:
   rs1_op_data: *all_regs
@@ -487,11 +490,12 @@ blt:
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 bltu:
   rs1_op_data: *all_regs
@@ -501,11 +505,12 @@ bltu:
   formattype: 'bformat'
   rs1_val_data: 'gen_usign_dataset(xlen)'
   rs2_val_data: 'gen_usign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 bne:
   rs1_op_data: *all_regs
@@ -515,11 +520,12 @@ bne:
   formattype: 'bformat'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset)
+    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
+    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
 
 sd:
   rs1_op_data: *all_regs_mx0
@@ -674,11 +680,12 @@ jal:
   xlen: [32,64]
   isa: I
   formattype: 'jformat'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(20)))'
   template: |-
 
-    # opcode: jal; dest:rd; immval:imm_val; 
-    TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset)
+    # opcode: jal; dest:rd; immval:imm_val; align: ea_align
+    TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset,ea_align)
 
 jalr:
   rs1_op_data: *all_regs_mx0
@@ -686,11 +693,12 @@ jalr:
   xlen: [32,64]
   isa: I
   formattype: 'iformat'
+  ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: jalr; op1:rs1; dest:rd; immval:imm_val; 
-    TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset)
+    # opcode: jalr; op1:rs1; dest:rd; immval:imm_val; align: ea_align 
+    TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset,ea_align)
 
 mul:
   rs1_op_data: *all_regs

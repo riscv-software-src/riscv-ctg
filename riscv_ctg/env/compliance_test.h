@@ -373,28 +373,47 @@ mscratch_save:
 
 #define SEXT_IMM(x) ((x) | (-(((x) >> 11) & 1) << 11))
 
-#define TEST_JALR_OP(tempreg, rd, rs1, imm, swreg, offset) \
+#define TEST_JALR_OP(tempreg, rd, rs1, imm, swreg, offset,adj) \
 5:                                            ;\
-    la rs1, 3f-imm                         ;\
-    j 2f                                      ;\
-                                              ;\
-2:  jalr rd, imm(rs1)                         ;\
+    la rd,5b                                  ;\
+    .if adj & 1 == 1                          ;\
+    la rs1, 3f-imm+adj-1                      ;\
+    jalr rd, imm+1(rs1)                      ;\
+    .else                                     ;\
+    la rs1, 3f-imm+adj                        ;\
+    .endif                                    ;\
     xori rd,rd, 0x2                           ;\
+    jalr rd, imm(rs1)                         ;\
+    nop                                       ;\
+    nop                                       ;\
     j 4f                                      ;\
                                               ;\
-3:  xori rd,rd, 0x3                           ;\
+3:  .if adj & 2 == 2                              ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    xori rd,rd, 0x3                           ;\
+    j 4f                                      ;\
+    .if adj&2 == 2                              ;\
+    .fill 2,1,0x00                     ;\
+    .endif                                    ;\
                                               ;\
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
   SREG rd, offset(swreg);
 
-#define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset) \
+#define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset, adj)\
 5:                                           ;\
     la tempreg, 2f                           ;\
     jalr x0,0(tempreg)                       ;\
-1:  xori rd,rd, 0x1                           ;\
+1:  .if adj & 2 == 2                         ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    xori rd,rd, 0x1                           ;\
     j 4f                                      ;\
+    .if adj & 2 == 2                              ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
     .if (imm/2) - 2 >= 0                      ;\
         .set num,(imm/2)-2                    ;\
     .else                                     ;\
@@ -407,7 +426,11 @@ mscratch_save:
     nop                                       ;\
     .endr                                     ;\
                                               ;\
-2:  jal rd, label                       ;\
+2:  jal rd, label+(adj)                    ;\
+    .if adj & 2 == 2                              ;\
+    nop                                       ;\
+    nop                                       ;\
+    .endif                                    ;\
     xori rd,rd, 0x2                           ;\
     j 4f                                      ;\
     .if (imm/2) - 3 >= 0                      ;\
@@ -415,40 +438,51 @@ mscratch_save:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 1b                          ;\
+    .if label == 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
     nop                                       ;\
     .endr                                     ;\
-                                              ;\
-3:  xori rd,rd, 0x3                           ;\
-                                              ;\
+3:  .if adj & 2 == 2                              ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    xori rd,rd, 0x3                           ;\
+    j 4f                                      ;\
+    .if adj&2 == 2                              ;\
+    .fill 2,1,0x00                     ;\
+    .endif                                    ;\
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
   SREG rd, offset(swreg);
 
-#define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset) \
+#define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset,adj) \
     li reg1, MASK_XLEN(val1)                  ;\
     li reg2, MASK_XLEN(val2)                  ;\
     j 2f                                      ;\
                                               ;\
-1:  li tempreg, 0x1                           ;\
+1:  .if adj & 2 == 2                         ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    li tempreg, 0x1                           ;\
     j 4f                                      ;\
-    .if (imm/4) - 2 >= 0                      ;\
-        .set num,(imm/4)-2                    ;\
+    .if adj & 2 == 2                              ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    .if (imm/2) - 2 >= 0                      ;\
+        .set num,(imm/2)-2                    ;\
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-    .if label == 3f                           ;\
+     .if label == 3f                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
     nop                                       ;\
     .endr                                     ;\
                                               ;\
-2:  inst reg1, reg2, label                    ;\
+2:  inst reg1, reg2, label+adj                ;\
     li tempreg, 0x2                           ;\
     j 4f                                      ;\
     .if (imm/4) - 3 >= 0                      ;\
@@ -463,7 +497,14 @@ mscratch_save:
     nop                                       ;\
     .endr                                     ;\
                                               ;\
-3:  li tempreg, 0x3                           ;\
+3:  .if adj & 2 == 2                              ;\
+    .fill 2,1,0x00                          ;\
+    .endif                                    ;\
+    li tempreg, 0x3                           ;\
+    j 4f                                      ;\
+    .if adj&2 == 2                              ;\
+    .fill 2,1,0x00                     ;\
+    .endif                                    ;\
                                               ;\
 4:  SREG tempreg, offset(swreg);                
 
@@ -472,11 +513,15 @@ li rs2,rs2_val                                                             ;\
 addi rs1,swreg,offset+adj                                                     ;\
 li testreg,imm_val                                                         ;\
 sub rs1,rs1,testreg                                                          ;\
-inst rs2, imm_val(rs1)                                                   
+inst rs2, imm_val(rs1)                                                      ;\
+nop                                                                         ;\
+nop                                                                         
 
 #define TEST_LOAD(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 la rs1,rvtest_data+(index*4)+adj-imm_val                                      ;\
 inst destreg, imm_val(rs1)                                                   ;\
+nop                                                                         ;\
+nop                                                                         ;\
 SREG destreg, offset(swreg);
 
 #define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \

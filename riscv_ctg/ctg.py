@@ -28,7 +28,7 @@ def create_test(node,label):
         op_node = cgf_op[opcode]
         if xlen not in op_node['xlen']:
             return
-        fname = os.path.join(out_dir,str(label+".S"))
+        fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
         gen = Generator(formattype,op_node,opcode,randomize,xlen)

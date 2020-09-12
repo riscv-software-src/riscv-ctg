@@ -63,7 +63,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = ops[fmt]
         self.val_vars = vals[fmt]
-        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu','ld','lwu','sd']:
+        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu','ld','lwu','sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -554,6 +554,7 @@ class Generator():
             code.append(res)
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
         test = case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
+        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':128,'label':"mtrap_sigptr"})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
 
