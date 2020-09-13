@@ -552,9 +552,10 @@ class Generator():
             else:
                 n+=1
             code.append(res)
+        case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
-        test = case_template.safe_substitute(num=1,cond=node['config'],code='\n'.join(code),cov_label=label)
-        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':128,'label':"mtrap_sigptr"})+"\n#endif\n")
+        test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
+        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
 
