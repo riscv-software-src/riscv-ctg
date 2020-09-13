@@ -382,10 +382,10 @@ mscratch_save:
     .else                                     ;\
     la rs1, 3f-imm+adj                        ;\
     .endif                                    ;\
-    xori rd,rd, 0x2                           ;\
     jalr rd, imm(rs1)                         ;\
     nop                                       ;\
     nop                                       ;\
+    xori rd,rd, 0x2                           ;\
     j 4f                                      ;\
                                               ;\
 3:  .if adj & 2 == 2                              ;\
@@ -538,8 +538,9 @@ SREG destreg, offset(swreg);
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
     code; \
-    SREG destreg, offset(swreg); \
-    RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval) \
+    SREG destreg, offset(swreg); 
+
+//   RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
 
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
