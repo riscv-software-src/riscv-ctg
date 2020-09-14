@@ -255,9 +255,9 @@ datasets:
     'walking_zeros("imm_val", 12,False)': 0
     'alternate("imm_val",12,False)': 0
 
-
 mul:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       mul: 0
     rs1: 
@@ -274,7 +274,8 @@ mul:
         <<: [*rs1val_walking, *rs2val_walking]
 
 mulh:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       mulh: 0
     rs1: 
@@ -291,7 +292,8 @@ mulh:
         <<: [*rs1val_walking, *rs2val_walking]
 
 mulhu:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       mulhu: 0
     rs1: 
@@ -308,7 +310,8 @@ mulhu:
         <<: [*rs1val_walking, *rs2val_walking]
 
 mulhsu:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       mulhsu: 0
     rs1: 
@@ -325,7 +328,8 @@ mulhsu:
         <<: [*rs1val_walking, *rs2val_walking]
 
 div:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       div: 0
     rs1: 
@@ -342,7 +346,8 @@ div:
         <<: [*rs1val_walking, *rs2val_walking]
 
 divu:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       divu: 0
     rs1: 
@@ -359,7 +364,8 @@ divu:
         <<: [*rs1val_walking, *rs2val_walking]
 
 rem:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       rem: 0
     rs1: 
@@ -376,7 +382,8 @@ rem:
         <<: [*rs1val_walking, *rs2val_walking]
 
 remu:
-    config: check ISA:=regex(.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*I.*M.*)
     opcode: 
       remu: 0
     rs1: 
@@ -394,7 +401,8 @@ remu:
 
 
 mulw:
-    config: check ISA:=regex(.*RV64.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*RV64.*I.*M.*)
     opcode: 
       mulw: 0
     rs1: 
@@ -411,7 +419,8 @@ mulw:
         <<: [*rs1val_walking, *rs2val_walking]
 
 divw:
-    config: check ISA:=regex(.*RV64.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*RV64.*I.*M.*)
     opcode: 
       divw: 0
     rs1: 
@@ -428,7 +437,8 @@ divw:
         <<: [*rs1val_walking, *rs2val_walking]
 
 divuw:
-    config: check ISA:=regex(.*RV64.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*RV64.*I.*M.*)
     opcode: 
       divuw: 0
     rs1: 
@@ -445,7 +455,8 @@ divuw:
         <<: [*rs1val_walking, *rs2val_walking]
 
 remw:
-    config: check ISA:=regex(.*RV64.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*RV64.*I.*M.*)
     opcode: 
       remw: 0
     rs1: 
@@ -462,7 +473,8 @@ remw:
         <<: [*rs1val_walking, *rs2val_walking]
 
 remuw:
-    config: check ISA:=regex(.*RV64.*I.*M.*)
+    config: 
+      - check ISA:=regex(.*RV64.*I.*M.*)
     opcode: 
       remuw: 0
     rs1: 
@@ -477,5 +489,4 @@ remuw:
       <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
-
 

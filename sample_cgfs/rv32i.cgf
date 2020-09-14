@@ -255,9 +255,9 @@ datasets:
     'walking_zeros("imm_val", 12,False)': 0
     'alternate("imm_val",12,False)': 0
 
-
 addi:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       addi: 0
     rs1: 
@@ -272,7 +272,8 @@ addi:
         <<: [*rs1val_walking, *ifmt_immval_walking]
 
 slti:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       slti: 0
     rs1: 
@@ -287,7 +288,8 @@ slti:
         <<: [*rs1val_walking, *ifmt_immval_walking]
 
 sltiu:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sltiu: 0
     rs1: 
@@ -302,7 +304,8 @@ sltiu:
         <<: [*rs1val_walking_unsgn, *ifmt_immval_walking_unsgn]
 
 andi:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       andi: 0
     rs1: 
@@ -317,7 +320,8 @@ andi:
         <<: [*rs1val_walking, *ifmt_immval_walking]
 
 ori:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       ori: 0
     rs1: 
@@ -332,7 +336,8 @@ ori:
         <<: [*rs1val_walking, *ifmt_immval_walking]
 
 xori:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       xori: 0
     rs1: 
@@ -347,7 +352,8 @@ xori:
         <<: [*rs1val_walking, *ifmt_immval_walking]
 
 slli:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       slli: 0
     rs1: 
@@ -365,7 +371,8 @@ slli:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 srai:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       srai: 0
     rs1: 
@@ -383,7 +390,8 @@ srai:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 srli:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       srli: 0
     rs1: 
@@ -401,7 +409,8 @@ srli:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 add:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       add: 0
     rs1: 
@@ -418,7 +427,8 @@ add:
         <<: [*rs1val_walking, *rs2val_walking]
 
 sub:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sub: 0
     rs1: 
@@ -435,7 +445,8 @@ sub:
         <<: [*rs1val_walking, *rs2val_walking]
 
 slt:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       slt: 0
     rs1: 
@@ -452,7 +463,8 @@ slt:
         <<: [*rs1val_walking, *rs2val_walking]
 
 sltu:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sltu: 0
     rs1: 
@@ -469,7 +481,8 @@ sltu:
         <<: [*rs1val_walking_unsgn, *rs2val_walking_unsgn]
 
 and:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       and: 0
     rs1: 
@@ -486,7 +499,8 @@ and:
         <<: [*rs1val_walking, *rs2val_walking]
 
 or:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       or: 0
     rs1: 
@@ -503,7 +517,8 @@ or:
         <<: [*rs1val_walking, *rs2val_walking]
 
 xor:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       xor: 0
     rs1: 
@@ -520,7 +535,8 @@ xor:
         <<: [*rs1val_walking, *rs2val_walking]
 
 sll:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sll: 0
     rs1: 
@@ -540,7 +556,8 @@ sll:
         'alternate("rs2_val", ceil(log(xlen,2)), False)': 0
 
 srl:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       srl: 0
     rs1: 
@@ -560,7 +577,8 @@ srl:
         'alternate("rs2_val", ceil(log(xlen,2)), False)': 0
 
 sra:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sra: 0
     rs1: 
@@ -580,7 +598,8 @@ sra:
         'alternate("rs2_val", ceil(log(xlen,2)), False)': 0
 
 beq:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       beq: 0
     rs1: 
@@ -595,7 +614,8 @@ beq:
         <<: [*rs1val_walking, *rs2val_walking]
 
 bge:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       bge: 0
     rs1: 
@@ -610,7 +630,8 @@ bge:
         <<: [*rs1val_walking, *rs2val_walking]
 
 bgeu:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       bgeu: 0
     rs1: 
@@ -625,7 +646,8 @@ bgeu:
         <<: [*rs1val_walking_unsgn, *rs2val_walking_unsgn]
 
 blt:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       blt: 0
     rs1: 
@@ -640,7 +662,8 @@ blt:
         <<: [*rs1val_walking, *rs2val_walking]
 
 bltu:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       bltu: 0
     rs1: 
@@ -655,7 +678,8 @@ bltu:
         <<: [*rs1val_walking_unsgn, *rs2val_walking_unsgn]
 
 bne:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       bne: 0
     rs1: 
@@ -670,7 +694,8 @@ bne:
         <<: [*rs1val_walking, *rs2val_walking]
 
 lhu-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lhu: 0
     rs1: 
@@ -693,7 +718,8 @@ lhu-align:
         'imm_val == 0': 0
 
 lh-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lh: 0
     rs1: 
@@ -716,7 +742,8 @@ lh-align:
         'imm_val == 0': 0
 
 lbu-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lbu: 0
     rs1: 
@@ -747,7 +774,8 @@ lbu-align:
         'imm_val == 0': 0
 
 lb-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lb: 0
     rs1: 
@@ -778,7 +806,8 @@ lb-align:
         'imm_val == 0': 0
 
 lw-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lw: 0
     rs1: 
@@ -798,7 +827,8 @@ lw-align:
 
 
 sh-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sh: 0
     rs1: 
@@ -824,7 +854,8 @@ sh-align:
           <<: [*rs2val_walking]
 
 sb-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sb: 0
     rs1: 
@@ -858,7 +889,8 @@ sb-align:
           <<: [*rs2val_walking]
 
 sw-align:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       sw: 0
     rs1: 
@@ -880,7 +912,8 @@ sw-align:
           <<: [*rs2val_walking]
 
 auipc:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       auipc: 0
     rd: 
@@ -891,7 +924,8 @@ auipc:
         'imm_val == ((2**20)-1)': 0
 
 lui:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       lui: 0
     rd: 
@@ -902,7 +936,8 @@ lui:
         'imm_val == ((2**20)-1)': 0
 
 jal:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       jal: 0
     rd: 
@@ -914,7 +949,8 @@ jal:
         'imm_val == ((2**(18)))': 0
 
 jalr:
-    config: check ISA:=regex(.*I.*)
+    config: 
+      - check ISA:=regex(.*I.*)
     opcode: 
       jalr: 0
     rs1:

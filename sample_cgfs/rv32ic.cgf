@@ -256,7 +256,8 @@ datasets:
     'alternate("imm_val",12,False)': 0
 
 caddi4spn:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.addi4spn: 0
     rd:
@@ -270,7 +271,8 @@ caddi4spn:
         'alternate("imm_val",8,False,scale_func = lambda x: x*4)': 0
 
 clw:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.lw: 0
     rs1: 
@@ -290,7 +292,8 @@ clw:
 
 
 csw:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.sw: 0
     rs1: 
@@ -311,7 +314,8 @@ csw:
 
 
 cnop:
-    config: check ISA:=regex(.*I.*C.*) 
+    config: 
+      - check ISA:=regex(.*I.*C.*) 
     opcode: 
       c.nop: 0
     val_comb:
@@ -319,7 +323,8 @@ cnop:
         <<: *cbimm_val_walking
 
 caddi:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.addi: 0
     rd:
@@ -330,7 +335,8 @@ caddi:
         <<: [*rs1val_walking, *cbimm_val_walking]
 
 cjal:
-  config: check ISA:=regex(.*RV32.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*RV32.*I.*C.*) 
   opcode: 
     c.jal: 0
   val_comb:
@@ -341,9 +347,9 @@ cjal:
       'walking_zeros("imm_val", 11,fltr_func =lambda x: (x>=10 and x<2030) or (x<=-8 and x>-2030),scale_func = lambda x: x*2)': 0
       'alternate("imm_val",11, fltr_func =lambda x: (x>=10 and x<2030) or (x<=-8 and x>-2030) ,scale_func = lambda x: x*2)': 0
 
-
 cli:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.li: 0
   rd:
@@ -356,14 +362,15 @@ cli:
       'alternate("imm_val", 6)': 0
 
 caddi16sp:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.addi16sp: 0
     rd:
       x2: 0
     val_comb:
       <<: [*base_rs1val_sgn,*ifmt_val_comb_sgn]
-      'imm_val ==  512': 0
+      'imm_val == -512': 0
       'imm_val == 496': 0
       abstract_comb:
         <<: [*rs1val_walking]
@@ -372,7 +379,8 @@ caddi16sp:
         'alternate("imm_val",6,True,scale_func = lambda x: x*16)': 0
 
 clui:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+    - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.lui: 0
   rd:
@@ -419,7 +427,8 @@ clui:
       'alternate("imm_val", 6, False)': 0
 
 csrli:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.srli: 0
   rs1:
@@ -439,7 +448,8 @@ csrli:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 csrai:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.srai: 0
   rs1:
@@ -459,7 +469,8 @@ csrai:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 candi:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.andi: 0
     rs1:
@@ -470,7 +481,8 @@ candi:
         <<: [*rs1val_walking, *cbimm_val_walking]
 
 csub:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.sub: 0
     rs1:
@@ -485,7 +497,8 @@ csub:
         <<: [*rs1val_walking,*rs2val_walking] 
 
 cxor:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.xor: 0
     rs1:
@@ -500,7 +513,8 @@ cxor:
         <<: [*rs1val_walking,*rs2val_walking] 
 
 cor:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.or: 0
     rs1:
@@ -515,7 +529,8 @@ cor:
         <<: [*rs1val_walking,*rs2val_walking] 
 
 cand:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.and: 0
     rs1:
@@ -532,7 +547,8 @@ cand:
 
 
 cj:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.j: 0
   val_comb:
@@ -544,7 +560,8 @@ cj:
       'alternate("imm_val",11, fltr_func =lambda x: (x>=10 and x<2030) or (x<=-8 and x>-2030) ,scale_func = lambda x: x*2)': 0
 
 cbeqz:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.beqz: 0
   rs1:
@@ -561,7 +578,8 @@ cbeqz:
       <<: [*rs1val_walking]
 
 cbnez:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.bnez: 0
   rs1:
@@ -578,7 +596,8 @@ cbnez:
       <<: [*rs1val_walking]
 
 cslli:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.slli: 0
   rd:
@@ -598,7 +617,8 @@ cslli:
         'alternate("imm_val", ceil(log(xlen,2)), False)': 0
 
 clwsp:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.lwsp: 0
     rd: 
@@ -613,14 +633,16 @@ clwsp:
 
 
 cjr:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.jr: 0
   rs1:
     <<: *all_regs_mx0
 
 cmv:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.mv: 0
     rs2:
@@ -636,7 +658,8 @@ cmv:
         <<: [*rs2val_walking]
 
 cadd:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.add: 0
     rs1:
@@ -651,14 +674,16 @@ cadd:
         <<: [*rs1val_walking,*rs2val_walking]
 
 cjalr:
-  config: check ISA:=regex(.*I.*C.*) 
+  config: 
+      - check ISA:=regex(.*I.*C.*) 
   opcode: 
     c.jalr: 0
   rs1:
     <<: *all_regs_mx0
 
 cswsp:
-    config: check ISA:=regex(.*I.*C.*)
+    config: 
+      - check ISA:=regex(.*I.*C.*)
     opcode: 
       c.swsp: 0
     rs2: 
