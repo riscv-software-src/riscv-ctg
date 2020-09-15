@@ -336,10 +336,10 @@
 
 
 .macro RVTEST_DATA_BEGIN
+.data
 .align 4
 .global rvtest_data_begin
 rvtest_data_begin:
-.data
 #ifdef rvtest_mtrap_routine
 trapreg_sv:	
   .fill    7, REGWIDTH, 0xdeaddead     /* handler reg save area, 1 extra wd just in case */
@@ -356,7 +356,6 @@ mscratch_save:
 .endm
 
 .macro RVTEST_DATA_END
-.align 4;
 .global rvtest_data_end
 rvtest_data_end:
 .endm
