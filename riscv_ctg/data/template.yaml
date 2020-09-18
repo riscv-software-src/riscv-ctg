@@ -16,8 +16,9 @@ add:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
   
 
 sub:
@@ -32,8 +33,9 @@ sub:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 
 addw:
@@ -48,8 +50,9 @@ addw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 subw:
   rs1_op_data: *all_regs
@@ -63,8 +66,9 @@ subw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 and:
   rs1_op_data: *all_regs
@@ -78,8 +82,9 @@ and:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 or:
   rs1_op_data: *all_regs
@@ -93,8 +98,9 @@ or:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 slt:
   rs1_op_data: *all_regs
@@ -108,8 +114,9 @@ slt:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sltu:
   rs1_op_data: *all_regs
@@ -123,8 +130,9 @@ sltu:
   rs2_val_data: 'gen_usign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 xor:
   rs1_op_data: *all_regs
@@ -138,8 +146,9 @@ xor:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sllw:
   rs1_op_data: *all_regs
@@ -153,8 +162,9 @@ sllw:
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srlw:
   rs1_op_data: *all_regs
@@ -168,8 +178,9 @@ srlw:
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sraw:
   rs1_op_data: *all_regs
@@ -183,8 +194,9 @@ sraw:
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sll:
   rs1_op_data: *all_regs
@@ -198,8 +210,9 @@ sll:
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srl:
   rs1_op_data: *all_regs
@@ -213,8 +226,9 @@ srl:
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sra:
   rs1_op_data: *all_regs
@@ -228,8 +242,9 @@ sra:
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 addi:
   rs1_op_data: *all_regs
@@ -242,8 +257,9 @@ addi:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 addiw:
   rs1_op_data: *all_regs
@@ -256,8 +272,9 @@ addiw:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slti:
   rs1_op_data: *all_regs
@@ -270,8 +287,9 @@ slti:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sltiu:
   rs1_op_data: *all_regs
@@ -284,8 +302,9 @@ sltiu:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 andi:
   rs1_op_data: *all_regs
@@ -298,8 +317,9 @@ andi:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ori:
   rs1_op_data: *all_regs
@@ -312,8 +332,9 @@ ori:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 xori:
   rs1_op_data: *all_regs
@@ -326,8 +347,9 @@ xori:
   formattype: 'iformat'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slli:
   rs1_op_data: *all_regs
@@ -340,8 +362,9 @@ slli:
   imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srli:
   rs1_op_data: *all_regs
@@ -354,8 +377,9 @@ srli:
   imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srai:
   rs1_op_data: *all_regs
@@ -368,8 +392,9 @@ srai:
   imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slliw:
   rs1_op_data: *all_regs
@@ -382,8 +407,9 @@ slliw:
   imm_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srliw:
   rs1_op_data: *all_regs
@@ -396,8 +422,9 @@ srliw:
   imm_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sraiw:
   rs1_op_data: *all_regs
@@ -410,8 +437,9 @@ sraiw:
   imm_val_data: 'gen_usign_dataset(5)'
   template: |-
     
-    # opcode: inst ; op1:rs1; dest:rd; op1val:rs1_val;  immval:imm_val
-    TEST_IMM_OP( inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 lui:
   rd_op_data: *all_regs
@@ -422,8 +450,9 @@ lui:
   imm_val_data: 'gen_usign_dataset(20)'
   template: |-
     
-    # opcode: inst ; dest:rd; immval:imm_val
-    TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd,imm_val)
+    # $comment
+    # opcode: $inst ; dest:$rd; immval:$imm_val
+    TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd,$imm_val)
 
 auipc:
   rd_op_data: *all_regs
@@ -434,8 +463,9 @@ auipc:
   imm_val_data: 'gen_usign_dataset(20)'
   template: |-
 
-    # opcode: inst ; dest:rd; immval:imm_val
-    TEST_AUIPC(inst, rd, correctval, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; dest:$rd; immval:$imm_val
+    TEST_AUIPC($inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 beq:
   rs1_op_data: *all_regs
@@ -449,8 +479,9 @@ beq:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 bge:
   rs1_op_data: *all_regs
@@ -464,8 +495,9 @@ bge:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 bgeu:
   rs1_op_data: *all_regs
@@ -479,8 +511,9 @@ bgeu:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 blt:
   rs1_op_data: *all_regs
@@ -494,8 +527,9 @@ blt:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 bltu:
   rs1_op_data: *all_regs
@@ -509,8 +543,9 @@ bltu:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 bne:
   rs1_op_data: *all_regs
@@ -524,8 +559,9 @@ bne:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(12)))'
   template: |-
 
-    # opcode: inst, op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val; immval:imm_val; align: ea_align
-    TEST_BRANCH_OP(inst, testreg, rs1, rs2, rs1_val, rs2_val, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: $inst, op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,ea_align)
 
 sd:
   rs1_op_data: *all_regs_mx0
@@ -539,8 +575,9 @@ sd:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val; align:ea_align
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,ea_align)
 
 sw:
   rs1_op_data: *all_regs_mx0
@@ -553,8 +590,9 @@ sw:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val; align:ea_align
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,ea_align)
 
 sh:
   rs1_op_data: *all_regs_mx0
@@ -567,8 +605,9 @@ sh:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val; align:ea_align
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,ea_align)
 
 sb:
   rs1_op_data: *all_regs_mx0
@@ -581,8 +620,9 @@ sb:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val; align:ea_align
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,ea_align)
 
 ld:
   rs1_op_data: *all_regs_mx0
@@ -594,8 +634,9 @@ ld:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lwu:
   rs1_op_data: *all_regs_mx0
@@ -607,8 +648,9 @@ lwu:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lw:
   rs1_op_data: *all_regs_mx0 
@@ -620,8 +662,9 @@ lw:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lhu:
   rs1_op_data: *all_regs_mx0
@@ -633,8 +676,9 @@ lhu:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lh:
   rs1_op_data: *all_regs_mx0
@@ -646,8 +690,9 @@ lh:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lbu:
   rs1_op_data: *all_regs_mx0
@@ -659,8 +704,9 @@ lbu:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 lb:
   rs1_op_data: *all_regs_mx0
@@ -672,8 +718,9 @@ lb:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode:inst op1:rs1; dest:rd; immval:imm_val; align:ea_align
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,ea_align)
+    # $comment
+    # opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,ea_align)
 
 jal:
   rd_op_data: *all_regs
@@ -684,8 +731,9 @@ jal:
   imm_val_data: 'list(filter(lambda x: x%2==0,gen_sign_dataset(20)))'
   template: |-
 
-    # opcode: jal; dest:rd; immval:imm_val; align: ea_align
-    TEST_JAL_OP(testreg, rd, imm_val, label, swreg, offset,ea_align)
+    # $comment
+    # opcode: jal; dest:$rd; immval:$imm_val; align:$ea_align
+    TEST_JAL_OP($testreg, $rd, $imm_val, $label, $swreg, $offset,ea_align)
 
 jalr:
   rs1_op_data: *all_regs_mx0
@@ -697,8 +745,9 @@ jalr:
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
-    # opcode: jalr; op1:rs1; dest:rd; immval:imm_val; align: ea_align 
-    TEST_JALR_OP(testreg, rd, rs1, imm_val, swreg, offset,ea_align)
+    # $comment
+    # opcode: jalr; op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align 
+    TEST_JALR_OP($testreg, $rd, $rs1, $imm_val, $swreg, $offset,ea_align)
 
 mul:
   rs1_op_data: *all_regs
@@ -711,8 +760,9 @@ mul:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulh:
   rs1_op_data: *all_regs
@@ -725,8 +775,9 @@ mulh:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhu:
   rs1_op_data: *all_regs
@@ -739,8 +790,9 @@ mulhu:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhsu:
   rs1_op_data: *all_regs
@@ -753,8 +805,9 @@ mulhsu:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 div:
   rs1_op_data: *all_regs
@@ -767,8 +820,9 @@ div:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divu:
   rs1_op_data: *all_regs
@@ -781,8 +835,9 @@ divu:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 rem:
   rs1_op_data: *all_regs
@@ -795,8 +850,9 @@ rem:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remu:
   rs1_op_data: *all_regs
@@ -809,8 +865,9 @@ remu:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulw:
   rs1_op_data: *all_regs
@@ -823,8 +880,9 @@ mulw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divw:
   rs1_op_data: *all_regs
@@ -837,8 +895,9 @@ divw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divuw:
   rs1_op_data: *all_regs
@@ -851,8 +910,9 @@ divuw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remw:
   rs1_op_data: *all_regs
@@ -865,8 +925,9 @@ remw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remuw:
   rs1_op_data: *all_regs
@@ -879,8 +940,9 @@ remuw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst ; op1:rs1; op2:rs2; dest:rd; op1val:rs1_val;  op2val:rs2_val
-    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.mv:
   rs2_op_data: *all_regs_mx0
@@ -891,8 +953,9 @@ c.mv:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op2:rs2; dest:rd; op2val:rs2_val
-    TEST_CMV_OP( inst, rd, rs2, correctval, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op2:$rs2; dest:$rd; op2val:$rs2_val
+    TEST_CMV_OP( $inst, $rd, $rs2, $correctval, $rs2_val, $swreg, $offset, $testreg)
 
 c.add:
   rs1_op_data: *all_regs
@@ -904,8 +967,9 @@ c.add:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.addw:
   rs1_op_data: *c_regs
@@ -917,8 +981,9 @@ c.addw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.and:
   rs1_op_data: *c_regs
@@ -930,8 +995,9 @@ c.and:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.or:
   rs1_op_data: *c_regs
@@ -943,8 +1009,9 @@ c.or:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.xor:
   rs1_op_data: *c_regs
@@ -956,8 +1023,9 @@ c.xor:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.sub:
   rs1_op_data: *c_regs
@@ -969,8 +1037,9 @@ c.sub:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.subw:
   rs1_op_data: *c_regs
@@ -982,8 +1051,9 @@ c.subw:
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
-    # opcode: inst; op1:rs1; op2:rs2; op1val:rs1_val; op2val:rs2_val
-    TEST_CR_OP( inst, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.andi:
   rs1_op_data: *c_regs
@@ -994,8 +1064,9 @@ c.andi:
   imm_val_data: 'gen_sign_dataset(6)'
   template: |-
 
-    # opcode: inst; op1:rs1; immval:imm_val
-    TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode: $inst; op1:$rs1; immval:$imm_val
+    TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.nop:
   xlen: [32,64]
@@ -1004,8 +1075,9 @@ c.nop:
   imm_val_data: 'gen_sign_dataset(6)'
   template: |-
   
-    #opcode:inst; immval:imm_val
-    TEST_CNOP_OP(inst, testreg, imm_val, swreg, offset)
+    # $comment
+    # opcode:$inst; immval:$imm_val
+    TEST_CNOP_OP($inst, $testreg, $imm_val, $swreg, $offset)
 
 c.addi:
   rd_op_data: *all_regs_mx0
@@ -1016,8 +1088,9 @@ c.addi:
   imm_val_data: 'gen_sign_dataset(6)'
   template: |-
 
-    #opcode:inst; op1:rd; dest:rd op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rd; dest:$rd op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addiw:
   rd_op_data: *all_regs_mx0
@@ -1028,8 +1101,9 @@ c.addiw:
   imm_val_data: 'gen_sign_dataset(6)'
   template: |-
 
-    #opcode:inst; op1:rd; dest:rd op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rd; dest:$rd op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi16sp:
   rd_op_data: "['x2']"
@@ -1040,8 +1114,9 @@ c.addi16sp:
   imm_val_data: 'list(filter( lambda x: x!=0 , [ 16*x for x in gen_sign_dataset(6)])) + [496]'
   template: |-
 
-    #opcode:inst; op1:x2; dest:x2 op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, x2, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:x2; dest:x2 op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, x2, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi4spn:
   rd_op_data: *c_regs
@@ -1051,8 +1126,9 @@ c.addi4spn:
   imm_val_data: 'list(filter( lambda x: x!=0 , [ 4*x for x in gen_usign_dataset(8)]))'
   template: |-
 
-    #opcode:inst; dest:rd; immval:imm_val
-    TEST_CADDI4SPN_OP( inst, rd, correctval, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; dest:$rd; immval:$imm_val
+    TEST_CADDI4SPN_OP( $inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 c.slli:
   rd_op_data: *c_regs
@@ -1063,8 +1139,9 @@ c.slli:
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
-    #opcode:inst; op1:rd; dest:rd op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rd; dest:$rd op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srli:
   rs1_op_data: *c_regs
@@ -1075,8 +1152,9 @@ c.srli:
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
-    #opcode:inst; op1:rs1; dest:rs1 op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rs1; dest:$rs1 op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srai:
   rs1_op_data: *c_regs
@@ -1087,8 +1165,9 @@ c.srai:
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
-    #opcode:inst; op1:rs1; dest:rs1 op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rs1; dest:$rs1 op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.li:
   rd_op_data: *all_regs
@@ -1098,8 +1177,9 @@ c.li:
   imm_val_data: 'gen_sign_dataset(6)'
   template: |-
 
-    #opcode:inst; dest:rd; immval:imm_val
-    TEST_CASE(testreg, rd, correctval, swreg, offset, inst rd, imm_val;)
+    # $comment
+    # opcode:$inst; dest:$rd; immval:$imm_val
+    TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd, $imm_val;)
 
 c.lui:
   rd_op_data: *all_regs
@@ -1110,8 +1190,9 @@ c.lui:
   imm_val_data: 'list(filter(lambda x: x!=0 ,gen_usign_dataset(6)))'
   template: |-
 
-    #opcode:inst; op1:rd; dest:rd op1val:rs1_val; immval:imm_val
-    TEST_CI_OP( inst, rd, correctval, rs1_val, imm_val, swreg, offset, testreg)
+    # $comment
+    # opcode:$inst; op1:$rd; dest:$rd op1val:$rs1_val; immval:$imm_val
+    TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.sw:
   rs1_op_data: *c_regs
@@ -1124,8 +1205,9 @@ c.sw:
   imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
   template: |-
 
-    #opcode:inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,0)
+    # $comment
+    # opcode:$inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sd:
   rs1_op_data: *c_regs
@@ -1138,8 +1220,9 @@ c.sd:
   imm_val_data: '[x*8 for x in gen_usign_dataset(5)]'
   template: |-
 
-    #opcode:inst; op1:rs1; op2:rs2; op2val:rs2_val; immval: imm_val
-    TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,0)
+    # $comment
+    # opcode:$inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.ld:
   rs1_op_data: *c_regs
@@ -1151,8 +1234,9 @@ c.ld:
   imm_val_data: '[x*8 for x in gen_usign_dataset(5)]'
   template: |-
 
-    #opcode: inst; op1:rs1; dest:rd; op1val:rs1_val; immval: imm_val
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,rs1_val)
+    # $comment
+    # opcode: $inst; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$rs1_val)
 
 c.lw:
   rs1_op_data: *c_regs
@@ -1164,8 +1248,9 @@ c.lw:
   imm_val_data: '[x*4 for x in gen_usign_dataset(5)]'
   template: |-
 
-    #opcode: inst; op1:rs1; dest:rd; immval: imm_val
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,0)
+    # $comment
+    # opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.lwsp:
   rd_op_data: *all_regs_mx0
@@ -1175,8 +1260,9 @@ c.lwsp:
   imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
   template: |-
 
-    #opcode: inst; op1:rs1; dest:rd; immval: imm_val
-    TEST_LOAD(swreg,testreg,index,rs1,rd,imm_val,offset,inst,0)
+    # $comment
+    # opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.ldsp:
   rd_op_data: *all_regs_mx0
@@ -1186,8 +1272,9 @@ c.ldsp:
   imm_val_data: '[x*8 for x in gen_usign_dataset(6)]'
   template: |-
 
-    #opcode: inst; op1:x2; dest:rd; immval: imm_val
-    TEST_LOAD(swreg,testreg,index,x2,rd,imm_val,offset,inst,0)
+    # $comment
+    # opcode: $inst; op1:x2; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,x2,$rd,$imm_val,$offset,$inst,0)
 
 c.swsp:
   rs2_op_data: *all_regs
@@ -1198,8 +1285,9 @@ c.swsp:
   imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
   template: |-
 
-    #opcode:inst; op1:x2; op2:rs2; op2val:rs2_val; immval:imm_val
-    TEST_STORE(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)
+    # $comment
+    # opcode:$inst; op1:x2; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sdsp:
   rs2_op_data: *all_regs
@@ -1210,8 +1298,9 @@ c.sdsp:
   imm_val_data: '[x*8 for x in gen_usign_dataset(6)]'
   template: |-
 
-    #opcode:inst; op1:x2; op2:rs2; op2val:rs2_val; immval: imm_val
-    TEST_STORE(swreg,testreg,index,x2,rs2,rs2_val,imm_val,offset,inst,0)
+    # $comment
+    # opcode:$inst; op1:x2; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.beqz:
   rs1_op_data: *c_regs
@@ -1222,8 +1311,9 @@ c.beqz:
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) or (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
   template: |-
 
-    #opcode:inst; op1:rs1; op1val:rs1_val; immval:imm_val
-    TEST_CBRANCH_OP(inst, testreg, rs1, rs1_val, imm_val, label, swreg, offset)
+    # $comment
+    # opcode:$inst; op1:$rs1; op1val:$rs1_val; immval:$imm_val
+    TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.bnez:
   rs1_op_data: *c_regs
@@ -1234,8 +1324,9 @@ c.bnez:
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) if x>0 else (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
   template: |-
 
-    #opcode: inst; op1:rs1; op1val:rs1_val; immval: imm_val
-    TEST_CBRANCH_OP(inst, testreg, rs1, rs1_val, imm_val, label, swreg, offset)
+    # $comment
+    # opcode: $inst; op1:$rs1; op1val:$rs1_val; immval:$imm_val
+    TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.j:
   xlen: [32,64]
@@ -1244,8 +1335,9 @@ c.j:
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
   template: |-
 
-    #opcode:inst; immval: imm_val
-    TEST_CJ_OP(inst, testreg, imm_val, label, swreg, offset)
+    # $comment
+    # opcode:$inst; immval:$imm_val
+    TEST_CJ_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jal:
   xlen: [32,64]
@@ -1254,8 +1346,9 @@ c.jal:
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
   template: |-
 
-    #opcode:inst; immval:imm_val
-    TEST_CJAL_OP(inst, testreg, imm_val, label, swreg, offset)
+    # $comment
+    # opcode:$inst; immval:$imm_val
+    TEST_CJAL_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jr:
   rs1_op_data: *all_regs_mx0
@@ -1264,8 +1357,9 @@ c.jr:
   formattype: 'crformat'
   template: |-
 
-    #opcode: c.jr; op1:rs1
-    TEST_CJR_OP(testreg, rs1, swreg, offset)
+    # $comment
+    # opcode: c.jr; op1:$rs1
+    TEST_CJR_OP($testreg, $rs1, $swreg, $offset)
 
 c.jalr:
   rs1_op_data: *all_regs_mx0
@@ -1274,6 +1368,7 @@ c.jalr:
   formattype: 'crformat'
   template: |-
 
-    #opcode:c.jalr; op1:rs1
-    TEST_CJALR_OP(testreg, rs1, swreg, offset)
+    # $comment
+    # opcode:c.jalr; op1:$rs1
+    TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
 

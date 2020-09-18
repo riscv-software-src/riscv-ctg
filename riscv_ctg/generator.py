@@ -11,40 +11,40 @@ from math import *
 import struct
 
 ops = {
-    'rformat': ['rs1','rs2','rd'],
-    'iformat': ['rs1','rd'],
-    'sformat': ['rs1','rs2'],
-    'bformat': ['rs1','rs2'],
+    'rformat': ['rs1', 'rs2', 'rd'],
+    'iformat': ['rs1', 'rd'],
+    'sformat': ['rs1', 'rs2'],
+    'bformat': ['rs1', 'rs2'],
     'uformat': ['rd'],
     'jformat': ['rd'],
-    'crformat': ['rs1','rs2'],
+    'crformat': ['rs1', 'rs2'],
     'cmvformat': ['rd', 'rs2'],
     'ciformat': ['rd'],
     'cssformat': ['rs2'],
     'ciwformat': ['rd'],
-    'clformat': ['rd','rs1'],
-    'csformat': ['rs1','rs2'],
-    'caformat': ['rs1','rs2'],
+    'clformat': ['rd', 'rs1'],
+    'csformat': ['rs1', 'rs2'],
+    'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
     'cjformat': []
 
 }
 vals = {
-    'rformat': ['rs1_val','rs2_val'],
-    'iformat': ['rs1_val','imm_val'],
-    'sformat': ['rs1_val','rs2_val','imm_val'],
-    'bformat': ['rs1_val','rs2_val','imm_val'],
+    'rformat': ['rs1_val', 'rs2_val'],
+    'iformat': ['rs1_val', 'imm_val'],
+    'sformat': ['rs1_val', 'rs2_val', 'imm_val'],
+    'bformat': ['rs1_val', 'rs2_val', 'imm_val'],
     'uformat': ['imm_val'],
     'jformat': ['imm_val'],
-    'crformat': ['rs1_val','rs2_val'],
+    'crformat': ['rs1_val', 'rs2_val'],
     'cmvformat': ['rs2_val'],
-    'ciformat': ['rs1_val','imm_val'],
-    'cssformat': ['rs2_val','imm_val'],
+    'ciformat': ['rs1_val', 'imm_val'],
+    'cssformat': ['rs2_val', 'imm_val'],
     'ciwformat': ['imm_val'],
-    'clformat': ['rs1_val','imm_val'],
-    'csformat': ['rs1_val','rs2_val','imm_val'],
-    'caformat': ['rs1_val','rs2_val'],
-    'cbformat': ['rs1_val','imm_val'],
+    'clformat': ['rs1_val', 'imm_val'],
+    'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
+    'caformat': ['rs1_val', 'rs2_val'],
+    'cbformat': ['rs1_val', 'imm_val'],
     'cjformat': ['imm_val']
 }
 
@@ -63,7 +63,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = ops[fmt]
         self.val_vars = vals[fmt]
-        if opcode in ['sw','sh','sb','lw','lhu','lh','lb','lbu','ld','lwu','sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -105,7 +105,9 @@ class Generator():
         individual = False
         nodiff = False
         construct_constraint = lambda val: (lambda x: bool(x in val))
-        while any([len(op_conds[x])!=0 for x in op_conds]):
+        while any([len(op_conds[x])!=0 for x in op_conds]+[len(op_comb)!=0]):
+            cond_str = ''
+            cond_vars = []
             if self.random:
                 problem = Problem(MinConflictsSolver())
             else:
@@ -115,10 +117,12 @@ class Generator():
             for var in self.op_vars:
                 problem.addVariable(var, list(self.datasets[var]))
                 if op_conds[var] and not(individual and done):
+                    cond_vars.append(var)
                     problem.addConstraint(construct_constraint(op_conds[var]),tuple([var]))
                     done = True
             if op_comb:
                 cond = op_comb.pop()
+                cond_str += cond+", "
                 def comb_constraint(*args):
                     for var,val in zip(self.op_vars,args):
                         locals()[var] = val
@@ -146,13 +150,18 @@ class Generator():
             for key in self.op_vars:
                 op_tuple.append(solution[key])
                 op_conds[key].discard(solution[key])
-            solutions.append( tuple(op_tuple) )
+
             def eval_func(cond):
                 for var,val in zip(self.op_vars,op_tuple):
                     locals()[var] = val
                 return eval(cond)
-            op_comb = op_comb - set(filter(eval_func,op_comb))
+            sat_set = set(filter(eval_func,op_comb))
+            cond_str += ", ".join([var+"=="+solution[var] for var in cond_vars]+[op_comb[i] for i in sat_set])
+            op_tuple.append(cond_str)
+            op_comb = op_comb - sat_set
             problem.reset()
+            solutions.append( tuple(op_tuple) )
+
         return solutions
 
 
@@ -163,7 +172,7 @@ class Generator():
             return []
         val_comb = []
 
-        # if self.opcode in ['lw','lb','lhu','lh','lbu','sw','sb','sh']:
+        # if self.opcode in ['lw', 'lb', 'lhu', 'lh', 'lbu', 'sw', 'sb', 'sh']:
         #     size = int(self.opnode['size'])
         #     def boundconstraint(rs1_val,imm_val):
         #         temp = rs1_val+imm_val-(imm_val+(1 if imm_val>0 else -1)*(rs1_val%size))+size
@@ -195,7 +204,7 @@ class Generator():
 
             problem.addConstraint(condition,tuple(self.val_vars))
             # if boundconstraint:
-            #     problem.addConstraint(boundconstraint,tuple(['rs1_val','imm_val']))
+            #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
             solution = problem.getSolution()
             count = 0
             while (solution != {} and count < 5):
@@ -212,15 +221,20 @@ class Generator():
                 for var,val in zip(self.val_vars,val_tuple):
                     locals()[var] = val
                 return eval(cond)
-            inds = inds - set(filter(lambda x: eval_func(conds[x]),inds))
-
+            sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
+            inds = inds - sat_set
+            val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
             val_comb.append( tuple(val_tuple) )
             problem.reset()
         return val_comb
 
     def __jfmt_instr__(self,op=None,val=None):
-        instr = {'inst':self.opcode,'index':'0'}
-
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
         labelize = lambda x: (str((-x)%2**21),'1b') if x < 0 else (str((x%2**21)),'3f')
         if op:
             for var,reg in zip(self.op_vars,op):
@@ -237,13 +251,20 @@ class Generator():
         else:
             for var in self.val_vars:
                 if var == "imm_val":
-                    instr[var],instr['label'] = '0','3f'
+                    instr[var],instr['label'] = '0', '3f'
                 else:
                     instr[var] = '0'
         return instr
 
     def __bfmt_instr__(self,op=None,val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
+
+
         labelize = lambda x: (str((-x)%2048),'1b') if x < 0 else (str((x%2048)),'3f')
 
         if op:
@@ -261,13 +282,20 @@ class Generator():
         else:
             for var in self.val_vars:
                 if var == "imm_val":
-                    instr[var],instr['label'] = '0','3f'
+                    instr[var],instr['label'] = '0', '3f'
                 else:
                     instr[var] = '0'
         return instr
 
     def __cb_instr__(self,op=None,val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
+
+
         labelize = lambda x: (str((-x)%257),'1b') if x < 0 else (str((x%257)),'3f')
 
         if op:
@@ -285,13 +313,20 @@ class Generator():
         else:
             for var in self.val_vars:
                 if var == "imm_val":
-                    instr[var],instr['label'] = '0','3f'
+                    instr[var],instr['label'] = '0', '3f'
                 else:
                     instr[var] = '0'
         return instr
 
     def __cj_instr__(self,op=None,val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
+
+
         labelize = lambda x: (str((-x)%2048),'1b') if x < 0 else (str((x%2048)),'3f')
 
         if op:
@@ -309,14 +344,20 @@ class Generator():
         else:
             for var in self.val_vars:
                 if var == "imm_val":
-                    instr[var],instr['label'] = '0','3f'
+                    instr[var],instr['label'] = '0', '3f'
                 else:
                     instr[var] = '0'
         instr['rs2'] = 'x1'
         return instr
 
     def __clui_instr__(self,op=None,val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
+
         if op:
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
@@ -338,7 +379,12 @@ class Generator():
         return instr
 
     def __cmemsp_instr__(self, op=None, val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
         if op:
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
@@ -355,7 +401,12 @@ class Generator():
         return instr
 
     def __instr__(self, op=None, val=None):
-        instr = {'inst':self.opcode,'index':'0'}
+        cond_str = ''
+        if op:
+            cond_str += op[-1]+', '
+        if val:
+            cond_str += val[-1]
+        instr = {'inst':self.opcode,'index':'0', 'comment':cond_str}
         if op:
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
@@ -384,15 +435,15 @@ class Generator():
                 cont.append(val)
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
-            elif self.opcode in ['c.beqz','c.bnez']:
+            elif self.opcode in ['c.beqz', 'c.bnez']:
                 instr_dict.append(self.__cb_instr__(op,val))
-            elif self.opcode in ['c.lwsp','c.swsp','c.ldsp','c.sdsp']:
+            elif self.opcode in ['c.lwsp', 'c.swsp', 'c.ldsp', 'c.sdsp']:
                 if any([x == 'x2' for x in op]):
                     cont.append(val)
                 instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat' or self.opcode in ['c.j']:
                 instr_dict.append(self.__bfmt_instr__(op,val))
-            elif self.opcode in ['c.jal','c.jalr']:
+            elif self.opcode in ['c.jal', 'c.jalr']:
                 instr_dict.append(self.__cj_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
@@ -402,9 +453,9 @@ class Generator():
         for val in cont:
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
-            elif self.opcode in ['c.beqz','c.bneqz']:
+            elif self.opcode in ['c.beqz', 'c.bneqz']:
                 instr_dict.append(self.__cb_instr__(op,val))
-            elif self.opcode in ['c.lwsp','c.swsp']:
+            elif self.opcode in ['c.lwsp', 'c.swsp']:
                 instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat':
                 instr_dict.append(self.__bfmt_instr__(op,val))
@@ -539,10 +590,10 @@ class Generator():
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
         for instr in instr_dict:
-            res = op_node['template']
-            for value in sorted(instr.keys(), key = len, reverse = True):
-                substitute = instr[value]
-                res = re.sub(value, substitute, res)
+            res = Template(op_node['template']).safe_substitute(instr)
+            # for value in sorted(instr.keys(), key = len, reverse = True):
+            #     substitute = instr[value]
+            #     res = re.sub(value, substitute, res)
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
