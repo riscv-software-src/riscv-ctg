@@ -265,12 +265,6 @@ ebreak:
   opcode: 
     ebreak: 0
 
-fencei:
-  config: 
-    - check ISA:=regex(.*I.*Zifencei.*)
-  opcode: 
-    fence.i: 0
-
 misalign-lh:
   cond: check ISA:=regex(.*I.*Zicsr.*)
   config:
