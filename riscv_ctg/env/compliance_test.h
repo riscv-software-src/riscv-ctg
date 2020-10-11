@@ -8,6 +8,11 @@
 #define NUM_SPECD_INTCAUSES 16
 #endif
 
+#ifndef rvtest_gpr_save
+  #define rvtest_gpr_save
+#endif
+
+
 //-----------------------------------------------------------------------
 // RV Compliance Macros
 //-----------------------------------------------------------------------
@@ -45,7 +50,39 @@
 #ifdef rvtest_mtrap_routine
   la x1, rvtest_trap_prolog  
   jalr ra, x1
+  rvtest_prolog_done:
 #endif
+    addi x1, x0, 0
+    addi x2, x0, 0
+    addi x3, x0, 0
+    addi x4, x0, 0
+    addi x5, x0, 0
+    addi x6, x0, 0
+    addi x7, x0, 0
+    addi x8, x0, 0
+    addi x9, x0, 0
+    addi x10, x0, 0
+    addi x11, x0, 0
+    addi x12, x0, 0
+    addi x13, x0, 0
+    addi x14, x0, 0
+    addi x15, x0, 0
+    addi x16, x0, 0
+    addi x17, x0, 0
+    addi x18, x0, 0
+    addi x19, x0, 0
+    addi x20, x0, 0
+    addi x21, x0, 0
+    addi x22, x0, 0
+    addi x23, x0, 0
+    addi x24, x0, 0
+    addi x25, x0, 0
+    addi x26, x0, 0
+    addi x27, x0, 0
+    addi x28, x0, 0
+    addi x29, x0, 0
+    addi x30, x0, 0
+    addi x31, x0, 0
   .globl rvtest_code_begin
   rvtest_code_begin:
 .endm
@@ -361,6 +398,44 @@
   rvtest_end:
   .option pop
 #endif
+#ifdef rvtest_gpr_save
+  csrw mscratch, x31       //save x31, get temp pointer
+  la x31, gpr_save
+  SREG x0, 0*REGWIDTH(x31)
+  SREG x1, 1*REGWIDTH(x31)
+  SREG x2, 2*REGWIDTH(x31)
+  SREG x3, 3*REGWIDTH(x31)
+  SREG x4, 4*REGWIDTH(x31)
+  SREG x5, 5*REGWIDTH(x31)
+  SREG x6, 6*REGWIDTH(x31)
+  SREG x7, 7*REGWIDTH(x31)
+  SREG x8, 8*REGWIDTH(x31)
+  SREG x9, 9*REGWIDTH(x31)
+  SREG x10, 10*REGWIDTH(x31)
+  SREG x11, 11*REGWIDTH(x31)
+  SREG x12, 12*REGWIDTH(x31)
+  SREG x13, 13*REGWIDTH(x31)
+  SREG x14, 14*REGWIDTH(x31)
+  SREG x15, 15*REGWIDTH(x31)
+  SREG x16, 16*REGWIDTH(x31)
+  SREG x17, 17*REGWIDTH(x31)
+  SREG x18, 18*REGWIDTH(x31)
+  SREG x19, 19*REGWIDTH(x31)
+  SREG x20, 20*REGWIDTH(x31)
+  SREG x21, 21*REGWIDTH(x31)
+  SREG x22, 22*REGWIDTH(x31)
+  SREG x23, 23*REGWIDTH(x31)
+  SREG x24, 24*REGWIDTH(x31)
+  SREG x25, 25*REGWIDTH(x31)
+  SREG x26, 26*REGWIDTH(x31)
+  SREG x27, 27*REGWIDTH(x31)
+  SREG x28, 28*REGWIDTH(x31)
+  SREG x29, 29*REGWIDTH(x31)
+  SREG x30, 30*REGWIDTH(x31)
+  addi x30, x31, 0                // mv gpr pointer to x30
+  csrr x31, mscratch              // restore value of x31
+  SREG x31, 31*REGWIDTH(x30)      // store x31
+#endif
 .endm
 
 
@@ -381,7 +456,6 @@ mtvec_save:
 mscratch_save:	
 	.dword  0		  /* save area for incoming mscratch */
 #endif
-
 .endm
 
 .macro RVTEST_DATA_END
