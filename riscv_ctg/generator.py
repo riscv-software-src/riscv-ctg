@@ -607,6 +607,7 @@ class Generator():
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
         test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
         sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
+        sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
 
