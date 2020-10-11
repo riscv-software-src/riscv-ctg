@@ -8,10 +8,6 @@
 #define NUM_SPECD_INTCAUSES 16
 #endif
 
-#ifndef rvtest_gpr_save
-  #define rvtest_gpr_save
-#endif
-
 
 //-----------------------------------------------------------------------
 // RV Compliance Macros
@@ -496,13 +492,41 @@ rvtest_data_end:
   la _R,_TAG;\
   .set offset,0;
 
-#define RVTEST_SIGUPD(_BR,_R)\
-  SREG _R,offset(_BR);\
-  .set offset,offset+REGWIDTH;
+.set offset,0;
+#define _ARG5(_1ST,_2ND, _3RD,_4TH,_5TH,...) _5TH
+#define _ARG4(_1ST,_2ND, _3RD,_4TH,...) _4TH
+#define _ARG3(_1ST,_2ND, _3RD, ...) _3RD
+#define _ARG2(_1ST,_2ND, ...) _2ND
+#define _ARG1(_1ST,...) _1ST
+#define NARG(...) _ARG5(__VA_ARGS__,3,2,1,0)
+#define RVTEST_SIGUPD(_BR,_R,...)\
+  .if NARG(__VA_ARGS__) == 1;\
+    SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    .set offset,_ARG1(__VA_ARGS__,0)+REGWIDTH;\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 0;\
+    SREG _R,offset(_BR);\
+  .set offset,offset+REGWIDTH;\
+  .endif;
 
-#define RVTEST_SIGUPD_OFF(_BR,_R,_OFF)\
-    SREG _R, _OFF(_BR);\
-    .set offset,_OFF+REGWIDTH;
+/*
+ * RVTEST_BASEUPD(base reg) - updates the base register the last signature address + REGWIDTH
+ * RVTEST_BASEUPD(base reg, new reg) - moves value of the next signature region to update into new reg
+ * The hidden variable offset is reset always
+*/
+
+#define RVTEST_BASEUPD(_BR,...)\
+    .if NARG(__VA_ARGS__) == 0;\
+        addi _BR,_BR,offset;\
+    .endif;\
+    .if NARG(__VA_ARGS__) == 1;\
+        addi _ARG1(),_BR,offset;\
+        .set offset,0;\
+    .endif;
+
+/* #define RVTEST_SIGUPD(_BR,_R,_OFF)\ */
+/*     SREG _R, _OFF(_BR);\ */
+/*     .set offset,_OFF+REGWIDTH; */
 
 #endif //_COMPLIANCE_TEST_H
 
@@ -538,7 +562,7 @@ rvtest_data_end:
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
-    RVTEST_SIGUPD_OFF(swreg,rd,offset) 
+    RVTEST_SIGUPD(swreg,rd,offset) 
 //SREG rd, offset(swreg);
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset, adj)\
@@ -595,7 +619,7 @@ rvtest_data_end:
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
-    RVTEST_SIGUPD_OFF(swreg,rd,offset) 
+    RVTEST_SIGUPD(swreg,rd,offset) 
 //SREG rd, offset(swreg);
 
 #define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset,adj) \
@@ -647,7 +671,7 @@ rvtest_data_end:
     .fill 2,1,0x00                     ;\
     .endif                                    ;\
                                               ;\
-4:   RVTEST_SIGUPD_OFF(swreg,tempreg,offset) 
+4:   RVTEST_SIGUPD(swreg,tempreg,offset) 
 //SREG tempreg, offset(swreg);                
 
 #define TEST_STORE(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj)   ;\
@@ -664,10 +688,10 @@ la rs1,rvtest_data+(index*4)+adj-imm_val                                      ;\
 inst destreg, imm_val(rs1)                                                   ;\
 nop                                                                         ;\
 nop                                                                         ;\
-RVTEST_SIGUPD_OFF(swreg,destreg,offset) 
+RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
-#define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
+#define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSE,BASE_REG) \
     LI(TEMP_REG,VAL);\
     and TEMP_REG,TEMP_REG,MASK_REG;\
     csrr DEST_REG,ADDRESS;\
@@ -675,12 +699,12 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
     or TEMP_REG,TEMP_REG,DEST_REG;\
     csrw ADDRESS,TEMP_REG;\
     csrr DEST_REG,ADDRESS;\
-    RVTEST_SIGUPD_OFF(BASE_REG,DEST_REG,OFFSET)
+    RVTEST_SIGUPD(BASE_REG,DEST_REG,OFFSE)
 
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
     code; \
-    RVTEST_SIGUPD_OFF(swreg,destreg,offset) 
+    RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg); 
 
 //   RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
@@ -779,7 +803,7 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
                                               ;\
 3:  LI(tempreg, 0x3)                           ;\
                                               ;\
-4:  RVTEST_SIGUPD_OFF(swreg,tempreg,offset) 
+4:  RVTEST_SIGUPD(swreg,tempreg,offset) 
 //SREG tempreg, offset(swreg);              
 
 
@@ -822,7 +846,7 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
                                               ;\
 3:  LI(tempreg, 0x3)                           ;\
                                               ;\
-4:  RVTEST_SIGUPD_OFF(swreg,tempreg,offset) 
+4:  RVTEST_SIGUPD(swreg,tempreg,offset) 
 //SREG tempreg, offset(swreg);
 
 #define TEST_CJAL_OP(inst, tempreg, imm, label, swreg, offset) \
@@ -868,7 +892,7 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
-  RVTEST_SIGUPD_OFF(swreg,x1,offset) 
+  RVTEST_SIGUPD(swreg,x1,offset) 
 //SREG x1, offset(swreg);
 
 #define TEST_CJR_OP(tempreg, rs1, swreg, offset) \
@@ -884,7 +908,7 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rs1,rs1,tempreg                          ;\
-    RVTEST_SIGUPD_OFF(swreg,rs1,offset) 
+    RVTEST_SIGUPD(swreg,rs1,offset) 
 //SREG rs1, offset(swreg);
 
 #define TEST_CJALR_OP(tempreg, rs1, swreg, offset) \
@@ -900,5 +924,5 @@ RVTEST_SIGUPD_OFF(swreg,destreg,offset)
 4: la tempreg, 5b                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
-    RVTEST_SIGUPD_OFF(swreg,x1,offset) 
+    RVTEST_SIGUPD(swreg,x1,offset) 
 //SREG x1, offset(swreg);
