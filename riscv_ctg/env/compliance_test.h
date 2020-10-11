@@ -8,6 +8,10 @@
 #define NUM_SPECD_INTCAUSES 16
 #endif
 
+#ifndef rvtest_gpr_save
+  #define rvtest_gpr_save
+#endif
+
 
 //-----------------------------------------------------------------------
 // RV Compliance Macros
