@@ -91,6 +91,6 @@ $code
 
 signode_template = Template('''
 $label:
-    .fill $n*(XLEN/32),4,0xafacadee
+    .fill $n*(XLEN/32),4,0xdeadbeef
 ''')
 
