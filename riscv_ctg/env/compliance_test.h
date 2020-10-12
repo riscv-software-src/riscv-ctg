@@ -1,4 +1,3 @@
-// See License.incore for details.
 #ifndef _COMPLIANCE_TEST_H
 #define _COMPLIANCE_TEST_H
 
@@ -271,7 +270,6 @@
         csrw    mepc, t2	/* restore adjusted value, has 1,2, or 3 bytes of padding */
   
   
-  // TODO: skipped this since not completely convinced.
   /* calculate relative mtval if it’s an address  (by code_begin or data_begin amt)  */
   /* note that masks that determine this are implementation specific from YAML */
   
@@ -695,7 +693,7 @@ nop                                                                         ;\
 RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
-#define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSE,BASE_REG) \
+#define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
     LI(TEMP_REG,VAL);\
     and TEMP_REG,TEMP_REG,MASK_REG;\
     csrr DEST_REG,ADDRESS;\
@@ -703,7 +701,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     or TEMP_REG,TEMP_REG,DEST_REG;\
     csrw ADDRESS,TEMP_REG;\
     csrr DEST_REG,ADDRESS;\
-    RVTEST_SIGUPD(BASE_REG,DEST_REG,OFFSE)
+    RVTEST_SIGUPD(BASE_REG,DEST_REG,OFFSET)
 
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
