@@ -524,9 +524,9 @@ rvtest_data_end:
         addi _BR,_BR,offset;\
     .endif;\
     .if NARG(__VA_ARGS__) == 1;\
-        addi _ARG1(),_BR,offset;\
-        .set offset,0;\
-    .endif;
+        addi _ARG1(__VA_ARGS__,x0),_BR,offset;\
+    .endif;\
+    .set offset,0;
 
 /* #define RVTEST_SIGUPD(_BR,_R,_OFF)\ */
 /*     SREG _R, _OFF(_BR);\ */
