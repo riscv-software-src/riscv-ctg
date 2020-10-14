@@ -21,23 +21,32 @@
   #define LREG ld
   #define REGWIDTH 8
   #define LI(reg,val)\
-      li reg,val;
-/*        lui reg, val>>44;\
+        li reg,val;
+/*
+        lui reg, val>>44;\
         slli reg,reg,32;\
         srli reg,reg,32;\
-        addi reg,reg, (val>>32 & 0x07ff);\
-        addi reg,reg, (((val>>32 & 0x0fff) - (val>>32 & 0x07ff))-1);\
-        addi reg,reg, 1;\
-        slli reg,reg, 12;\
-        addi reg,reg, (val>>20 & 0x07ff);\
-        addi reg,reg, (((val>>20 & 0x0fff) - (val>>20 & 0x07ff))-1);\
-        addi reg,reg, 1;\
-        slli reg,reg, 12;\
-        addi reg,reg, (val>>8 & 0x07ff);\
-        addi reg,reg, (((val>>8 & 0x0fff) - (val>>8 & 0x07ff))-1);\
-        addi reg,reg, 1;\
-        slli reg,reg, 8;\
-        addi reg,reg, val&0x0ff;*/
+        addi reg,reg, (val>>33 & 0x07ff);\
+        slli reg,reg, 11;\
+        addi reg,reg, (val>>22 & 0x07ff);\
+        slli reg,reg, 11;\
+        addi reg,reg, (val>>11 & 0x07ff);\
+        slli reg,reg, 11;\
+        addi reg,reg, val&0x07ff;*/
+/*    .set e,(val>>(XLEN-20) & 0x000ffffff);\
+    .set d,(val>>(XLEN-32) & 0x00000fff) ;\
+    .set c,(val>>21 & 0x000007ff) ;\
+    .set b,(val>>10 & 0x000007ff)  ;\
+    .set a,(val>>00 & 0x000007ff)  ;\
+    .set cry,(d>>11);\
+    lui reg, (e+cry);\
+    addi reg, reg, d;\
+    slli reg, reg, 11;\
+    addi reg, reg c;\
+    slli reg, reg, 11;\
+    addi reg, reg b;\
+    slli reg, reg, 10;\
+    addi reg, reg a;*/
 #else 
   #if XLEN==32
     #define SREG sw
@@ -45,10 +54,16 @@
     #define REGWIDTH 4
     #define LI(reg, val)\
         li reg,val;
-/*        lui reg,(val>>12);\
+    /*    lui reg,(val>>12);\
         addi reg,reg, (val & 0x07ff);\
         addi reg,reg, (((val & 0x0fff) - (val & 0x07ff))-1);\
-        addi reg,reg, 1; */
+        addi reg,reg, 1;*/
+    /*.set e,(val>>12 & 0x000ffffff);\
+    .set d,(val & 0x00000fff) ;\
+    .set cry,(d>>11);\
+    lui reg, (e+cry);\
+    addi reg, reg, d;\*/
+
   #endif
 #endif
 #define MMODE_SIG 3
