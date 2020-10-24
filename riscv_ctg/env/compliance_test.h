@@ -544,8 +544,8 @@ rvtest_data_end:
     jalr rd, imm+1(rs1)                      ;\
     .else                                     ;\
     LA(rs1, 3f-imm+adj)                        ;\
-    .endif                                    ;\
     jalr rd, imm(rs1)                         ;\
+    .endif                                    ;\
     nop                                       ;\
     nop                                       ;\
     xori rd,rd, 0x2                           ;\
@@ -568,7 +568,6 @@ rvtest_data_end:
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset, adj)\
 5:                                           ;\
-    LA(rd,5b                                 ) ;\
     LA(tempreg, 2f                          ) ;\
     jalr x0,0(tempreg)                       ;\
 1:  .if adj & 2 == 2                         ;\
@@ -626,12 +625,13 @@ rvtest_data_end:
 #define TEST_BRANCH_OP(inst, tempreg, reg1, reg2, val1, val2, imm, label, swreg, offset,adj) \
     LI(reg1, MASK_XLEN(val1))                  ;\
     LI(reg2, MASK_XLEN(val2))                  ;\
+    addi tempreg,x0,0                         ;\
     j 2f                                      ;\
                                               ;\
 1:  .if adj & 2 == 2                         ;\
     .fill 2,1,0x00                          ;\
     .endif                                    ;\
-    LI(tempreg, 0x1)                           ;\
+    addi tempreg,tempreg, 0x1                           ;\
     j 4f                                      ;\
     .if adj & 2 == 2                              ;\
     .fill 2,1,0x00                          ;\
@@ -649,7 +649,7 @@ rvtest_data_end:
     .endr                                     ;\
                                               ;\
 2:  inst reg1, reg2, label+adj                ;\
-    LI(tempreg, 0x2)                           ;\
+    addi tempreg, tempreg,0x2                   ;\
     j 4f                                      ;\
     .if (imm/4) - 3 >= 0                      ;\
         .set num,(imm/4)-3                    ;\
@@ -666,7 +666,7 @@ rvtest_data_end:
 3:  .if adj & 2 == 2                              ;\
     .fill 2,1,0x00                          ;\
     .endif                                    ;\
-    LI(tempreg, 0x3)                           ;\
+    addi tempreg, tempreg,0x3                           ;\
     j 4f                                      ;\
     .if adj&2 == 2                              ;\
     .fill 2,1,0x00                     ;\
@@ -767,10 +767,10 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 #define TEST_CBRANCH_OP(inst, tempreg, reg2, val2, imm, label, swreg, offset) \
     LI(reg2, MASK_XLEN(val2))                  ;\
     j 2f                                      ;\
-                                              ;\
+    addi tempreg, x0,0                        ;\
     .option push                              ;\
     .option norvc                             ;\
-1:  LI(tempreg, 0x1)                           ;\
+1:  addi tempreg, tempreg,0x1                 ;\
     j 4f                                      ;\
     .option pop                               ;\
     .if (imm/2) - 4 >= 0                      ;\
@@ -787,7 +787,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 2:  inst reg2, label                          ;\
     .option push                              ;\
     .option norvc                             ;\
-    LI(tempreg, 0x2)                           ;\
+    addi tempreg, tempreg, 0x2                ;\
     j 4f                                      ;\
     .option pop                               ;\
     .if (imm/2) - 5 >= 0                      ;\
@@ -802,7 +802,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     c.nop                                     ;\
     .endr                                     ;\
                                               ;\
-3:  LI(tempreg, 0x3)                           ;\
+3:  addi tempreg, tempreg ,0x3                ;\
                                               ;\
 4:  RVTEST_SIGUPD(swreg,tempreg,offset) 
 //SREG tempreg, offset(swreg);              
