@@ -6,7 +6,7 @@
 #ifndef NUM_SPECD_INTCAUSES 
 #define NUM_SPECD_INTCAUSES 16
 #endif
-#define RVTEST_FIXED_LEN True
+#define RVTEST_FIXED_LEN
 #ifndef rvtest_gpr_save
   #define rvtest_gpr_save
 #endif
@@ -810,10 +810,10 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 
 #define TEST_CJ_OP(inst, tempreg, imm, label, swreg, offset) \
     j 2f                                      ;\
-                                              ;\
+    addi tempreg,x0,0                         ;\
     .option push                              ;\
     .option norvc                             ;\
-1:  LI(tempreg, 0x1)                           ;\
+1:  addi tempreg, tempreg,0x1                 ;\
     j 4f                                      ;\
     .option pop                               ;\
     .if (imm/2) - 4 >= 0                      ;\
@@ -830,7 +830,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 2:  inst label                          ;\
     .option push                              ;\
     .option norvc                             ;\
-    LI(tempreg, 0x2)                           ;\
+    addi tempreg, tempreg, 0x2                           ;\
     j 4f                                      ;\
     .option pop                               ;\
     .if (imm/2) - 5 >= 0                      ;\
@@ -845,7 +845,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     c.nop                                     ;\
     .endr                                     ;\
                                               ;\
-3:  LI(tempreg, 0x3)                           ;\
+3:  addi tempreg, tempreg, 0x3                ;\
                                               ;\
 4:  RVTEST_SIGUPD(swreg,tempreg,offset) 
 //SREG tempreg, offset(swreg);
