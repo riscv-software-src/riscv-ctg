@@ -6,7 +6,7 @@
 #ifndef NUM_SPECD_INTCAUSES 
 #define NUM_SPECD_INTCAUSES 16
 #endif
-
+#define RVTEST_FIXED_LEN True
 #ifndef rvtest_gpr_save
   #define rvtest_gpr_save
 #endif
@@ -15,54 +15,37 @@
 //-----------------------------------------------------------------------
 // RV Compliance Macros
 //-----------------------------------------------------------------------
-
+#ifdef RVTEST_FIXED_LEN
+    #define LI(reg, val)\
+    .option push;\
+    .option norvc;\
+    .align 6;\
+        li reg,val;\
+    .align 6;\
+    .option pop;
+    #define LA(reg, val)\
+    .option push;\
+    .option norvc;\
+    .align 6;\
+        la reg,val;\
+    .align 6;\
+    .option pop;
+#else
+    #define LI(reg,val);\
+        li reg,val;
+    #define LA(reg,val);\
+        la reg,val;
+#endif
 #if XLEN==64
   #define SREG sd
   #define LREG ld
   #define REGWIDTH 8
-  #define LI(reg,val)\
-        li reg,val;
-/*
-        lui reg, val>>44;\
-        slli reg,reg,32;\
-        srli reg,reg,32;\
-        addi reg,reg, (val>>33 & 0x07ff);\
-        slli reg,reg, 11;\
-        addi reg,reg, (val>>22 & 0x07ff);\
-        slli reg,reg, 11;\
-        addi reg,reg, (val>>11 & 0x07ff);\
-        slli reg,reg, 11;\
-        addi reg,reg, val&0x07ff;*/
-/*    .set e,(val>>(XLEN-20) & 0x000ffffff);\
-    .set d,(val>>(XLEN-32) & 0x00000fff) ;\
-    .set c,(val>>21 & 0x000007ff) ;\
-    .set b,(val>>10 & 0x000007ff)  ;\
-    .set a,(val>>00 & 0x000007ff)  ;\
-    .set cry,(d>>11);\
-    lui reg, (e+cry);\
-    addi reg, reg, d;\
-    slli reg, reg, 11;\
-    addi reg, reg c;\
-    slli reg, reg, 11;\
-    addi reg, reg b;\
-    slli reg, reg, 10;\
-    addi reg, reg a;*/
+
 #else 
   #if XLEN==32
     #define SREG sw
     #define LREG lw
     #define REGWIDTH 4
-    #define LI(reg, val)\
-        li reg,val;
-    /*    lui reg,(val>>12);\
-        addi reg,reg, (val & 0x07ff);\
-        addi reg,reg, (((val & 0x0fff) - (val & 0x07ff))-1);\
-        addi reg,reg, 1;*/
-    /*.set e,(val>>12 & 0x000ffffff);\
-    .set d,(val & 0x00000fff) ;\
-    .set cry,(d>>11);\
-    lui reg, (e+cry);\
-    addi reg, reg, d;\*/
 
   #endif
 #endif
@@ -83,10 +66,11 @@
 // ----------------------------------- CODE BEGIN w/ TRAP HANDLER START ------------------------ //
 .macro RVTEST_CODE_BEGIN
   .section .text.init;
+  .option norelax;
   .globl rvtest_start;                                                  \
   rvtest_start:
 #ifdef rvtest_mtrap_routine
-  la x1, rvtest_trap_prolog  
+  LA(x1, rvtest_trap_prolog );
   jalr ra, x1
   rvtest_prolog_done:
 #endif
@@ -155,7 +139,7 @@
   	la	t2, mscratch_save    
   	SREG	t1, 0(t2)		        // save old mscratch in mscratch_save region
     csrr t1, mscratch       // read the trapreg_sv address
-    la  t2, mtrap_sigptr    // locate the start of the trap signature
+    LA( t2, mtrap_sigptr   ) // locate the start of the trap signature
     SREG  t2, 0(t1)           // save mtrap_sigptr at first location of trapreg_sv
   init_mtvec:	
   	la	t1, mtrampoline    
@@ -208,7 +192,7 @@
   #define mhandler			\
     csrrw   sp, mscratch, sp;	\
     SREG      t6, 6*REGWIDTH(sp);	\
-  	la t6, common_mhandler;		\
+  	LA(t6, common_mhandler);		\
   	jalr	t6, t6;			\
     nop; \
   
@@ -255,7 +239,7 @@
   
           LREG      t1, 0(sp)        /* load trap sig pointer (runs backwards from DATA_END) */
           
-          la      t3, mtrampoline
+          LA(     t3, mtrampoline)
           sub     t2, t6, t3       /* reloc “link” to 0..63 to show which int vector was taken */
           addi    t2, t2, MMODE_SIG   /* insert mode# into 1:0  */
           SREG      t2, 0*REGWIDTH(t1)        /* save 1st sig value, (vect, trapmode) */
@@ -275,7 +259,7 @@
   common_mexcpt_handler:
           csrr   t2, mepc
   sv_mepc:	
-          la      t3, rvtest_prolog_done /* offset to compensate for different loader offsets */
+          LA(     t3, rvtest_prolog_done) /* offset to compensate for different loader offsets */
           sub     t4, t2, t3      /* convert mepc to rel offset of beginning of test*/
           SREG      t4, 2*REGWIDTH(t1) /* save 3rd sig value, (rel mepc) into trap signature area */
   adj_mepc:   		//adj mepc so there is padding after op, and its 8B aligned
@@ -297,7 +281,7 @@
           sll     t4, t4, t2		          /* put bit# in MSB */
           bltz    t4, sv_mtval		        /* correct adjustment is data_begin in t3 */
   
-          la      t3, rvtest_prolog_done/* adjustment for data_begin */
+          LA(     t3, rvtest_prolog_done)/* adjustment for data_begin */
           LI(t4, DATA_REL_TVAL_MSK)   /* trap#s not 14, 11..8, 2 adjust w/ data_begin */
           sll     t4, t4, t2		          /* put bit# in MSB */
           bltz    t4, sv_mtval		        /* correct adjustment is data_begin in t3 */
@@ -354,7 +338,7 @@
   
   /* case table branch to interrupt clearing code, depending on mcause */
   	slli	t2, t2, 3       /* convert mcause to 8B offset */
-  	la 	t3, clrint_tbl  /* load jump table address */
+  	LA(	t3, clrint_tbl ) /* load jump table address */
   	add	t3, t3, t2      /* index into to it, load vector, then jump to it */
   	LREG	t3, 0(t3)       
   	jr	t3
@@ -438,7 +422,7 @@
 #endif
 #ifdef rvtest_gpr_save
   csrw mscratch, x31       //save x31, get temp pointer
-  la x31, gpr_save
+  LA(x31, gpr_save) 
   SREG x0, 0*REGWIDTH(x31)
   SREG x1, 1*REGWIDTH(x31)
   SREG x2, 2*REGWIDTH(x31)
@@ -506,7 +490,7 @@ rvtest_data_end:
 #define RVTEST_CASE(_PNAME,_DSTR,...)                               
 
 #define RVTEST_SIGBASE(_R,_TAG) \
-  la _R,_TAG;\
+  LA(_R,_TAG);\
   .set offset,0;
 
 .set offset,0;
@@ -554,12 +538,12 @@ rvtest_data_end:
 
 #define TEST_JALR_OP(tempreg, rd, rs1, imm, swreg, offset,adj) \
 5:                                            ;\
-    la rd,5b                                  ;\
+    LA(rd,5b                                 ) ;\
     .if adj & 1 == 1                          ;\
-    la rs1, 3f-imm+adj-1                      ;\
+    LA(rs1, 3f-imm+adj-1  )                    ;\
     jalr rd, imm+1(rs1)                      ;\
     .else                                     ;\
-    la rs1, 3f-imm+adj                        ;\
+    LA(rs1, 3f-imm+adj)                        ;\
     .endif                                    ;\
     jalr rd, imm(rs1)                         ;\
     nop                                       ;\
@@ -576,7 +560,7 @@ rvtest_data_end:
     .fill 2,1,0x00                     ;\
     .endif                                    ;\
                                               ;\
-4: la tempreg, 5b                             ;\
+4: LA(tempreg, 5b                            ) ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
     RVTEST_SIGUPD(swreg,rd,offset) 
@@ -584,8 +568,8 @@ rvtest_data_end:
 
 #define TEST_JAL_OP(tempreg, rd, imm, label, swreg, offset, adj)\
 5:                                           ;\
-    la rd,5b                                  ;\
-    la tempreg, 2f                           ;\
+    LA(rd,5b                                 ) ;\
+    LA(tempreg, 2f                          ) ;\
     jalr x0,0(tempreg)                       ;\
 1:  .if adj & 2 == 2                         ;\
     .fill 2,1,0x00                          ;\
@@ -633,7 +617,7 @@ rvtest_data_end:
     .if adj&2 == 2                              ;\
     .fill 2,1,0x00                     ;\
     .endif                                    ;\
-4: la tempreg, 5b                             ;\
+4: LA(tempreg, 5b                            ) ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rd,rd,tempreg                          ;\
     RVTEST_SIGUPD(swreg,rd,offset) 
@@ -701,7 +685,7 @@ nop                                                                         ;\
 nop                                                                         
 
 #define TEST_LOAD(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
-la rs1,rvtest_data+(index*4)+adj-imm_val                                      ;\
+LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                      ;\
 inst destreg, imm_val(rs1)                                                   ;\
 nop                                                                         ;\
 nop                                                                         ;\
@@ -731,7 +715,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       1: \
       inst destreg, imm; \
-      la testreg, 1b; \
+      LA testreg, 1b; \
       sub destreg, destreg, testreg; \
       )
 
@@ -906,7 +890,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
                                               ;\
 3:  xori x1,x1, 0x3                           ;\
                                               ;\
-4: la tempreg, 5b                             ;\
+4: LA(tempreg, 5b)                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
   RVTEST_SIGUPD(swreg,x1,offset) 
@@ -914,7 +898,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 
 #define TEST_CJR_OP(tempreg, rs1, swreg, offset) \
 5:                                            ;\
-    la rs1, 3f                                ;\
+    LA(rs1, 3f)                                ;\
                                               ;\
 2:  c.jr rs1                                  ;\
     xori rs1,rs1, 0x2                           ;\
@@ -922,7 +906,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
                                               ;\
 3:  xori rs1,rs1, 0x3                           ;\
                                               ;\
-4: la tempreg, 5b                             ;\
+4: LA(tempreg, 5b)                             ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub rs1,rs1,tempreg                          ;\
     RVTEST_SIGUPD(swreg,rs1,offset) 
@@ -930,7 +914,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 
 #define TEST_CJALR_OP(tempreg, rs1, swreg, offset) \
 5:                                            ;\
-    la rs1, 3f                                ;\
+    LA(rs1, 3f                               ) ;\
                                               ;\
 2:  c.jalr rs1                                  ;\
     xori x1,x1, 0x2                           ;\
@@ -938,7 +922,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
                                               ;\
 3:  xori x1,x1, 0x3                           ;\
                                               ;\
-4: la tempreg, 5b                             ;\
+4: LA(tempreg, 5b                            ) ;\
    andi tempreg,tempreg,~(3)                  ;\
     sub x1,x1,tempreg                          ;\
     RVTEST_SIGUPD(swreg,x1,offset) 
