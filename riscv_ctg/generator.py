@@ -475,7 +475,10 @@ class Generator():
             if 'rs2_val' in instr:
                 rs2_val = int(instr['rs2_val'])
             if 'imm_val' in instr:
-                imm_val = int(instr['imm_val'])
+                if instr['inst'] in ['c.j','c.jal']:
+                    imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
+                else:
+                    imm_val = int(instr['imm_val'])
             if 'rs2' in instr:
                 rs2 = instr['rs2']
             if 'rd' in instr:
