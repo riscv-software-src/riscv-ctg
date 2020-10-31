@@ -463,7 +463,77 @@ class Generator():
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
                 instr_dict.append(self.__instr__(op,val))
-        return instr_dict
+
+        hits = defaultdict(lambda:set([]))
+        final_instr = []
+        def eval_inst_coverage(coverpoints,instr):
+            cover_hits = {}
+            if 'ea_align' in instr:
+                ea_align = int(instr['ea_align'])
+            if 'rs1_val' in instr:
+                rs1_val = int(instr['rs1_val'])
+            if 'rs2_val' in instr:
+                rs2_val = int(instr['rs2_val'])
+            if 'imm_val' in instr:
+                imm_val = int(instr['imm_val'])
+            if 'rs2' in instr:
+                rs2 = instr['rs2']
+            if 'rd' in instr:
+                rd = instr['rd']
+            if 'rs1' in instr:
+                rs1 = instr['rs1']
+            if 'val_comb' in coverpoints:
+                valcomb_hits = set([])
+                for coverpoint in coverpoints['val_comb']:
+                    if eval(coverpoint):
+                        valcomb_hits.add(coverpoint)
+                cover_hits['val_comb']=valcomb_hits
+            if 'op_comb' in coverpoints:
+                opcomb_hits = set([])
+                for coverpoint in coverpoints['op_comb']:
+                    if eval(coverpoint):
+                        opcomb_hits.add(coverpoint)
+                cover_hits['op_comb']=opcomb_hits
+            if 'rs1' in coverpoints:
+                if rs1 in coverpoints['rs1']:
+                    cover_hits['rs1'] = set([rs1])
+            if 'rs2' in coverpoints:
+                if rs2 in coverpoints['rs2']:
+                    cover_hits['rs2'] = set([rs2])
+            if 'rd' in coverpoints:
+                if rd in coverpoints['rd']:
+                    cover_hits['rd'] = set([rd])
+            return cover_hits
+        i = 0
+        for instr in instr_dict:
+            unique = False
+            skip_val = False
+            if instr['inst'] in cgf['opcode']:
+                if 'rs1' in instr and 'rs2' in instr:
+                    if instr['rs1'] == instr['rs2']:
+                        skip_val = True
+                if 'rs1' in instr:
+                    if instr['rs1'] == 'x0':
+                        skip_val = True
+                if 'rs2' in instr:
+                    if instr['rs2'] == 'x0':
+                        skip_val = True
+                if 'rd' in instr:
+                    if instr['rd'] == 'x0':
+                        skip_val = True
+                cover_hits = eval_inst_coverage(cgf,instr)
+                for entry in cover_hits:
+                    if entry=='val_comb' and skip_val:
+                        continue
+                    over = hits[entry] & cover_hits[entry]
+                    if over != cover_hits[entry]:
+                        unique = unique or True
+                    hits[entry] |= cover_hits[entry]
+                if unique:
+                    final_instr.append(instr)
+                else:
+                    i+=1
+        return final_instr
 
     @staticmethod
     def swreg(instr_dict):
