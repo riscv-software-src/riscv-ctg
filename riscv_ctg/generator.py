@@ -90,7 +90,7 @@ class Generator():
         self.random=randomization
 
     def opcomb(self, cgf):
-        logger.debug('Generating OpComb')
+        logger.debug(self.opcode + ' : Generating OpComb')
         solutions = []
         op_conds = {}
         if "op_comb" in cgf:
@@ -138,7 +138,7 @@ class Generator():
             if solution is None:
                 if individual:
                     if nodiff:
-                        logger.warn("Cannot find solution for Op combination")
+                        logger.warn(self.opcode + " : Cannot find solution for Op combination")
                         break
                     else:
                         nodiff = True
@@ -167,7 +167,7 @@ class Generator():
 
 
     def valcomb(self, cgf):
-        logger.debug('Generating ValComb')
+        logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
             return []
         val_comb = []
@@ -211,7 +211,7 @@ class Generator():
                 solution = problem.getSolution()
                 count+=1
             if solution is None:
-                logger.warn("Cannot find solution for Val condition "+str(req_val_comb))
+                logger.warn(self.opcode + " : Cannot find solution for Val condition "+str(req_val_comb))
                 continue
             val_tuple = []
             for i,key in enumerate(self.val_vars):
