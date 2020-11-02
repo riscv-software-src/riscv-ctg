@@ -37,9 +37,16 @@
 
 #else
     #define LI(reg,val);\
-        li reg,val;
+        .option push;\
+        .option norvc;\
+        li reg,val;\
+        .option pop;
+
     #define LA(reg,val);\
-        la reg,val;
+        .option push;\
+        .option norvc;\
+        la reg,val;\
+        .option pop;
 #endif
 #if XLEN==64
   #define SREG sd
