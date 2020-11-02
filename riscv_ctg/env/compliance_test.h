@@ -6,10 +6,13 @@
 #ifndef NUM_SPECD_INTCAUSES 
 #define NUM_SPECD_INTCAUSES 16
 #endif
-#define RVTEST_FIXED_LEN
-#ifndef rvtest_gpr_save
-  #define rvtest_gpr_save
+//#define RVTEST_FIXED_LEN
+#ifndef UNROLLSZ
+  #define UNROLLSZ 5
 #endif
+// #ifndef rvtest_gpr_save
+//   #define rvtest_gpr_save
+// #endif
 
 
 //-----------------------------------------------------------------------
@@ -19,17 +22,19 @@
     #define LI(reg, val)\
     .option push;\
     .option norvc;\
-    .align 6;\
+    .align UNROLLSZ;\
         li reg,val;\
-    .align 6;\
+    .align UNROLLSZ;\
     .option pop;
+
     #define LA(reg, val)\
     .option push;\
     .option norvc;\
-    .align 6;\
+    .align UNROLLSZ;\
         la reg,val;\
-    .align 6;\
+    .align UNROLLSZ;\
     .option pop;
+
 #else
     #define LI(reg,val);\
         li reg,val;
@@ -40,12 +45,14 @@
   #define SREG sd
   #define LREG ld
   #define REGWIDTH 8
+  #define MASK 0xFFFFFFFFFFFFFFFF
 
 #else 
   #if XLEN==32
     #define SREG sw
     #define LREG lw
     #define REGWIDTH 4
+  #define MASK 0xFFFFFFFF
 
   #endif
 #endif
@@ -65,6 +72,7 @@
 
 // ----------------------------------- CODE BEGIN w/ TRAP HANDLER START ------------------------ //
 .macro RVTEST_CODE_BEGIN
+  .align UNROLLSZ
   .section .text.init;
   .option norelax;
   .globl rvtest_start;                                                  \
@@ -74,37 +82,37 @@
   jalr ra, x1
   rvtest_prolog_done:
 #endif
-    addi x1, x0, 0
-    addi x2, x0, 0
-    addi x3, x0, 0
-    addi x4, x0, 0
-    addi x5, x0, 0
-    addi x6, x0, 0
-    addi x7, x0, 0
-    addi x8, x0, 0
-    addi x9, x0, 0
-    addi x10, x0, 0
-    addi x11, x0, 0
-    addi x12, x0, 0
-    addi x13, x0, 0
-    addi x14, x0, 0
-    addi x15, x0, 0
-    addi x16, x0, 0
-    addi x17, x0, 0
-    addi x18, x0, 0
-    addi x19, x0, 0
-    addi x20, x0, 0
-    addi x21, x0, 0
-    addi x22, x0, 0
-    addi x23, x0, 0
-    addi x24, x0, 0
-    addi x25, x0, 0
-    addi x26, x0, 0
-    addi x27, x0, 0
-    addi x28, x0, 0
-    addi x29, x0, 0
-    addi x30, x0, 0
-    addi x31, x0, 0
+     LI (x1,  (0xFEEDBEADFEEDBEAD & MASK));
+     LI (x2,  (0xFF76DF56FF76DF56 & MASK));
+     LI (x3,  (0x7FBB6FAB7FBB6FAB & MASK));
+     LI (x4,  (0xBFDDB7D5BFDDB7D5 & MASK));
+     LA (x5, rvtest_code_begin);
+     LA (x6, rvtest_data_begin);
+     LI (x7,  (0xB7FBB6FAB7FBB6FA & MASK));
+     LI (x8,  (0x5BFDDB7D5BFDDB7D & MASK));
+     LI (x9,  (0xADFEEDBEADFEEDBE & MASK));
+     LI (x10, (0x56FF76DF56FF76DF & MASK));
+     LI (x11, (0xAB7FBB6FAB7FBB6F & MASK));
+     LI (x12, (0xD5BFDDB7D5BFDDB7 & MASK));
+     LI (x13, (0xEADFEEDBEADFEEDB & MASK));
+     LI (x14, (0xF56FF76DF56FF76D & MASK));
+     LI (x15, (0xFAB7FBB6FAB7FBB6 & MASK));
+     LI (x16, (0x7D5BFDDB7D5BFDDB & MASK));
+     LI (x17, (0xBEADFEEDBEADFEED & MASK));
+     LI (x18, (0xDF56FF76DF56FF76 & MASK));
+     LI (x19, (0x6FAB7FBB6FAB7FBB & MASK));
+     LI (x20, (0xB7D5BFDDB7D5BFDD & MASK));
+     LI (x21, (0xDBEADFEEDBEADFEE & MASK));
+     LI (x22, (0x6DF56FF76DF56FF7 & MASK));
+     LI (x23, (0xB6FAB7FBB6FAB7FB & MASK));
+     LI (x24, (0xDB7D5BFDDB7D5BFD & MASK));
+     LI (x25, (0xEDBEADFEEDBEADFE & MASK));
+     LI (x26, (0x76DF56FF76DF56FF & MASK));
+     LI (x27, (0xBB6FAB7FBB6FAB7F & MASK));
+     LI (x28, (0xDDB7D5BFDDB7D5BF & MASK));
+     LI (x29, (0xEEDBEADFEEDBEADF & MASK));
+     LI (x30, (0xF76DF56FF76DF56F & MASK));
+     LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK));
   .globl rvtest_code_begin
   rvtest_code_begin:
 .endm
@@ -154,11 +162,13 @@
   /**** t1=trampoline, t2=oldmtvec, t3=save area, t4=save end  ****/
   /****************************************************************/
   
+  // t2 = dut's original mtvec setting
+  // t1 = mtrampoline address
   init_tramp:	/**** copy trampoline at mtvec tgt ****/
   
   	csrw	mtvec, t2		// restore orig mtvec, will now attemp to copy trampoline to it
   	la	t3, tramptbl_sv		// addr of save area
-  	addi	t4, t2, 64+NUM_SPECD_INTCAUSES*8 // end of save area
+  	addi	t4, t3, NUM_SPECD_INTCAUSES*4 // end of save area
   
   overwrite_tt:			            // now build new trampoline table with offsets base from curr mtvec
   	lw	t6, 0(t2)		            // get original mtvec target
@@ -174,9 +184,9 @@
   	j rvtest_prolog_done 
   
   resto_tramp:			                      // vector table not writeable, restore
-  	LREG	t4, -80-NUM_SPECD_INTCAUSES*8(t5) // load mtvec_SAVE (used as end of loop marker)
-  	LREG	t1, -72-NUM_SPECD_INTCAUSES*8(t5) // load mscratch_SAVE at fixed offset from table end
+  	LREG	t1, 16(t4)            // load mscratch_SAVE at fixed offset from table end
   	csrw	mscratch, t1		                // restore mscratch
+  	LREG	t4, 8(t4)             // load mtvec_SAVE (used as end of loop marker)
   
   
   resto_loop:	              // goes backwards, t2= dest vec tbl ptr, t3=src save area ptr, t4=vec tbl begin
@@ -192,9 +202,7 @@
   #define mhandler			\
     csrrw   sp, mscratch, sp;	\
     SREG      t6, 6*REGWIDTH(sp);	\
-  	LA(t6, common_mhandler);		\
-  	jalr	t6, t6;			\
-    nop; \
+    jal t6, common_prolog;
   
   /**********************************************************************/
   /**** This is the entry point for all m-modetraps, vectored or not.****/
@@ -206,7 +214,7 @@
   mtrampoline:		// 64 or 32 entry table
   value = 0
   .rept NUM_SPECD_INTCAUSES     	  // located at each possible int vectors
-     j	mtrap_handler + 32*(value)  //offset < +/- 1MB
+     j	mtrap_handler + 12*(value)  //offset < +/- 1MB
      value = value + 1
   .endr
   .rept RLENG-NUM_SPECD_INTCAUSES   // fill at each impossible entry
@@ -217,6 +225,10 @@
   .rept NUM_SPECD_INTCAUSES
     mhandler
   .endr
+
+  common_prolog:
+    la t5, common_mhandler
+    jr t5
   /*********************************************************************/
   /**** common code for all ints & exceptions, will fork to handle  ****/ 
   /**** each separately. The common handler first stores trap mode+ ****/ 
@@ -399,7 +411,7 @@
   // ----------------------------------------------------------------------------------------------
 
   exit_cleanup://COMPLIANCE_HALT should get here
-  	la	t3, tramptbl_sv+ 64+NUM_SPECD_INTCAUSES*8	// end of save area
+  	la	t3, tramptbl_sv+ NUM_SPECD_INTCAUSES*4	// end of save area
   
   	la	t5, mtvec_save
   	LREG	t1, 8(t5)
@@ -408,7 +420,7 @@
   	csrrw	t2, mtvec, t4		        // restore mtvec (not redundant)
   	bne	t4, t2, 1f// if saved!=mtvec, done, else need to restore
   	
-  	addi	t2, t4, 64+NUM_SPECD_INTCAUSES*8  // start pt is end of vect area
+  	addi	t2, t4, NUM_SPECD_INTCAUSES*4  // start pt is end of vect area
   resto_vec:	                              // goes backwards, t2= dest vec tbl ptr, 
                                             // t3=src save area ptr, t4=vec tbl begin
   	lw	t6, 0(t3)		                        // read saved tgt entry
