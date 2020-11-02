@@ -726,8 +726,8 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       1: \
-      inst destreg, imm; \
       LA testreg, 1b; \
+      inst destreg, imm; \
       sub destreg, destreg, testreg; \
       )
 
