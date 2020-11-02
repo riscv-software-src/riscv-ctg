@@ -928,6 +928,10 @@ auipc:
         'imm_val == 0': 0
         'imm_val > 0': 0
         'imm_val == ((2**20)-1)': 0
+        abstract_comb:
+            'walking_ones("imm_val", 20, False)': 0
+            'walking_zeros("imm_val", 20, False)': 0
+            'alternate("imm_val", 20, False)': 0
 
 lui:
     config: 
@@ -940,6 +944,10 @@ lui:
         'imm_val == 0': 0
         'imm_val > 0': 0
         'imm_val == ((2**20)-1)': 0
+        abstract_comb:
+            'walking_ones("imm_val", 20, False)': 0
+            'walking_zeros("imm_val", 20, False)': 0
+            'alternate("imm_val", 20, False)': 0
 
 jal:
     config: 
