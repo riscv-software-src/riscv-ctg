@@ -207,7 +207,7 @@ class Generator():
             #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
             solution = problem.getSolution()
             count = 0
-            while (solution != {} and count < 5):
+            while (solution is None and count < 5):
                 solution = problem.getSolution()
                 count+=1
             if solution is None:
@@ -653,7 +653,7 @@ class Generator():
 
 
     @staticmethod
-    def write_test(file_name,node,label,instr_dict, op_node):
+    def write_test(file_name,node,label,instr_dict, op_node, usage_str):
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
         code = []
@@ -679,5 +679,5 @@ class Generator():
         sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
-            fd.write(test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
+            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
 
