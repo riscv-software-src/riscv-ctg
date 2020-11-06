@@ -2,7 +2,6 @@
 
 from collections import defaultdict
 from constraint import *
-import random
 import re
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
