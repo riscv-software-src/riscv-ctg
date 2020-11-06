@@ -664,7 +664,7 @@ class Generator():
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
         count = 0
         for instr in instr_dict:
-            res = '\nlabel_{0}:'.format(str(count))
+            res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
