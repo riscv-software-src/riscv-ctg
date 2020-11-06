@@ -647,7 +647,7 @@ class Generator():
                         value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
                     else:
                         value = int(value)
-                    value = '0x' + struct.pack(size,value).hex()
+#                    value = '0x' + struct.pack(size,value).hex()
                     instr_dict[i][field] = value
         return instr_dict
 
