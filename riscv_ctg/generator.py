@@ -657,7 +657,7 @@ class Generator():
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
         code = []
-        sign = [".align 4"]
+        sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
         n = 0
         opcode = instr_dict[0]['inst']
