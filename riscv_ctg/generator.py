@@ -662,8 +662,10 @@ class Generator():
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
+        count = 0
         for instr in instr_dict:
-            res = Template(op_node['template']).safe_substitute(instr)
+            res = '\nlabel_{0}:'.format(str(count))
+            res += Template(op_node['template']).safe_substitute(instr)
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
@@ -673,6 +675,7 @@ class Generator():
             else:
                 n+=1
             code.append(res)
+            count = count + 1
         case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
         sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
         test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
