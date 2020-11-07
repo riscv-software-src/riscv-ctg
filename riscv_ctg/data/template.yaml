@@ -12,8 +12,8 @@ add:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -29,8 +29,8 @@ sub:
   isa: I
   operation: 'hex((rs1_val - rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -46,8 +46,8 @@ addw:
   isa: I
   operation: 'hex((rs1_val & 0xFFFFFFFF) + (rs2_val & 0xFFFFFFFF) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -62,8 +62,8 @@ subw:
   isa: I
   operation: 'hex((rs1_val & 0xFFFFFFFF) - (rs2_val & 0xFFFFFFFF) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -78,8 +78,8 @@ and:
   isa: I
   operation: 'hex((rs1_val & rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -94,8 +94,8 @@ or:
   isa: I
   operation: 'hex((rs1_val | rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -110,8 +110,8 @@ slt:
   isa: I
   operation: 'hex(int(rs1_val < rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -126,8 +126,8 @@ sltu:
   isa: I
   operation: 'hex(int(rs1_val < rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
     
     // $comment
@@ -142,8 +142,8 @@ xor:
   isa: I
   operation: 'hex((rs1_val ^ rs2_val) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
     
     // $comment
@@ -158,7 +158,7 @@ sllw:
   isa: i
   operation: 'hex((rs1_val << (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
@@ -174,7 +174,7 @@ srlw:
   isa: i
   operation: 'hex(((rs1_val & 0xffffffff) >> (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
@@ -190,7 +190,7 @@ sraw:
   isa: i
   operation: 'hex(sra(rs1_val & 0xffffffff, (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(5)'
   template: |-
     
@@ -206,7 +206,7 @@ sll:
   isa: i
   operation: 'hex((rs1_val << (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
@@ -222,7 +222,7 @@ srl:
   isa: i
   operation: 'hex(((rs1_val & 0xffffffff) >> (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
@@ -238,7 +238,7 @@ sra:
   isa: i
   operation: 'hex(sra(rs1_val & 0xffffffff, (rs2_val%32)) & (2**(xlen)-1))'
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
     
@@ -756,8 +756,8 @@ mul:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -771,8 +771,8 @@ mulh:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -786,8 +786,8 @@ mulhu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -801,8 +801,8 @@ mulhsu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -816,8 +816,8 @@ div:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -831,8 +831,8 @@ divu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -846,8 +846,8 @@ rem:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -861,8 +861,8 @@ remu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -876,8 +876,8 @@ mulw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -891,8 +891,8 @@ divw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -906,8 +906,8 @@ divuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -921,8 +921,8 @@ remw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -936,8 +936,8 @@ remuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -963,8 +963,8 @@ c.add:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment

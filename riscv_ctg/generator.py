@@ -9,6 +9,8 @@ import time
 from math import *
 import struct
 
+twos_xlen = lambda x: twos(x,xlen)
+
 ops = {
     'rformat': ['rs1', 'rs2', 'rd'],
     'iformat': ['rs1', 'rd'],
