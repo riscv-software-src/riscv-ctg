@@ -12,3 +12,9 @@ def test_version(runner):
     result = runner.invoke(cli, ['--version'])
     assert result.exit_code == 0
 
+# -r -d temp1 -x 32 -cf sample_cgfs/rv32i.cgf -v debu
+#def test_rv32i(runner):
+#    ''' Testing rv32 runs '''
+#    result = runner.invoke(cli, ['--randomize', '--out-dir', 'rv32i', '-cf',
+#        'sample_cgfs/rv32i.cgf', '-v', 'debug'])
+#    assert result.exit_code == 0
