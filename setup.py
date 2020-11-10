@@ -42,7 +42,9 @@ setup(
     package_dir={'riscv_ctg': 'riscv_ctg'},
     package_data={
         'riscv_ctg': [
-            'requirements.txt'
+            'requirements.txt',
+            'data/*',
+            'end/*'
             ]
         },
     install_requires=read_requires(),
