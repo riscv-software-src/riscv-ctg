@@ -21,6 +21,16 @@ default_regset_mx0 = ['x1' ,'x2' ,'x3' ,'x4' ,'x5' ,'x6' ,'x7' ,'x8' ,'x9'
             ,'x30' ,'x31']
 
 def twos(val,bits):
+    '''
+    A function to generate the two's complement of a number which is of
+    arbitrary width
+    
+    :param val: the input which can be either a hexadecimal string or integer
+    :param bits: size of the input in terms of bits.
+
+    :type val: Union[int, str]
+    :type bits: int
+    '''
     if isinstance(val,str):
         if '0x' in val:
             val = int(val,16)
@@ -31,6 +41,16 @@ def twos(val,bits):
     return val
 
 def gen_sp_dataset(bit_width,sign=True):
+    '''
+    Function generates a special dataset of interesting values:
+     - alternating ones
+     - alternating zeros
+     - sqrt (bit_width<<1)
+     - +/-1 variants of the above
+     
+     :param bit_width: integer defining the size of the input
+     :return: a list of integers
+    '''
     if sign:
         conv_func = lambda x: twos(x,bit_width)
         sqrt_min = int(-sqrt(2**(bit_width-1)))
@@ -45,6 +65,9 @@ def gen_sp_dataset(bit_width,sign=True):
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
 
 def gen_sign_dataset(bit_width):
+    '''
+    Function to generate the signed data set
+    '''
     rval_w0_base = ['1']*(bit_width-1)+['0']
     rval_w1_base = ['0']*(bit_width-1)+['1']
     data = [(-2**(bit_width-1)),int((-2**(bit_width-1))/2),0,(2**(bit_width-1)-1),int((2**(bit_width-1)-1)/2)] + list(range(-10,10))
@@ -56,6 +79,9 @@ def gen_sign_dataset(bit_width):
     return list(set(data))
 
 def gen_usign_dataset(bit_width):
+    ''' 
+    Function to generate the unsigned dataset
+    '''
     rval_w0_base = ['1']*(bit_width-1)+['0']
     rval_w1_base = ['0']*(bit_width-1)+['1']
     data = [0,((2**bit_width)-1),int(((2**bit_width)-1)/2)] + list(range(0,20))

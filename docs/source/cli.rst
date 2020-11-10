@@ -5,7 +5,9 @@ Usage
 =====
 Once you have RISCV-CTG installed, executing ``riscv_ctg --help`` should print the following on the terminal. ::
 
-   Options:
+  Usage: riscv_ctg [OPTIONS]
+  
+  Options:
     --version                       Show the version and exit.
     -v, --verbose [info|error|debug]
                                     Set verbose level
@@ -14,7 +16,7 @@ Once you have RISCV-CTG installed, executing ``riscv_ctg --help`` should print t
     -x, --xlen [32|64]              XLEN value for the ISA.
     -cf, --cgf PATH                 Path to the cgf file.
     -p, --procs INTEGER             Max number of processes to spawn
-    --help                          Show this message and exit. 
+    --help                          Show this message and exit.
 
 To use RISC-V Compliance Test Generator in a project::
 
@@ -26,7 +28,7 @@ Running the Test generator
 In order to generate the tests for **RV32I** the following command is used. ::
    
     $ mkdir compliance_tests/
-    $ riscv_ctg -v error -d ./compliance_tests/ -cf ./sample_cgfs/rv32i.cgf -x 32
+    $ riscv_ctg -v debug -d ./compliance_tests/ -r -cf ./sample_cgfs/rv32i.cgf -x 32 -p2 
 
 Suite Characteristics
 =====================

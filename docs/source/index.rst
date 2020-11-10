@@ -18,6 +18,8 @@ please refer to the :ref:`Revisions <revisions>` documentation.
   overview
   installation
   cli
+  add_instr
+  code
   contributing
   revisions
   licensing
