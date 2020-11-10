@@ -43,6 +43,6 @@ also have to be updated.
 Adding Instruction Macros
 -------------------------
 
-CTG does not generate direct instrcution. It rather uses the template field in the attributes YAML
+CTG does not generate direct instruction. It rather uses the template field in the attributes YAML
 as a template to generate tests. This template is usually an assembly macro. The definition of these
 macros must be defined in ``env/compliance_test.h`` header file.
