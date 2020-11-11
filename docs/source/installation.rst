@@ -127,7 +127,7 @@ Install RISC-V CTG (via pip)
 
   $ pip3 install riscv_ctg
 
-To update an already installed version of RISCOF to the latest version:
+To update an already installed version of RISCV-CTG to the latest version:
 
 .. code-block:: bash
 
