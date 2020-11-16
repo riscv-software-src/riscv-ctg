@@ -64,7 +64,7 @@ def isInt(s):
 
 class Generator():
     '''
-    A generator class to generate RISC-V assembly tests for a given instruction 
+    A generator class to generate RISC-V assembly tests for a given instruction
     format, opcode and a set of coverpoints.
 
     :param fmt: the RISC-V instruction format type to be used for the test generation.
@@ -73,7 +73,7 @@ class Generator():
     :param randomization: a boolean variable indicating if the random constraint solvers must be employed.
     :param xl: an integer indicating the XLEN value to be used.
 
-    :type fmt:
+    :type fmt: str
     :type opnode: dict
     :type opcode: str
     :type randomization: bool
@@ -82,11 +82,11 @@ class Generator():
     def __init__(self,fmt,opnode,opcode,randomization, xl):
         '''
         This is a Constructor function which initializes various class variables
-        depending on the arguments. 
+        depending on the arguments.
 
-        The function also creates a dictionary of datasets for each operand. The 
+        The function also creates a dictionary of datasets for each operand. The
         dictionary basically indicates what registers from the register file are to be used
-        when generating solutions for coverpoints. The datasets are limited to 
+        when generating solutions for coverpoints. The datasets are limited to
         to reduce the time taken by solvers to arrive at a solution.
 
         A similar dictionary is created for the values to be used by the operand
@@ -127,8 +127,8 @@ class Generator():
 
     def opcomb(self, cgf):
         '''
-        This function finds the solutions for the various operand combinations 
-        defined by the coverpoints in the CGF under the "op_comb" node of the 
+        This function finds the solutions for the various operand combinations
+        defined by the coverpoints in the CGF under the "op_comb" node of the
         covergroup.
 
         Depending on the registers chosen in the datasets, a contraint is created
@@ -136,10 +136,12 @@ class Generator():
         operand/destination location in the instruction. These contraints are
         then supplied to the solver for solutions
 
-        If randomization is enabled we use the ``MinConflictsSolver`` solver to 
-        find solutions. 
+        If randomization is enabled we use the ``MinConflictsSolver`` solver to
+        find solutions.
 
-        :param cgf: dict
+        :param cgf: a covergroup in cgf format containing the set of coverpoints to be satisfied.
+
+        :type cgf: dict
 
         :return: a dictionary of solutions for the various operand combinations specified in the CGF file.
         '''
@@ -221,17 +223,19 @@ class Generator():
 
     def valcomb(self, cgf):
         '''
-        This function finds the solutions for the various value combinations 
-        defined by the coverpoints in the CGF under the "val_comb" node of the 
+        This function finds the solutions for the various value combinations
+        defined by the coverpoints in the CGF under the "val_comb" node of the
         covergroup.
 
         The constraints here are quite simply taken as `eval` strings from the CGF val_comb
         nodes itself.
 
-        If randomization is enabled we use the ``MinConflictsSolver`` solver to 
-        find solutions. 
+        If randomization is enabled we use the ``MinConflictsSolver`` solver to
+        find solutions.
 
-        :param cgf: dict
+        :param cgf: a covergroup in cgf format containing the set of coverpoints to be satisfied.
+
+        :type cgf: dict
 
         :return: a dictionary of solutions for the various value combinations specified in the CGF file.
         '''
@@ -240,16 +244,6 @@ class Generator():
             return []
         val_comb = []
 
-        # if self.opcode in ['lw', 'lb', 'lhu', 'lh', 'lbu', 'sw', 'sb', 'sh']:
-        #     size = int(self.opnode['size'])
-        #     def boundconstraint(rs1_val,imm_val):
-        #         temp = rs1_val+imm_val-(imm_val+(1 if imm_val>0 else -1)*(rs1_val%size))+size
-        #         if temp>=0 and temp<=4:
-        #             return True
-        #         else:
-        #             return False
-        # else:
-        #     boundconstraint=None
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
         while inds:
@@ -492,15 +486,24 @@ class Generator():
     def gen_inst(self,op_comb, val_comb, cgf):
         '''
         This function combines the op_comb and val_comb solution dictionaries
-        to create a complete set of arguments of the instruction. 
-        
-        Depending on the instruction opcode other subfunctions are called to 
+        to create a complete set of arguments of the instruction.
+
+        Depending on the instruction opcode other subfunctions are called to
         create the final merged dictionary of op_comb and val_comb.
 
-        Note however, that using the integer register x0 as either source or 
-        destination does not contribute to the coverage. Hence the respective 
-        val_combs are repeated again with non-x0 registers. 
-        
+        Note however, that using the integer register x0 as either source or
+        destination does not contribute to the coverage. Hence the respective
+        val_combs are repeated again with non-x0 registers.
+
+        :param op_comb: list containing the operand combination solutions
+        :param val_comb: list containing the value combination solutions
+        :param cgf: a covergroup in cgf format containing the set of coverpoints to be satisfied.
+
+        :type cgf: dict
+        :type op_comb: list
+        :type val_comb: list
+
+        :return: list of dictionaries containing the various values necessary for the macro.
         '''
         instr_dict = []
         cont = []
@@ -622,18 +625,21 @@ class Generator():
     def swreg(instr_dict):
         '''
         This function is responsible for identifying which register can be used
-        as a signature pointer for each instruction. 
+        as a signature pointer for each instruction.
 
-        This register is calculated by traversing the dictionary of solutions 
-        created so far and removing all the registers which are used as either 
-        operands or destination. When 3 or less registers are pending, one of 
-        those registers is used as signature pointer for all the solutions 
+        This register is calculated by traversing the dictionary of solutions
+        created so far and removing all the registers which are used as either
+        operands or destination. When 3 or less registers are pending, one of
+        those registers is used as signature pointer for all the solutions
         traversed so far.
 
-        Along with the register the offset is also assigned in this function. 
+        Along with the register the offset is also assigned in this function.
         The offset is incremented by xlen/8 bytes always.
 
         Care is taken to never use 'x0' as signature pointer.
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :type instr_dict: list
+        :return: list of dictionaries containing the various values necessary for the macro
         '''
         total_instr = len(instr_dict)
         available_reg = default_regset.copy()
@@ -679,15 +685,18 @@ class Generator():
     def testreg(instr_dict):
         '''
         This function is responsible for identifying which register can be used
-        as a test register for each instruction. 
+        as a test register for each instruction.
 
-        This register is calculated by traversing the dictionary of solutions 
-        created so far and removing all the registers which are used as either 
-        operands or destination or signature. When 3 or less registers are pending, one of 
-        those registers is used as test register for all the solutions 
+        This register is calculated by traversing the dictionary of solutions
+        created so far and removing all the registers which are used as either
+        operands or destination or signature. When 3 or less registers are pending, one of
+        those registers is used as test register for all the solutions
         traversed so far.
 
         Care is taken to never use 'x0' as test register.
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :type instr_dict: list
+        :return: list of dictionaries containing the various values necessary for the macro
         '''
         total_instr = len(instr_dict)
         available_reg = default_regset.copy()
@@ -723,10 +732,13 @@ class Generator():
 
     def correct_val(self,instr_dict):
         '''
-        this function is responsible for assigning the correct-vals for all instructions. 
+        this function is responsible for assigning the correct-vals for all instructions.
         The correctvals are calculated based on the `operation` field of the node
-        in the attributes YAML. If the operation field is empty, then a value of 
+        in the attributes YAML. If the operation field is empty, then a value of
         0 is assigned to the correctval.
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :type instr_dict: list
+        :return: list of dictionaries containing the various values necessary for the macro
         '''
         if self.operation:
             for i in range(len(instr_dict)):
@@ -743,6 +755,9 @@ class Generator():
         '''
         This function basically sanitizes the integer values to a readable
         hex values
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :type instr_dict: list
+        :return: list of dictionaries containing the various values necessary for the macro
         '''
         mydict = instr_dict.copy()
         for i in range(len(instr_dict)):
@@ -771,6 +786,23 @@ class Generator():
 
     @staticmethod
     def write_test(file_name,node,label,instr_dict, op_node, usage_str):
+        '''
+        This function generates the test using various templates.
+
+        :param file_name: path of the output file
+        :param node: a covergroup in cgf format containing the set of coverpoints to be satisfied
+        :param label: the label for the covergroup in the input cgf file
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :param op_node: dictionary node from the attributes YAML that is to be used in the test generation
+        :param usage_str: Banner string for the test
+
+        :type file_name: str
+        :type node: dict
+        :type label: str
+        :type instr_dict: list
+        :type op_node: dict
+        :type usage_str: str
+        '''
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
         code = []

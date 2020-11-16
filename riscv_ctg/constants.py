@@ -24,12 +24,14 @@ def twos(val,bits):
     '''
     A function to generate the two's complement of a number which is of
     arbitrary width
-    
+
     :param val: the input which can be either a hexadecimal string or integer
     :param bits: size of the input in terms of bits.
 
     :type val: Union[int, str]
     :type bits: int
+
+    :return: integer value in 2's complement representation
     '''
     if isinstance(val,str):
         if '0x' in val:
@@ -43,12 +45,14 @@ def twos(val,bits):
 def gen_sp_dataset(bit_width,sign=True):
     '''
     Function generates a special dataset of interesting values:
-     - alternating ones
-     - alternating zeros
+     - [3*1/3,3*2/3,5,5*1/5,5*2/5]
      - sqrt (bit_width<<1)
      - +/-1 variants of the above
-     
-     :param bit_width: integer defining the size of the input
+
+     :param bit_width: Integer defining the size of the input
+     :param sign: Boolen value specifying whether the dataset should be interpreted as signed numbers or not.
+     :type sign: bool
+     :type bit_width: int
      :return: a list of integers
     '''
     if sign:
@@ -66,7 +70,20 @@ def gen_sp_dataset(bit_width,sign=True):
 
 def gen_sign_dataset(bit_width):
     '''
-    Function to generate the signed data set
+    Function to generate the signed data set with datapoints from the following patterns.
+     - alternating ones
+     - alternating zeros
+     - walking ones
+     - walking zeros
+     - max val
+     - min val
+     - max val/2
+     - min val/2
+     - [-10,10]
+
+     :param bit_width: integer defining the size of the input
+     :type bit_width: int
+     :return: a list of integers
     '''
     rval_w0_base = ['1']*(bit_width-1)+['0']
     rval_w1_base = ['0']*(bit_width-1)+['1']
@@ -79,8 +96,21 @@ def gen_sign_dataset(bit_width):
     return list(set(data))
 
 def gen_usign_dataset(bit_width):
-    ''' 
+    '''
     Function to generate the unsigned dataset
+     - alternating ones
+     - alternating zeros
+     - walking ones
+     - walking zeros
+     - max val
+     - min val
+     - max val/2
+     - min val/2
+     - [0,20]
+
+     :param bit_width: integer defining the size of the input
+     :type bit_width: int
+     :return: a list of integers
     '''
     rval_w0_base = ['1']*(bit_width-1)+['0']
     rval_w1_base = ['0']*(bit_width-1)+['1']

@@ -57,6 +57,4 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label) for label,node in cgf.items()])
     pool.close()
-#    for label, node in cgf.items():
-#        create_test(node, label)
 
