@@ -950,7 +950,7 @@ c.mv:
   xlen: [32,64]
   isa: IC
   formattype: 'cmvformat'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1084,8 +1084,8 @@ c.addi:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_sign_dataset(6)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(6) + gen_sp_dataset(6)'
   template: |-
 
     // $comment
@@ -1097,8 +1097,8 @@ c.addiw:
   xlen: [64]
   isa: IC
   formattype: 'ciformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_sign_dataset(6)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(6) + gen_sp_dataset(6)'
   template: |-
 
     // $comment
@@ -1135,7 +1135,7 @@ c.slli:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
@@ -1148,7 +1148,7 @@ c.srli:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
@@ -1161,7 +1161,7 @@ c.srai:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
 
