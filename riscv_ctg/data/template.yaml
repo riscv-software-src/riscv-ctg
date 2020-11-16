@@ -1307,7 +1307,7 @@ c.beqz:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) or (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
   template: |-
 
@@ -1320,7 +1320,7 @@ c.bnez:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<250) if x>0 else (x<=-4 and x>=-250),[x*2 for x in gen_sign_dataset(8)]))'
   template: |-
 
