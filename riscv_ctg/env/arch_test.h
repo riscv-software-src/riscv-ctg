@@ -317,7 +317,8 @@
           sll     t4, t4, t2		          /* put bit# in MSB */
           bltz    t4, sv_mtval		        /* correct adjustment is code_begin in t3 */
   
-          LA(     t3, rvtest_data_begin)/* adjustment for data_begin */
+//          LA(     t3, mtrap_sigptr)/* adjustment for data_begin */
+          csrr    t3, CSR_MTVAL
           LI(t4, DATA_REL_TVAL_MSK)   /* trap#s not 14, 11..8, 2 adjust w/ data_begin */
           sll     t4, t4, t2		          /* put bit# in MSB */
           bltz    t4, sv_mtval		        /* correct adjustment is data_begin in t3 */
@@ -343,6 +344,7 @@
           csrw    CSR_MSTATUS, t5           /* restore mstatus */
 
 /*******FIXME: this will not handle 48 or 64b opcodes in an RV64) ********/
+
   sv_mtval:
           csrr   t2, CSR_MTVAL
           sub     t2, t2, t3		/* perform mtval adjust by either code or data position or zero*/
