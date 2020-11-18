@@ -53,7 +53,7 @@ The various `.S` files are the tests themselves.
     ├── Bltu.S
     ├── Bne.S
     ├── env                             # Contains the necessary environment files
-    │   ├── compliance_test.h           # Header file containing the macros used in tests
+    │   ├── arch_test.h                 # Header file containing the macros used in tests
     │   └── encoding.h                  # Header file containing varios encodings required
     ├── Jalr.S
     ├── Jal.S

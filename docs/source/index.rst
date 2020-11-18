@@ -5,7 +5,7 @@
 RISC-V Compliance Test Generator Documentation
 ###############################################
 
-Welcome to RISC-V Compliance Test Generator documentation version: |version|
+Welcome to RISC-V Compliance Test Generator documentation.
 
 For information about the changes and additions for releases, 
 please refer to the :ref:`Revisions <revisions>` documentation.
