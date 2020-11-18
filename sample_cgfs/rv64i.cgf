@@ -853,7 +853,7 @@ slliw:
     val_comb:
       <<: *ifmt_base_shift_32w
       abstract_comb:
-        'sp_dataset(32,["rs1_val"])': 0
+        'sp_dataset(xlen,["rs1_val"])': 0
         <<: [*rs1val_walking]
         'walking_ones("imm_val", 5, False)': 0
         'walking_zeros("imm_val", 5, False)': 0
@@ -873,7 +873,7 @@ srliw:
     val_comb:
       <<: *ifmt_base_shift_32w
       abstract_comb:
-        'sp_dataset(32,["rs1_val"])': 0
+        'sp_dataset(xlen,["rs1_val"])': 0
         <<: [*rs1val_walking]
         'walking_ones("imm_val", 5, False)': 0
         'walking_zeros("imm_val", 5, False)': 0
@@ -893,7 +893,7 @@ sraiw:
     val_comb:
       <<: *ifmt_base_shift_32w
       abstract_comb:
-        'sp_dataset(32,["rs1_val"])': 0
+        'sp_dataset(xlen,["rs1_val"])': 0
         <<: [*rs1val_walking]
         'walking_ones("imm_val", 5, False)': 0
         'walking_zeros("imm_val", 5, False)': 0
