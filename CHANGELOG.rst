@@ -3,6 +3,16 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.3.0] - 2020-11-18
+  - minor doc updates
+  - renamed compliance_test.h to arch_test.h
+  - added aliasing macros for v0.1 compliance framework
+  - split datasets and coverpoints into multiple cgfs
+  - support for multiple cgf as inputs
+  - added support for special datasets to relevant instructions
+  - adding explicit entry point label to all tests
+  - remove x2 as coverpoint in cswsp and csdsp
+
 [0.2.0] - 2020-11-10
   - initial draft of CTG
   - parallelization support added
