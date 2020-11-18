@@ -1,6 +1,3 @@
-#ifndef _COMPLIANCE_TEST_H
-#define _COMPLIANCE_TEST_H
-
 #include "encoding.h"
 // TODO the following should come from the YAML.
 #ifndef NUM_SPECD_INTCAUSES 
@@ -18,6 +15,26 @@
 //-----------------------------------------------------------------------
 // RV Compliance Macros
 //-----------------------------------------------------------------------
+#ifndef RVMODEL_SET_MSW_INT
+  #warning "RVMODEL_SET_MSW_INT is not defined by target. Declaring as empty macro"
+  #define RVMODEL_SET_MSW_INT       
+#endif
+
+#ifndef RVMODEL_CLEAR_MSW_INT     
+  #warning "RVMODEL_CLEAR_MSW_INT is not defined by target. Declaring as empty macro"
+  #define RVMODEL_CLEAR_MSW_INT     
+#endif
+
+#ifndef RVMODEL_CLEAR_MTIMER_INT
+  #warning "RVMODEL_CLEAR_MTIMER_INT is not defined by target. Declaring as empty macro"
+  #define RVMODEL_CLEAR_MTIMER_INT
+#endif
+
+#ifndef RVMODEL_CLEAR_MEXT_INT
+  #warning "RVMODEL_CLEAR_MEXT_INT is not defined by target. Declaring as empty macro"
+  #define RVMODEL_CLEAR_MEXT_INT
+#endif
+
 #ifdef RVTEST_FIXED_LEN
     #define LI(reg, val)\
     .option push;\
@@ -73,17 +90,18 @@
 #endif
 
 #ifndef CODE_REL_TVAL_MSK
-  #define CODE_REL_TVAL_MSK 0xF0D8 << (REGWIDTH*8-16)
+  #define CODE_REL_TVAL_MSK 0xD008 << (REGWIDTH*8-16)
 #endif
 
 
 // ----------------------------------- CODE BEGIN w/ TRAP HANDLER START ------------------------ //
+
 .macro RVTEST_CODE_BEGIN
   .align UNROLLSZ
   .section .text.init;
   .option norelax;
-  .globl rvtest_start;                                                  \
-  rvtest_start:
+  .globl rvtest_init;                                                  \
+  rvtest_init:
 #ifdef rvtest_mtrap_routine
   LA(x1, rvtest_trap_prolog );
   jalr ra, x1
@@ -150,18 +168,18 @@
   
   init_mscratch:
   	la	t1, trapreg_sv
-  	csrrw	t1, mscratch, t1	// swap old mscratch. mscratch not points to trapreg_sv
+  	csrrw	t1, CSR_MSCRATCH, t1	// swap old mscratch. mscratch not points to trapreg_sv
   	la	t2, mscratch_save    
   	SREG	t1, 0(t2)		        // save old mscratch in mscratch_save region
-    csrr t1, mscratch       // read the trapreg_sv address
+    csrr t1, CSR_MSCRATCH       // read the trapreg_sv address
     LA( t2, mtrap_sigptr   ) // locate the start of the trap signature
     SREG  t2, 0(t1)           // save mtrap_sigptr at first location of trapreg_sv
   init_mtvec:	
   	la	t1, mtrampoline    
   	la	t4, mtvec_save
-  	csrrw	t2, mtvec, t1		          // swap mtvec and trap_trampoline
+  	csrrw	t2, CSR_MTVEC, t1		          // swap mtvec and trap_trampoline
   	SREG	t2, 0(t4)		              // save orig mtvec
-  	csrr	t3, mtvec		              // now read new_mtval back
+  	csrr	t3, CSR_MTVEC		              // now read new_mtval back
   	beq	t3, t1, rvtest_prolog_done // if mtvec==trap_trampoline, mtvec is writable, continue
   	
   /****************************************************************/
@@ -173,7 +191,7 @@
   // t1 = mtrampoline address
   init_tramp:	/**** copy trampoline at mtvec tgt ****/
   
-  	csrw	mtvec, t2		// restore orig mtvec, will now attemp to copy trampoline to it
+  	csrw	CSR_MTVEC, t2		// restore orig mtvec, will now attemp to copy trampoline to it
   	la	t3, tramptbl_sv		// addr of save area
   	addi	t4, t3, NUM_SPECD_INTCAUSES*4 // end of save area
   
@@ -192,7 +210,7 @@
   
   resto_tramp:			                      // vector table not writeable, restore
   	LREG	t1, 16(t4)            // load mscratch_SAVE at fixed offset from table end
-  	csrw	mscratch, t1		                // restore mscratch
+  	csrw	CSR_MSCRATCH, t1		                // restore mscratch
   	LREG	t4, 8(t4)             // load mtvec_SAVE (used as end of loop marker)
   
   
@@ -207,7 +225,7 @@
   
 
   #define mhandler			\
-    csrrw   sp, mscratch, sp;	\
+    csrrw   sp, CSR_MSCRATCH, sp;	\
     SREG      t6, 6*REGWIDTH(sp);	\
     jal t6, common_prolog;
   
@@ -263,7 +281,7 @@
           addi    t2, t2, MMODE_SIG   /* insert mode# into 1:0  */
           SREG      t2, 0*REGWIDTH(t1)        /* save 1st sig value, (vect, trapmode) */
   sv_mcause:	
-          csrr   t2, mcause
+          csrr   t2, CSR_MCAUSE
           SREG      t2, 1*REGWIDTH(t1) /* save 2nd sig value, (mcause)  */
   
           bltz    t2, common_mint_handler /* this is a interrupt, not a trap */
@@ -276,7 +294,7 @@
   /**** on op alignment so trapped op isn't re-executed.           ****/ 
   /********************************************************************/ 
   common_mexcpt_handler:
-          csrr   t2, mepc
+          csrr   t2, CSR_MEPC
   sv_mepc:	
           LA(     t3, rvtest_prolog_done) /* offset to compensate for different loader offsets */
           sub     t4, t2, t3      /* convert mepc to rel offset of beginning of test*/
@@ -285,7 +303,7 @@
         andi    t4, t2, 0x2     /* set to 2 if mepc was misaligned */
         sub     t2, t2, t4      /* adjust mepc to prev 4B alignment */
         addi    t2, t2, 0x8     /* adjust mepc, so it skips past the op, has padding & is 4B aligned */
-        csrw    mepc, t2	/* restore adjusted value, has 1,2, or 3 bytes of padding */
+        csrw    CSR_MEPC, t2	/* restore adjusted value, has 1,2, or 3 bytes of padding */
   
   
   /* calculate relative mtval if it’s an address  (by code_begin or data_begin amt)  */
@@ -294,13 +312,13 @@
   /* masks are bit reversed, so mcause==0 bit is in MSB (so different for RV32 and RV64) */
   
   adj_mtval:
-        	csrr   t2, mcause  /* code begin adjustment amount already in t3 */
+        	csrr   t2, CSR_MCAUSE  /* code begin adjustment amount already in t3 */
   
           LI(t4, CODE_REL_TVAL_MSK)   /* trap#s 12, 3,1,0, -- adjust w/ code_begin */
           sll     t4, t4, t2		          /* put bit# in MSB */
-          bltz    t4, sv_mtval		        /* correct adjustment is data_begin in t3 */
+          bltz    t4, sv_mtval		        /* correct adjustment is code_begin in t3 */
   
-          LA(     t3, rvtest_prolog_done)/* adjustment for data_begin */
+          LA(     t3, rvtest_data_begin)/* adjustment for data_begin */
           LI(t4, DATA_REL_TVAL_MSK)   /* trap#s not 14, 11..8, 2 adjust w/ data_begin */
           sll     t4, t4, t2		          /* put bit# in MSB */
           bltz    t4, sv_mtval		        /* correct adjustment is data_begin in t3 */
@@ -308,27 +326,26 @@
           LI(t3, 0)			/* else zero adjustment amt */
 
   // For Illegal op handling
-          addi    t3, t2, -2            /* check if mcause==2 (illegal op) */
-          bnez    t3, sv_mtval          /* not illegal op, no special treatment */
-          csrr    t2, mtval
+          addi    t2, t2, -2            /* check if mcause==2 (illegal op) */
+          bnez    t2, sv_mtval          /* not illegal op, no special treatment */
+          csrr    t2, CSR_MTVAL
           bnez    t2, sv_mtval          /* mtval isn’t zero, no special treatment */
   illop:
           LI(t5, 0x20000)           /* get mprv mask */
-          csrrs   t5, mstatus, t5       /* set mprv while saving the old value */
-          csrr    t3, mepc
+          csrrs   t5, CSR_MSTATUS, t5       /* set mprv while saving the old value */
+          csrr    t3, CSR_MEPC
           lhu     t2, 0(t3)             /* load 1st 16b of opc w/ old priv, endianess*/
           andi    t4, t2,  0x3
           addi    t4, t4, -0x3          /* does opcode[1:0]==0b11? (Meaning >16b op) */
           bnez    t4, sv_mtval          /* entire mtval is in tt2, adj amt will be set to zero */
           lhu     t4, 2(t3)           
           sll     t4, t4, 16
-          or      t3, t3, t4            /* get 2nd  hwd, align it & insert it into opcode */
+          or      t3, t2, t4            /* get 2nd  hwd, align it & insert it into opcode */
+          csrw    CSR_MSTATUS, t5           /* restore mstatus */
 
 /*******FIXME: this will not handle 48 or 64b opcodes in an RV64) ********/
-
-          csrw    mstatus, t5           /* restore mstatus */
   sv_mtval:
-          csrr   t2, mtval
+          csrr   t2, CSR_MTVAL
           sub     t2, t2, t3		/* perform mtval adjust by either code or data position or zero*/
           SREG      t2, 3*REGWIDTH(t1)	/* save 4th sig value, (rel mtval) into trap signature area */
   
@@ -343,15 +360,15 @@
           LREG      t5, 5*REGWIDTH(sp)
           LREG      t6, 6*REGWIDTH(sp)  /* restore temporaries */
   
-          csrrw   sp, mscratch, sp /* restore sp from scratch */
+          csrrw   sp, CSR_MSCRATCH, sp /* restore sp from scratch */
           mret
   
   common_mint_handler:    /* t1 has sig ptr, t2 has mcause */
   
           LI(t3, 1)
           sll     t3, t3, t2      /* create mask 1<<mcause */
-          csrrc   t4, mip, t3     /* read, then attempt to clear int pend bit */
-          csrrc   t4, mie, t3     /* read, then attempt to clear int pend bit */
+          csrrc   t4, CSR_MIP, t3     /* read, then attempt to clear int pend bit */
+          csrrc   t4, CSR_MIE, t3     /* read, then attempt to clear int pend bit */
   sv_mip:	/* note: clear has no effect on MxIP */
           SREG      t4, 2*REGWIDTH(t1) /* save 3rd sig value, (mip)  */
   
@@ -422,9 +439,9 @@
   
   	la	t5, mtvec_save
   	LREG	t1, 8(t5)
-  	csrw	 mscratch, t1		        // restore mscratch
+  	csrw	 CSR_MSCRATCH, t1		        // restore mscratch
   	LREG	t4, 0(t5)		              // load orig mtvec
-  	csrrw	t2, mtvec, t4		        // restore mtvec (not redundant)
+  	csrrw	t2, CSR_MTVEC, t4		        // restore mtvec (not redundant)
   	bne	t4, t2, 1f// if saved!=mtvec, done, else need to restore
   	
   	addi	t2, t4, NUM_SPECD_INTCAUSES*4  // start pt is end of vect area
@@ -440,7 +457,7 @@
   .option pop
 #endif
 #ifdef rvtest_gpr_save
-  csrw mscratch, x31       //save x31, get temp pointer
+  csrw CSR_MSCRATCH, x31       //save x31, get temp pointer
   LA(x31, gpr_save) 
   SREG x0, 0*REGWIDTH(x31)
   SREG x1, 1*REGWIDTH(x31)
@@ -474,7 +491,7 @@
   SREG x29, 29*REGWIDTH(x31)
   SREG x30, 30*REGWIDTH(x31)
   addi x30, x31, 0                // mv gpr pointer to x30
-  csrr x31, mscratch              // restore value of x31
+  csrr x31, CSR_MSCRATCH              // restore value of x31
   SREG x31, 31*REGWIDTH(x30)      // store x31
 #endif
 .endm
@@ -544,11 +561,7 @@ rvtest_data_end:
     .endif;\
     .set offset,0;
 
-/* #define RVTEST_SIGUPD(_BR,_R,_OFF)\ */
-/*     SREG _R, _OFF(_BR);\ */
-/*     .set offset,_OFF+REGWIDTH; */
 
-#endif //_COMPLIANCE_TEST_H
 
 //------------------------------ BORROWED FROM ANDREW's RISC-V TEST MACROS -----------------------//
 #define MASK_XLEN(x) ((x) & ((1 << (__riscv_xlen - 1) << 1) - 1))
@@ -727,11 +740,8 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
     code; \
-    RVTEST_SIGUPD(swreg,destreg,offset) 
-//SREG destreg, offset(swreg); 
-
-//   RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
-
+    RVTEST_SIGUPD(swreg,destreg,offset); \
+    RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
@@ -949,3 +959,53 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     sub x1,x1,tempreg                          ;\
     RVTEST_SIGUPD(swreg,x1,offset) 
 //SREG x1, offset(swreg);
+
+
+//--------------------------------- Migration aliases ------------------------------------------
+#ifdef RV_COMPLIANCE_RV32M
+  #warning "RV_COMPLIANCE_RV32M macro will be deprecated."
+  #define RVMODEL_BOOT \
+    RVTEST_IO_INIT; \
+    RV_COMPLIANCE_RV32M ; \
+    RV_COMPLIANCE_CODE_BEGIN
+#endif
+
+#define SWSIG(a, b)
+  
+#ifdef RV_COMPLIANCE_DATA_BEGIN
+  #warning "RV_COMPLIANCE_DATA_BEGIN macro deprecated in v0.2. Please use RVMODEL_DATA_BEGIN instead"
+  #define RVMODEL_DATA_BEGIN \
+    RV_COMPLIANCE_DATA_BEGIN
+#endif
+
+#ifdef RV_COMPLIANCE_DATA_END
+  #warning "RV_COMPLIANCE_DATA_END macro deprecated in v0.2. Please use RVMODEL_DATA_END instead"
+  #define RVMODEL_DATA_END \
+    RV_COMPLIANCE_DATA_END
+#endif
+
+#ifdef RV_COMPLIANCE_HALT
+  #warning "RV_COMPLIANCE_HALT macro deprecated in v0.2. Please use RVMODEL_HALT instead"
+  #define RVMODEL_HALT \
+    RV_COMPLIANCE_HALT
+#endif
+
+#ifdef RVTEST_IO_ASSERT_GPR_EQ
+  #warning "RVTEST_IO_ASSERT_GPR_EQ macro deprecated in v0.2. Please use RVMODEL_IO_ASSERT_GPR_EQ instead"
+  #define RVMODEL_IO_ASSERT_GPR_EQ(_SP, _R, _I) \
+    RVTEST_IO_ASSERT_GPR_EQ(_SP,_R, _I)
+#endif
+
+#ifdef RVTEST_IO_WRITE_STR 
+  #warning "RVTEST_IO_WRITE_STR macro deprecated in v0.2. Please use RVMODEL_IO_WRITE_STR instead"
+  #define RVMODEL_IO_WRITE_STR(_SP, _STR) \
+    RVTEST_IO_WRITE_STR(_SP, _STR)
+#endif
+
+#ifdef RVTEST_IO_INIT
+  #warning "RVTEST_IO_INIT is deprecated in v0.2. Please use RVMODEL_BOOT for initialization"
+#endif
+  
+#ifdef RVTEST_IO_CHECK
+  #warning "RVTEST_IO_CHECK is deprecated in v0.2.
+#endif
