@@ -151,6 +151,9 @@ test_template = Template(copyright_string + comment_template+'''
 #include "compliance_test.h"
 RVTEST_ISA("$isa")
 
+.section .text.init
+.globl rvtest_entry_point
+rvtest_entry_point:
 RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 $test
