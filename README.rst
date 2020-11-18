@@ -3,5 +3,5 @@
 #################################################
 
 
-Latest documentation : `click here <https://riscv-ctg.readthedocs.io/en/latest>`_
-----------------------------------------------------------------------------------
+Latest documentation of riscv_ctg : `click here <https://riscv-ctg.readthedocs.io/en/latest>`_
+
