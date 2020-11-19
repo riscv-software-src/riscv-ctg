@@ -72,16 +72,16 @@ class Generator():
     :param opcode: name of the instruction opcode.
     :param randomization: a boolean variable indicating if the random constraint solvers must be employed.
     :param xl: an integer indicating the XLEN value to be used.
-    :param base_isa: The base isa to be used for the tests. One of [rv32e,rv32i,rv64i]
+    :param base_isa_str: The base isa to be used for the tests. One of [rv32e,rv32i,rv64i]
 
     :type fmt: str
     :type opnode: dict
     :type opcode: str
     :type randomization: bool
     :type xl: int
-    :type base_isa: str
+    :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa):
+    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -96,8 +96,9 @@ class Generator():
 
         '''
         global xlen
-        self.base_isa = base_isa
+        global base_isa
         xlen = xl
+        base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
         self.op_vars = OPS[fmt]
@@ -623,8 +624,8 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-
-    def swreg(self,instr_dict):
+    @staticmethod
+    def swreg(instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a signature pointer for each instruction.
@@ -643,7 +644,7 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        regset = e_regset if 'e' in self.base_isa else default_regset
+        regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
         available_reg.remove('x0')
@@ -683,8 +684,8 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-
-    def testreg(self,instr_dict):
+    @staticmethod
+    def testreg(instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a test register for each instruction.
@@ -700,7 +701,7 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        regset = e_regset if 'e' in self.base_isa else default_regset
+        regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
         available_reg.remove('x0')
