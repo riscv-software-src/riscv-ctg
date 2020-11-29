@@ -766,17 +766,17 @@ class Generator():
         mydict = instr_dict.copy()
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
-                if xlen == 32:
-                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                        size = '>I'
-                    else:
-                        size = '>i'
-                else:
-                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                        size = '>Q'
-                    else:
-                        size = '>q'
-                if 'val' in field and field != 'correctval' and field != 'imm_val':
+                # if xlen == 32:
+                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                #         size = '>I'
+                #     else:
+                #         size = '>i'
+                # else:
+                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                #         size = '>Q'
+                #     else:
+                #         size = '>q'
+                if 'val' in field and field != 'correctval':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(xlen/4))
@@ -784,7 +784,7 @@ class Generator():
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
-                    instr_dict[i][field] = value
+                    instr_dict[i][field] = hex(value)
         return instr_dict
 
 
