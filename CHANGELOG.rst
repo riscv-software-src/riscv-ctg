@@ -6,6 +6,7 @@ This project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.htm
 [0.4.0] - 2020-11-19
   - Added base_isa as option in cli
   - Added support for register set based on base isa.
+  - Reformatted output values in tests to be hex strings.
 
 [0.3.0] - 2020-11-18
   - minor doc updates
