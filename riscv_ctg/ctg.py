@@ -12,7 +12,7 @@ from riscv_ctg.generator import Generator
 from math import *
 from riscv_ctg.__init__ import __version__
 
-def create_test(usage_str, node,label):
+def create_test(usage_str, node,label,base_isa):
     global cgf_op
     global ramdomize
     global out_dir
@@ -33,7 +33,7 @@ def create_test(usage_str, node,label):
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize,xlen)
+        gen = Generator(formattype,op_node,opcode,randomize,xlen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
@@ -41,7 +41,7 @@ def create_test(usage_str, node,label):
         mydict = gen.reformat_instr(instr_dict)
         gen.write_test(fname,node,label,mydict, op_node, usage_str)
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     global cgf_op
     global randomize
     global out_dir
@@ -55,6 +55,6 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs):
     cgf_op = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
     pool = mp.Pool(num_procs)
-    results = pool.starmap(create_test, [(usage_str, node,label) for label,node in cgf.items()])
+    results = pool.starmap(create_test, [(usage_str, node,label,base_isa) for label,node in cgf.items()])
     pool.close()
 

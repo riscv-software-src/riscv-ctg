@@ -72,14 +72,16 @@ class Generator():
     :param opcode: name of the instruction opcode.
     :param randomization: a boolean variable indicating if the random constraint solvers must be employed.
     :param xl: an integer indicating the XLEN value to be used.
+    :param base_isa_str: The base isa to be used for the tests. One of [rv32e,rv32i,rv64i]
 
     :type fmt: str
     :type opnode: dict
     :type opcode: str
     :type randomization: bool
     :type xl: int
+    :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl):
+    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -94,7 +96,9 @@ class Generator():
 
         '''
         global xlen
+        global base_isa
         xlen = xl
+        base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
         self.op_vars = OPS[fmt]
@@ -620,7 +624,6 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-
     @staticmethod
     def swreg(instr_dict):
         '''
@@ -641,8 +644,9 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
-        available_reg = default_regset.copy()
+        available_reg = regset.copy()
         available_reg.remove('x0')
         count = 0
         assigned = 0
@@ -666,7 +670,7 @@ class Generator():
                         assigned += 1
                         if offset == 2048:
                             offset = 0
-                available_reg = default_regset.copy()
+                available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
         if assigned != total_instr and len(available_reg) != 0:
@@ -680,7 +684,6 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-
     @staticmethod
     def testreg(instr_dict):
         '''
@@ -698,8 +701,9 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
-        available_reg = default_regset.copy()
+        available_reg = regset.copy()
         available_reg.remove('x0')
         count = 0
         assigned = 0
@@ -720,7 +724,7 @@ class Generator():
                     if 'testreg' not in instr_dict[i]:
                         instr_dict[i]['testreg'] = curr_testreg
                         assigned += 1
-                available_reg = default_regset.copy()
+                available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
         if assigned != total_instr and len(available_reg) != 0:
@@ -762,17 +766,17 @@ class Generator():
         mydict = instr_dict.copy()
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
-                if xlen == 32:
-                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                        size = '>I'
-                    else:
-                        size = '>i'
-                else:
-                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                        size = '>Q'
-                    else:
-                        size = '>q'
-                if 'val' in field and field != 'correctval' and field != 'imm_val':
+                # if xlen == 32:
+                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                #         size = '>I'
+                #     else:
+                #         size = '>i'
+                # else:
+                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
+                #         size = '>Q'
+                #     else:
+                #         size = '>q'
+                if 'val' in field and field != 'correctval':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(xlen/4))
@@ -780,7 +784,7 @@ class Generator():
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
-                    instr_dict[i][field] = value
+                    instr_dict[i][field] = hex(value)
         return instr_dict
 
 

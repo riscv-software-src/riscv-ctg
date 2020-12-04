@@ -3,6 +3,12 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.4.0] - 2020-11-19
+  - Added base_isa as option in cli
+  - Added support for register set based on base isa.
+  - Reformatted output values in tests to be hex strings.
+  - change compliance_model to model_test
+
 [0.3.0] - 2020-11-18
   - minor doc updates
   - renamed compliance_test.h to arch_test.h

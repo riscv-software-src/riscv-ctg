@@ -1,6 +1,40 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
 datasets: 
+  rv32e_regs_mx0: &rv32e_regs_mx0
+    x1: 0
+    x2: 0
+    x3: 0
+    x4: 0
+    x5: 0
+    x6: 0
+    x7: 0
+    x8: 0
+    x9: 0
+    x10: 0
+    x11: 0
+    x12: 0
+    x13: 0
+    x14: 0
+    x15: 0
+  rv32e_regs: &rv32e_regs
+    x0: 0
+    x1: 0
+    x2: 0
+    x3: 0
+    x4: 0
+    x5: 0
+    x6: 0
+    x7: 0
+    x8: 0
+    x9: 0
+    x10: 0
+    x11: 0
+    x12: 0
+    x13: 0
+    x14: 0
+    x15: 0
+
   all_regs: &all_regs
     x0: 0
     x1: 0
