@@ -149,7 +149,7 @@ comment_template = '''
 // '''
 
 test_template = Template(copyright_string + comment_template+'''
-#include "compliance_model.h"
+#include "model_test.h"
 #include "arch_test.h"
 RVTEST_ISA("$isa")
 
