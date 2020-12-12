@@ -517,9 +517,23 @@ class Generator():
         elif len(val_comb) < len(op_comb):
             val_comb = list(val_comb) + [[]] * (len(op_comb) - len(val_comb))
 
-        for op,val in zip(op_comb,val_comb):
+        x = dict([(y,x) for x,y in enumerate(self.val_vars)])
+        ind_dict = {}
+        for ind,var in enumerate(self.op_vars):
+            if var+"_val" in x:
+                ind_dict[ind] = x[var+"_val"]
+
+        for op,val_soln in zip(op_comb,val_comb):
+            val = [x for x in val_soln]
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
-                cont.append(val)
+                cont.append(val_soln)
+                op_inds = list(ind_dict.keys())
+                for i,x in enumerate(op_inds):
+                    if op[x] == 'x0':
+                        val[ind_dict[x]] = 0
+                    for y in op_inds[i:]:
+                        if op[y] == op[x]:
+                            val[ind_dict[y]] = val[ind_dict[x]]
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
             elif self.opcode in ['c.beqz', 'c.bnez']:
@@ -744,12 +758,13 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        normalise = (lambda x,y: x) if 'rd' not in self.op_vars else (lambda x,y: 0 if y['rd']=='x0' else x)
         if self.operation:
             for i in range(len(instr_dict)):
                 for var in self.val_vars:
                     locals()[var]=int(instr_dict[i][var])
                 correctval = eval(self.operation)
-                instr_dict[i]['correctval'] = str(correctval)
+                instr_dict[i]['correctval'] = str(normalise(correctval,instr_dict[i]))
         else:
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0x' + '0'.zfill(int(xlen/4))
