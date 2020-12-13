@@ -204,7 +204,7 @@ sll:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
-  operation: 'hex((rs1_val << (rs2_val%32)) & (2**(xlen)-1))'
+  operation: 'hex((rs1_val << (rs2_val%xlen)) & (2**(xlen)-1))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
@@ -220,7 +220,7 @@ srl:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
-  operation: 'hex(((rs1_val & 0xffffffff) >> (rs2_val%32)) & (2**(xlen)-1))'
+  operation: 'hex(((rs1_val & 0xffffffff) >> (rs2_val%xlen)) & (2**(xlen)-1))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
@@ -236,7 +236,7 @@ sra:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: i
-  operation: 'hex(sra(rs1_val & 0xffffffff, (rs2_val%32)) & (2**(xlen)-1))'
+  operation: 'hex(sra(rs1_val & 0xffffffff, (rs2_val%xlen)) & (2**(xlen)-1))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
@@ -371,7 +371,7 @@ srli:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
-  operation: 'hex(((rs1_val & 0xFFFFFFFF) >> imm_val) & (2**(xlen)-1))'
+  operation: 'hex(((rs1_val & (2**(xlen)-1)) >> imm_val) & (2**(xlen)-1))'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
@@ -386,7 +386,7 @@ srai:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
-  operation: 'hex(sra(rs1_val & 0xFFFFFFFF, (imm_val%32)) & (2**(xlen)-1))'
+  operation: 'hex(sra(rs1_val & (2**(xlen)-1), (imm_val%xlen)) & (2**(xlen)-1))'
   formattype: 'iformat'
   rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
@@ -756,6 +756,7 @@ mul:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex((rs1_val * rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -771,6 +772,7 @@ mulh:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex(((rs1_val * rs2_val)>>xlen) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -786,8 +788,9 @@ mulhu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  operation: 'hex(((rs1_val * rs2_val)>>xlen) & (2**(xlen)-1))'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -801,8 +804,9 @@ mulhsu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex(((rs1_val * (rs2_val if rs2_val>=0 else int(hex((1<<xlen) + rs2_val),base=16)))>>xlen) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -816,6 +820,7 @@ div:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex(int(rs1_val / rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -831,8 +836,9 @@ divu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  operation: 'hex(int(rs1_val / rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else "0x"+("F"*int(xlen/4))'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -846,6 +852,7 @@ rem:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex((rs1_val % rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else hex(rs1_val)'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -861,8 +868,9 @@ remu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  operation: 'hex((rs1_val % rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else hex(rs1_val)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -876,6 +884,7 @@ mulw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex((rs1_val & 0xFFFFFFFF) * (rs2_val & 0xFFFFFFFF) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -891,6 +900,7 @@ divw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex(int((rs1_val & 0xFFFFFFFF) / (rs2_val & 0xFFFFFFFF)) & (2**(xlen)-1)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -906,8 +916,9 @@ divuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  operation: 'hex(int((rs1_val & 0xFFFFFFFF) / (rs2_val & 0xFFFFFFFF)) & (2**(xlen)-1)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -921,6 +932,7 @@ remw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
+  operation: 'hex(((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF)) & (2**(xlen)-1)) if (rs2_val&0xFFFFFFFF)!=0 else hex(rs1_val)'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -936,8 +948,9 @@ remuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  operation: 'hex(((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF)) & (2**(xlen)-1)) if (rs2_val&0xFFFFFFFF)!=0 else hex(rs1_val)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -950,6 +963,7 @@ c.mv:
   xlen: [32,64]
   isa: IC
   formattype: 'cmvformat'
+  operation: 'hex(rs2_val)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   template: |-
 
@@ -963,6 +977,7 @@ c.add:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val + rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen,True)'
   template: |-
@@ -977,6 +992,7 @@ c.addw:
   xlen: [64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val & 0xFFFFFFFF) + (rs2_val & 0xFFFFFFFF) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -991,6 +1007,7 @@ c.and:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val & rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1005,6 +1022,7 @@ c.or:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val | rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1019,6 +1037,7 @@ c.xor:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val ^ rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1033,6 +1052,7 @@ c.sub:
   xlen: [32,64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val - rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1047,6 +1067,7 @@ c.subw:
   xlen: [64]
   isa: IC
   formattype: 'crformat'
+  operation: 'hex((rs1_val & 0xFFFFFFFF) - (rs2_val & 0xFFFFFFFF) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1060,6 +1081,7 @@ c.andi:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
+  operation: 'hex((rs1_val & imm_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(6)+gen_sp_dataset(6)'
   template: |-
@@ -1084,6 +1106,7 @@ c.addi:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
+  operation: 'hex((rs1_val + imm_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(6) + gen_sp_dataset(6)'
   template: |-
@@ -1097,6 +1120,7 @@ c.addiw:
   xlen: [64]
   isa: IC
   formattype: 'ciformat'
+  operation: 'hex(((rs1_val & 0xFFFFFFFF) + (imm_val & 0xffffffff)) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(6) + gen_sp_dataset(6)'
   template: |-
@@ -1110,6 +1134,7 @@ c.addi16sp:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
+  operation: 'hex((rs1_val + imm_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'list(filter( lambda x: x!=0 , [ 16*x for x in gen_sign_dataset(6)])) + [496]'
   template: |-
@@ -1123,6 +1148,7 @@ c.addi4spn:
   xlen: [32,64]
   isa: IC
   formattype: 'ciwformat'
+  operation: 'hex(imm_val)'
   imm_val_data: 'list(filter( lambda x: x!=0 , [ 4*x for x in gen_usign_dataset(8)]))'
   template: |-
 
@@ -1135,6 +1161,7 @@ c.slli:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
+  operation: 'hex((rs1_val << imm_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
@@ -1148,6 +1175,7 @@ c.srli:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
+  operation: 'hex(((rs1_val & (2**(xlen)-1)) >> imm_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
@@ -1161,6 +1189,7 @@ c.srai:
   xlen: [32,64]
   isa: IC
   formattype: 'cbformat'
+  operation: 'hex(sra(rs1_val & (2**(xlen)-1), (imm_val%xlen)) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0, gen_usign_dataset(ceil(log(xlen,2)))))'
   template: |-
@@ -1186,6 +1215,7 @@ c.lui:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
+  operation: 'hex(imm_val << (xlen-20) &(2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0 ,gen_usign_dataset(6)))'
   template: |-

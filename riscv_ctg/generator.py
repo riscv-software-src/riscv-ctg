@@ -526,6 +526,8 @@ class Generator():
         for op,val_soln in zip(op_comb,val_comb):
             val = [x for x in val_soln]
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
+                if not val:
+                    val = [0 for _ in range(len(self.val_vars))] + [""]
                 cont.append(val_soln)
                 op_inds = list(ind_dict.keys())
                 for i,x in enumerate(op_inds):
