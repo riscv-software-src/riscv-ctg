@@ -3,6 +3,11 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.4.1] - 2020-12-13
+  - Fixed correctval generation for existing ops.
+  - Fixed signedness of operand values for m ext instructions.
+  - Added operation strings for m and c extensions.
+
 [0.4.0] - 2020-11-19
   - Added base_isa as option in cli
   - Added support for register set based on base isa.
