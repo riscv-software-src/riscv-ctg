@@ -1,5 +1,5 @@
 # See LICENSE.incore for details
-
+import random
 from collections import defaultdict
 from constraint import *
 import re
@@ -513,9 +513,9 @@ class Generator():
         cont = []
 
         if len(op_comb) < len(val_comb):
-            op_comb = list(op_comb) + [[]] * (len(val_comb) - len(op_comb))
+            op_comb = list(op_comb) + [[random.choice(self.datasets[var]) for var in self.op_vars]+ [""]] * (len(val_comb) - len(op_comb))
         elif len(val_comb) < len(op_comb):
-            val_comb = list(val_comb) + [[]] * (len(op_comb) - len(val_comb))
+            val_comb = list(val_comb) + [[random.choice(self.datasets[var]) for var in self.val_vars] + [""]] * (len(op_comb) - len(val_comb))
 
         x = dict([(y,x) for x,y in enumerate(self.val_vars)])
         ind_dict = {}
@@ -526,8 +526,6 @@ class Generator():
         for op,val_soln in zip(op_comb,val_comb):
             val = [x for x in val_soln]
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
-                if not val:
-                    val = [0 for _ in range(len(self.val_vars))] + [""]
                 cont.append(val_soln)
                 op_inds = list(ind_dict.keys())
                 for i,x in enumerate(op_inds):
