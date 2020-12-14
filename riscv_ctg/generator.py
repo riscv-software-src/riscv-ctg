@@ -511,11 +511,10 @@ class Generator():
         '''
         instr_dict = []
         cont = []
-
         if len(op_comb) < len(val_comb):
-            op_comb = list(op_comb) + [[random.choice(self.datasets[var]) for var in self.op_vars]+ [""]] * (len(val_comb) - len(op_comb))
+            op_comb = list(op_comb) + [[]] * (len(val_comb) - len(op_comb))
         elif len(val_comb) < len(op_comb):
-            val_comb = list(val_comb) + [[random.choice(self.datasets[var]) for var in self.val_vars] + [""]] * (len(op_comb) - len(val_comb))
+            val_comb = list(val_comb) + [[self.datasets[var][0] for var in self.val_vars] + [""]] * (len(op_comb) - len(val_comb))
 
         x = dict([(y,x) for x,y in enumerate(self.val_vars)])
         ind_dict = {}
