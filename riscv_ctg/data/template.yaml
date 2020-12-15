@@ -852,7 +852,7 @@ rem:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex((rs1_val % rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else hex(rs1_val)'
+  operation: 'hex(rs1_val if rs2_val==0 or (rs1_val<rs2_val and rs2_val<0) else (rs1_val % rs2_val) & (2**(xlen)-1))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
