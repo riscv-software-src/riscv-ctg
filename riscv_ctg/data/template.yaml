@@ -296,7 +296,7 @@ sltiu:
   rd_op_data: *all_regs
   xlen: [32,64]
   isa: I
-  operation: 'hex(int(rs1_val < imm_val) & (2**(xlen)-1))'
+  operation: 'hex(int(rs1_val < int(imm_val if imm_val&0x800 == 0 else imm_val + int("0x"+"".join("f"*int((xlen-12)/4)+"000"),16))) & (2**(xlen)-1))'
   rs1_val_data: 'gen_usign_dataset(xlen)+ gen_sp_dataset(xlen,False)'
   imm_val_data: 'gen_usign_dataset(12)+ gen_sp_dataset(12,False)'
   formattype: 'iformat'
