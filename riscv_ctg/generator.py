@@ -757,7 +757,10 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        normalise = (lambda x,y: x) if 'rd' not in self.op_vars else (lambda x,y: 0 if y['rd']=='x0' else x)
+        if self.fmt in ['caformat','crformat']:
+            normalise = lambda x,y: 0 if y['rs1']=='x0' else x
+        else:
+            normalise = (lambda x,y: x) if 'rd' not in self.op_vars else (lambda x,y: 0 if y['rd']=='x0' else x)
         if self.operation:
             for i in range(len(instr_dict)):
                 for var in self.val_vars:
