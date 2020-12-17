@@ -820,7 +820,7 @@ div:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(int(rs1_val / rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else "0x"+("F"*int(xlen/4))'
+  operation:  'hex(int(abs(rs1_val)//abs(rs2_val))) if (rs1_val * rs2_val > 0) else hex(-int(abs(rs1_val)//abs(rs2_val))) if rs2_val != 0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -836,7 +836,7 @@ divu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(int(rs1_val / rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else "0x"+("F"*int(xlen/4))'
+  operation: 'hex(int(rs1_val // rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
@@ -853,7 +853,7 @@ rem:
   isa: IM
   formattype: 'rformat'
   #  operation: 'hex(rs1_val if rs2_val==0 or (rs1_val<rs2_val and rs2_val<0) else (rs1_val % rs2_val) & (2**(xlen)-1))'
-  operation: 'hex(rs1_val) if rs2_val == 0 else hex(int(fmod(rs1_val,rs2_val)))'
+  operation: 'hex(rs1_val) if rs2_val == 0 else hex(int(abs(rs1_val) % abs(rs2_val))) if rs1_val > 0 else hex(-int(abs(rs1_val) % abs(rs2_val)))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -869,7 +869,7 @@ remu:
   xlen: [32,64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex((rs1_val % rs2_val) & (2**(xlen)-1)) if rs2_val!=0 else hex(rs1_val)'
+  operation: 'hex(rs1_val) if rs2_val == 0 else hex(int(abs(rs1_val) % abs(rs2_val))) '
   rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
@@ -901,7 +901,8 @@ divw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(sign_extend(int((rs1_val & 0xFFFFFFFF) / (rs2_val & 0xFFFFFFFF)) ,32)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
+  #  operation: 'hex(sign_extend(int((rs1_val & 0xFFFFFFFF) // (rs2_val & 0xFFFFFFFF)) ,32)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
+  operation: 'hex(sign_extend(int(abs(sign_extend(rs1_val,32))//abs(sign_extend(rs2_val,32))),32)) if (sign_extend(rs1_val,32) * sign_extend(rs2_val,32) > 0) else hex(-int(abs(sign_extend(rs1_val,32))//abs(sign_extend(rs2_val, 32)))) if sign_extend(rs2_val,32) != 0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -917,7 +918,7 @@ divuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(sign_extend(int((rs1_val & 0xFFFFFFFF) / (rs2_val & 0xFFFFFFFF)) ,32)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
+  operation: 'hex(sign_extend(int((rs1_val & 0xFFFFFFFF) // (rs2_val & 0xFFFFFFFF)) ,32)) if (rs2_val&0xFFFFFFFF)!=0 else "0x"+("F"*int(xlen/4))'
   rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
@@ -933,7 +934,8 @@ remw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(sign_extend(((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF)) , 32)) if (rs2_val&0xFFFFFFFF)!=0 else hex(rs1_val)'
+  #  operation: 'hex(sign_extend(((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF)) , 32)) if (rs2_val&0xFFFFFFFF)!=0 else hex(rs1_val)'
+  operation: 'hex(sign_extend(rs1_val,32)) if (rs2_val&0xffffffff) == 0 else hex(sign_extend(int(abs(sign_extend(rs1_val,32)) % abs(sign_extend(rs2_val,32))),32)) if sign_extend(rs1_val,32) > 0 else hex(-int(abs(sign_extend(rs1_val,32)) % abs(sign_extend(rs2_val,32))))'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
@@ -949,7 +951,7 @@ remuw:
   xlen: [64]
   isa: IM
   formattype: 'rformat'
-  operation: 'hex(sign_extend((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF) , 32)) if (rs2_val&0xFFFFFFFF)!=0 else hex(rs1_val)'
+  operation: 'hex(sign_extend((rs1_val & 0xFFFFFFFF) % (rs2_val & 0xFFFFFFFF) , 32)) if (rs2_val&0xFFFFFFFF)!=0 else hex(sign_extend(rs1_val,32))'
   rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
@@ -993,7 +995,7 @@ c.addw:
   xlen: [64]
   isa: IC
   formattype: 'crformat'
-  operation: 'hex(sign_extend((rs1_val & 0xFFFFFFFF) + (rs2_val & 0xFFFFFFFF) ,32))'
+  operation: 'hex(sign_extend((rs1_val + rs2_val) ,32))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1068,7 +1070,7 @@ c.subw:
   xlen: [64]
   isa: IC
   formattype: 'crformat'
-  operation: 'hex(sign_extend((rs1_val & 0xFFFFFFFF) - (rs2_val & 0xFFFFFFFF) & ,32))'
+  operation: 'hex(sign_extend((rs1_val & 0xFFFFFFFF) - (rs2_val & 0xFFFFFFFF) ,32))'
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
   template: |-
@@ -1217,7 +1219,7 @@ c.lui:
   xlen: [32,64]
   isa: IC
   formattype: 'ciformat'
-  operation: 'hex(imm_val << (xlen-20) &(2**(xlen)-1))'
+  operation: 'hex(sign_extend(imm_val << 12,32))'
   rs1_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'list(filter(lambda x: x!=0 ,gen_usign_dataset(6)))'
   template: |-
