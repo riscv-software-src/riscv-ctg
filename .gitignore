@@ -20,6 +20,8 @@ lib64/
 parts/
 sdist/
 var/
+test_demo/
+riscv_ctg.egg-info/
 wheels/
 *.egg-info/
 .installed.cfg
