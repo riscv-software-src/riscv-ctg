@@ -8,6 +8,7 @@ from riscv_ctg.log import logger
 import time
 from math import *
 import struct
+from riscv_isac.gen_fp_dataset_mod import *
 
 twos_xlen = lambda x: twos(x,xlen)
 
@@ -27,7 +28,8 @@ OPS = {
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
-    'cjformat': []
+    'cjformat': [],
+    'frformat': ['rs1', 'rs2', 'rd'],
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -47,7 +49,8 @@ VALS = {
     'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val']
+    'cjformat': ['imm_val'],
+    'frformat': ['rs1_val', 'rs2_val','rm_val'],
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -118,7 +121,10 @@ class Generator():
             if key in opnode:
                 datasets[entry] = eval(opnode[key])
             else:
-                datasets[entry] = ['x'+str(i)]
+                if opcode[0] == 'f':
+                    datasets[entry] = ['f'+str(i)]
+                else:
+                    datasets[entry] = ['x'+str(i)]
                 i+=1
         for entry in self.val_vars:
             key = entry+"_data"
@@ -243,10 +249,20 @@ class Generator():
 
         :return: a dictionary of solutions for the various value combinations specified in the CGF file.
         '''
+
+        val_comb = []        
+
+        if self.opcode[0] == 'f':  # Valcomb using solver not needed as IBM test suite itself gives the final Operand values for the instruction
+            for rs1_val, rs2_val, rm_val in zip(self.datasets['rs1_val'], self.datasets['rs2_val'], self.datasets['rm_val']):
+                val_tuple = [rs1_val, rs2_val, rm_val]
+                cond_str = 'rs1=='+rs1_val+', rs2_val=='+rs2_val+', rm_val=='+rm_val
+                val_tuple.append(cond_str)
+                val_comb.append(tuple(val_tuple))
+            return val_comb
+
         logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
             return []
-        val_comb = []
 
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
@@ -478,7 +494,10 @@ class Generator():
                 instr[var] = str(reg)
         else:
             for i,var in enumerate(self.op_vars):
-                instr[var] = 'x'+str(i+10)
+                if self.opcode[0] == 'f':
+                    instr[var] = 'f'+str(i+10)
+                else:
+                    instr[var] = 'x'+str(i+10)
         if val:
             for i,var in enumerate(self.val_vars):
                 instr[var] = str(val[i])
@@ -564,6 +583,8 @@ class Generator():
             else:
                 instr_dict.append(self.__instr__(op,val))
 
+        #return instr_dict
+
         hits = defaultdict(lambda:set([]))
         final_instr = []
         def eval_inst_coverage(coverpoints,instr):
@@ -574,6 +595,8 @@ class Generator():
                 rs1_val = int(instr['rs1_val'])
             if 'rs2_val' in instr:
                 rs2_val = int(instr['rs2_val'])
+            if 'rm_val' in instr:
+                rm_val = int(instr['rm_val'])
             if 'imm_val' in instr:
                 if instr['inst'] in ['c.j','c.jal']:
                     imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
@@ -637,8 +660,8 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-    @staticmethod
-    def swreg(instr_dict):
+    #@staticmethod
+    def swreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a signature pointer for each instruction.
@@ -657,6 +680,25 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+
+        if self.opcode[0] == 'f': # Hardcode required registers for FP instruction
+           offset = 0
+           val_offset = 0
+           for i in range(len(instr_dict)):
+                if 'swreg' not in instr_dict[i]:
+                    instr_dict[i]['swreg'] = 'x15'
+                    instr_dict[i]['valaddr_reg'] = 'x16'
+                    instr_dict[i]['flagreg'] = 'x17' 
+                    instr_dict[i]['offset'] = str(offset)
+                    instr_dict[i]['val_offset'] = str(val_offset)
+                    offset += int(xlen/8)
+                    val_offset += 2*(int(xlen/8))
+                    if offset == 2048:
+                        offset = 0
+                    if val_offset == 2048:
+                        val_offset = 0
+           return instr_dict 
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -664,6 +706,7 @@ class Generator():
         count = 0
         assigned = 0
         offset = 0
+
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
@@ -793,7 +836,7 @@ class Generator():
                 #         size = '>Q'
                 #     else:
                 #         size = '>q'
-                if 'val' in field and field != 'correctval':
+                if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and field != 'val_offset':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(xlen/4))
@@ -805,8 +848,8 @@ class Generator():
         return instr_dict
 
 
-    @staticmethod
-    def write_test(file_name,node,label,instr_dict, op_node, usage_str):
+    #@staticmethod
+    def write_test(self,file_name,node,label,instr_dict, op_node, usage_str):
         '''
         This function generates the test using various templates.
 
@@ -829,6 +872,15 @@ class Generator():
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
+        if self.opcode[0] == 'f':
+            vreg = instr_dict[0]['valaddr_reg']
+            k = 0
+            data.append("test_fp:")
+            for rs1_val, rs2_val in zip(self.datasets['rs1_val'],self.datasets['rs2_val']):
+                rs1_val = hex(int(rs1_val)) 
+                rs2_val = hex(int(rs2_val))
+                data.append(".word "+rs1_val)
+                data.append(".word "+rs2_val)
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
@@ -836,12 +888,18 @@ class Generator():
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
+            if self.opcode[0] == 'f':    
+                if instr['val_offset'] == '0' and k == 0:
+                    code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
+                    k = 1;
+                elif instr['val_offset'] == '0' and k!= 0:
+                    code.append("RVTEST_VALBASEUPD("+vreg+")")
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
                 regs[sreg]+=1
                 sreg = instr['swreg']
-                code.append("RVTEST_SIGBASE( "+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
+                code.append("RVTEST_SIGBASE("+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
             else:
                 n+=1
             code.append(res)

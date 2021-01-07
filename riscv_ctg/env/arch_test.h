@@ -68,6 +68,8 @@
 #if XLEN==64
   #define SREG sd
   #define LREG ld
+  #define FLREG fld
+  #define FSREG fsd
   #define REGWIDTH 8
   #define MASK 0xFFFFFFFFFFFFFFFF
 
@@ -75,6 +77,8 @@
   #if XLEN==32
     #define SREG sw
     #define LREG lw
+    #define FLREG flw
+    #define FSREG fsw
     #define REGWIDTH 4
   #define MASK 0xFFFFFFFF
 
@@ -530,6 +534,14 @@ rvtest_data_end:
   LA(_R,_TAG);\
   .set offset,0;
 
+#define RVTEST_VALBASEUPD(_BR,...)\
+    .if NARG(__VA_ARGS__) == 0;\
+        addi _BR,_BR,2048;\
+    .endif;\
+    .if NARG(__VA_ARGS__) == 1;\
+        LA(_BR,_ARG1(__VA_ARGS__,x0));\
+    .endif;\
+
 .set offset,0;
 #define _ARG5(_1ST,_2ND, _3RD,_4TH,_5TH,...) _5TH
 #define _ARG4(_1ST,_2ND, _3RD,_4TH,...) _4TH
@@ -545,6 +557,17 @@ rvtest_data_end:
   .if NARG(__VA_ARGS__) == 0;\
     SREG _R,offset(_BR);\
   .set offset,offset+REGWIDTH;\
+  .endif;
+#define RVTEST_SIGUPD_F(_BR,_R,_F...)\
+  .if NARG(__VA_ARGS__) == 1;\
+    FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
+    .set offset,_ARG1(__VA_ARGS__,0)+(2*REGWIDTH);\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 0;\
+    FSREG _R,offset(_BR);\
+    SREG _F,offset+REGWIDTH(_BR);\
+    .set offset,offset+(2*REGWIDTH);\
   .endif;
 
 /*
@@ -744,6 +767,11 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     RVTEST_SIGUPD(swreg,destreg,offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
+#define TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, code... ) \
+    code; \
+    RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset); \
+    RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
+
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LA testreg, 1f; \
@@ -765,6 +793,16 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
+    )
+
+//Tests for Floating-point instructions with register-register operand
+#define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, valaddr_reg, val_offset, flagreg, swreg, offset) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
+      flw freg1, val_offset(valaddr_reg); \
+      flw freg2, val_offset+4(valaddr_reg); \
+      fsrmi rm; \
+      inst destreg, freg1, freg2; \
+      frflags flagreg; \
     )
 
 #define TEST_CNOP_OP( inst, testreg, imm_val, swreg, offset) \
