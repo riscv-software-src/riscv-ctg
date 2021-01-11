@@ -6,11 +6,11 @@ fence:
   opcode: 
     fence: 0
 
-fadd:
+fadd.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fadd: 0
+      fadd.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -20,8 +20,25 @@ fadd:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        'gen_fp_cpts(flen,"fadd")': 0
+        'gen_fp_cpts(flen,"fadd.s")': 0
+
+fadd.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fadd.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_cpts(flen,"fadd.d")': 0
+
 
 

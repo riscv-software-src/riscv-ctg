@@ -31,10 +31,14 @@ def create_test(usage_str, node,label,base_isa):
         op_node = cgf_op[opcode]
         if xlen not in op_node['xlen']:
             return
+        if 'flen' in op_node:
+            flen = int(op_node['flen'])
+        else:
+            flen = 0
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize,xlen,base_isa)
+        gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
         instr_dict = gen.swreg(gen.gen_inst(op_comb, val_comb, node))

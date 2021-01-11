@@ -84,7 +84,7 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa_str):
+    def __init__(self,fmt,opnode,opcode,randomization,xl,fl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -100,7 +100,9 @@ class Generator():
         '''
         global xlen
         global base_isa
+        global flen
         xlen = xl
+        flen = fl
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
@@ -251,14 +253,20 @@ class Generator():
         '''
 
         val_comb = []        
-
+        logger.debug(self.opcode + ' : Generating ValComb')
         if self.opcode[0] == 'f':  # Valcomb using solver not needed as IBM test suite itself gives the final Operand values for the instruction
-            for rs1_val, rs2_val, rm_val in zip(self.datasets['rs1_val'], self.datasets['rs2_val'], self.datasets['rm_val']):
-                val_tuple = [rs1_val, rs2_val, rm_val]
-                cond_str = 'rs1=='+rs1_val+', rs2_val=='+rs2_val+', rm_val=='+rm_val
-                val_tuple.append(cond_str)
-                val_comb.append(tuple(val_tuple))
-            return val_comb
+           if 'val_comb' not in cgf:
+                return []
+            
+           for value_list in cgf['val_comb']:
+               comment = re.sub("\sand\s",",", value_list)
+               values = value_list
+               for val_var in self.val_vars:
+                   values = re.sub(val_var+"==", "", values)
+               val_tuple = re.split("\sand\s", values)
+               val_tuple.append(comment)
+               val_comb.append(tuple(val_tuple))
+        return val_comb   
 
         logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
@@ -691,8 +699,8 @@ class Generator():
                     instr_dict[i]['flagreg'] = 'x17' 
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
-                    offset += int(xlen/8)
-                    val_offset += 2*(int(xlen/8))
+                    offset += (flen/8)+(xlen/8) #result+flag
+                    val_offset += 2*(int(flen/8))
                     if offset == 2048:
                         offset = 0
                     if val_offset == 2048:
@@ -876,11 +884,22 @@ class Generator():
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
             data.append("test_fp:")
-            for rs1_val, rs2_val in zip(self.datasets['rs1_val'],self.datasets['rs2_val']):
+            for value_list in node['val_comb']:
+               rs1 = []; rs2 = []
+               values = value_list
+               for val_var in self.val_vars:
+                   values = re.sub(val_var+"==", "", values)
+               val_tuple = re.split("\sand\s", values)
+               rs1.append(val_tuple[0]); rs2.append(val_tuple[1])
+               for rs1_val, rs2_val in zip(rs1,rs2):
                 rs1_val = hex(int(rs1_val)) 
                 rs2_val = hex(int(rs2_val))
-                data.append(".word "+rs1_val)
-                data.append(".word "+rs2_val)
+                if flen == 32:
+                    data.append(".word "+rs1_val)
+                    data.append(".word "+rs2_val)
+                elif flen == 64:
+                    data.append(".dword "+rs1_val)
+                    data.append(".dword "+rs2_val)
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']

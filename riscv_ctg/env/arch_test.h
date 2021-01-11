@@ -68,8 +68,6 @@
 #if XLEN==64
   #define SREG sd
   #define LREG ld
-  #define FLREG fld
-  #define FSREG fsd
   #define REGWIDTH 8
   #define MASK 0xFFFFFFFFFFFFFFFF
 
@@ -77,13 +75,25 @@
   #if XLEN==32
     #define SREG sw
     #define LREG lw
-    #define FLREG flw
-    #define FSREG fsw
     #define REGWIDTH 4
   #define MASK 0xFFFFFFFF
 
   #endif
 #endif
+
+#if FLEN==64
+  #define FLREG fld
+  #define FSREG fsd
+  #define FREGWIDTH 8
+
+#else 
+  #if FLEN==32
+    #define FLREG flw
+    #define FSREG fsw
+    #define FREGWIDTH 4
+  #endif
+#endif
+
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
 
@@ -561,13 +571,13 @@ rvtest_data_end:
 #define RVTEST_SIGUPD_F(_BR,_R,_F...)\
   .if NARG(__VA_ARGS__) == 1;\
     FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
-    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
-    .set offset,_ARG1(__VA_ARGS__,0)+(2*REGWIDTH);\
+    SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
+    .set offset,_ARG1(__VA_ARGS__,0)+(FREGWIDTH+REGWIDTH);\
   .endif;\
   .if NARG(__VA_ARGS__) == 0;\
     FSREG _R,offset(_BR);\
-    SREG _F,offset+REGWIDTH(_BR);\
-    .set offset,offset+(2*REGWIDTH);\
+    SREG _F,offset+FREGWIDTH(_BR);\
+    .set offset,offset+(FREGWIDTH+REGWIDTH);\
   .endif;
 
 /*
@@ -798,11 +808,11 @@ RVTEST_SIGUPD(swreg,destreg,offset)
 //Tests for Floating-point instructions with register-register operand
 #define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, valaddr_reg, val_offset, flagreg, swreg, offset) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
-      flw freg1, val_offset(valaddr_reg); \
-      flw freg2, val_offset+4(valaddr_reg); \
-      fsrmi rm; \
+      FLREG freg1, val_offset(valaddr_reg); \
+      FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
+      csrrwi x0, frm, rm; \
       inst destreg, freg1, freg2; \
-      frflags flagreg; \
+      csrrs rd, fflags, x0; \
     )
 
 #define TEST_CNOP_OP( inst, testreg, imm_val, swreg, offset) \
