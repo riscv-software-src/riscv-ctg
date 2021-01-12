@@ -11,7 +11,6 @@ from riscv_isac.cgf_normalize import expand_cgf
 from riscv_ctg.generator import Generator
 from math import *
 from riscv_ctg.__init__ import __version__
-import riscv_isac.gen_fp_dataset_mod as gen_fp_cgf
 
 def create_test(usage_str, node,label,base_isa):
     global cgf_op
@@ -41,7 +40,7 @@ def create_test(usage_str, node,label,base_isa):
         gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
-        instr_dict = gen.swreg(gen.gen_inst(op_comb, val_comb, node))
+        instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
         logger.info("Writing test to "+str(fname))
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fname,node,label,my_dict, op_node, usage_str)
@@ -58,8 +57,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     usage_str = const.usage.safe_substitute(xlen=xlen_arg, \
             cgf=cgf_file, version = __version__, time=mytime)
     cgf_op = utils.load_yaml(const.template_file)
-    cgf = gen_fp_cgf.expand_cgf(cgf_file, xlen)  # Temporary command to load CGF from IBM test suite. Will be removed later once its integarted with isac
-    #cgf = expand_cgf(cgf_file,xlen)
+    cgf = expand_cgf(cgf_file,xlen)
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa) for label,node in cgf.items()])
     pool.close()

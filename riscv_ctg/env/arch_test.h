@@ -806,7 +806,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     )
 
 //Tests for Floating-point instructions with register-register operand
-#define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, valaddr_reg, val_offset, flagreg, swreg, offset) \
+#define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg1, val_offset(valaddr_reg); \
       FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \

@@ -264,6 +264,8 @@ class Generator():
                for val_var in self.val_vars:
                    values = re.sub(val_var+"==", "", values)
                val_tuple = re.split("\sand\s", values)
+               for i in range(len(val_tuple)):
+                   val_tuple[i] = int(val_tuple[i],16)
                val_tuple.append(comment)
                val_comb.append(tuple(val_tuple))
         return val_comb   
@@ -590,8 +592,9 @@ class Generator():
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
                 instr_dict.append(self.__instr__(op,val))
-
-        #return instr_dict
+        
+        if self.opcode[0] == 'f':
+            return instr_dict
 
         hits = defaultdict(lambda:set([]))
         final_instr = []
@@ -699,7 +702,7 @@ class Generator():
                     instr_dict[i]['flagreg'] = 'x17' 
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
-                    offset += (flen/8)+(xlen/8) #result+flag
+                    offset += int((flen/8)+(xlen/8))
                     val_offset += 2*(int(flen/8))
                     if offset == 2048:
                         offset = 0
@@ -748,8 +751,8 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-    @staticmethod
-    def testreg(instr_dict):
+    
+    def testreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a test register for each instruction.
@@ -765,6 +768,11 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        if self.opcode[0] == 'f':
+            for i in range(len(instr_dict)):
+                instr_dict[i]['testreg'] = 'x18'
+            return instr_dict
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -808,6 +816,11 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        if self.opcode[0] == 'f':
+            for i in range(len(instr_dict)):
+                instr_dict[i]['correctval'] = '0'
+            return instr_dict
+
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -892,8 +905,8 @@ class Generator():
                val_tuple = re.split("\sand\s", values)
                rs1.append(val_tuple[0]); rs2.append(val_tuple[1])
                for rs1_val, rs2_val in zip(rs1,rs2):
-                rs1_val = hex(int(rs1_val)) 
-                rs2_val = hex(int(rs2_val))
+                rs1_val = (rs1_val) 
+                rs2_val = (rs2_val)
                 if flen == 32:
                     data.append(".word "+rs1_val)
                     data.append(".word "+rs2_val)
