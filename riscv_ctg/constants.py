@@ -133,7 +133,7 @@ usage = Template('''// -----------
 // version   : $version
 // timestamp : $time
 // usage     : riscv_ctg \\
-$cgf_argument//                  --base-isa $base_isa \\
+$cgf_argument//                  --base-isa $base_isa$randomize_argument
 // -----------
 //''')
 

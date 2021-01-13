@@ -53,8 +53,12 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     cgf_argument = ''
     for cf in cgf_file:
         cgf_argument += '//                  --cgf {} \\\n'.format(cf)
+    randomize_argument = ''
+    if random is True:
+        randomize_argument = ' \\\n//                  --randomize'
     usage_str = const.usage.safe_substitute(base_isa=base_isa, \
-            cgf_argument=cgf_argument, version = __version__, time=mytime)
+            cgf_argument=cgf_argument, version = __version__, time=mytime, \
+            randomize_argument=randomize_argument)
     cgf_op = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
     pool = mp.Pool(num_procs)
