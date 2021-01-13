@@ -135,7 +135,7 @@ usage = Template('''
 // timestamp : $time
 // usage     : riscv_ctg \\
 //                  -- cgf $cgf \\
-//                  -- xlen $xlen \\
+//                  --base-isa $base_isa \\
 // -----------
 //''')
 

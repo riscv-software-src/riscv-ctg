@@ -50,7 +50,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     out_dir = out
     randomize = random
     mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
-    usage_str = const.usage.safe_substitute(xlen=xlen_arg, \
+    usage_str = const.usage.safe_substitute(base_isa=base_isa, \
             cgf=cgf_file, version = __version__, time=mytime)
     cgf_op = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
