@@ -13,8 +13,7 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.option('--verbose', '-v', default='error', help='Set verbose level', type=click.Choice(['info','error','debug'],case_sensitive=False))
 @click.option('--out-dir', '-d', default='./', type=click.Path(resolve_path=True,writable=True), help='Output directory path')
 @click.option('--randomize','-r', default=False , is_flag='True', help='Randomize Outputs.')
-# @click.option('--xlen','-x',type=click.Choice(['32','64']),help="XLEN value for the ISA.")
-@click.option('--cgf','-cf',multiple=True,type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file.")
+@click.option('--cgf','-cf',multiple=True,type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file(s). Multiple allowed.")
 @click.option('--procs','-p',type=int,default=1,help='Max number of processes to spawn')
 @click.option('--base-isa','-bi',type=click.Choice(['rv32e','rv32i','rv64i']),help="Base ISA string for the tests.")
 def cli(verbose, out_dir, randomize , cgf,procs,base_isa):
