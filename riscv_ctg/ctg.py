@@ -1,4 +1,5 @@
 # See LICENSE.incore file for details
+# See LICENSE.iitm file for details
 
 import os,re
 import multiprocessing as mp

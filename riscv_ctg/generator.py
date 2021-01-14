@@ -1,5 +1,6 @@
 # See LICENSE.incore for details
-import random
+# See LICENSE.iitm for details
+
 from collections import defaultdict
 from constraint import *
 import re
@@ -671,7 +672,7 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-    #@staticmethod
+    
     def swreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
