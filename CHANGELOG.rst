@@ -3,6 +3,12 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.4.2] - 2021-01-15
+  - Fixed header base_isa argument
+  - Change header configuration argument list
+  - Remove first empty line in assembler output
+  - Add header randomization argument
+
 [0.4.1] - 2020-12-13
   - Fixed correctval generation for existing ops.
   - Fixed signedness of operand values for m ext instructions.
