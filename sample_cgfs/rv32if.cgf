@@ -1,10 +1,10 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fadd:
+fadd.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fadd: 0
+      fadd.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -15,7 +15,7 @@ fadd:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'gen_fp_dataset(32,"fadd")': 0
+        'gen_fp_dataset(32,"fadd.s")': 0
 
 
 

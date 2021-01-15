@@ -32,9 +32,10 @@ def create_test(usage_str, node,label,base_isa):
         if xlen not in op_node['xlen']:
             return
         if 'flen' in op_node:
-            flen = int(op_node['flen'])
-        else:
-            flen = 0
+            flen = 32  # Hardcoding flen=32 for fadd.s instruction
+            if flen not in op_node['flen']:
+                return
+    
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']

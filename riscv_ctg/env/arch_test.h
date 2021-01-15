@@ -81,18 +81,18 @@
   #endif
 #endif
 
-#if FLEN==64
-  #define FLREG fld
-  #define FSREG fsd
-  #define FREGWIDTH 8
+//#if FLEN==64
+//  #define FLREG fld
+//  #define FSREG fsd
+//  #define FREGWIDTH 8
 
-#else 
-  #if FLEN==32
-    #define FLREG flw
-    #define FSREG fsw
-    #define FREGWIDTH 4
-  #endif
-#endif
+//#else 
+//  #if FLEN==32
+#define FLREG flw
+#define FSREG fsw
+#define FREGWIDTH 4
+//  #endif
+//#endif
 
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
@@ -546,7 +546,7 @@ rvtest_data_end:
 
 #define RVTEST_VALBASEUPD(_BR,...)\
     .if NARG(__VA_ARGS__) == 0;\
-        addi _BR,_BR,2048;\
+        addi _BR,_BR,2040;\
     .endif;\
     .if NARG(__VA_ARGS__) == 1;\
         LA(_BR,_ARG1(__VA_ARGS__,x0));\
@@ -568,7 +568,7 @@ rvtest_data_end:
     SREG _R,offset(_BR);\
   .set offset,offset+REGWIDTH;\
   .endif;
-#define RVTEST_SIGUPD_F(_BR,_R,_F...)\
+#define RVTEST_SIGUPD_F(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
     SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
@@ -812,7 +812,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
       csrrwi x0, frm, rm; \
       inst destreg, freg1, freg2; \
-      csrrs rd, fflags, x0; \
+      csrrs flagreg, fflags, x0; \
     )
 
 #define TEST_CNOP_OP( inst, testreg, imm_val, swreg, offset) \

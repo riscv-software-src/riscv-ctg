@@ -695,7 +695,7 @@ class Generator():
 
         if self.opcode[0] == 'f': # Hardcode required registers for FP instruction
            offset = 0
-           val_offset = 0
+           val_offset = 8
            for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
                     instr_dict[i]['swreg'] = 'x15'
@@ -707,8 +707,8 @@ class Generator():
                     val_offset += 2*(int(flen/8))
                     if offset == 2048:
                         offset = 0
-                    if val_offset == 2048:
-                        val_offset = 0
+                    if val_offset == 2040:
+                        val_offset = 8
            return instr_dict 
 
         regset = e_regset if 'e' in base_isa else default_regset
@@ -898,6 +898,12 @@ class Generator():
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
             data.append("test_fp:")
+            if flen == 32:
+                data.append(".word 0x0")
+                data.append(".word 0x0")
+            elif flen == 64:
+                data.append(".dword 0x0")
+                data.append(".dword 0x0")
             for value_list in node['val_comb']:
                rs1 = []; rs2 = []
                values = value_list
@@ -922,10 +928,10 @@ class Generator():
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if self.opcode[0] == 'f':    
-                if instr['val_offset'] == '0' and k == 0:
+                if instr['val_offset'] == '8' and k == 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                     k = 1;
-                elif instr['val_offset'] == '0' and k!= 0:
+                elif instr['val_offset'] == '8' and k!= 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+")")
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))

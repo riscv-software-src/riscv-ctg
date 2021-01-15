@@ -1407,10 +1407,10 @@ c.jalr:
     // opcode:c.jalr; op1:$rs1
     TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
 
-fadd:
+fadd.s:
   xlen: [32,64]
   isa: IF
-  flen: 32
+  flen: [32,64]
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
