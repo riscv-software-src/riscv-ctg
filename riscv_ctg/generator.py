@@ -2,6 +2,7 @@
 # See LICENSE.iitm for details
 
 from collections import defaultdict
+import random
 from constraint import *
 import re
 from riscv_ctg.constants import *
@@ -269,7 +270,7 @@ class Generator():
                    val_tuple[i] = int(val_tuple[i],16)
                val_tuple.append(comment)
                val_comb.append(tuple(val_tuple))
-        return val_comb   
+               return val_comb   
 
         logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
