@@ -544,14 +544,6 @@ rvtest_data_end:
   LA(_R,_TAG);\
   .set offset,0;
 
-#define RVTEST_VALBASEUPD(_BR,...)\
-    .if NARG(__VA_ARGS__) == 0;\
-        addi _BR,_BR,2040;\
-    .endif;\
-    .if NARG(__VA_ARGS__) == 1;\
-        LA(_BR,_ARG1(__VA_ARGS__,x0));\
-    .endif;\
-
 .set offset,0;
 #define _ARG5(_1ST,_2ND, _3RD,_4TH,_5TH,...) _5TH
 #define _ARG4(_1ST,_2ND, _3RD,_4TH,...) _4TH
@@ -579,6 +571,14 @@ rvtest_data_end:
     SREG _F,offset+FREGWIDTH(_BR);\
     .set offset,offset+(FREGWIDTH+REGWIDTH);\
   .endif;
+  
+#define RVTEST_VALBASEUPD(_BR,...)\
+  .if NARG(__VA_ARGS__) == 0;\
+      addi _BR,_BR,2040;\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 1;\
+      LA(_BR,_ARG1(__VA_ARGS__,x0));\
+  .endif;\
 
 /*
  * RVTEST_BASEUPD(base reg) - updates the base register the last signature address + REGWIDTH
