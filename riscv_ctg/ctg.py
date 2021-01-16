@@ -18,6 +18,7 @@ def create_test(usage_str, node,label,base_isa):
     global ramdomize
     global out_dir
     global xlen
+    flen = 0
     if 'opcode' not in node:
         return
     if 'ignore' in node:
@@ -35,7 +36,6 @@ def create_test(usage_str, node,label,base_isa):
             flen = 32  # Hardcoding flen=32 for fadd.s instruction
             if flen not in op_node['flen']:
                 return
-    
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
