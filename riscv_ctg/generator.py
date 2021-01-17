@@ -125,7 +125,7 @@ class Generator():
             if key in opnode:
                 datasets[entry] = eval(opnode[key])
             else:
-                if opcode[0] == 'f':
+                if opcode[0] == 'f' and 'fence' not in opcode:
                     datasets[entry] = ['f'+str(i)]
                 else:
                     datasets[entry] = ['x'+str(i)]
@@ -256,7 +256,7 @@ class Generator():
 
         val_comb = []        
         logger.debug(self.opcode + ' : Generating ValComb')
-        if self.opcode[0] == 'f':  # Valcomb using solver not needed as IBM test suite itself gives the final Operand values for the instruction
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
            if 'val_comb' not in cgf:
                 return []
             
@@ -506,7 +506,7 @@ class Generator():
                 instr[var] = str(reg)
         else:
             for i,var in enumerate(self.op_vars):
-                if self.opcode[0] == 'f':
+                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
                     instr[var] = 'f'+str(i+10)
                 else:
                     instr[var] = 'x'+str(i+10)
@@ -595,7 +595,7 @@ class Generator():
             else:
                 instr_dict.append(self.__instr__(op,val))
         
-        if self.opcode[0] == 'f':
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             return instr_dict
 
         hits = defaultdict(lambda:set([]))
@@ -694,7 +694,7 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
 
-        if self.opcode[0] == 'f': # Hardcode required registers for FP instruction
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
            offset = 0
            val_offset = 0
            for i in range(len(instr_dict)):
@@ -770,7 +770,7 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if self.opcode[0] == 'f':
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['testreg'] = 'x18'
             return instr_dict
@@ -818,7 +818,7 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if self.opcode[0] == 'f':
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0'
             return instr_dict
@@ -895,7 +895,7 @@ class Generator():
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
-        if self.opcode[0] == 'f':
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
             data.append("test_fp:")
@@ -923,12 +923,13 @@ class Generator():
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
-            if self.opcode[0] == 'f':    
+            if self.opcode[0] == 'f' and 'fence' not in self.opcode:    
                 if instr['val_offset'] == '0' and k == 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                     k = 1;
                 elif instr['val_offset'] == '0' and k!= 0:
-                    code.append("addi "+vreg+", "+vreg+", 2040;")
+                    code.append("RVTEST_VALBASEUPD("+vreg+")")
+                    #code.append("addi "+vreg+", "+vreg+", 2040;")
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
