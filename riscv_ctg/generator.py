@@ -270,7 +270,7 @@ class Generator():
                    val_tuple[i] = int(val_tuple[i],16)
                val_tuple.append(comment)
                val_comb.append(tuple(val_tuple))
-               return val_comb   
+           return val_comb   
 
         logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
@@ -899,8 +899,7 @@ class Generator():
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
             data.append("test_fp:")
-            code.append("li x2,0x6000;")
-            code.append("csrrs x3,mstatus,x0;\nor x2,x3,x2;\ncsrrw x0,mstatus,x2;\n");
+            code.append("RVTEST_FP_ENABLE()")
             for value_list in node['val_comb']:
                rs1 = []; rs2 = []
                values = value_list
@@ -929,7 +928,7 @@ class Generator():
                     code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                     k = 1;
                 elif instr['val_offset'] == '0' and k!= 0:
-                    code.append("RVTEST_VALBASEUPD("+vreg+")")
+                    code.append("addi "+vreg+", "+vreg+", 2040;")
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
