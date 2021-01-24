@@ -900,22 +900,8 @@ class Generator():
             k = 0
             data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
-            for value_list in node['val_comb']:
-               rs1 = []; rs2 = []
-               values = value_list
-               for val_var in self.val_vars:
-                   values = re.sub(val_var+"==", "", values)
-               val_tuple = re.split("\sand\s", values)
-               rs1.append(val_tuple[0]); rs2.append(val_tuple[1])
-               for rs1_val, rs2_val in zip(rs1,rs2):
-                rs1_val = (rs1_val) 
-                rs2_val = (rs2_val)
-                if flen == 32:
-                    data.append(".word "+rs1_val)
-                    data.append(".word "+rs2_val)
-                elif flen == 64:
-                    data.append(".dword "+rs1_val)
-                    data.append(".dword "+rs2_val)
+            
+            
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
@@ -924,11 +910,18 @@ class Generator():
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if self.opcode[0] == 'f' and 'fence' not in self.opcode:    
+                if flen == 32:
+                    data.append(".word "+instr["rs1_val"])
+                    data.append(".word "+instr["rs2_val"])
+                elif flen == 64:
+                    data.append(".dword "+instr["rs1_val"])
+                    data.append(".dword "+instr["rs2_val"])
                 if instr['val_offset'] == '0' and k == 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                     k = 1;
                 elif instr['val_offset'] == '0' and k!= 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+")")
+
                     #code.append("addi "+vreg+", "+vreg+", 2040;")
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
