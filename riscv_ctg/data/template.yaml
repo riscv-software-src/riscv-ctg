@@ -1420,5 +1420,46 @@ fadd.s:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsub.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
 
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fmul.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fdiv.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 

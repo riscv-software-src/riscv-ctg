@@ -272,7 +272,6 @@ class Generator():
                val_comb.append(tuple(val_tuple))
            return val_comb   
 
-        logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
             return []
 

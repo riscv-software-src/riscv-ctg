@@ -16,7 +16,57 @@ fadd.s:
     val_comb:
       abstract_comb:
         'gen_fp_dataset(32,"fadd.s")': 0
+        
+fsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fsub.s")': 0
 
+fmul.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmul.s")': 0
+        
+fdiv.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fdiv.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fdiv.s")': 0
 
 
 
