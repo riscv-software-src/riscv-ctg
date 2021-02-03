@@ -32,6 +32,8 @@ OPS = {
     'cbformat': ['rs1'],
     'cjformat': [],
     'frformat': ['rs1', 'rs2', 'rd'],
+    'fsrformat': ['rs1', 'rd'],
+    'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -52,7 +54,9 @@ VALS = {
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
     'cjformat': ['imm_val'],
-    'frformat': ['rs1_val', 'rs2_val','rm_val'],
+    'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
+    'fsrformat': ['rs1_val', 'rm_val'],
+    'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val'],
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -704,7 +708,12 @@ class Generator():
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
                     offset += int((flen/8)+(xlen/8))
-                    val_offset += 2*(int(flen/8))
+                    if self.fmt == 'frformat':
+                        val_offset += 2*(int(flen/8))
+                    elif self.fmt == 'fsrformat':
+                        val_offset += (int(flen/8))
+                    elif self.fmt == 'fr4format':
+                        val_offset += 3*(int(flen/8))
                     if offset == 2048:
                         offset = 0
                     if val_offset == 2040:
@@ -909,12 +918,27 @@ class Generator():
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if self.opcode[0] == 'f' and 'fence' not in self.opcode:    
-                if flen == 32:
-                    data.append(".word "+instr["rs1_val"])
-                    data.append(".word "+instr["rs2_val"])
-                elif flen == 64:
-                    data.append(".dword "+instr["rs1_val"])
-                    data.append(".dword "+instr["rs2_val"])
+                if self.fmt == 'frformat':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                        data.append(".word "+instr["rs2_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                        data.append(".dword "+instr["rs2_val"])
+                elif self.fmt == 'fsrformat':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                elif self.fmt == 'fr4format':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                        data.append(".word "+instr["rs2_val"])
+                        data.append(".word "+instr["rs3_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                        data.append(".dword "+instr["rs2_val"])
+                        data.append(".dword "+instr["rs3_val"])
                 if instr['val_offset'] == '0' and k == 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                     k = 1;

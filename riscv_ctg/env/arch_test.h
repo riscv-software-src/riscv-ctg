@@ -802,6 +802,15 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       LI(reg, MASK_XLEN(val)); \
       inst destreg, reg, SEXT_IMM(imm); \
     )
+    
+//Tests for Floating-point instructions with a single register operand
+#define TEST_FPSR_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
+      FLREG freg, val_offset(valaddr_reg); \
+      csrrwi x0, frm, rm; \
+      inst destreg, freg; \
+      csrrs flagreg, fflags, x0; \
+    )
 
 //Tests for a instructions with register-register operand
 #define TEST_RR_OP(inst, destreg, reg1, reg2, correctval, val1, val2, swreg, offset, testreg) \
@@ -818,6 +827,17 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
       csrrwi x0, frm, rm; \
       inst destreg, freg1, freg2; \
+      csrrs flagreg, fflags, x0; \
+    )
+    
+//Tests for Floating-point R4 type instructions
+#define TEST_FPR4_OP(inst, destreg, freg1, freg2, freg3, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
+      FLREG freg1, val_offset(valaddr_reg); \
+      FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
+      FLREG freg2, val_offset+2*FREGWIDTH(valaddr_reg); \
+      csrrwi x0, frm, rm; \
+      inst destreg, freg1, freg2, freg3; \
       csrrs flagreg, fflags, x0; \
     )
 

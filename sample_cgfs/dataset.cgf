@@ -190,6 +190,20 @@ datasets:
     'rs2 == rd != rs1': 0
     'rs1 == rs2 == rd': 0
     'rs1 != rs2  and rs1 != rd and rs2 != rd': 0
+    
+  r4fmt_op_comb: &r4fmt_op_comb
+    'rs1 == rs2 == rs3 == rd': 0
+    'rs1 == rs2 == rs3 != rd': 0
+    'rs1 == rs2 == rd != rs3': 0
+    'rs1 == rd == rs3 != rs2': 0
+    'rd == rs2 == rs3 != rs1': 0
+    'rs2 == rd != rs1 and rs2 == rd != rs3 and rs3 != rs1': 0
+    'rs3 == rd != rs1 and rs3 == rd != rs2 and rs2 != rs1': 0
+    'rs2 == rs3 != rs1 and rs2 == rs3 != rd and rd != rs1': 0
+    'rs1 == rd != rs2 and rs1 == rd != rs3 and rs3 != rs2': 0
+    'rs1 == rs3 != rs2 and rs1 == rs3 != rd and rd != rs2': 0
+    'rs1 == rs2 != rs3 and rs1 == rs2 != rd and rd != rs3': 0
+    'rs1 != rs2 and rs1 != rd and rs1 != rs3 and rs2 != rs3 and rs2 != rd and rs3 != rd': 0
 
   ifmt_op_comb: &ifmt_op_comb
     'rs1 == rd': 0
