@@ -102,6 +102,40 @@ fmadd.s:
       abstract_comb:
         'gen_fp_dataset(32,"fmadd.s")': 0
 
+fmin.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmin.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmin.s")': 0
+        
+fmax.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmax.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmax.s")': 0
+
 
 
 
