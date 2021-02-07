@@ -102,6 +102,64 @@ fmadd.s:
       abstract_comb:
         'gen_fp_dataset(32,"fmadd.s")': 0
 
+fmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmsub.s")': 0
+
+fnmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fnmadd.s")': 0
+        
+fnmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fnmsub.s")': 0
+
+
 fmin.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
@@ -136,8 +194,56 @@ fmax.s:
       abstract_comb:
         'gen_fp_dataset(32,"fmax.s")': 0
 
+feq.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      feq.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"feq.s")': 0
 
-
+flt.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      flt.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"flt.s")': 0
+        
+fle.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fle.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fle.s")': 0
 
 
 
