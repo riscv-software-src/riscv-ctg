@@ -204,9 +204,9 @@ feq.s:
     rs2:
       <<: *all_fregs
     rd: 
-      <<: *all_fregs
+      <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *sfmt_op_comb
     val_comb:
       abstract_comb:
         'gen_fp_dataset(32,"feq.s")': 0
@@ -221,9 +221,9 @@ flt.s:
     rs2:
       <<: *all_fregs
     rd: 
-      <<: *all_fregs
+      <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *sfmt_op_comb
     val_comb:
       abstract_comb:
         'gen_fp_dataset(32,"flt.s")': 0
@@ -238,9 +238,9 @@ fle.s:
     rs2:
       <<: *all_fregs
     rd: 
-      <<: *all_fregs
+      <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *sfmt_op_comb
     val_comb:
       abstract_comb:
         'gen_fp_dataset(32,"fle.s")': 0

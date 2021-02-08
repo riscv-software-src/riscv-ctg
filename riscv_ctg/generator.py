@@ -510,7 +510,10 @@ class Generator():
         else:
             for i,var in enumerate(self.op_vars):
                 if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-                    instr[var] = 'f'+str(i+10)
+                    if self.opnode[var+'_op_data'][2] == 'f':
+                        instr[var] = 'f'+str(i+10)
+                    else:
+                        instr[var] = 'x'+str(i+10)
                 else:
                     instr[var] = 'x'+str(i+10)
         if val:
@@ -700,15 +703,20 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
            offset = 0
            val_offset = 0
+           hardcoded_regs = ['x15','x16','x17']
            for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
                     instr_dict[i]['swreg'] = 'x15'
                     instr_dict[i]['valaddr_reg'] = 'x16'
                     instr_dict[i]['flagreg'] = 'x17' 
+                    if instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
+                        instr_dict[i]['swreg'] = 'x19'
+                        instr_dict[i]['valaddr_reg'] = 'x20'
+                        instr_dict[i]['flagreg'] = 'x21'
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
                     offset += int((flen/8)+(xlen/8))
-                    if self.fmt == 'frformat':
+                    if self.fmt == 'frformat' or self.fmt == 'rformat':
                         val_offset += 2*(int(flen/8))
                     elif self.fmt == 'fsrformat':
                         val_offset += (int(flen/8))
@@ -781,6 +789,8 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['testreg'] = 'x18'
+                if instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
+                    instr_dict[i]['testreg'] = 'x22'
             return instr_dict
 
         regset = e_regset if 'e' in base_isa else default_regset
@@ -900,6 +910,7 @@ class Generator():
         '''
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
+        vreg = 0
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
@@ -907,9 +918,7 @@ class Generator():
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
             data.append("test_fp:")
-            code.append("RVTEST_FP_ENABLE()")
-            
-            
+            code.append("RVTEST_FP_ENABLE()")       
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
@@ -918,7 +927,7 @@ class Generator():
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if self.opcode[0] == 'f' and 'fence' not in self.opcode:    
-                if self.fmt == 'frformat':
+                if self.fmt == 'frformat' or self.fmt == 'rformat':
                     if flen == 32:
                         data.append(".word "+instr["rs1_val"])
                         data.append(".word "+instr["rs2_val"])
@@ -944,8 +953,9 @@ class Generator():
                     k = 1;
                 elif instr['val_offset'] == '0' and k!= 0:
                     code.append("RVTEST_VALBASEUPD("+vreg+")")
-
-                    #code.append("addi "+vreg+", "+vreg+", 2040;")
+                if instr['valaddr_reg'] != vreg:
+                    code.append("add "+instr['valaddr_reg']+", "+vreg+", x0;")
+                    vreg = instr['valaddr_reg']
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1

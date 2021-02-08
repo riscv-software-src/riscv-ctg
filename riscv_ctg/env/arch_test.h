@@ -577,6 +577,17 @@ rvtest_data_end:
     SREG _F,offset+FREGWIDTH(_BR);\
     .set offset,offset+(FREGWIDTH+REGWIDTH);\
   .endif;
+#define RVTEST_SIGUPD_FCMP(_BR,_R,_F,...)\
+  .if NARG(__VA_ARGS__) == 1;\
+    SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
+    .set offset,_ARG1(__VA_ARGS__,0)+(FREGWIDTH+REGWIDTH);\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 0;\
+    SREG _R,offset(_BR);\
+    SREG _F,offset+FREGWIDTH(_BR);\
+    .set offset,offset+(FREGWIDTH+REGWIDTH);\
+  .endif;
   
 #define RVTEST_VALBASEUPD(_BR,...)\
   .if NARG(__VA_ARGS__) == 0;\
@@ -787,6 +798,11 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     code; \
     RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
+    
+#define TEST_CASE_FCMP(testreg, destreg, correctval, swreg, flagreg, offset, code... ) \
+    code; \
+    RVTEST_SIGUPD_FCMP(swreg,destreg,flagreg,offset); \
+    RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
@@ -830,6 +846,15 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       csrrs flagreg, fflags, x0; \
     )
     
+//Tests for Floating-point CMP instructions with register-register operand
+#define TEST_FCMP_OP(inst, destreg, freg1, freg2, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
+    TEST_CASE_FCMP(testreg, destreg, correctval, swreg, flagreg, offset, \
+      FLREG freg1, val_offset(valaddr_reg); \
+      FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
+      inst destreg, freg1, freg2; \
+      csrrs flagreg, fflags, x0; \
+    )
+
 //Tests for Floating-point R4 type instructions
 #define TEST_FPR4_OP(inst, destreg, freg1, freg2, freg3, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
