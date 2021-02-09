@@ -577,7 +577,7 @@ rvtest_data_end:
     SREG _F,offset+FREGWIDTH(_BR);\
     .set offset,offset+(FREGWIDTH+REGWIDTH);\
   .endif;
-#define RVTEST_SIGUPD_FCMP(_BR,_R,_F,...)\
+#define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
     SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
@@ -799,9 +799,9 @@ RVTEST_SIGUPD(swreg,destreg,offset)
     RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
     
-#define TEST_CASE_FCMP(testreg, destreg, correctval, swreg, flagreg, offset, code... ) \
+#define TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, offset, code... ) \
     code; \
-    RVTEST_SIGUPD_FCMP(swreg,destreg,flagreg,offset); \
+    RVTEST_SIGUPD_FID(swreg,destreg,flagreg,offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
 #define TEST_AUIPC(inst, destreg, correctval, imm, swreg, offset, testreg) \
@@ -819,7 +819,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       inst destreg, reg, SEXT_IMM(imm); \
     )
     
-//Tests for Floating-point instructions with a single register operand
+//Tests for floating-point instructions with a single register operand
 #define TEST_FPSR_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg, val_offset(valaddr_reg); \
@@ -827,8 +827,26 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       inst destreg, freg; \
       csrrs flagreg, fflags, x0; \
     )
+    
+//Tests for floating-point instructions with a single register operand and integer destination register
+#define TEST_FPID_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
+    TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, offset, \
+      FLREG freg, val_offset(valaddr_reg); \
+      csrrwi x0, frm, rm; \
+      inst destreg, freg; \
+      csrrs flagreg, fflags, x0; \
+    )
+    
+//Tests for floating-point instructions with a single register operand and integer operand register
+#define TEST_FPIO_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
+      LREG freg, val_offset(valaddr_reg); \
+      csrrwi x0, frm, rm; \
+      inst destreg, freg; \
+      csrrs flagreg, fflags, x0; \
+    )
 
-//Tests for a instructions with register-register operand
+//Tests for instructions with register-register operand
 #define TEST_RR_OP(inst, destreg, reg1, reg2, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg1, MASK_XLEN(val1)); \
@@ -836,7 +854,7 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       inst destreg, reg1, reg2; \
     )
 
-//Tests for Floating-point instructions with register-register operand
+//Tests for floating-point instructions with register-register operand
 #define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg1, val_offset(valaddr_reg); \
@@ -846,16 +864,16 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       csrrs flagreg, fflags, x0; \
     )
     
-//Tests for Floating-point CMP instructions with register-register operand
+//Tests for floating-point CMP instructions with register-register operand
 #define TEST_FCMP_OP(inst, destreg, freg1, freg2, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
-    TEST_CASE_FCMP(testreg, destreg, correctval, swreg, flagreg, offset, \
+    TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg1, val_offset(valaddr_reg); \
       FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
       inst destreg, freg1, freg2; \
       csrrs flagreg, fflags, x0; \
     )
 
-//Tests for Floating-point R4 type instructions
+//Tests for floating-point R4 type instructions
 #define TEST_FPR4_OP(inst, destreg, freg1, freg2, freg3, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg1, val_offset(valaddr_reg); \

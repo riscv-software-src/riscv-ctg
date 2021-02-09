@@ -159,6 +159,56 @@ fnmsub.s:
       abstract_comb:
         'gen_fp_dataset(32,"fnmsub.s")': 0
 
+fsgnj.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnj.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fsgnj.s")': 0
+        
+fsgnjn.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnjn.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fsgnjn.s")': 0
+        
+fsgnjx.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnjx.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fsgnjx.s")': 0
 
 fmin.s:
     config: 
@@ -245,5 +295,80 @@ fle.s:
       abstract_comb:
         'gen_fp_dataset(32,"fle.s")': 0
 
+fmv.x.w:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmv.x.w: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmv.x.w")': 0
+        
+fmv.w.x:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmv.w.x: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fmv.w.x")': 0
 
-
+fcvt.w.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.w.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fcvt.w.s")': 0
+        
+fcvt.wu.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fcvt.wu.s")': 0
+        
+fcvt.s.w:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.s.w: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fcvt.s.w")': 0
+        
+fcvt.s.wu:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.s.wu: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fcvt.s.wu")': 0
