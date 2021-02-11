@@ -778,6 +778,24 @@ nop                                                                         ;\
 RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
+#define TEST_STORE_F(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj,valaddr_reg,flagreg,val_offset)   ;\
+FLREG rs2, val_offset(valaddr_reg)                                          ;\
+addi rs1,swreg,offset+adj                                                     ;\
+LI(testreg,imm_val)                                                         ;\
+sub rs1,rs1,testreg                                                          ;\
+inst rs2, imm_val(rs1)                                                      ;\
+nop                                                                         ;\
+nop                                                                         ;\
+csrrs flagreg, fflags, x0                                                   ;\
+
+#define TEST_LOAD_F(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj,flagreg)   ;\
+LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                      ;\
+inst destreg, imm_val(rs1)                                                   ;\
+nop                                                                         ;\
+nop                                                                         ;\
+csrrs flagreg, fflags, x0                                                   ;\
+RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset) 
+
 #define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
     LI(TEMP_REG,VAL);\
     and TEMP_REG,TEMP_REG,MASK_REG;\

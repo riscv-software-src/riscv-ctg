@@ -114,7 +114,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = OPS[fmt]
         self.val_vars = VALS[fmt]
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr",'fsw','flw']:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -260,7 +260,7 @@ class Generator():
 
         val_comb = []        
         logger.debug(self.opcode + ' : Generating ValComb')
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode and self.opcode not in ['fsw','flw']:
            if 'val_comb' not in cgf:
                 return []
             
@@ -601,7 +601,7 @@ class Generator():
             else:
                 instr_dict.append(self.__instr__(op,val))
         
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode and self.opcode not in ['fsw','flw']:
             return instr_dict
 
         hits = defaultdict(lambda:set([]))
@@ -700,7 +700,7 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
 
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode and self.opcode:
            offset = 0
            val_offset = 0
            hardcoded_regs = ['x15','x16','x17']
@@ -709,7 +709,12 @@ class Generator():
                     instr_dict[i]['swreg'] = 'x15'
                     instr_dict[i]['valaddr_reg'] = 'x16'
                     instr_dict[i]['flagreg'] = 'x17' 
-                    if instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
+                    if self.opcode == 'fsw':
+                        if instr_dict[i]['rs1'] in hardcoded_regs:
+                            instr_dict[i]['swreg'] = 'x19'
+                            instr_dict[i]['valaddr_reg'] = 'x20'
+                            instr_dict[i]['flagreg'] = 'x21'
+                    elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
                         instr_dict[i]['swreg'] = 'x19'
                         instr_dict[i]['valaddr_reg'] = 'x20'
                         instr_dict[i]['flagreg'] = 'x21'
@@ -718,7 +723,7 @@ class Generator():
                     offset += int((flen/8)+(xlen/8))
                     if self.fmt == 'frformat' or self.fmt == 'rformat':
                         val_offset += 2*(int(flen/8))
-                    elif self.fmt == 'fsrformat':
+                    elif self.fmt == 'fsrformat' or self.fmt == 'sformat':
                         val_offset += (int(flen/8))
                     elif self.fmt == 'fr4format':
                         val_offset += 3*(int(flen/8))
@@ -789,7 +794,10 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['testreg'] = 'x18'
-                if instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
+                if self.opcode == 'fsw':
+                    if instr_dict[i]['rs1'] == 'x18':
+                        instr_dict[i]['testreg'] = 'x22'
+                elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
                     instr_dict[i]['testreg'] = 'x22'
             return instr_dict
 
@@ -939,6 +947,11 @@ class Generator():
                         data.append(".word "+instr["rs1_val"])
                     elif flen == 64:
                         data.append(".dword "+instr["rs1_val"])
+                elif self.fmt == 'sformat':
+                    if flen == 32:
+                        data.append(".word "+instr["rs2_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs2_val"])
                 elif self.fmt == 'fr4format':
                     if flen == 32:
                         data.append(".word "+instr["rs1_val"])
