@@ -372,3 +372,16 @@ fcvt.s.wu:
     val_comb:
       abstract_comb:
         'gen_fp_dataset(32,"fcvt.s.wu")': 0
+        
+fclass.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fclass.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fclass.s")': 0
