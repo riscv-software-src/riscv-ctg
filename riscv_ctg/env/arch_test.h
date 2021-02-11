@@ -566,6 +566,7 @@ rvtest_data_end:
     SREG _R,offset(_BR);\
   .set offset,offset+REGWIDTH;\
   .endif;
+  
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
@@ -577,6 +578,7 @@ rvtest_data_end:
     SREG _F,offset+FREGWIDTH(_BR);\
     .set offset,offset+(FREGWIDTH+REGWIDTH);\
   .endif;
+  
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
@@ -595,8 +597,10 @@ rvtest_data_end:
   .endif;\
   .if NARG(__VA_ARGS__) == 1;\
       LA(_BR,_ARG1(__VA_ARGS__,x0));\
-  .endif;\
+  .endif;
 
+#define RVTEST_VALBASEMOV(_NR,_BR)\
+  add _NR, _BR, x0;
 /*
  * RVTEST_BASEUPD(base reg) - updates the base register the last signature address + REGWIDTH
  * RVTEST_BASEUPD(base reg, new reg) - moves value of the next signature region to update into new reg
@@ -778,8 +782,9 @@ nop                                                                         ;\
 RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
-#define TEST_STORE_F(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj,valaddr_reg,flagreg,val_offset)   ;\
-FLREG rs2, val_offset(valaddr_reg)                                          ;\
+#define TEST_STORE_F(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj,flagreg)   ;\
+LI(flagreg,rs2_val)                                                           ;\
+fmv.w.x rs2, flagreg                                                          ;\
 addi rs1,swreg,offset+adj                                                     ;\
 LI(testreg,imm_val)                                                         ;\
 sub rs1,rs1,testreg                                                          ;\
@@ -787,6 +792,7 @@ inst rs2, imm_val(rs1)                                                      ;\
 nop                                                                         ;\
 nop                                                                         ;\
 csrrs flagreg, fflags, x0                                                   ;\
+RVTEST_SIGUPD(swreg,flagreg,offset)
 
 #define TEST_LOAD_F(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj,flagreg)   ;\
 LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                      ;\

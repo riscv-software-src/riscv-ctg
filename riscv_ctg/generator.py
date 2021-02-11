@@ -700,7 +700,7 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
 
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode and self.opcode:
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
            offset = 0
            val_offset = 0
            hardcoded_regs = ['x15','x16','x17']
@@ -723,7 +723,7 @@ class Generator():
                     offset += int((flen/8)+(xlen/8))
                     if self.fmt == 'frformat' or self.fmt == 'rformat':
                         val_offset += 2*(int(flen/8))
-                    elif self.fmt == 'fsrformat' or self.fmt == 'sformat':
+                    elif self.fmt == 'fsrformat':
                         val_offset += (int(flen/8))
                     elif self.fmt == 'fr4format':
                         val_offset += 3*(int(flen/8))
@@ -925,7 +925,8 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
-            data.append("test_fp:")
+            if self.opcode not in ['fsw','flw']:
+                data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")       
         n = 0
         opcode = instr_dict[0]['inst']
@@ -947,11 +948,6 @@ class Generator():
                         data.append(".word "+instr["rs1_val"])
                     elif flen == 64:
                         data.append(".dword "+instr["rs1_val"])
-                elif self.fmt == 'sformat':
-                    if flen == 32:
-                        data.append(".word "+instr["rs2_val"])
-                    elif flen == 64:
-                        data.append(".dword "+instr["rs2_val"])
                 elif self.fmt == 'fr4format':
                     if flen == 32:
                         data.append(".word "+instr["rs1_val"])
@@ -961,14 +957,15 @@ class Generator():
                         data.append(".dword "+instr["rs1_val"])
                         data.append(".dword "+instr["rs2_val"])
                         data.append(".dword "+instr["rs3_val"])
-                if instr['val_offset'] == '0' and k == 0:
-                    code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
-                    k = 1;
-                elif instr['val_offset'] == '0' and k!= 0:
-                    code.append("RVTEST_VALBASEUPD("+vreg+")")
-                if instr['valaddr_reg'] != vreg:
-                    code.append("add "+instr['valaddr_reg']+", "+vreg+", x0;")
-                    vreg = instr['valaddr_reg']
+                if self.opcode not in ['fsw','flw']:
+                    if instr['val_offset'] == '0' and k == 0:
+                        code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
+                        k = 1;
+                    elif instr['val_offset'] == '0' and k!= 0:
+                        code.append("RVTEST_VALBASEUPD("+vreg+")")
+                    if instr['valaddr_reg'] != vreg:
+                        code.append("RVTEST_VALBASEMOV("+instr['valaddr_reg']+", "+vreg+")")
+                        vreg = instr['valaddr_reg']
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
