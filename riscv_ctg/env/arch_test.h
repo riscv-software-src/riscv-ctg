@@ -582,13 +582,13 @@ rvtest_data_end:
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
-    SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
-    .set offset,_ARG1(__VA_ARGS__,0)+(FREGWIDTH+REGWIDTH);\
+    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
+    .set offset,_ARG1(__VA_ARGS__,0)+(2*REGWIDTH);\
   .endif;\
   .if NARG(__VA_ARGS__) == 0;\
     SREG _R,offset(_BR);\
-    SREG _F,offset+FREGWIDTH(_BR);\
-    .set offset,offset+(FREGWIDTH+REGWIDTH);\
+    SREG _F,offset+REGWIDTH(_BR);\
+    .set offset,offset+(2*REGWIDTH);\
   .endif;
   
 #define RVTEST_VALBASEUPD(_BR,...)\
@@ -601,6 +601,18 @@ rvtest_data_end:
 
 #define RVTEST_VALBASEMOV(_NR,_BR)\
   add _NR, _BR, x0;
+/*  
+#define RVTEST_VALBASEUPD(_BR,...)\
+  .if NARG(__VA_ARGS__) == 0;\
+      addi _BR,_BR,2040;\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 1;\
+      LA(_BR,_ARG1(__VA_ARGS__,x0));\
+  .endif;
+  .if NARG(__VA_ARGS__) == 2;\
+      add _ARG2(__VA_ARGS__,x0), _BR, x0;\
+  .endif;
+*/
 /*
  * RVTEST_BASEUPD(base reg) - updates the base register the last signature address + REGWIDTH
  * RVTEST_BASEUPD(base reg, new reg) - moves value of the next signature region to update into new reg

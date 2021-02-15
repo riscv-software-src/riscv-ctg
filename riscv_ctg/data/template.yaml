@@ -1769,3 +1769,55 @@ flw:
     // $comment
     // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
     TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+fcvt.l.s:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.lu.s:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.s.l:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
+fcvt.s.lu:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
