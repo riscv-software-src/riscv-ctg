@@ -27,7 +27,8 @@ OPS = {
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
-    'cjformat': []
+    'cjformat': [],
+    'frformat': ['rs1','rs2','rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -47,7 +48,8 @@ VALS = {
     'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val']
+    'cjformat': ['imm_val'],
+    'frformat': ['fs1','fe1','fm1','fs2','fe2','fm2','rm']
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -81,7 +83,7 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa_str):
+    def __init__(self,fmt,opnode,opcode,randomization, xl,fl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -96,8 +98,10 @@ class Generator():
 
         '''
         global xlen
+        global flen
         global base_isa
         xlen = xl
+        flen = fl
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
@@ -220,7 +224,6 @@ class Generator():
             op_comb = op_comb - sat_set
             problem.reset()
             solutions.append( tuple(op_tuple) )
-
         return solutions
 
 

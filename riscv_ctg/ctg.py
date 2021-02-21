@@ -14,15 +14,16 @@ from riscv_ctg.__init__ import __version__
 
 def create_test(usage_str, node,label,base_isa):
     global cgf_op
-    global ramdomize
+    global randomize
     global out_dir
     global xlen
+    flen = 0
     if 'opcode' not in node:
         return
     if 'ignore' in node:
         logger.info("Ignoring :" + str(label))
         if node['ignore']:
-            return
+            return   
     for opcode in node['opcode']:
         if opcode not in cgf_op:
             logger.info("Skipping :" + str(opcode))
@@ -30,16 +31,20 @@ def create_test(usage_str, node,label,base_isa):
         op_node = cgf_op[opcode]
         if xlen not in op_node['xlen']:
             return
+        if 'flen' in op_node:
+            flen = 32  # Hardcoding flen=32 for fadd.s instruction
+            if flen not in op_node['flen']:
+                return
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize,xlen,base_isa)
+        gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
         logger.info("Writing test to "+str(fname))
-        mydict = gen.reformat_instr(instr_dict)
-        gen.write_test(fname,node,label,mydict, op_node, usage_str)
+        my_dict = gen.reformat_instr(instr_dict)
+        gen.write_test(fname,node,label,my_dict, op_node, usage_str)
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     global cgf_op
