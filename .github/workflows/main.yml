@@ -48,7 +48,8 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPIPASSWORD }}
         run: |
           python setup.py sdist bdist_wheel
-          twine upload --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*
+          twine upload dist/*
+
           
       - name: Extract release notes
         id: extract-release-notes
