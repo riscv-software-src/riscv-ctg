@@ -4,4 +4,7 @@
 
 .. _revisions:
 
-.. include:: ../../CHANGELOG.rst
+Readme File
+===========
+
+.. mdinclude:: ../../CHANGELOG.md
