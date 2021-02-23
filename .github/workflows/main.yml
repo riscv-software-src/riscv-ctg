@@ -37,7 +37,7 @@ jobs:
   
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r riscv_ctg/requirements.txt
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           
