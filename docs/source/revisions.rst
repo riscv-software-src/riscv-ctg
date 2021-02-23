@@ -4,7 +4,4 @@
 
 .. _revisions:
 
-Readme File
-===========
-
 .. mdinclude:: ../../CHANGELOG.md
