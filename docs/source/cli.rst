@@ -19,7 +19,7 @@ Once you have RISCV-CTG installed, executing ``riscv_ctg --help`` should print t
                                     Base ISA string for the tests.
     --help                          Show this message and exit.
 
-To use RISC-V Compliance Test Generator in a project::
+To use RISC-V Compatibility Test Generator in a project::
 
     import riscv_ctg
 
@@ -28,8 +28,8 @@ Running the Test generator
 
 In order to generate the tests for **RV32I** the following command is used. ::
    
-    $ mkdir compliance_tests/
-    $ riscv_ctg -v debug -d ./compliance_tests/ -r -cf ./sample_cgfs/dataset.cgf -cf ./sample_cgfs/rv32i.cgf -bi rv32i -p2 
+    $ mkdir tests/
+    $ riscv_ctg -v debug -d ./tests/ -r -cf ./sample_cgfs/dataset.cgf -cf ./sample_cgfs/rv32i.cgf -bi rv32i -p2 
 
 Suite Characteristics
 =====================
