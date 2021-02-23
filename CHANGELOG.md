@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.4] - 2021-02-23
+- Added missing coverpoints for JALR
+- fixed CI to run main.yml on pushes to master.
+- added version check for PRs in test.yml
+
 ## [0.4.3] - 2021-02-23
 - Updated CI to actions
 

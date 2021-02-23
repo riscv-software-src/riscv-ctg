@@ -35,3 +35,28 @@ jobs:
           
       - name: Run rv32i
         run: riscv_ctg -r -d rv32i -bi rv32i -cf sample_cgfs/dataset.cgf -cf sample_cgfs/rv32i.cgf -v debug -p $(nproc)
+
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: version check
+        run: |
+          export CHNGVER=$(grep -P -o '(?<=## \[).*(?=\])' -m1 CHANGELOG.md); 
+          echo "CHANGELOG VERSION: $CHNGVER"
+          export INITVER=$(grep -P "__version__ = '.*?'" riscv_ctg/__init__.py | awk '{print $3}'|sed "s/'//g"); 
+          echo "INIT VERSION: $INITVER"
+          export TAGVER=$(git describe --tags --abbrev=0);
+          echo "TAGVER: $TAGVER"
+          if [ "$CHNGVER" = "$INITVER" ]; then
+              echo "Versions are equal in Changelog and init.py."
+          else
+              echo "Versions are not equal in Changelog and init.py."
+              exit 1
+          fi
+          if [ "$CHNGVER" = "$TAGVER" ]; then
+              echo "Versions are equal in Changelog and current tag."
+              exit 1
+          else
+              echo "Versions are not equal in Changelog and current tag. Good."
+          fi
