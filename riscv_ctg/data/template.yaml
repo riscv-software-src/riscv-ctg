@@ -1415,12 +1415,8 @@ fadd.s:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  fs1_data: 'b1_dataset(flen,"sign")'
-  fe1_data: 'b1_dataset(flen,"exp")'
-  fm1_data: 'b1_dataset(flen,"mantissa")'
-  fs2_data: 'b1_dataset(flen,"sign")'
-  fe2_data: 'b1_dataset(flen,"exp")'
-  fm2_data: 'b1_dataset(flen,"mantissa")'
+  rs1_val_data: 'b1_dataset(flen,"rs1_val")'
+  rs2_val_data: 'b1_dataset(flen,"rs2_val")'
   rm_data: 'b1_dataset(flen,"rm")'
   template: |-
 

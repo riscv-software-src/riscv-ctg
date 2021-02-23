@@ -75,7 +75,7 @@ def gen_sp_dataset(bit_width,sign=True):
     dataset = [3, "0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), 5, "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4))]
     dataset = list(map(conv_func,dataset)) + [int(sqrt(abs(conv_func("0x8"+"".join(["0"]*int((bit_width/4)-1)))))*(-1 if sign else 1))] + [sqrt_min,sqrt_max]
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
-    
+'''  
 def sign_exp_mant(hex_list,field):
        return_list=[]
        if field == 'sign':
@@ -100,6 +100,21 @@ def b1_dataset(flen,field):
             return([0,1,2,3,4])
         else:
             return(sign_exp_mant(cc_list+sn_list+nn_list,field))
+'''
+def b1_dataset(flen,field):
+        cc_list= ['0x00000000','0x80000000','0x3F800000','0xBF800000','0x00000001','0x80000001','0x007FFFFF','0x807FFFFF','0x00800000','0x80800000','0x7F7FFFFF','0xFF7FFFFF','0x7F800000','0xFF800000','0xFFFFFFFF','0xFF800001','0xFF8FFFFF']
+        sn_list = ['0x00000001','0x00000002','0x00000003','0x00000004','0x00000005','0x80000001','0x80000002','0x80000003','0x80000004','0x80000005']
+        nn_list = ['0x00800001','0x00800002','0x00800003','0x00800004','0x00800005','0x80800001','0x80800002','0x80800003','0x80800004','0x80800005']
+        if field == 'rm':
+            return([0,1,2,3,4])
+        else:
+            for item in range(len(cc_list)):
+                cc_list[item] = int(cc_list[item][2:],16)
+            for item in range(len(sn_list)):
+                sn_list[item] = int(sn_list[item][2:],16)
+            for item in range(len(nn_list)):
+                nn_list[item] = int(nn_list[item][2:],16)
+            return(cc_list+sn_list+nn_list)
 
 def gen_sign_dataset(bit_width):
     '''

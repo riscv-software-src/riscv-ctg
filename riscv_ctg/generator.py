@@ -49,7 +49,7 @@ VALS = {
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
     'cjformat': ['imm_val'],
-    'frformat': ['fs1','fe1','fm1','fs2','fe2','fm2','rm']
+    'frformat': ['rs1_val','rs2_val','rm']
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -131,6 +131,7 @@ class Generator():
             else:
                 datasets[entry] = [0]
         self.datasets = datasets
+        print('\n--------Datasets--------\n',datasets)
         self.random=randomization
 
     def opcomb(self, cgf):
@@ -267,8 +268,23 @@ class Generator():
                     problem.addVariable(var, self.datasets[var])
 
             def condition(*argv):
+                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
                 for var,val in zip(self.val_vars,argv):
                     locals()[var]=val
+                    if self.opcode[0] == 'f':
+                        bin_val = '{:032b}'.format(val)
+                        if var == 'rs1_val':
+                            fs1 = int(bin_val[0],2)
+                            fe1 = int(bin_val[1:9],2)
+                            fm1 = int(bin_val[9:],2)
+                        elif var == 'rs2_val':
+                            fs2 = int(bin_val[0],2)
+                            fe2 = int(bin_val[1:9],2)
+                            fm2 = int(bin_val[9:],2)
+                        elif var == 'rs3_val':
+                            fs3 = int(bin_val[0],2)
+                            fe3 = int(bin_val[1:9],2)
+                            fm3 = int(bin_val[9:],2)
                 return eval(req_val_comb)
 
             problem.addConstraint(condition,tuple(self.val_vars))
@@ -287,14 +303,30 @@ class Generator():
                 val_tuple.append(solution[key])
 
             def eval_func(cond):
+                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
                 for var,val in zip(self.val_vars,val_tuple):
                     locals()[var] = val
+                    if self.opcode[0] == 'f':
+                        bin_val = '{:032b}'.format(val)
+                        if var == 'rs1_val':
+                            fs1 = int(bin_val[0],2)
+                            fe1 = int(bin_val[1:9],2)
+                            fm1 = int(bin_val[9:],2)
+                        elif var == 'rs2_val':
+                            fs2 = int(bin_val[0],2)
+                            fe2 = int(bin_val[1:9],2)
+                            fm2 = int(bin_val[9:],2)
+                        elif var == 'rs3_val':
+                            fs3 = int(bin_val[0],2)
+                            fe3 = int(bin_val[1:9],2)
+                            fm3 = int(bin_val[9:],2)
                 return eval(cond)
             sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
             inds = inds - sat_set
             val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
             val_comb.append( tuple(val_tuple) )
             problem.reset()
+        print('\n--------val_comb--------\n',val_comb)
         return val_comb
 
     def __jfmt_instr__(self,op=None,val=None):
