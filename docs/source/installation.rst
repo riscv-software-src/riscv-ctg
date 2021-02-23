@@ -107,7 +107,7 @@ To install RISC-V Compliance Test Generator, run this command in your terminal:
 
 .. code-block:: console
 
-    $ python3 -m pip3 install git+https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg.git
+    $ python3 -m pip3 install git+https://github.com/riscv/riscv-ctg.git
 
 This is the preferred method to install RISC-V Compliance Test Generator, as it will always install the most recent stable release.
 
@@ -148,7 +148,7 @@ You can clone the repository:
 
 .. code-block:: console
 
-    $ git clone https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg
+    $ git clone https://github.com/riscv/riscv-ctg
 
 
 Once you have a copy of the source, you can install it with:
@@ -159,4 +159,4 @@ Once you have a copy of the source, you can install it with:
     $ pip3 install --editable .
 
 
-.. _Gitlab repo: https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg
+.. _Gitlab repo: https://github.com/riscv/riscv-ctg

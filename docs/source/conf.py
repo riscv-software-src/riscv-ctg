@@ -101,7 +101,7 @@ todo_include_todos = True
 
 # -- Options for HTML output ----------------------------------------------
 
-github_url = 'https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg'
+github_url = 'https://github.com/riscv/riscv-ctg'
 html_show_sourcelink = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.

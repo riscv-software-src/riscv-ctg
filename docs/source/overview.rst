@@ -46,7 +46,7 @@ Instr Attributes
 
 In order to generate tests for a given instructions attributes of the instruction need to be known
 before hand. This information is stored within the CTG in a YAML format known as the `attributes file
-<https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/riscv_ctg/data/template.yaml>`_.
+<https://github.com/riscv/riscv-ctg/riscv_ctg/data/template.yaml>`_.
 
 Each node in the attributes files has the following structure:
 
