@@ -142,7 +142,7 @@ To checkout a specific version of riscv_ctg:
 Install CTG for Dev
 ===================
 
-The sources for RISC-V Compatibility Test Generator can be downloaded from the `GitLab repo`_.
+The sources for RISC-V Compatibility Test Generator can be downloaded from the `Github repo`_.
 
 You can clone the repository:
 
@@ -159,4 +159,4 @@ Once you have a copy of the source, you can install it with:
     $ pip3 install --editable .
 
 
-.. _Gitlab repo: https://github.com/riscv/riscv-ctg
+.. _Github repo: https://github.com/riscv/riscv-ctg
