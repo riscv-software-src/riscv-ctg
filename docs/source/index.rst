@@ -3,7 +3,7 @@
 .. _home:
 
 RISC-V Compatibility Test Generator Documentation
-###############################################
+#################################################
 
 Welcome to RISC-V Compatibility Test Generator documentation.
 

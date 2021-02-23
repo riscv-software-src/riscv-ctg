@@ -34,4 +34,4 @@ jobs:
           pip install --editable .
           
       - name: Run rv32i
-        run: riscv_ctg -r -d rv32i -bi rv32i -cf sample_cgfs/dataset.cgf -cf sample_cgfs/rv32i.cgf -v debug -p8
+        run: riscv_ctg -r -d rv32i -bi rv32i -cf sample_cgfs/dataset.cgf -cf sample_cgfs/rv32i.cgf -v debug -p $(nproc)
