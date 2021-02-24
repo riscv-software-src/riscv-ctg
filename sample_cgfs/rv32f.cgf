@@ -16,3 +16,4 @@ fadd.s:
     val_comb:
       abstract_comb:
         'b1(32,2)': 0
+        'b2(32,2)': 0
