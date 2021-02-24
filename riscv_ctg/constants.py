@@ -3,6 +3,7 @@
 import os
 from math import *
 from string import Template
+from riscv_isac.fp_dataset import *
 
 root = os.path.abspath(os.path.dirname(__file__))
 
@@ -77,17 +78,15 @@ def gen_sp_dataset(bit_width,sign=True):
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
 
 def b1_dataset(flen):
-    cc_list= ['0x00000000','0x80000000','0x3F800000','0xBF800000','0x00000001','0x80000001','0x007FFFFF','0x807FFFFF','0x00800000','0x80800000','0x7F7FFFFF','0xFF7FFFFF','0x7F800000','0xFF800000','0xFFFFFFFF','0xFF800001','0xFF8FFFFF']
-    sn_list = ['0x00000001','0x00000002','0x00000003','0x00000004','0x00000005','0x80000001','0x80000002','0x80000003','0x80000004','0x80000005']
-    nn_list = ['0x00800001','0x00800002','0x00800003','0x00800004','0x00800005','0x80800001','0x80800002','0x80800003','0x80800004','0x80800005']
-    
-    for item in range(len(cc_list)):
-        cc_list[item] = int(cc_list[item][2:],16)
-    for item in range(len(sn_list)):
-        sn_list[item] = int(sn_list[item][2:],16)
-    for item in range(len(nn_list)):
-        nn_list[item] = int(nn_list[item][2:],16)
-    return(list(set(cc_list+sn_list+nn_list)))
+    if flen == 32:
+        basic_types = fzero + fminsubnorm + fsubnorm + fmaxsubnorm + fminnorm + \
+                fnorm + fmaxnorm +  finfinity + fdefaultnan + fqnan + fsnan + fone
+        for item in range(len(basic_types)):
+            basic_types[item] = int(basic_types[item][2:],16)
+        return basic_types
+    else:
+        logger.error("D dataset is missing in b1_dataset")
+        sys.exit(1)
     
 def b2_dataset(flen):
     md_list = ['0x00000001','0x80000001','0x3F800001','0xBF800001','0x00000000','0x80000000','0x007FFFFE','0x807FFFFE','0x00800001','0x80800001','0x7F7FFFFE','0xFF7FFFFE','0x7F800001','0xFF800001']
