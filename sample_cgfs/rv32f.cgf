@@ -16,3 +16,230 @@ fadd.s:
     val_comb:
       abstract_comb:
         'ibm_b1(32,2)': 0
+        
+fsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+
+fmul.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+        
+fdiv.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fdiv.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+        
+fsqrt.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsqrt.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,1)': 0
+        
+fmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,3)': 0
+
+fmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,3)': 0
+
+fnmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,3)': 0
+        
+fnmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,3)': 0
+
+fsgnj.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnj.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+        
+fsgnjn.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnjn.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+        
+fsgnjx.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fsgnjx.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+
+fmin.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmin.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0
+        
+fmax.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmax.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(32,2)': 0

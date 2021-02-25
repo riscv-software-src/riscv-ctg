@@ -16,3 +16,230 @@ fadd.d:
     val_comb:
       abstract_comb:
         'ibm_b1(64,2)': 0
+        
+fsub.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fsub.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+
+fmul.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fmul.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+        
+fdiv.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fdiv.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+        
+fsqrt.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fsqrt.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,1)': 0
+        
+fmadd.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode:
+      fmadd.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,3)': 0
+
+fmsub.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode:
+      fmsub.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,3)': 0
+
+fnmadd.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode:
+      fnmadd.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,3)': 0
+        
+fnmsub.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode:
+      fnmsub.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,3)': 0
+
+fsgnj.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fsgnj.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+        
+fsgnjn.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fsgnjn.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+        
+fsgnjx.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fsgnjx.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+
+fmin.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fmin.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0
+        
+fmax.d:
+    config: 
+      - check ISA:=regex(.*I.*F.*D.*)
+    opcode: 
+      fmax.d: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64,2)': 0

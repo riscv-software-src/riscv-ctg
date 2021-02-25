@@ -1432,8 +1432,8 @@ fadd.d:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fadd.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fadd.s","rs2_val")'
+  rs1_val_data: 'gen_fp_dataset(flen,"fadd.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fadd.d","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1441,3 +1441,457 @@ fadd.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
+fsub.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsub.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsub.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsub.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsub.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsub.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmul.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmul.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmul.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmul.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmul.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmul.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fdiv.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fdiv.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fdiv.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fdiv.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fdiv.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fdiv.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsqrt.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsqrt.s","rs1_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsqrt.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsqrt.d","rs1_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmadd.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmadd.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmsub.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmsub.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmadd.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmadd.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmsub.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmsub.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fsgnj.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnj.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnj.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnj.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnj.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnj.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjn.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnjn.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnjn.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjn.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnjn.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnjn.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjx.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnjx.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnjx.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjx.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fsgnjx.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fsgnjx.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmin.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmin.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmin.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmin.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmin.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmin.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmax.s:
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmax.s","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmax.s","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmax.d:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  rs1_val_data: 'gen_fp_dataset(flen,"fmax.d","rs1_val")'
+  rs2_val_data: 'gen_fp_dataset(flen,"fmax.d","rs2_val")'
+  rm_val_data: [0,1,2,3,4]
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    

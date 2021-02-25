@@ -91,15 +91,9 @@ def b1_dataset(flen):
             basic_types[item] = int(basic_types[item][2:],16)
         return basic_types
     
-def b2_dataset(flen):
-    md_list = ['0x00000001','0x80000001','0x3F800001','0xBF800001','0x00000000','0x80000000','0x007FFFFE','0x807FFFFE','0x00800001','0x80800001','0x7F7FFFFE','0xFF7FFFFE','0x7F800001','0xFF800001']
-    for item in range(len(md_list)):
-        md_list[item] = int(md_list[item][2:],16)
-    return(list(set(md_list)))
-    
 def gen_fp_dataset(flen,instr,field):
     if instr == "fadd.s":
-        return (b1_dataset(flen)+b2_dataset(flen))    
+        return (b1_dataset(flen))    
 
 def gen_sign_dataset(bit_width):
     '''
