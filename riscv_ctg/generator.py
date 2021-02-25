@@ -5,7 +5,7 @@ from constraint import *
 import re
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
-from riscv_ctg.function_generators import get_generator
+from riscv_ctg.function_generators import get_cond_generator,get_filter_generator
 import time
 from math import *
 import struct
@@ -256,7 +256,8 @@ class Generator():
 
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
-        cond_func_generator = get_generator(self.opcode)
+        cond_func_generator = get_cond_generator(self.opcode,self.val_vars,xlen,flen)
+        filter_func_generator = get_filter_generator(self.opcode,self.val_vars,xlen,flen)
         while inds:
             req_val_comb = conds[inds.pop()]
             if self.random:
@@ -269,8 +270,7 @@ class Generator():
                     problem.addVariable(var, [0])
                 else:
                     problem.addVariable(var, self.datasets[var])
-
-            condition = cond_func_generator(self.val_vars,req_val_comb)
+            condition = cond_func_generator(req_val_comb)
             problem.addConstraint(condition,tuple(self.val_vars))
             # if boundconstraint:
             #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
@@ -286,25 +286,40 @@ class Generator():
             for i,key in enumerate(self.val_vars):
                 val_tuple.append(solution[key])
 
-            def eval_func(cond):
-                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-                for var,val in zip(self.val_vars,val_tuple):
-                    locals()[var] = val
-                    if self.opcode[0] == 'f':
-                        bin_val = '{:032b}'.format(val)
-                        if var == 'rs1_val':
-                            fs1 = int(bin_val[0],2)
-                            fe1 = int(bin_val[1:9],2)
-                            fm1 = int(bin_val[9:],2)
-                        elif var == 'rs2_val':
-                            fs2 = int(bin_val[0],2)
-                            fe2 = int(bin_val[1:9],2)
-                            fm2 = int(bin_val[9:],2)
-                        elif var == 'rs3_val':
-                            fs3 = int(bin_val[0],2)
-                            fe3 = int(bin_val[1:9],2)
-                            fm3 = int(bin_val[9:],2)
-                return eval(cond)
+            eval_func = filter_func_generator(val_tuple)
+            # def eval_func(cond):
+            #     fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+            #     bin_val = ''
+            #     e_sz = 0
+            #     m_sz = 0
+            #     for var,val in zip(self.val_vars,val_tuple):
+            #         locals()[var] = val
+            #         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+            #             if (flen == 32):
+            #                 bin_val = '{:032b}'.format(val)
+            #             else:
+            #                 bin_val = '{:064b}'.format(val)
+            #             if (flen == 32):
+            #                 e_sz = 8
+            #             else:
+            #                 e_sz = 11
+            #             if (flen == 32):
+            #                 m_sz = 23
+            #             else:
+            #                 m_sz = 52
+            #             if var == 'rs1_val':
+            #                 fs1 = int(bin_val[0],2)
+            #                 fe1 = int(bin_val[1:e_sz+1],2)
+            #                 fm1 = int(bin_val[e_sz+1:],2)
+            #             elif var == 'rs2_val':
+            #                 fs2 = int(bin_val[0],2)
+            #                 fe2 = int(bin_val[1:e_sz+1],2)
+            #                 fm2 = int(bin_val[e_sz+1:],2)
+            #             elif var == 'rs3_val':
+            #                 fs3 = int(bin_val[0],2)
+            #                 fe3 = int(bin_val[1:e_sz+1],2)
+            #                 fm3 = int(bin_val[e_sz+1:],2)
+            #     return eval(cond)
             sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
             inds = inds - sat_set
             val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
@@ -616,22 +631,43 @@ class Generator():
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
-                    if self.opcode[0] == 'f':
+                    fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                    bin_val = ''
+                    e_sz = 0
+                    m_sz = 0
+                    if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                        if (flen == 32):
+                            e_sz = 8
+                        else:
+                            e_sz = 11
+                        if (flen == 32):
+                            m_sz = 23
+                        else:
+                            m_sz = 52
                         if 'rs1_val' in instr:
-                            bin_val = '{:032b}'.format(rs1_val)
+                            if (flen == 32):
+                                bin_val = '{:032b}'.format(rs1_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs1_val)
                             fs1 = int(bin_val[0],2)
-                            fe1 = int(bin_val[1:9],2)
-                            fm1 = int(bin_val[9:],2)
+                            fe1 = int(bin_val[1:e_sz+1],2)
+                            fm1 = int(bin_val[e_sz+1:],2)
                         if 'rs2_val' in instr:
-                            bin_val = '{:032b}'.format(rs2_val)
+                            if (flen == 32):
+                                bin_val = '{:032b}'.format(rs2_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs2_val)
                             fs2 = int(bin_val[0],2)
-                            fe2 = int(bin_val[1:9],2)
-                            fm2 = int(bin_val[9:],2)
+                            fe2 = int(bin_val[1:e_sz+1],2)
+                            fm2 = int(bin_val[e_sz+1:],2)
                         if 'rs3_val' in instr:
-                            bin_val = '{:032b}'.format(rs3_val)
+                            if (flen == 32):
+                                bin_val = '{:032b}'.format(rs3_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs3_val)
                             fs3 = int(bin_val[0],2)
-                            fe3 = int(bin_val[1:9],2)
-                            fm3 = int(bin_val[9:],2)
+                            fe3 = int(bin_val[1:e_sz+1],2)
+                            fm3 = int(bin_val[e_sz+1:],2)
                     if eval(coverpoint):
                         valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
