@@ -285,7 +285,7 @@ class Generator():
                         else:
                             e_sz = 11
                         if (flen == 32):
-                            m_sz = 11
+                            m_sz = 23
                         else:
                             m_sz = 52
                         if var == 'rs1_val':
@@ -334,7 +334,7 @@ class Generator():
                         else:
                             e_sz = 11
                         if (flen == 32):
-                            m_sz = 11
+                            m_sz = 23
                         else:
                             m_sz = 52
                         if var == 'rs1_val':
@@ -671,7 +671,7 @@ class Generator():
                         else:
                             e_sz = 11
                         if (flen == 32):
-                            m_sz = 11
+                            m_sz = 23
                         else:
                             m_sz = 52
                         if 'rs1_val' in instr:
@@ -746,7 +746,6 @@ class Generator():
                     final_instr.append(instr)
                 else:
                     i+=1
-        print('\n---------------finalinstr-------------\n',final_instr)
         return final_instr
     
     def swreg(self,instr_dict):
