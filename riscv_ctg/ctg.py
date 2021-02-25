@@ -32,7 +32,10 @@ def create_test(usage_str, node,label,base_isa):
         if xlen not in op_node['xlen']:
             return
         if 'flen' in op_node:
-            flen = 32  # Hardcoding flen=32 for fadd.s instruction
+            if 'D' in node['config'][0]:
+                flen = 64
+            elif 'F' in node['config'][0]:
+                flen = 32
             if flen not in op_node['flen']:
                 return
         fname = os.path.join(out_dir,str(label+"-01.S"))

@@ -85,8 +85,11 @@ def b1_dataset(flen):
             basic_types[item] = int(basic_types[item][2:],16)
         return basic_types
     else:
-        logger.error("D dataset is missing in b1_dataset")
-        sys.exit(1)
+        basic_types = dzero + dminsubnorm + dsubnorm + dmaxsubnorm + dminnorm + \
+                dnorm + dmaxnorm +  dinfinity + ddefaultnan + dqnan + dsnan + done
+        for item in range(len(basic_types)):
+            basic_types[item] = int(basic_types[item][2:],16)
+        return basic_types
     
 def b2_dataset(flen):
     md_list = ['0x00000001','0x80000001','0x3F800001','0xBF800001','0x00000000','0x80000000','0x007FFFFE','0x807FFFFE','0x00800001','0x80800001','0x7F7FFFFE','0xFF7FFFFE','0x7F800001','0xFF800001']
