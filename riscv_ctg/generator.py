@@ -267,9 +267,12 @@ class Generator():
                     problem.addVariable(var, [0])
                 else:
                     problem.addVariable(var, self.datasets[var])
-
+            
             def condition(*argv):
                 fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                bin_val = ''
+                e_sz = 0
+                m_sz = 0
                 for var,val in zip(self.val_vars,argv):
                     locals()[var]=val
                     if self.opcode[0] == 'f' and 'fence' not in self.opcode:
@@ -298,7 +301,7 @@ class Generator():
                             fe3 = int(bin_val[1:e_sz+1],2)
                             fm3 = int(bin_val[e_sz+1:],2)
                 return eval(req_val_comb)
-
+           
             problem.addConstraint(condition,tuple(self.val_vars))
             # if boundconstraint:
             #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
@@ -316,6 +319,9 @@ class Generator():
 
             def eval_func(cond):
                 fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                bin_val = ''
+                e_sz = 0
+                m_sz = 0
                 for var,val in zip(self.val_vars,val_tuple):
                     locals()[var] = val
                     if self.opcode[0] == 'f' and 'fence' not in self.opcode:
@@ -343,14 +349,14 @@ class Generator():
                             fs3 = int(bin_val[0],2)
                             fe3 = int(bin_val[1:e_sz+1],2)
                             fm3 = int(bin_val[e_sz+1:],2)
-                return eval(req_val_comb)
+                return eval(cond)
             sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
             inds = inds - sat_set
             val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
             val_comb.append( tuple(val_tuple) )
             problem.reset()
         return val_comb
-
+       
     def __jfmt_instr__(self,op=None,val=None):
         cond_str = ''
         if op:
@@ -655,6 +661,10 @@ class Generator():
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
+                    fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                    bin_val = ''
+                    e_sz = 0
+                    m_sz = 0
                     if self.opcode[0] == 'f' and 'fence' not in self.opcode:
                         if (flen == 32):
                             e_sz = 8
@@ -736,6 +746,7 @@ class Generator():
                     final_instr.append(instr)
                 else:
                     i+=1
+        print('\n---------------finalinstr-------------\n',final_instr)
         return final_instr
     
     def swreg(self,instr_dict):

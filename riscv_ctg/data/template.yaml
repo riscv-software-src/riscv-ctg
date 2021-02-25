@@ -1426,7 +1426,7 @@ fadd.s:
     
 fadd.d:
   xlen: [32,64]
-  isa: IF
+  isa: IFD
   flen: [64]
   formattype: 'frformat'
   rs1_op_data: *all_fregs
