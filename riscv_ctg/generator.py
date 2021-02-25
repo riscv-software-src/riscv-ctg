@@ -5,6 +5,7 @@ from constraint import *
 import re
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
+from riscv_ctg.function_generators import get_generator
 import time
 from math import *
 import struct
@@ -255,6 +256,7 @@ class Generator():
 
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
+        cond_func_generator = get_generator(self.opcode)
         while inds:
             req_val_comb = conds[inds.pop()]
             if self.random:
@@ -268,26 +270,7 @@ class Generator():
                 else:
                     problem.addVariable(var, self.datasets[var])
 
-            def condition(*argv):
-                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-                for var,val in zip(self.val_vars,argv):
-                    locals()[var]=val
-                    if self.opcode[0] == 'f':
-                        bin_val = '{:032b}'.format(val)
-                        if var == 'rs1_val':
-                            fs1 = int(bin_val[0],2)
-                            fe1 = int(bin_val[1:9],2)
-                            fm1 = int(bin_val[9:],2)
-                        elif var == 'rs2_val':
-                            fs2 = int(bin_val[0],2)
-                            fe2 = int(bin_val[1:9],2)
-                            fm2 = int(bin_val[9:],2)
-                        elif var == 'rs3_val':
-                            fs3 = int(bin_val[0],2)
-                            fe3 = int(bin_val[1:9],2)
-                            fm3 = int(bin_val[9:],2)
-                return eval(req_val_comb)
-
+            condition = cond_func_generator(self.val_vars,req_val_comb)
             problem.addConstraint(condition,tuple(self.val_vars))
             # if boundconstraint:
             #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
@@ -698,7 +681,7 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-    
+
     def swreg(self,instr_dict):
         '''
         This function is responsible for identifying which register can be used
@@ -726,7 +709,7 @@ class Generator():
                 if 'swreg' not in instr_dict[i]:
                     instr_dict[i]['swreg'] = 'x15'
                     instr_dict[i]['valaddr_reg'] = 'x16'
-                    instr_dict[i]['flagreg'] = 'x17' 
+                    instr_dict[i]['flagreg'] = 'x17'
                     if self.opcode == 'fsw':
                         if instr_dict[i]['rs1'] in hardcoded_regs:
                             instr_dict[i]['swreg'] = 'x19'
@@ -749,8 +732,8 @@ class Generator():
                         offset = 0
                     if val_offset == 2040:
                         val_offset = 0
-           return instr_dict 
-        
+           return instr_dict
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -791,7 +774,7 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-    
+
     def testreg(self,instr_dict):
         '''
         This function is responsible for identifying which register can be used
@@ -817,7 +800,7 @@ class Generator():
                 elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
                     instr_dict[i]['testreg'] = 'x22'
             return instr_dict
-        
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -865,7 +848,7 @@ class Generator():
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0'
             return instr_dict
-        
+
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -943,7 +926,7 @@ class Generator():
             k = 0
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
-            code.append("RVTEST_FP_ENABLE()")       
+            code.append("RVTEST_FP_ENABLE()")
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
@@ -951,7 +934,7 @@ class Generator():
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
-            if self.opcode[0] == 'f' and 'fence' not in self.opcode:    
+            if self.opcode[0] == 'f' and 'fence' not in self.opcode:
                 if self.fmt == 'frformat' or self.fmt == 'rformat':
                     if flen == 32:
                         data.append(".word "+instr["rs1_val"])
