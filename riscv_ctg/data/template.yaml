@@ -1584,7 +1584,7 @@ fmadd.s:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1603,7 +1603,7 @@ fmadd.d:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1622,7 +1622,7 @@ fmsub.s:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1641,7 +1641,7 @@ fmsub.d:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1660,7 +1660,7 @@ fnmadd.s:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1679,7 +1679,7 @@ fnmadd.d:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1698,7 +1698,7 @@ fnmsub.s:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1717,7 +1717,7 @@ fnmsub.d:
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 

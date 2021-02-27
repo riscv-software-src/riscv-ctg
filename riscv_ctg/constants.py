@@ -92,7 +92,6 @@ def b1_dataset(flen):
         return basic_types
     
 def gen_fp_dataset(flen,instr,field):
-    if instr == "fadd.s":
         return (b1_dataset(flen))    
 
 def gen_sign_dataset(bit_width):
