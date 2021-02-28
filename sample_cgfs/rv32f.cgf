@@ -15,7 +15,7 @@ fadd.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fadd.s",2)': 0
         
 fsub.s:
     config: 
@@ -32,7 +32,7 @@ fsub.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fsub.s",2)': 0
 
 fmul.s:
     config: 
@@ -49,7 +49,7 @@ fmul.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fmul.s",2)': 0
         
 fdiv.s:
     config: 
@@ -66,7 +66,7 @@ fdiv.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fdiv.s",2)': 0
         
 fsqrt.s:
     config: 
@@ -81,7 +81,7 @@ fsqrt.s:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,1)': 0
+        'ibm_b1(32,"fsqrt.s",1)': 0
         
 
 fsgnj.s:
@@ -99,7 +99,7 @@ fsgnj.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fsgnj.s",2)': 0
         
 fsgnjn.s:
     config: 
@@ -116,7 +116,7 @@ fsgnjn.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fsgnjn.s",2)': 0
         
 fsgnjx.s:
     config: 
@@ -133,7 +133,7 @@ fsgnjx.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fsgnjx.s",2)': 0
 
 fmin.s:
     config: 
@@ -150,7 +150,7 @@ fmin.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fmin.s",2)': 0
         
 fmax.s:
     config: 
@@ -167,4 +167,4 @@ fmax.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,2)': 0
+        'ibm_b1(32,"fmax.s",2)': 0
