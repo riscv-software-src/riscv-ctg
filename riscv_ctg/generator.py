@@ -29,7 +29,9 @@ OPS = {
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
     'cjformat': [],
-    'frformat': ['rs1','rs2','rd']
+    'frformat': ['rs1','rs2','rd'],
+    'fsrformat': ['rs1', 'rd'],
+    'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -50,7 +52,9 @@ VALS = {
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
     'cjformat': ['imm_val'],
-    'frformat': ['rs1_val','rs2_val','rm']
+    'frformat': ['rs1_val','rs2_val','rm'],
+    'fsrformat': ['rs1_val', 'rm'],
+    'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm'],
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -256,8 +260,8 @@ class Generator():
 
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
-        cond_func_generator = get_cond_generator(self.opcode,self.val_vars,xlen,flen)
-        filter_func_generator = get_filter_generator(self.opcode,self.val_vars,xlen,flen)
+        cond_func_generator = get_cond_generator(self.opcode,self.fmt,self.val_vars,xlen,flen)
+        filter_func_generator = get_filter_generator(self.opcode,self.fmt,self.val_vars,xlen,flen)
         while inds:
             req_val_comb = conds[inds.pop()]
             if self.random:

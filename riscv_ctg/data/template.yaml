@@ -1547,7 +1547,7 @@ fsqrt.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
-  formattype: 'frformat'
+  formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fsqrt.s","rs1_val")'
@@ -1562,7 +1562,7 @@ fsqrt.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
-  formattype: 'frformat'
+  formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fsqrt.d","rs1_val")'
@@ -1577,14 +1577,14 @@ fmadd.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.s","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1596,14 +1596,14 @@ fmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmadd.d","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1615,14 +1615,14 @@ fmsub.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.s","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1634,14 +1634,14 @@ fmsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fmsub.d","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1653,14 +1653,14 @@ fnmadd.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1672,14 +1672,14 @@ fnmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1691,14 +1691,14 @@ fnmsub.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
@@ -1710,14 +1710,14 @@ fnmsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
-  formattype: 'frformat'
+  formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
   rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs1_val")'
   rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
+  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs3_val")'
   rm_val_data: [0,1,2,3,4]
   template: |-
 
