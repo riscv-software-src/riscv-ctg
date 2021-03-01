@@ -76,23 +76,9 @@ def gen_sp_dataset(bit_width,sign=True):
     dataset = [3, "0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), 5, "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4))]
     dataset = list(map(conv_func,dataset)) + [int(sqrt(abs(conv_func("0x8"+"".join(["0"]*int((bit_width/4)-1)))))*(-1 if sign else 1))] + [sqrt_min,sqrt_max]
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
-
-def b1_dataset(flen):
-    if flen == 32:
-        basic_types = fzero + fminsubnorm + fsubnorm + fmaxsubnorm + fminnorm + \
-                fnorm + fmaxnorm +  finfinity + fdefaultnan + fqnan + fsnan + fone
-        for item in range(len(basic_types)):
-            basic_types[item] = int(basic_types[item][2:],16)
-        return basic_types
-    else:
-        basic_types = dzero + dminsubnorm + dsubnorm + dmaxsubnorm + dminnorm + \
-                dnorm + dmaxnorm +  dinfinity + ddefaultnan + dqnan + dsnan + done
-        for item in range(len(basic_types)):
-            basic_types[item] = int(basic_types[item][2:],16)
-        return basic_types
     
 def gen_fp_dataset(flen,instr,field):
-        return (b1_dataset(flen))    
+        return (ibm_dataset(flen,instr,field))   # Dataset will be returned by isac 
 
 def gen_sign_dataset(bit_width):
     '''

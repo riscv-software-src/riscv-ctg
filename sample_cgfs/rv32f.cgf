@@ -16,6 +16,8 @@ fadd.s:
     val_comb:
       abstract_comb:
         'ibm_b1(32,"fadd.s",2)': 0
+        'ibm_b2(32,"fadd.s")': 0
+        'ibm_b3(32,"fadd.s")': 0
         
 fsub.s:
     config: 
@@ -33,7 +35,9 @@ fsub.s:
     val_comb:
       abstract_comb:
         'ibm_b1(32,"fsub.s",2)': 0
-
+        'ibm_b2(32,"fsub.s")': 0
+        'ibm_b3(32,"fsub.s")': 0
+        
 fmul.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
@@ -50,6 +54,7 @@ fmul.s:
     val_comb:
       abstract_comb:
         'ibm_b1(32,"fmul.s",2)': 0
+        'ibm_b2(32,"fmul.s")': 0
         
 fdiv.s:
     config: 
@@ -67,6 +72,7 @@ fdiv.s:
     val_comb:
       abstract_comb:
         'ibm_b1(32,"fdiv.s",2)': 0
+        'ibm_b2(32,"fdiv.s")': 0
         
 fsqrt.s:
     config: 
