@@ -385,4 +385,3 @@ datasets:
     'walking_ones("imm_val", 12,False)': 0
     'walking_zeros("imm_val", 12,False)': 0
     'alternate("imm_val",12,False)': 0
-

@@ -134,6 +134,8 @@ def gen_usign_dataset(bit_width):
     data += [int(t1,2),int(t2,2)]
     return list(set(data))
 
+
+
 template_file = os.path.join(root,"data/template.yaml")
 
 usage = Template('''

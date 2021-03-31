@@ -17,6 +17,7 @@ three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
+from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
 
@@ -122,6 +123,10 @@ class Generator():
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
+        if (opnode['isa'] == 'IP'):
+            self.fmt = self.fmt[0] if (xlen == 32) else self.fmt[1]
+            fmt = self.fmt
+            init_rvp_ops_vals(OPS, VALS)
         self.op_vars = OPS[fmt]
         self.val_vars = VALS[fmt]
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
@@ -244,8 +249,6 @@ class Generator():
             solutions.append( tuple(op_tuple) )
 
         return solutions
-
-
 
     def valcomb(self, cgf):
         '''
@@ -697,6 +700,54 @@ class Generator():
                 rs3_val = int(instr['rs3_val'])
             if 'rm_val' in instr:
                 rm_val = int(instr['rm_val'])
+            if 'rs1_b0_val' in instr:
+                rs1_b0_val = int(instr['rs1_b0_val'])
+            if 'rs1_b1_val' in instr:
+                rs1_b1_val = int(instr['rs1_b1_val'])
+            if 'rs1_b2_val' in instr:
+                rs1_b2_val = int(instr['rs1_b2_val'])
+            if 'rs1_b3_val' in instr:
+                rs1_b3_val = int(instr['rs1_b3_val'])
+            if 'rs1_b4_val' in instr:
+                rs1_b4_val = int(instr['rs1_b4_val'])
+            if 'rs1_b5_val' in instr:
+                rs1_b5_val = int(instr['rs1_b5_val'])
+            if 'rs1_b6_val' in instr:
+                rs1_b6_val = int(instr['rs1_b6_val'])
+            if 'rs1_b7_val' in instr:
+                rs1_b7_val = int(instr['rs1_b7_val'])
+            if 'rs2_b0_val' in instr:
+                rs2_b0_val = int(instr['rs2_b0_val'])
+            if 'rs2_b1_val' in instr:
+                rs2_b1_val = int(instr['rs2_b1_val'])
+            if 'rs2_b2_val' in instr:
+                rs2_b2_val = int(instr['rs2_b2_val'])
+            if 'rs2_b3_val' in instr:
+                rs2_b3_val = int(instr['rs2_b3_val'])
+            if 'rs2_b4_val' in instr:
+                rs2_b4_val = int(instr['rs2_b4_val'])
+            if 'rs2_b5_val' in instr:
+                rs2_b5_val = int(instr['rs2_b5_val'])
+            if 'rs2_b6_val' in instr:
+                rs2_b6_val = int(instr['rs2_b6_val'])
+            if 'rs2_b7_val' in instr:
+                rs2_b7_val = int(instr['rs2_b7_val'])
+            if 'rs1_h0_val' in instr:
+                rs1_h0_val = int(instr['rs1_h0_val'])
+            if 'rs1_h1_val' in instr:
+                rs1_h1_val = int(instr['rs1_h1_val'])
+            if 'rs1_h2_val' in instr:
+                rs1_h2_val = int(instr['rs1_h2_val'])
+            if 'rs1_h3_val' in instr:
+                rs1_h3_val = int(instr['rs1_h3_val'])
+            if 'rs2_h0_val' in instr:
+                rs2_h0_val = int(instr['rs2_h0_val'])
+            if 'rs2_h1_val' in instr:
+                rs2_h1_val = int(instr['rs2_h1_val'])
+            if 'rs2_h2_val' in instr:
+                rs2_h2_val = int(instr['rs2_h2_val'])
+            if 'rs2_h3_val' in instr:
+                rs2_h3_val = int(instr['rs2_h3_val'])
             if 'imm_val' in instr:
                 if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
@@ -1004,6 +1055,9 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
         mydict = instr_dict.copy()
+        if (self.opnode['isa'] == 'IP'):
+            concat_simd_data(self.val_vars, instr_dict, xlen, self.opnode['bit_width'])
+            return instr_dict
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
                 # if xlen == 32:

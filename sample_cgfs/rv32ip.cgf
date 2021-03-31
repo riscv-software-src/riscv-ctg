@@ -1,0 +1,74 @@
+# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
+
+add8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      add8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
+add16:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      add16: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+        'simd_base_val("rs2", xlen, 16, signed=False)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=False)': 0
+
+sclip8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sclip8: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+kabs16:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kabs16: 0
+    rs1:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
