@@ -16,3 +16,83 @@ aes32dsi:
         'test_pattern1()': 0
         'test_pattern2()': 0
 
+aes32dsmi:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      aes32dsi: 0
+    rs1: 
+      <<: *all_crypto_regs
+    rs2:
+      <<: *all_crypto_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'test_pattern1()': 0
+        'test_pattern2()': 0
+
+aes32esi:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      aes32dsi: 0
+    rs1: 
+      <<: *all_crypto_regs
+    rs2:
+      <<: *all_crypto_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'test_pattern1()': 0
+        'test_pattern2()': 0
+
+aes32esmi:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      aes32dsi: 0
+    rs1: 
+      <<: *all_crypto_regs
+    rs2:
+      <<: *all_crypto_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'test_pattern1()': 0
+        'test_pattern2()': 0
+
+sm4ed:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      aes32dsi: 0
+    rs1: 
+      <<: *all_crypto_regs
+    rs2:
+      <<: *all_crypto_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'test_pattern1()': 0
+        'test_pattern2()': 0
+
+sm4ks:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      aes32dsi: 0
+    rs1: 
+      <<: *all_crypto_regs
+    rs2:
+      <<: *all_crypto_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'test_pattern1()': 0
+        'test_pattern2()': 0
+
