@@ -14,7 +14,7 @@ aes32dsi:
     val_comb:
       abstract_comb:
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
 aes32dsmi:
     config: 
@@ -30,7 +30,7 @@ aes32dsmi:
     val_comb:
       abstract_comb:
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
 aes32esi:
     config: 
@@ -46,7 +46,7 @@ aes32esi:
     val_comb:
       abstract_comb:
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
 aes32esmi:
     config: 
@@ -62,7 +62,7 @@ aes32esmi:
     val_comb:
       abstract_comb:
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
 sm4ed:
     config: 
@@ -78,7 +78,7 @@ sm4ed:
     val_comb:
       abstract_comb:
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
 sm4ks:
     config: 
@@ -94,5 +94,5 @@ sm4ks:
     val_comb:
       abstract_comb:      
         'byte_count()': 0
-        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
 
