@@ -111,7 +111,7 @@ sha256sig0:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
 
 sha256sig1:
     config: 
@@ -128,7 +128,7 @@ sha256sig1:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
         
 sha256sum0:
     config: 
@@ -145,7 +145,7 @@ sha256sum0:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
         
 sha256sum1:
     config: 
@@ -162,7 +162,7 @@ sha256sum1:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
 
 sm3p0:
     config: 
@@ -179,7 +179,7 @@ sm3p0:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
 
 sm3p1:
     config: 
@@ -196,5 +196,5 @@ sm3p1:
       abstract_comb:      
         'walking_ones("rs1", xlen, False)': 0
         'walking_zeros("rs1", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1"], [32])': 0
+        'uniform_random(20, 100, ["rs1"], [xlen])': 0
 
