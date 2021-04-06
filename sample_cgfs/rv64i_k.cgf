@@ -1,0 +1,66 @@
+# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
+
+aes64ds:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64ds: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64)': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
+
+aes64dsm:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64dsm: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64)': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
+
+aes64es:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64es: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64)': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
+
+aes64esm:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64esm: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64)': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
+
