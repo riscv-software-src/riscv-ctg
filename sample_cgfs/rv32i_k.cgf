@@ -6,15 +6,15 @@ aes32dsi:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
 aes32dsmi:
     config: 
@@ -22,15 +22,15 @@ aes32dsmi:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
 aes32esi:
     config: 
@@ -38,15 +38,15 @@ aes32esi:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
 aes32esmi:
     config: 
@@ -54,15 +54,15 @@ aes32esmi:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
 sm4ed:
     config: 
@@ -70,15 +70,15 @@ sm4ed:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
 sm4ks:
     config: 
@@ -86,13 +86,13 @@ sm4ks:
     opcode: 
       aes32dsi: 0
     rs1: 
-      <<: *all_crypto_regs
+      <<: *all_regs
     rs2:
-      <<: *all_crypto_regs
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'test_pattern1()': 0
-        'test_pattern2(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
+        'byte_count()': 0
+        'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
