@@ -20,7 +20,7 @@ aes32dsmi:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      aes32dsi: 0
+      aes32dsmi: 0
     rs1: 
       <<: *all_regs
     rs2:
@@ -36,7 +36,7 @@ aes32esi:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      aes32dsi: 0
+      aes32esi: 0
     rs1: 
       <<: *all_regs
     rs2:
@@ -52,7 +52,7 @@ aes32esmi:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      aes32dsi: 0
+      aes32esmi: 0
     rs1: 
       <<: *all_regs
     rs2:
@@ -68,7 +68,7 @@ sm4ed:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      aes32dsi: 0
+      sm4ed: 0
     rs1: 
       <<: *all_regs
     rs2:
@@ -84,7 +84,7 @@ sm4ks:
     config: 
       - check ISA:=regex(.*I.*F.*)
     opcode: 
-      aes32dsi: 0
+      sm4ks: 0
     rs1: 
       <<: *all_regs
     rs2:
@@ -92,7 +92,7 @@ sm4ks:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      abstract_comb:
+      abstract_comb:      
         'byte_count()': 0
         'uniform_random(20, 100, ["rs1","rs2","bs"], [32, 32, 1])': 0
 
