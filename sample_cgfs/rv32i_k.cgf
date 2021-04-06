@@ -95,4 +95,106 @@ sm4ks:
       abstract_comb:      
         'byte_count()': 0
         'uniform_random(20, 100, ["rs1","rs2","imm_val"], [32, 32, 1])': 0
+        
+sha256sig0:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sha256sig0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
+
+sha256sig1:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sha256sig1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
+        
+sha256sum0:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sha256sum0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
+        
+sha256sum1:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sha256sum1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
+
+sm3p0:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sm3p0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
+
+sm3p1:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      sm3p1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", xlen, False)': 0
+        'walking_zeros("rs1", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1"], [32])': 0
 
