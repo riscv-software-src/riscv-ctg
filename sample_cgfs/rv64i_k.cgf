@@ -16,7 +16,7 @@ aes64ds:
     val_comb:
       abstract_comb:
         'byte_count(64)': 0
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
 aes64dsm:
     config: 
@@ -34,7 +34,7 @@ aes64dsm:
     val_comb:
       abstract_comb:
         'byte_count(64)': 0
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
 aes64es:
     config: 
@@ -52,7 +52,7 @@ aes64es:
     val_comb:
       abstract_comb:
         'byte_count(64)': 0
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
 aes64esm:
     config: 
@@ -70,7 +70,7 @@ aes64esm:
     val_comb:
       abstract_comb:
         'byte_count(64)': 0
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
 aes64ks1:
     config: 
@@ -86,7 +86,7 @@ aes64ks1:
     val_comb:
       abstract_comb:
         'byte_count(64, ["rs1", "rcon"], "Y")': 0
-        'uniform_random(20, 100, ["rs1","rcon"], [xlen, log(10,2)])': 0
+        'uniform_random(20, 100, ["rs1","rcon"], [64, log(10,2)])': 0
 
 aes64ks2:
     config: 
@@ -103,9 +103,9 @@ aes64ks2:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'walking_ones("rs1", xlen, False)': 0
-        'walking_ones("rs2", xlen, False)': 0
-        'walking_zeros("rs1", xlen, False)': 0
-        'walking_zeros("rs2", xlen, False)': 0
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'walking_ones("rs1", 64, False)': 0
+        'walking_ones("rs2", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'walking_zeros("rs2", 64, False)': 0
+        'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
