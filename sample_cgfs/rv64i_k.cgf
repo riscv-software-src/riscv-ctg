@@ -9,6 +9,8 @@ aes64ds:
       <<: *all_regs
     rs2:
       <<: *all_regs
+    rd:
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -24,6 +26,8 @@ aes64dsm:
     rs1: 
       <<: *all_regs
     rs2:
+      <<: *all_regs
+    rd:
       <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
@@ -41,6 +45,8 @@ aes64es:
       <<: *all_regs
     rs2:
       <<: *all_regs
+    rd:
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -57,10 +63,28 @@ aes64esm:
       <<: *all_regs
     rs2:
       <<: *all_regs
+    rd:
+      <<: *all_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
         'byte_count(64)': 0
         'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
+
+aes64ks1i:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64esm: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64, ['rs1','rcon'], "Y")': 0
+        'uniform_random(20, 100, ["rs1","rcon"], [64, math.log(10,2)])': 0
 
