@@ -72,19 +72,19 @@ aes64esm:
         'byte_count(64)': 0
         'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
-aes64ks1i:
+aes64ks1:
     config: 
       - check ISA:=regex(.*I.*K.*)
     opcode: 
-      aes64esm: 0
+      aes64ks1: 0
     rs1: 
       <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count(64, ['rs1','rcon'], "Y")': 0
-        'uniform_random(20, 100, ["rs1","rcon"], [64, math.log(10,2)])': 0
+        'byte_count(64, ["rs1", "rcon"], "Y")': 0
+        'uniform_random(20, 100, ["rs1","rcon"], [64, log(10,2)])': 0
 
