@@ -109,3 +109,226 @@ aes64ks2:
         'walking_zeros("rs2", 64, False)': 0
         'uniform_random(20, 100, ["rs1","rs2"], [64, 64])': 0
 
+sha256sig0:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha256sig0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+
+sha256sig1:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha256sig1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sha256sum0:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha256sum0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sha256sum1:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha256sum1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+
+sha512sig0:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha512sig0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+
+sha512sig1:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha512sig1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sha512sum0:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha512sum0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sha512sum1:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sha512sum1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sm3p0:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sm3p0: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+sm3p1:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sm3p1: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+        
+aes64im:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      aes64im: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'walking_ones("rs1", 64, False)': 0
+        'walking_zeros("rs1", 64, False)': 0
+        'uniform_random(20, 100, ["rs1"], [64])': 0
+   
+sm4ed:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sm4ed: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'byte_count(64, ["rs1","rs2","bs"])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [64, 64, 1])': 0
+
+sm4ks:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      sm4ks: 0
+    rs1: 
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'byte_count(64, ["rs1","rs2","bs"])': 0
+        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [64, 64, 1])': 0
+        
