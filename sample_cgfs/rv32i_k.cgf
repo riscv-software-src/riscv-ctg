@@ -323,4 +323,334 @@ sha512sum1r:
         'walking_zeros("rs1", xlen, False)': 0
         'walking_zeros("rs2", xlen, False)': 0
         'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+
+ror:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      ror: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+        
+rol:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      rol: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+        
+rori:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      rori: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32, ["rs1", "imm_val"])': 0
+        'trailing_ones(32, ["rs1", "imm_val"])': 0
+        'leading_zeros(32, ["rs1", "imm_val"])': 0
+        'trailing_zeros(32, ["rs1", "imm_val"])': 0
+        
+rev.b:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      rev.b: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32, ["rs1"])': 0
+        'trailing_ones(32, ["rs1"])': 0
+        'leading_zeros(32, ["rs1"])': 0
+        'trailing_zeros(32, ["rs1"])': 0
+        
+rev8:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      rev8: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32, ["rs1"])': 0
+        'trailing_ones(32, ["rs1"])': 0
+        'leading_zeros(32, ["rs1"])': 0
+        'trailing_zeros(32, ["rs1"])': 0
+        
+zip:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      zip: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32, ["rs1"])': 0
+        'trailing_ones(32, ["rs1"])': 0
+        'leading_zeros(32, ["rs1"])': 0
+        'trailing_zeros(32, ["rs1"])': 0
+
+unzip:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      unzip: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32, ["rs1"])': 0
+        'trailing_ones(32, ["rs1"])': 0
+        'leading_zeros(32, ["rs1"])': 0
+        'trailing_zeros(32, ["rs1"])': 0
+
+clmul:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      clmul: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+        
+clmulh:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      clmulh: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+andn:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      andn: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+orn:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      orn: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+xnor:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      xnor: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+pack:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      pack: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+packu:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      packu: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+        
+packh:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      packh: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+
+xperm.n:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      xperm.n: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
+        
+xperm.b:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+    opcode: 
+      xperm.b: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(32)': 0
+        'trailing_ones(32)': 0
+        'leading_zeros(32)': 0
+        'trailing_zeros(32)': 0
         
