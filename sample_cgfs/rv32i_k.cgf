@@ -339,10 +339,10 @@ ror:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
 rol:
     config: 
@@ -359,10 +359,10 @@ rol:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
 rori:
     config: 
@@ -395,10 +395,10 @@ rev.b:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"])': 0
-        'trailing_ones(32, ["rs1"])': 0
-        'leading_zeros(32, ["rs1"])': 0
-        'trailing_zeros(32, ["rs1"])': 0
+        'leading_ones(32, ["rs1"],[xlen])': 0
+        'trailing_ones(32, ["rs1"],[xlen])': 0
+        'leading_zeros(32, ["rs1"],[xlen])': 0
+        'trailing_zeros(32, ["rs1"],[xlen])': 0
         
 rev8:
     config: 
@@ -413,10 +413,10 @@ rev8:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"])': 0
-        'trailing_ones(32, ["rs1"])': 0
-        'leading_zeros(32, ["rs1"])': 0
-        'trailing_zeros(32, ["rs1"])': 0
+        'leading_ones(32, ["rs1"],[xlen])': 0
+        'trailing_ones(32, ["rs1"],[xlen])': 0
+        'leading_zeros(32, ["rs1"],[xlen])': 0
+        'trailing_zeros(32, ["rs1"],[xlen])': 0
         
 zip:
     config: 
@@ -431,10 +431,10 @@ zip:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"])': 0
-        'trailing_ones(32, ["rs1"])': 0
-        'leading_zeros(32, ["rs1"])': 0
-        'trailing_zeros(32, ["rs1"])': 0
+        'leading_ones(32, ["rs1"],[xlen])': 0
+        'trailing_ones(32, ["rs1"],[xlen])': 0
+        'leading_zeros(32, ["rs1"],[xlen])': 0
+        'trailing_zeros(32, ["rs1"],[xlen])': 0
 
 unzip:
     config: 
@@ -449,10 +449,10 @@ unzip:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"])': 0
-        'trailing_ones(32, ["rs1"])': 0
-        'leading_zeros(32, ["rs1"])': 0
-        'trailing_zeros(32, ["rs1"])': 0
+        'leading_ones(32, ["rs1"],[xlen])': 0
+        'trailing_ones(32, ["rs1"],[xlen])': 0
+        'leading_zeros(32, ["rs1"],[xlen])': 0
+        'trailing_zeros(32, ["rs1"],[xlen])': 0
 
 clmul:
     config: 
@@ -469,10 +469,10 @@ clmul:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
 clmulh:
     config: 
@@ -489,10 +489,10 @@ clmulh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 andn:
     config: 
@@ -509,10 +509,10 @@ andn:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 orn:
     config: 
@@ -529,10 +529,10 @@ orn:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 xnor:
     config: 
@@ -549,10 +549,10 @@ xnor:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 pack:
     config: 
@@ -569,10 +569,10 @@ pack:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 packu:
     config: 
@@ -589,10 +589,10 @@ packu:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
 packh:
     config: 
@@ -609,10 +609,10 @@ packh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
 
 xperm.n:
     config: 
@@ -629,10 +629,10 @@ xperm.n:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
 xperm.b:
     config: 
@@ -649,8 +649,8 @@ xperm.b:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1","rs2"])': 0
-        'trailing_ones(32, ["rs1","rs2"])': 0
-        'leading_zeros(32, ["rs1","rs2"])': 0
-        'trailing_zeros(32, ["rs1","rs2"])': 0
+        'leading_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_ones(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
+        'trailing_zeros(32, ["rs1","rs2"],[xlen,xlen])': 0
         
