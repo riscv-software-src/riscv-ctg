@@ -90,8 +90,8 @@ aes64ks1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count(64, ["rs1", "rcon"], "Y")': 0
-        'uniform_random(20, 100, ["rs1","rcon"], [64, log(10,2)])': 0
+        'byte_count(64, ["rs1", "imm_val"], "Y")': 0
+        'uniform_random(20, 100, ["rs1","imm_val"], [64, log(10,2)])': 0
 
 aes64ks2:
     config: 
