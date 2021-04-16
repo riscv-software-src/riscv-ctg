@@ -251,47 +251,59 @@ class Generator():
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
         while inds:
+            soln = []
             req_val_comb = conds[inds.pop()]
-            if self.random:
-                problem = Problem(MinConflictsSolver())
+            if("#nosat" in req_val_comb):
+                req_val_comb_minus_comm = req_val_comb.split("#")[0]
+                x = req_val_comb_minus_comm.split(" and ")
+                for i in x:
+                    y = i.split("==")
+                    for j in range(len(y)):
+                        if((j+1)%2 == 0):
+                            soln.append(int(y[j],16))
+                soln.append(req_val_comb_minus_comm)
+                val_tuple = soln
             else:
-                problem = Problem()
-
-            for var in self.val_vars:
-                if var == 'ea_align' and var not in req_val_comb:
-                    problem.addVariable(var, [0])
+                if self.random:
+                    problem = Problem(MinConflictsSolver())
                 else:
-                    problem.addVariable(var, self.datasets[var])
-
-            def condition(*argv):
-                for var,val in zip(self.val_vars,argv):
-                    locals()[var]=val
-                return eval(req_val_comb)
-
-            problem.addConstraint(condition,tuple(self.val_vars))
-            # if boundconstraint:
-            #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
-            solution = problem.getSolution()
-            count = 0
-            while (solution is None and count < 5):
+                    problem = Problem()
+    
+                for var in self.val_vars:
+                    if var == 'ea_align' and var not in req_val_comb:
+                        problem.addVariable(var, [0])
+                    else:
+                        problem.addVariable(var, self.datasets[var])
+    
+                def condition(*argv):
+                    for var,val in zip(self.val_vars,argv):
+                        locals()[var]=val
+                    return eval(req_val_comb)
+    
+                problem.addConstraint(condition,tuple(self.val_vars))
+                # if boundconstraint:
+                #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
                 solution = problem.getSolution()
-                count+=1
-            if solution is None:
-                logger.warn(self.opcode + " : Cannot find solution for Val condition "+str(req_val_comb))
-                continue
-            val_tuple = []
-            for i,key in enumerate(self.val_vars):
-                val_tuple.append(solution[key])
-
-            def eval_func(cond):
-                for var,val in zip(self.val_vars,val_tuple):
-                    locals()[var] = val
-                return eval(cond)
-            sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
-            inds = inds - sat_set
-            val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
+                count = 0
+                while (solution is None and count < 5):
+                    solution = problem.getSolution()
+                    count+=1
+                if solution is None:
+                    logger.warn(self.opcode + " : Cannot find solution for Val condition "+str(req_val_comb))
+                    continue
+                val_tuple = []
+                for i,key in enumerate(self.val_vars):
+                    val_tuple.append(solution[key])
+    
+                def eval_func(cond):
+                    for var,val in zip(self.val_vars,val_tuple):
+                        locals()[var] = val
+                    return eval(cond)
+                sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
+                inds = inds - sat_set
+                val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
+                problem.reset()
             val_comb.append( tuple(val_tuple) )
-            problem.reset()
         return val_comb
 
     def __jfmt_instr__(self,op=None,val=None):

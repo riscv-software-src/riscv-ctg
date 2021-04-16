@@ -1,0 +1,17 @@
+sha512sig0h:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*ZKn.*)
+    opcode: 
+      sha512sig0h: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
