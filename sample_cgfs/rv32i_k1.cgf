@@ -14,4 +14,4 @@ sha512sig0h:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'uniform_random(20, 100, ["rs1","rs2"], [xlen, xlen])': 0
+        'uniform_random(20, 100, ["rs2_val", "rs1_val"], [xlen, xlen])': 0

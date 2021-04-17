@@ -8,6 +8,7 @@ from riscv_ctg.log import logger
 import time
 from math import *
 import struct
+import sys
 
 twos_xlen = lambda x: twos(x,xlen)
 
@@ -251,16 +252,30 @@ class Generator():
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
         while inds:
-            soln = []
             req_val_comb = conds[inds.pop()]
             if("#nosat" in req_val_comb):
+                d={}
+                soln = []
                 req_val_comb_minus_comm = req_val_comb.split("#")[0]
                 x = req_val_comb_minus_comm.split(" and ")
-                for i in x:
-                    y = i.split("==")
-                    for j in range(len(y)):
-                        if((j+1)%2 == 0):
-                            soln.append(int(y[j],16))
+                for i in self.val_vars:
+                    for j in x:
+                        if i in j:
+                            if(d.get(i,"None") == "None"):
+                                d[i] = j.split("==")[1]
+                            else:
+                                logger.error("Invalid Coverpoint: More than one value of "+ i +" found!")
+                                sys.exit(1)
+                if(list(d.keys()) != self.val_vars):
+                    logger.error("Invalid Coverpoint: Cannot bypass SAT Solver for partially defined coverpoints!")
+                    sys.exit(1)
+                for y in d:
+                    if("0x" in d[y]):
+                        soln.append(int(d[y],16))
+                    elif("0b" in d[y]):
+                        soln.append(int(d[y],2))
+                    else:
+                        soln.append(int(d[y]))
                 soln.append(req_val_comb_minus_comm)
                 val_tuple = soln
             else:
