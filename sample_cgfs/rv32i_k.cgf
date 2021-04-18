@@ -421,10 +421,10 @@ rev.b:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"],[xlen])': 0
-        'trailing_ones(32, ["rs1"],[xlen])': 0
-        'leading_zeros(32, ["rs1"],[xlen])': 0
-        'trailing_zeros(32, ["rs1"],[xlen])': 0
+        'leading_ones(32, ["rs1_val"],[xlen])': 0
+        'trailing_ones(32, ["rs1_val"],[xlen])': 0
+        'leading_zeros(32, ["rs1_val"],[xlen])': 0
+        'trailing_zeros(32, ["rs1_val"],[xlen])': 0
         
 rev8:
     config: 
@@ -441,10 +441,10 @@ rev8:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1"],[xlen])': 0
-        'trailing_ones(32, ["rs1"],[xlen])': 0
-        'leading_zeros(32, ["rs1"],[xlen])': 0
-        'trailing_zeros(32, ["rs1"],[xlen])': 0
+        'leading_ones(32, ["rs1_val"],[xlen])': 0
+        'trailing_ones(32, ["rs1_val"],[xlen])': 0
+        'leading_zeros(32, ["rs1_val"],[xlen])': 0
+        'trailing_zeros(32, ["rs1_val"],[xlen])': 0
         
 zip:
     config: 

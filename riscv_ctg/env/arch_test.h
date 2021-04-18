@@ -766,6 +766,13 @@ RVTEST_SIGUPD(swreg,destreg,offset)
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
     )
+    
+#define TEST_RI_OP(inst, destreg, reg2, imm, correctval, val1, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(destreg, MASK_XLEN(val1)); \
+      LI(reg2, MASK_XLEN(val2)); \
+      inst destreg, reg2, imm; \
+    )
 
 #define TEST_CNOP_OP( inst, testreg, imm_val, swreg, offset) \
     TEST_CASE(testreg, x0, 0, swreg, offset, \

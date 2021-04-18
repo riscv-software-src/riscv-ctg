@@ -48,7 +48,8 @@ VALS = {
     'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val']
+    'cjformat': ['imm_val'],
+    'kformat': ['rs1_val']
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
