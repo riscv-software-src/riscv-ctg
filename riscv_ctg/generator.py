@@ -28,7 +28,8 @@ OPS = {
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
-    'cjformat': []
+    'cjformat': [],
+    'kformat': ['rs1','rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
