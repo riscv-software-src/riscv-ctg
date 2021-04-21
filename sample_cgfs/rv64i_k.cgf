@@ -16,7 +16,7 @@ aes64ds:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count((64), ["rs1_val","rs2_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val"])': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val"], [64, 64])': 0
 
 aes64dsm:
@@ -35,7 +35,7 @@ aes64dsm:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count((64), ["rs1_val","rs2_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val"])': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val"], [64, 64])': 0
 
 aes64es:
@@ -54,7 +54,7 @@ aes64es:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count((64), ["rs1_val","rs2_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val"])': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val"], [64, 64])': 0
 
 aes64esm:
@@ -73,7 +73,7 @@ aes64esm:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count((64), ["rs1_val","rs2_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val"])': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val"], [64, 64])': 0
 
 aes64ks1:
@@ -114,7 +114,7 @@ aes64ks2:
         'walking_zeros("rs1_val", 64, False)': 0
         'walking_zeros("rs2_val", 64, False)': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val"], [64, 64])': 0
-
+        
 sha256sig0:
     config: 
       - check ISA:=regex(.*I.*K.*)
@@ -129,9 +129,9 @@ sha256sig0:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
 
 sha256sig1:
     config: 
@@ -147,9 +147,9 @@ sha256sig1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sha256sum0:
     config: 
@@ -165,9 +165,9 @@ sha256sum0:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sha256sum1:
     config: 
@@ -183,9 +183,9 @@ sha256sum1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
 
 sha512sig0:
     config: 
@@ -201,9 +201,9 @@ sha512sig0:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
 
 sha512sig1:
     config: 
@@ -219,9 +219,9 @@ sha512sig1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sha512sum0:
     config: 
@@ -237,9 +237,9 @@ sha512sum0:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sha512sum1:
     config: 
@@ -255,9 +255,9 @@ sha512sum1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sm3p0:
     config: 
@@ -273,9 +273,9 @@ sm3p0:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 sm3p1:
     config: 
@@ -291,9 +291,9 @@ sm3p1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
         
 aes64im:
     config: 
@@ -309,10 +309,10 @@ aes64im:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'walking_ones("rs1", 64, False)': 0
-        'walking_zeros("rs1", 64, False)': 0
-        'uniform_random(20, 100, ["rs1"], [64])': 0
-   
+        'walking_ones("rs1_val", 64, False)': 0
+        'walking_zeros("rs1_val", 64, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [64])': 0
+        
 sm4ed:
     config: 
       - check ISA:=regex(.*I.*K.*)
@@ -323,14 +323,12 @@ sm4ed:
       <<: *all_regs
     rs2:
       <<: *all_regs
-    rd:
-      <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *sfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count(64, ["rs1","rs2","bs"])': 0
-        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [64, 64, 2])': 0
+        'byte_count(64, ["rs1_val","rs2_val","imm_val"])': 0
+        'uniform_random(20, 100, ["rs1_val","rs2_val","imm_val"], [64, 64, 2])': 0
 
 sm4ks:
     config: 
@@ -342,14 +340,12 @@ sm4ks:
       <<: *all_regs
     rs2:
       <<: *all_regs
-    rd:
-      <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: *sfmt_op_comb
     val_comb:
       abstract_comb:      
-        'byte_count(64, ["rs1","rs2","bs"])': 0
-        'uniform_random(20, 100, ["rs1","rs2","imm_val"], [64, 64, 2])': 0
+        'byte_count(64, ["rs1_val","rs2_val","imm_val"])': 0
+        'uniform_random(20, 100, ["rs1_val","rs2_val","imm_val"], [64, 64, 2])': 0
         
 ror:
     config: 
@@ -368,10 +364,10 @@ ror:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 rol:
     config: 
@@ -390,10 +386,10 @@ rol:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 rori:
     config: 
@@ -410,10 +406,10 @@ rori:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1", "imm_val"], [32,7])': 0
-        'trailing_ones(64, ["rs1", "imm_val"], [32,7])': 0
-        'leading_zeros(64, ["rs1", "imm_val"], [32,7])': 0
-        'trailing_zeros(64, ["rs1", "imm_val"], [32,7])': 0
+        'leading_ones(64, ["rs1_val", "imm_val"], [64,7])': 0
+        'trailing_ones(64, ["rs1_val", "imm_val"], [64,7])': 0
+        'leading_zeros(64, ["rs1_val", "imm_val"], [64,7])': 0
+        'trailing_zeros(64, ["rs1_val", "imm_val"], [64,7])': 0
 
 rorw:
     config: 
@@ -432,10 +428,10 @@ rorw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"], [32,32])': 0
-        'trailing_ones(64, ["rs1","rs2"], [32,32])': 0
-        'leading_zeros(64, ["rs1","rs2"], [32,32])': 0
-        'trailing_zeros(64, ["rs1","rs2"], [32,32])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 rolw:
     config: 
@@ -454,10 +450,10 @@ rolw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"], [32,32])': 0
-        'trailing_ones(64, ["rs1","rs2"], [32,32])': 0
-        'leading_zeros(64, ["rs1","rs2"], [32,32])': 0
-        'trailing_zeros(64, ["rs1","rs2"], [32,32])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 roriw:
     config: 
@@ -474,10 +470,10 @@ roriw:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1", "imm_val"], [32,5])': 0
-        'trailing_ones(64, ["rs1", "imm_val"], [32,5])': 0
-        'leading_zeros(64, ["rs1", "imm_val"], [32,5])': 0
-        'trailing_zeros(64, ["rs1", "imm_val"], [32,5])': 0
+        'leading_ones(64, ["rs1_val", "imm_val"], [64,5])': 0
+        'trailing_ones(64, ["rs1_val", "imm_val"], [64,5])': 0
+        'leading_zeros(64, ["rs1_val", "imm_val"], [64,5])': 0
+        'trailing_zeros(64, ["rs1_val", "imm_val"], [64,5])': 0
         
 rev.b:
     config: 
@@ -494,10 +490,10 @@ rev.b:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1"],[xlen])': 0
-        'trailing_ones(64, ["rs1"],[xlen])': 0
-        'leading_zeros(64, ["rs1"],[xlen])': 0
-        'trailing_zeros(64, ["rs1"],[xlen])': 0
+        'leading_ones(64, ["rs1_val"], [64])': 0
+        'trailing_ones(64, ["rs1_val"], [64])': 0
+        'leading_zeros(64, ["rs1_val"], [64])': 0
+        'trailing_zeros(64, ["rs1_val"], [64])': 0
         
 rev8:
     config: 
@@ -514,10 +510,10 @@ rev8:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1"],[xlen])': 0
-        'trailing_ones(64, ["rs1"],[xlen])': 0
-        'leading_zeros(64, ["rs1"],[xlen])': 0
-        'trailing_zeros(64, ["rs1"],[xlen])': 0
+        'leading_ones(64, ["rs1_val"], [64])': 0
+        'trailing_ones(64, ["rs1_val"], [64])': 0
+        'leading_zeros(64, ["rs1_val"], [64])': 0
+        'trailing_zeros(64, ["rs1_val"], [64])': 0
         
 rev8.w:
     config: 
@@ -534,10 +530,10 @@ rev8.w:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1"], [32])': 0
-        'trailing_ones(64, ["rs1"], [32])': 0
-        'leading_zeros(64, ["rs1"], [32])': 0
-        'trailing_zeros(64, ["rs1"], [32])': 0
+        'leading_ones(64, ["rs1_val"], [64])': 0
+        'trailing_ones(64, ["rs1_val"], [64])': 0
+        'leading_zeros(64, ["rs1_val"], [64])': 0
+        'trailing_zeros(64, ["rs1_val"], [64])': 0
 
 clmul:
     config: 
@@ -556,10 +552,10 @@ clmul:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 clmulh:
     config: 
@@ -578,10 +574,10 @@ clmulh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 andn:
     config: 
@@ -600,10 +596,10 @@ andn:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 orn:
     config: 
@@ -622,10 +618,10 @@ orn:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 xnor:
     config: 
@@ -644,10 +640,10 @@ xnor:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 pack:
     config: 
@@ -666,10 +662,10 @@ pack:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 packu:
     config: 
@@ -688,10 +684,10 @@ packu:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 packh:
     config: 
@@ -710,10 +706,10 @@ packh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 packw:
     config: 
@@ -732,10 +728,10 @@ packw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[32,32])': 0
-        'trailing_ones(64, ["rs1","rs2"],[32,32])': 0
-        'leading_zeros(64, ["rs1","rs2"],[32,32])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[32,32])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 packuw:
     config: 
@@ -754,10 +750,10 @@ packuw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[32,32])': 0
-        'trailing_ones(64, ["rs1","rs2"],[32,32])': 0
-        'leading_zeros(64, ["rs1","rs2"],[32,32])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[32,32])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
 
 xperm.n:
     config: 
@@ -776,10 +772,10 @@ xperm.n:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
 xperm.b:
     config: 
@@ -798,8 +794,8 @@ xperm.b:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_ones(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'leading_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
-        'trailing_zeros(64, ["rs1","rs2"],[xlen,xlen])': 0
+        'leading_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_ones(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'leading_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
+        'trailing_zeros(64, ["rs1_val","rs2_val"], [64,64])': 0
         
