@@ -43,6 +43,7 @@ OPS = {
     'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
     'fr4format': ['rs1', 'rs2', 'rs3', 'rd']
+    'pbrrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -68,8 +69,12 @@ VALS = {
     'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
     'fsrformat': ['rs1_val', 'rm_val'],
     'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']
+    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)'
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
+
+
+
 
 def isInt(s):
     '''
@@ -123,12 +128,12 @@ class Generator():
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
-        if (opnode['isa'] == 'IP'):
+        if (opnode['isa'] == 'IP' and isinstance(opnode['formattype'],list)):
             self.fmt = self.fmt[0] if (xlen == 32) else self.fmt[1]
             fmt = self.fmt
             init_rvp_ops_vals(OPS, VALS)
         self.op_vars = OPS[fmt]
-        self.val_vars = VALS[fmt]
+        self.val_vars = eval(VALS[fmt])
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']

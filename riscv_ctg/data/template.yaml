@@ -3377,7 +3377,7 @@ packuw:
 add8:
   xlen: [32,64]
   isa: IP
-  formattype: ['pb4rrformat', 'pb8rrformat']
+  formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
