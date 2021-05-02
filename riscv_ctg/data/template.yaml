@@ -1410,7 +1410,7 @@ aes32dsi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1422,7 +1422,7 @@ aes32dsmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1434,7 +1434,7 @@ aes32esi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1446,7 +1446,7 @@ aes32esmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1458,7 +1458,7 @@ sm4ed:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1470,7 +1470,7 @@ sm4ks:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'sformat'
   template: |-
 
@@ -1480,7 +1480,7 @@ sm4ks:
 
 sha256sig0:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1496,7 +1496,7 @@ sha256sig0:
     
 sha256sig1:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1512,7 +1512,7 @@ sha256sig1:
     
 sha256sum0:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1528,7 +1528,7 @@ sha256sum0:
 
 sha256sum1:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1544,7 +1544,7 @@ sha256sum1:
 
 sm3p0:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1560,7 +1560,7 @@ sm3p0:
 
 sm3p1:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1576,7 +1576,7 @@ sm3p1:
 
 sha512sig0h:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1591,7 +1591,7 @@ sha512sig0h:
 
 sha512sig0l:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1606,7 +1606,7 @@ sha512sig0l:
     
 sha512sig1h:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1621,7 +1621,7 @@ sha512sig1h:
 
 sha512sig1l:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1636,7 +1636,7 @@ sha512sig1l:
     
 sha512sum0r:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1651,7 +1651,7 @@ sha512sum0r:
     
 sha512sum1r:
   xlen: [32,64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1894,7 +1894,7 @@ xperm.b:
 
 aes64ds:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1907,7 +1907,7 @@ aes64ds:
     
 aes64dsm:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1920,7 +1920,7 @@ aes64dsm:
     
 aes64es:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1933,7 +1933,7 @@ aes64es:
     
 aes64esm:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1946,7 +1946,7 @@ aes64esm:
     
 aes64ks1i:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1958,7 +1958,7 @@ aes64ks1i:
     
 aes64ks2:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1973,7 +1973,7 @@ aes64ks2:
     
 sha512sig0:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1989,7 +1989,7 @@ sha512sig0:
 
 sha512sig1:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2005,7 +2005,7 @@ sha512sig1:
     
 sha512sum0:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2021,7 +2021,7 @@ sha512sum0:
     
 sha512sum1:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2037,7 +2037,7 @@ sha512sum1:
     
 aes64im:
   xlen: [64]
-  isa: I
+  isa: IK
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
