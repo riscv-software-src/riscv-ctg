@@ -739,7 +739,7 @@ packuw:
       - check ISA:=regex(.*RV64.*I.*ZKs.*)
       - check ISA:=regex(.*RV64.*I.*ZKn.*)
     opcode: 
-      packw: 0
+      packuw: 0
     rs1: 
       <<: *all_regs
     rs2: 
