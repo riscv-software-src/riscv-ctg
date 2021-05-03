@@ -406,10 +406,10 @@ rori:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(64, ["rs1_val", "imm_val"], [64,7])': 0
-        'trailing_ones(64, ["rs1_val", "imm_val"], [64,7])': 0
-        'leading_zeros(64, ["rs1_val", "imm_val"], [64,7])': 0
-        'trailing_zeros(64, ["rs1_val", "imm_val"], [64,7])': 0
+        'leading_ones(64, ["rs1_val", "imm_val"], [64,6])': 0
+        'trailing_ones(64, ["rs1_val", "imm_val"], [64,6])': 0
+        'leading_zeros(64, ["rs1_val", "imm_val"], [64,6])': 0
+        'trailing_zeros(64, ["rs1_val", "imm_val"], [64,6])': 0
 
 rorw:
     config: 
