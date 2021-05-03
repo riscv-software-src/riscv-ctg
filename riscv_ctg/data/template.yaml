@@ -1458,7 +1458,7 @@ sm4ed:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: IK
+  isa: I_Zks
   formattype: 'sformat'
   template: |-
 
@@ -1470,7 +1470,7 @@ sm4ks:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
-  isa: IK
+  isa: I_Zks
   formattype: 'sformat'
   template: |-
 
@@ -1544,7 +1544,7 @@ sha256sum1:
 
 sm3p0:
   xlen: [32,64]
-  isa: IK
+  isa: I_Zks
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1560,7 +1560,7 @@ sm3p0:
 
 sm3p1:
   xlen: [32,64]
-  isa: IK
+  isa: I_Zks
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
