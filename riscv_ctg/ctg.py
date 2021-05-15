@@ -4,6 +4,7 @@ import os,re
 import multiprocessing as mp
 
 import time
+import shutil
 from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const

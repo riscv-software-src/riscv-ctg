@@ -1,7 +1,7 @@
 # See LICENSE.incore for details
 """Console script for riscv_ctg."""
 
-import click,os,shutil
+import click,os
 
 from riscv_ctg.log import logger
 from riscv_ctg.ctg import ctg
