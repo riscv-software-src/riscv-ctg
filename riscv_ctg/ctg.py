@@ -54,7 +54,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     logger.info("Copying env folder to Output directory.")
     env_dir = os.path.join(out,"env")
     if not os.path.exists(env_dir):
-        shutil.copytree(env,env_dir)
+        shutil.copytree(const.env,env_dir)
     xlen = int(xlen_arg)
     out_dir = out
     randomize = random
