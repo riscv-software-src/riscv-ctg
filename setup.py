@@ -44,7 +44,7 @@ setup(
         'riscv_ctg': [
             'requirements.txt',
             'data/*',
-            'end/*'
+            'env/*'
             ]
         },
     install_requires=read_requires(),

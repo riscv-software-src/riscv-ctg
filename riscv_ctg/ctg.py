@@ -46,6 +46,14 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     global randomize
     global out_dir
     global xlen
+    logger.level(verbose)
+    logger.info('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
+    logger.info('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
+    logger.info('All Rights Reserved.')
+    logger.info("Copying env folder to Output directory.")
+    env_dir = os.path.join(out,"env")
+    if not os.path.exists(env_dir):
+        shutil.copytree(env,env_dir)
     xlen = int(xlen_arg)
     out_dir = out
     randomize = random

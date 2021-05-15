@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.5] - 2021-05-15
+- Minor code restructure to support API calls.
+- Fixes to include env files in pip package.
+
 ## [0.4.4] - 2021-02-23
 - Added missing coverpoints for JALR
 - fixed CI to run main.yml on pushes to master.
