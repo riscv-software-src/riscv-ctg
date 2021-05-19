@@ -14,7 +14,7 @@ from math import *
 from riscv_ctg.__init__ import __version__
 
 def create_test(usage_str, node,label,base_isa):
-    global cgf_op
+    global op_template
     global ramdomize
     global out_dir
     global xlen
@@ -25,10 +25,18 @@ def create_test(usage_str, node,label,base_isa):
         if node['ignore']:
             return
     for opcode in node['opcode']:
-        if opcode not in cgf_op:
-            logger.info("Skipping :" + str(opcode))
+        op_node=None
+        if opcode not in op_template:
+            for op,foo in op_template.items():
+                if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
+                    op_node = foo
+                    break
+        else:
+            op_node = op_template[opcode]
+
+        if op_node is  None:
+            logger.warning("Skipping :" + str(opcode))
             return
-        op_node = cgf_op[opcode]
         if xlen not in op_node['xlen']:
             return
         fname = os.path.join(out_dir,str(label+"-01.S"))
@@ -43,7 +51,7 @@ def create_test(usage_str, node,label,base_isa):
         gen.write_test(fname,node,label,mydict, op_node, usage_str)
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
-    global cgf_op
+    global op_template
     global randomize
     global out_dir
     global xlen
@@ -68,7 +76,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     usage_str = const.usage.safe_substitute(base_isa=base_isa, \
             cgf_argument=cgf_argument, version = __version__, time=mytime, \
             randomize_argument=randomize_argument)
-    cgf_op = utils.load_yaml(const.template_file)
+    op_template = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa) for label,node in cgf.items()])
