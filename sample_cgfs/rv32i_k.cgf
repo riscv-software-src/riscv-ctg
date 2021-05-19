@@ -2,6 +2,7 @@ aes32dsi:
     config: 
       - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnd.*)
     opcode: 
       aes32dsi: 0
     rs1: 
@@ -19,6 +20,7 @@ aes32dsmi:
     config: 
       - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnd.*)
     opcode: 
       aes32dsmi: 0
     rs1: 
@@ -36,6 +38,7 @@ aes32esi:
     config: 
       - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKne.*)
     opcode: 
       aes32esi: 0
     rs1: 
@@ -53,6 +56,7 @@ aes32esmi:
     config: 
       - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKne.*)
     opcode: 
       aes32esmi: 0
     rs1: 
@@ -70,6 +74,7 @@ sm4ed:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
+      - check ISA:=regex(.*I.*ZKsed.*)
     opcode: 
       sm4ed: 0
     rs1: 
@@ -87,6 +92,7 @@ sm4ks:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
+      - check ISA:=regex(.*I.*ZKsed.*)
     opcode: 
       sm4ks: 0
     rs1: 
@@ -104,6 +110,7 @@ sha256sig0:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKnh.*)
     opcode: 
       sha256sig0: 0
     rs1: 
@@ -122,6 +129,7 @@ sha256sig1:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKnh.*)
     opcode: 
       sha256sig1: 0
     rs1: 
@@ -140,6 +148,7 @@ sha256sum0:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKnh.*)
     opcode: 
       sha256sum0: 0
     rs1: 
@@ -158,6 +167,7 @@ sha256sum1:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKnh.*)
     opcode: 
       sha256sum1: 0
     rs1: 
@@ -176,6 +186,7 @@ sm3p0:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKsh.*)
     opcode: 
       sm3p0: 0
     rs1: 
@@ -194,6 +205,7 @@ sm3p1:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKsh.*)
     opcode: 
       sm3p1: 0
     rs1: 
@@ -210,8 +222,9 @@ sm3p1:
 
 sha512sig0h:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sig0h: 0
     rs1: 
@@ -232,8 +245,9 @@ sha512sig0h:
         
 sha512sig0l:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sig0l: 0
     rs1: 
@@ -254,8 +268,9 @@ sha512sig0l:
         
 sha512sig1h:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sig1h: 0
     rs1: 
@@ -276,8 +291,9 @@ sha512sig1h:
         
 sha512sig1l:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sig1l: 0
     rs1: 
@@ -298,8 +314,9 @@ sha512sig1l:
 
 sha512sum0r:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sum0r: 0
     rs1: 
@@ -320,8 +337,9 @@ sha512sum0r:
         
 sha512sum1r:
     config: 
-      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*RV32.*I.*K.*)
       - check ISA:=regex(.*RV32.*I.*ZKn.*)
+      - check ISA:=regex(.*RV32.*I.*ZKnh.*)
     opcode: 
       sha512sum1r: 0
     rs1: 
@@ -345,6 +363,7 @@ ror:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       ror: 0
     rs1: 
@@ -367,6 +386,7 @@ rol:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       rol: 0
     rs1: 
@@ -389,6 +409,7 @@ rori:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       rori: 0
     rs1: 
@@ -409,8 +430,9 @@ rev.b:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
-      rev.b: 0
+      grevi: 0
     rs1: 
       <<: *all_regs
     rd:
@@ -429,8 +451,9 @@ rev8:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
-      rev8: 0
+      grevi: 0
     rs1: 
       <<: *all_regs
     rd:
@@ -449,6 +472,7 @@ zip:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       zip: 0
     rs1: 
@@ -469,6 +493,7 @@ unzip:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       unzip: 0
     rs1: 
@@ -489,6 +514,7 @@ clmul:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       clmul: 0
     rs1: 
@@ -511,6 +537,7 @@ clmulh:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       clmulh: 0
     rs1: 
@@ -533,6 +560,7 @@ andn:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       andn: 0
     rs1: 
@@ -555,6 +583,7 @@ orn:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       orn: 0
     rs1: 
@@ -577,6 +606,7 @@ xnor:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       xnor: 0
     rs1: 
@@ -599,6 +629,7 @@ pack:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       pack: 0
     rs1: 
@@ -621,6 +652,7 @@ packu:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       packu: 0
     rs1: 
@@ -643,6 +675,7 @@ packh:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       packh: 0
     rs1: 
@@ -664,6 +697,7 @@ xperm.n:
     config: 
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
+      - check ISA:=regex(.*I.*ZKb.*)
       - check ISA:=regex(.*I.*ZKn.*)
     opcode: 
       xperm.n: 0
@@ -687,6 +721,7 @@ xperm.b:
       - check ISA:=regex(.*I.*K.*)
       - check ISA:=regex(.*I.*ZKs.*)
       - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
       xperm.b: 0
     rs1: 
