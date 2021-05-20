@@ -38,6 +38,7 @@ def create_test(usage_str, node,label,base_isa):
             logger.warning("Skipping :" + str(opcode))
             return
         if xlen not in op_node['xlen']:
+            logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
