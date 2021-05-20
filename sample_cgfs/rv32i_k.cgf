@@ -420,10 +420,10 @@ rori:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'leading_ones(32, ["rs1_val", "imm_val"], [32,7])': 0
-        'trailing_ones(32, ["rs1_val", "imm_val"], [32,7])': 0
-        'leading_zeros(32, ["rs1_val", "imm_val"], [32,7])': 0
-        'trailing_zeros(32, ["rs1_val", "imm_val"], [32,7])': 0
+        'leading_ones(32, ["rs1_val", "imm_val"], [32,5])': 0
+        'trailing_ones(32, ["rs1_val", "imm_val"], [32,5])': 0
+        'leading_zeros(32, ["rs1_val", "imm_val"], [32,5])': 0
+        'trailing_zeros(32, ["rs1_val", "imm_val"], [32,5])': 0
         
 rev.b:
     config: 
@@ -474,7 +474,7 @@ zip:
       - check ISA:=regex(.*I.*ZKn.*)
       - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
-      zip: 0
+      shfli: 0
     rs1: 
       <<: *all_regs
     rd:
@@ -495,7 +495,7 @@ unzip:
       - check ISA:=regex(.*I.*ZKn.*)
       - check ISA:=regex(.*I.*ZKb.*)
     opcode: 
-      unzip: 0
+      unshfli: 0
     rs1: 
       <<: *all_regs
     rd:

@@ -562,7 +562,47 @@ rev8.w:
         'trailing_ones(64, ["rs1_val"], [64])': 0
         'leading_zeros(64, ["rs1_val"], [64])': 0
         'trailing_zeros(64, ["rs1_val"], [64])': 0
+zip:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*I.*ZKs.*)
+      - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
+    opcode: 
+      shfli: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(64, ["rs1_val"],[xlen])': 0
+        'trailing_ones(64, ["rs1_val"],[xlen])': 0
+        'leading_zeros(64, ["rs1_val"],[xlen])': 0
+        'trailing_zeros(64, ["rs1_val"],[xlen])': 0
 
+unzip:
+    config: 
+      - check ISA:=regex(.*I.*K.*)
+      - check ISA:=regex(.*I.*ZKs.*)
+      - check ISA:=regex(.*I.*ZKn.*)
+      - check ISA:=regex(.*I.*ZKb.*)
+    opcode: 
+      unshfli: 0
+    rs1: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:      
+        'leading_ones(64, ["rs1_val"],[xlen])': 0
+        'trailing_ones(64, ["rs1_val"],[xlen])': 0
+        'leading_zeros(64, ["rs1_val"],[xlen])': 0
+        'trailing_zeros(64, ["rs1_val"],[xlen])': 0
 clmul:
     config: 
       - check ISA:=regex(.*I.*K.*)
