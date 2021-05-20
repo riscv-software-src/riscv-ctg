@@ -1851,8 +1851,8 @@ rev8:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 zip:
-  xlen: [32]
-  std_op:
+  xlen: [32, 64]
+  std_op: shfli
   isa: I
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1862,13 +1862,13 @@ zip:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
-    zip $rd, $rs1
+    shfli $rd, $rs1, 15
     sw $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 unzip:
-  xlen: [32]
-  std_op:
+  xlen: [32, 64]
+  std_op: unshfli
   isa: I
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1878,7 +1878,7 @@ unzip:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
-    unzip $rd, $rs1
+    unshfli $rd, $rs1, 15
     sw $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
