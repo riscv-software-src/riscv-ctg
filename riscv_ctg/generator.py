@@ -8,6 +8,7 @@ from riscv_ctg.log import logger
 import time
 from math import *
 import struct
+import sys
 
 twos_xlen = lambda x: twos(x,xlen)
 
@@ -27,7 +28,8 @@ OPS = {
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
-    'cjformat': []
+    'cjformat': [],
+    'kformat': ['rs1','rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -47,7 +49,8 @@ VALS = {
     'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val']
+    'cjformat': ['imm_val'],
+    'kformat': ['rs1_val']
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -252,46 +255,72 @@ class Generator():
         inds = set(range(len(conds)))
         while inds:
             req_val_comb = conds[inds.pop()]
-            if self.random:
-                problem = Problem(MinConflictsSolver())
+            if("#nosat" in req_val_comb):
+                d={}
+                soln = []
+                req_val_comb_minus_comm = req_val_comb.split("#")[0]
+                x = req_val_comb_minus_comm.split(" and ")
+                for i in self.val_vars:
+                    for j in x:
+                        if i in j:
+                            if(d.get(i,"None") == "None"):
+                                d[i] = j.split("==")[1]
+                            else:
+                                logger.error("Invalid Coverpoint: More than one value of "+ i +" found!")
+                                sys.exit(1)
+                if(list(d.keys()) != self.val_vars):
+                    logger.error("Invalid Coverpoint: Cannot bypass SAT Solver for partially defined coverpoints!")
+                    sys.exit(1)
+                for y in d:
+                    if("0x" in d[y]):
+                        soln.append(int(d[y],16))
+                    elif("0b" in d[y]):
+                        soln.append(int(d[y],2))
+                    else:
+                        soln.append(int(d[y]))
+                soln.append(req_val_comb_minus_comm)
+                val_tuple = soln
             else:
-                problem = Problem()
-
-            for var in self.val_vars:
-                if var == 'ea_align' and var not in req_val_comb:
-                    problem.addVariable(var, [0])
+                if self.random:
+                    problem = Problem(MinConflictsSolver())
                 else:
-                    problem.addVariable(var, self.datasets[var])
-
-            def condition(*argv):
-                for var,val in zip(self.val_vars,argv):
-                    locals()[var]=val
-                return eval(req_val_comb)
-
-            problem.addConstraint(condition,tuple(self.val_vars))
-            # if boundconstraint:
-            #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
-            solution = problem.getSolution()
-            count = 0
-            while (solution is None and count < 5):
+                    problem = Problem()
+    
+                for var in self.val_vars:
+                    if var == 'ea_align' and var not in req_val_comb:
+                        problem.addVariable(var, [0])
+                    else:
+                        problem.addVariable(var, self.datasets[var])
+    
+                def condition(*argv):
+                    for var,val in zip(self.val_vars,argv):
+                        locals()[var]=val
+                    return eval(req_val_comb)
+    
+                problem.addConstraint(condition,tuple(self.val_vars))
+                # if boundconstraint:
+                #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
                 solution = problem.getSolution()
-                count+=1
-            if solution is None:
-                logger.warn(self.opcode + " : Cannot find solution for Val condition "+str(req_val_comb))
-                continue
-            val_tuple = []
-            for i,key in enumerate(self.val_vars):
-                val_tuple.append(solution[key])
-
-            def eval_func(cond):
-                for var,val in zip(self.val_vars,val_tuple):
-                    locals()[var] = val
-                return eval(cond)
-            sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
-            inds = inds - sat_set
-            val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
+                count = 0
+                while (solution is None and count < 5):
+                    solution = problem.getSolution()
+                    count+=1
+                if solution is None:
+                    logger.warn(self.opcode + " : Cannot find solution for Val condition "+str(req_val_comb))
+                    continue
+                val_tuple = []
+                for i,key in enumerate(self.val_vars):
+                    val_tuple.append(solution[key])
+    
+                def eval_func(cond):
+                    for var,val in zip(self.val_vars,val_tuple):
+                        locals()[var] = val
+                    return eval(cond)
+                sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
+                inds = inds - sat_set
+                val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
+                problem.reset()
             val_comb.append( tuple(val_tuple) )
-            problem.reset()
         return val_comb
 
     def __jfmt_instr__(self,op=None,val=None):

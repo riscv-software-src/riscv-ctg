@@ -2,6 +2,13 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2021-05-27
+- support for K extension and subextension instructions
+- support for comments in coverpoints
+- added std_op field in template.yaml to indicate is standard-instruction the pseudo op belongs to.
+- added support for parsing #nosat in coverpoint which disables the solvers for the current resolution.
+- added sample cgf files for rv64ik and rv32ik
+
 ## [0.4.5] - 2021-05-15
 - Minor code restructure to support API calls.
 - Fixes to include env files in pip package.
