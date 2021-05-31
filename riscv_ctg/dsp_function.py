@@ -1,4 +1,36 @@
-def simd_val_vars(prefix, xlen, bit_width):
+OPS_RVP = {
+    'pbrrformat': ['rs1', 'rs2', 'rd'],
+    'phrrformat': ['rs1', 'rs2', 'rd'],
+    'pbrformat': ['rs1', 'rd'],
+    'phrformat': ['rs1', 'rd'],
+    'pbriformat': ['rs1', 'rd'],
+    'phriformat': ['rs1', 'rd']
+}
+''' Dictionary mapping RVP instruction formats to operands used by those formats '''
+
+VALS_RVP = {
+    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
+    'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
+    'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
+    'phrformat': 'simd_val_vars("rs1", xlen, 16)',
+    'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
+    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]'
+}
+''' Dictionary mapping RVP instruction formats to operand value variables used by those formats '''
+
+def simd_val_vars(operand, xlen, bit_width):
+    '''
+    This function generates the operand value variables for SIMD elements of the given operand.
+
+    :param operand: a string indicating the name of the desired operand.
+    :param xlen: an integer indicating the XLEN value to be used.
+    :param bit_width: an integer indicating the element bit width for the current SIMD format.
+
+    :type operand: str
+    :type xlen: int
+    :type bit_width: int
+    :return: a list containing the element value variables for the given operand.
+    '''
     val_list = []
     nelms = xlen // bit_width
     if bit_width == 8:
@@ -10,40 +42,34 @@ def simd_val_vars(prefix, xlen, bit_width):
     else:
         sz = "d"
     for i in range(nelms):
-        val_list += [f"{prefix}_{sz}{i}_val"]
+        val_list += [f"{operand}_{sz}{i}_val"]
     return val_list
 
-OPS_RVP = {
-    'pb4rrformat': ['rs1', 'rs2', 'rd'],
-    'pb8rrformat': ['rs1', 'rs2', 'rd'],
-    'ph2rrformat': ['rs1', 'rs2', 'rd'],
-    'ph4rrformat': ['rs1', 'rs2', 'rd'],
-    'pb4rformat': ['rs1', 'rd'],
-    'pb8rformat': ['rs1', 'rd'],
-    'ph2rformat': ['rs1', 'rd'],
-    'ph4rformat': ['rs1', 'rd'],
-    'pb4riformat': ['rs1', 'rd'],
-    'pb8riformat': ['rs1', 'rd']
-}
-
-VALS_RVP = {
-    'pb4rrformat': simd_val_vars("rs1", 32, 8) + simd_val_vars("rs2", 32, 8),
-    'pb8rrformat': simd_val_vars("rs1", 64, 8) + simd_val_vars("rs2", 64, 8),
-    'ph2rrformat': simd_val_vars("rs1", 32, 16) + simd_val_vars("rs2", 32, 16),
-    'ph4rrformat': simd_val_vars("rs1", 64, 16) + simd_val_vars("rs2", 64, 16),
-    'pb4rformat': simd_val_vars("rs1", 32, 8),
-    'pb8rformat': simd_val_vars("rs1", 64, 8),
-    'ph2rformat': simd_val_vars("rs1", 32, 16),
-    'ph4rformat': simd_val_vars("rs1", 64, 16),
-    'pb4riformat': simd_val_vars("rs1", 32, 8) + ['imm_val'],  
-    'pb8riformat': simd_val_vars("rs1", 64, 8) + ['imm_val']
-}
-
 def init_rvp_ops_vals(OPS, VALS):
+    '''
+    This function updates the OPS and VALS dictionaries (the dictionaries for operands and operand value variables) with the RVP counter parts.
+
+    :param OPS: the dict mapping instruction formats to operands used by those formats.
+    :param VALS: the dict mapping instruction formats to operand value variables used by those formats.
+
+    :type OPS: dict
+    :type VALS: dict
+    '''
     OPS.update(OPS_RVP)
     VALS.update(VALS_RVP)
     
-def concat_simd_data(val_vars, instr_dict, xlen, bit_width):
+def concat_simd_data(instr_dict, xlen, bit_width):
+    '''
+    This function concatenates all element of a SIMD register into a single value.
+
+    :param instr_dict: a dict holding metadata and operand data for the current instruction. 
+    :param xlen: an integer indicating the XLEN value to be used.
+    :param bit_width: an integer indicating the element bit width of the current RVP instruction.
+
+    :type instr_dict: dict
+    :type xlen: int
+    :type bit_width: int
+    '''
     twocompl_offset = 1<<bit_width
     if bit_width == 8:
         fmt = f"#02x"

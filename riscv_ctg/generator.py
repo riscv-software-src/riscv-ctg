@@ -43,7 +43,6 @@ OPS = {
     'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
     'fr4format': ['rs1', 'rs2', 'rs3', 'rd']
-    'pbrrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -69,7 +68,6 @@ VALS = {
     'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
     'fsrformat': ['rs1_val', 'rm_val'],
     'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']
-    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)'
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -128,9 +126,7 @@ class Generator():
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
-        if (opnode['isa'] == 'IP' and isinstance(opnode['formattype'],list)):
-            self.fmt = self.fmt[0] if (xlen == 32) else self.fmt[1]
-            fmt = self.fmt
+        if (opnode['isa'] == 'IP'):
             init_rvp_ops_vals(OPS, VALS)
         self.op_vars = OPS[fmt]
         self.val_vars = eval(VALS[fmt])
@@ -1061,7 +1057,7 @@ class Generator():
         '''
         mydict = instr_dict.copy()
         if (self.opnode['isa'] == 'IP'):
-            concat_simd_data(self.val_vars, instr_dict, xlen, self.opnode['bit_width'])
+            concat_simd_data(instr_dict, xlen, self.opnode['bit_width'])
             return instr_dict
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:

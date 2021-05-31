@@ -3377,11 +3377,11 @@ packuw:
 add8:
   xlen: [32,64]
   isa: IP
+  bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  bit_width: 8
   rs1_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)' 
   rs1_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
   rs1_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
@@ -3408,7 +3408,7 @@ add16:
   xlen: [32,64]
   isa: IP
   bit_width: 16
-  formattype: ['ph2rrformat', 'ph4rrformat']
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -3430,7 +3430,7 @@ sclip8:
   xlen: [32,64]
   isa: IP
   bit_width: 8
-  formattype: ['pb4riformat', 'pb8riformat']
+  formattype: 'pbriformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_b0_val_data: 'gen_sign_dataset(8)'
@@ -3441,7 +3441,7 @@ sclip8:
   rs1_b5_val_data: 'gen_sign_dataset(8)'
   rs1_b6_val_data: 'gen_sign_dataset(8)'
   rs1_b7_val_data: 'gen_sign_dataset(8)'
-  imm_val_data: 'gen_usign_dataset(3)'
+  imm_val_data: 'gen_imm_dataset(3)'
   template: |-
 
     // $comment
@@ -3452,7 +3452,7 @@ kabs16:
   xlen: [32,64]
   isa: IP
   bit_width: 16
-  formattype: ['ph2rformat', 'ph4rformat']
+  formattype: 'phrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_h0_val_data: 'gen_sign_dataset(16)'
