@@ -2,10 +2,10 @@
 
 .. _home:
 
-RISC-V Compliance Test Generator Documentation
-###############################################
+RISC-V Compatibility Test Generator Documentation
+#################################################
 
-Welcome to RISC-V Compliance Test Generator documentation.
+Welcome to RISC-V Compatibility Test Generator documentation.
 
 For information about the changes and additions for releases, 
 please refer to the :ref:`Revisions <revisions>` documentation.

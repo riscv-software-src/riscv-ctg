@@ -19,15 +19,15 @@ import shlex
 import re
 
 def get_version():
-    changelog = open('../../CHANGELOG.rst','r').read()
-    x = re.findall(r'\[(.*?)\]',changelog)[0]
+    changelog = open('../../CHANGELOG.md','r').read()
+    x = re.findall(r'## \[(.*?)\] -',changelog)[0]
     return str(x)
 
 sys.path.insert(0, os.path.abspath('../..'))
 sys.setrecursionlimit(1500)
 
 # General information about the project.
-project = 'RISC-V Compliance Test Generator'
+project = 'RISC-V Compatibility Test Generator'
 copyright = u'2020 InCore Semiconductors Pvt. Ltd'
 
 author = ''
@@ -59,7 +59,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.autoyaml',
     'sphinxcontrib.bibtex',
-    'sphinx_tabs.tabs'
+    'sphinx_tabs.tabs',
+    'm2r2'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,8 +68,8 @@ templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
+#source_suffix = '.rst'
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -100,7 +101,7 @@ todo_include_todos = True
 
 # -- Options for HTML output ----------------------------------------------
 
-github_url = 'https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg'
+github_url = 'https://github.com/riscv/riscv-ctg'
 html_show_sourcelink = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -174,7 +175,7 @@ html_show_license = True
 
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'RISC-V Compliance Test Generator'
+htmlhelp_basename = 'RISC-V Compatibility Test Generator'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -273,7 +274,7 @@ latex_elements = {
 
             %%% Alternating Footer for two side
             \fancyfoot[LO, LE]{\small \bf{Copyright \textcopyright \the\year \textbf{ } InCore Semiconductors Pvt. Ltd.}}
-            %\fancyfoot[LO, LE]{\scriptsize \bf{RISC-V Compliance Test Generator}}
+            %\fancyfoot[LO, LE]{\scriptsize \bf{RISC-V Compatibility Test Generator}}
 
             %%% page number
             \fancyfoot[RO, RE]{\thepage}
@@ -315,7 +316,7 @@ latex_elements = {
                 \includegraphics[scale=0.2]{incore_logo.png}
             \end{figure}
             \vspace*{40mm} %%% * is used to give space from top
-            \textbf{\Huge {RISC-V Compliance Test Generator}}
+            \textbf{\Huge {RISC-V Compatibility Test Generator}}
             \vspace*{40mm} %%% * is used to give space from top
 
 

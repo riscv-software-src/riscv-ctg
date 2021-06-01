@@ -4,4 +4,4 @@
 
 .. _revisions:
 
-.. include:: ../../CHANGELOG.rst
+.. mdinclude:: ../../CHANGELOG.md

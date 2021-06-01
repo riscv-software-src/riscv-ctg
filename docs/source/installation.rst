@@ -103,13 +103,13 @@ You can check the version in the **same shell**::
 Install RISC-V CTG (From Git)
 =============================================================
 
-To install RISC-V Compliance Test Generator, run this command in your terminal:
+To install RISC-V Compatibility Test Generator, run this command in your terminal:
 
 .. code-block:: console
 
-    $ python3 -m pip3 install git+https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg.git
+    $ python3 -m pip3 install git+https://github.com/riscv/riscv-ctg.git
 
-This is the preferred method to install RISC-V Compliance Test Generator, as it will always install the most recent stable release.
+This is the preferred method to install RISC-V Compatibility Test Generator, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -142,13 +142,13 @@ To checkout a specific version of riscv_ctg:
 Install CTG for Dev
 ===================
 
-The sources for RISC-V Compliance Test Generator can be downloaded from the `GitLab repo`_.
+The sources for RISC-V Compatibility Test Generator can be downloaded from the `Github repo`_.
 
 You can clone the repository:
 
 .. code-block:: console
 
-    $ git clone https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg
+    $ git clone https://github.com/riscv/riscv-ctg
 
 
 Once you have a copy of the source, you can install it with:
@@ -159,4 +159,4 @@ Once you have a copy of the source, you can install it with:
     $ pip3 install --editable .
 
 
-.. _Gitlab repo: https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg
+.. _Github repo: https://github.com/riscv/riscv-ctg
