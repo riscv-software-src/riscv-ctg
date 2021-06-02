@@ -84,7 +84,7 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl,base_isa_str):
+    def __init__(self,fmt,opnode,opcode,randomization, xl, fl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -99,8 +99,10 @@ class Generator():
 
         '''
         global xlen
+        global flen
         global base_isa
         xlen = xl
+        flen = fl
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
@@ -285,18 +287,18 @@ class Generator():
                     problem = Problem(MinConflictsSolver())
                 else:
                     problem = Problem()
-    
+
                 for var in self.val_vars:
                     if var == 'ea_align' and var not in req_val_comb:
                         problem.addVariable(var, [0])
                     else:
                         problem.addVariable(var, self.datasets[var])
-    
+
                 def condition(*argv):
                     for var,val in zip(self.val_vars,argv):
                         locals()[var]=val
                     return eval(req_val_comb)
-    
+
                 problem.addConstraint(condition,tuple(self.val_vars))
                 # if boundconstraint:
                 #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
@@ -311,7 +313,7 @@ class Generator():
                 val_tuple = []
                 for i,key in enumerate(self.val_vars):
                     val_tuple.append(solution[key])
-    
+
                 def eval_func(cond):
                     for var,val in zip(self.val_vars,val_tuple):
                         locals()[var] = val
