@@ -1,0 +1,18 @@
+fmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fmadd.s")': 0

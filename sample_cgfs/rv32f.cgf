@@ -15,9 +15,7 @@ fadd.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fadd.s",2)': 0
-        'ibm_b2(32,"fadd.s")': 0
-        'ibm_b3(32,"fadd.s")': 0
+        'generate_coverpoints(32, "fadd.s")': 0
         
 fsub.s:
     config: 
@@ -34,9 +32,7 @@ fsub.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsub.s",2)': 0
-        'ibm_b2(32,"fsub.s")': 0
-        'ibm_b3(32,"fsub.s")': 0
+        'generate_coverpoints(32, "fsub.s")': 0
         
 fmul.s:
     config: 
@@ -53,8 +49,7 @@ fmul.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fmul.s",2)': 0
-        'ibm_b2(32,"fmul.s")': 0
+        'generate_coverpoints(32, "fmul.s")': 0
         
 fdiv.s:
     config: 
@@ -71,8 +66,7 @@ fdiv.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fdiv.s",2)': 0
-        'ibm_b2(32,"fdiv.s")': 0
+        'generate_coverpoints(32, "fdiv.s")': 0
         
 fsqrt.s:
     config: 
@@ -87,9 +81,84 @@ fsqrt.s:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsqrt.s",1)': 0
-        
+        'generate_coverpoints(32, "fsqrt.s")': 0
 
+fmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fmadd.s")': 0
+
+fmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fmsub.s")': 0
+
+fnmadd.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmadd.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fnmadd.s")': 0
+        
+fnmsub.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode:
+      fnmsub.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2: 
+      <<: *all_fregs
+    rs3:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *r4fmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fnmsub.s")': 0
+        
 fsgnj.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
@@ -105,7 +174,7 @@ fsgnj.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsgnj.s",2)': 0
+        'generate_coverpoints(32, "fsgnj.s")': 0
         
 fsgnjn.s:
     config: 
@@ -122,7 +191,7 @@ fsgnjn.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsgnjn.s",2)': 0
+        'generate_coverpoints(32, "fsgnjn.s")': 0
         
 fsgnjx.s:
     config: 
@@ -139,8 +208,8 @@ fsgnjx.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsgnjx.s",2)': 0
-
+        'generate_coverpoints(32, "fsgnjx.s")': 0
+        
 fmin.s:
     config: 
       - check ISA:=regex(.*I.*F.*)
@@ -156,7 +225,7 @@ fmin.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fmin.s",2)': 0
+        'generate_coverpoints(32, "fmin.s")': 0
         
 fmax.s:
     config: 
@@ -173,4 +242,186 @@ fmax.s:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fmax.s",2)': 0
+        'generate_coverpoints(32, "fmax.s")': 0
+        
+feq.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      feq.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *sfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "feq.s")': 0
+
+flt.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      flt.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *sfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "flt.s")': 0
+        
+fle.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fle.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *sfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fle.s")': 0
+
+fcvt.w.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.w.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fcvt.w.s")': 0
+        
+fcvt.wu.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fcvt.wu.s")': 0        
+        
+fcvt.s.w:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.s.w: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'gen_fp_dataset(32,"fcvt.s.w")': 0
+        'generate_coverpoints(32, "fcvt.s.w")': 0
+        
+fcvt.s.wu:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.s.wu: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fcvt.s.wu")': 0
+        
+fclass.s:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fclass.s: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fclass.s")': 0
+        
+fmv.x.w:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmv.x.w: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fmv.x.w")': 0
+        
+fmv.w.x:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmv.w.x: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_fregs
+    val_comb:
+      abstract_comb:
+        'generate_coverpoints(32, "fmv.w.x")': 0
+        
+fsw-align:
+    config: 
+      - check ISA:=regex(.*I.*)
+    opcode: 
+      fsw: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_fregs
+    val_comb:
+        'ea_align == 0 and (imm_val % 4) == 0': 0
+        'ea_align == 0 and (imm_val % 4) == 1': 0
+        'ea_align == 0 and (imm_val % 4) == 2': 0
+        'ea_align == 0 and (imm_val % 4) == 3': 0
+        'imm_val > 0': 0
+        'imm_val < 0': 0
+        'imm_val == 0': 0
+        <<: [  *base_rs2val_sgn]
+        abstract_comb:
+          <<: [*rs2val_walking]
+          
+flw-align:
+    config: 
+      - check ISA:=regex(.*I.*)
+    opcode: 
+      flw: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rd: 
+      <<: *all_fregs
+    val_comb:
+        'ea_align == 0 and (imm_val % 4) == 0': 0
+        'ea_align == 0 and (imm_val % 4) == 1': 0
+        'ea_align == 0 and (imm_val % 4) == 2': 0
+        'ea_align == 0 and (imm_val % 4) == 3': 0
+        'imm_val > 0': 0
+        'imm_val < 0': 0
+        'imm_val == 0': 0
