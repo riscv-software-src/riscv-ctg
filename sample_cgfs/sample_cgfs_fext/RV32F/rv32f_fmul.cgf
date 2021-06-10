@@ -1,10 +1,10 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fadd.d:
+fmul_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*D.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fadd.d: 0
+      fmul.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -15,13 +15,13 @@ fadd.d:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fadd.d",2)': 0
+        'ibm_b1(32, "fmul.s", 2)': 0
         
-fsub.d:
+fmul_b2:
     config: 
-      - check ISA:=regex(.*I.*F.*D.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fsub.d: 0
+      fmul.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -32,13 +32,64 @@ fsub.d:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsub.d",2)': 0
+        'ibm_b2(32, "fmul.s", 2)': 0
+        
+fmul_b3:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b3(32, "fmul.s", 2)': 0
+        
+fmul_b4:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b4(32, "fmul.s", 2)': 0
+        
+fmul_b5:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b5(32, "fmul.s", 2)': 0
 
-fmul.d:
+fmul_b6:
     config: 
-      - check ISA:=regex(.*I.*F.*D.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fmul.d: 0
+      fmul.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -49,13 +100,13 @@ fmul.d:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fmul.d",2)': 0
+        'ibm_b6(32, "fmul.s", 2)': 0
         
-fdiv.d:
+fmul_b7:
     config: 
-      - check ISA:=regex(.*I.*F.*D.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fdiv.d: 0
+      fmul.s: 0
     rs1: 
       <<: *all_fregs
     rs2:
@@ -66,105 +117,39 @@ fdiv.d:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fdiv.d",2)': 0
+        'ibm_b7(32, "fmul.s", 2)': 0
         
-fsqrt.d:
+fmul_b8:
     config: 
-      - check ISA:=regex(.*I.*F.*D.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
-      fsqrt.d: 0
+      fmul.s: 0
     rs1: 
+      <<: *all_fregs
+    rs2:
       <<: *all_fregs
     rd: 
       <<: *all_fregs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32,"fsqrt.d",1)': 0
+        'ibm_b8(32, "fmul.s", 2)': 0
         
+fmul_b9:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fmul.s: 0
+    rs1: 
+      <<: *all_fregs
+    rs2:
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b9(32, "fmul.s", 2)': 0
 
-fsgnj.d:
-    config: 
-      - check ISA:=regex(.*I.*F.*D.*)
-    opcode: 
-      fsgnj.d: 0
-    rs1: 
-      <<: *all_fregs
-    rs2:
-      <<: *all_fregs
-    rd: 
-      <<: *all_fregs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'ibm_b1(32,"fsgnj.d",2)': 0
-        
-fsgnjn.d:
-    config: 
-      - check ISA:=regex(.*I.*F.*D.*)
-    opcode: 
-      fsgnjn.d: 0
-    rs1: 
-      <<: *all_fregs
-    rs2:
-      <<: *all_fregs
-    rd: 
-      <<: *all_fregs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'ibm_b1(32,"fsgnjn.d",2)': 0
-        
-fsgnjx.d:
-    config: 
-      - check ISA:=regex(.*I.*F.*D.*)
-    opcode: 
-      fsgnjx.d: 0
-    rs1: 
-      <<: *all_fregs
-    rs2:
-      <<: *all_fregs
-    rd: 
-      <<: *all_fregs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'ibm_b1(32,"fsgnjx.d",2)': 0
-
-fmin.d:
-    config: 
-      - check ISA:=regex(.*I.*F.*D.*)
-    opcode: 
-      fmin.d: 0
-    rs1: 
-      <<: *all_fregs
-    rs2:
-      <<: *all_fregs
-    rd: 
-      <<: *all_fregs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'ibm_b1(32,"fmin.d",2)': 0
-        
-fmax.d:
-    config: 
-      - check ISA:=regex(.*I.*F.*D.*)
-    opcode: 
-      fmax.d: 0
-    rs1: 
-      <<: *all_fregs
-    rs2:
-      <<: *all_fregs
-    rd: 
-      <<: *all_fregs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'ibm_b1(32,"fmax.d",2)': 0
