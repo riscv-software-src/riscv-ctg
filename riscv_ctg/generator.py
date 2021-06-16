@@ -29,7 +29,10 @@ OPS = {
     'caformat': ['rs1', 'rs2'],
     'cbformat': ['rs1'],
     'cjformat': [],
-    'kformat': ['rs1','rd']
+    'kformat': ['rs1','rd'],
+    'frformat': ['rs1', 'rs2', 'rd'],
+    'fsrformat': ['rs1', 'rd'],
+    'fr4format': ['rs1', 'rs2', 'rs3', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -50,7 +53,10 @@ VALS = {
     'caformat': ['rs1_val', 'rs2_val'],
     'cbformat': ['rs1_val', 'imm_val'],
     'cjformat': ['imm_val'],
-    'kformat': ['rs1_val']
+    'kformat': ['rs1_val'],
+    'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
+    'fsrformat': ['rs1_val', 'rm_val'],
+    'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -230,7 +236,7 @@ class Generator():
 
 
 
-    def valcomb(self, cgf):
+    def valcomb(self, cgf, flen):
         '''
         This function finds the solutions for the various value combinations
         defined by the coverpoints in the CGF under the "val_comb" node of the
@@ -257,11 +263,12 @@ class Generator():
         inds = set(range(len(conds)))
         while inds:
             req_val_comb = conds[inds.pop()]
-            if("#nosat" in req_val_comb):
+            if("#nosat_k" in req_val_comb):
                 d={}
                 soln = []
                 req_val_comb_minus_comm = req_val_comb.split("#")[0]
                 x = req_val_comb_minus_comm.split(" and ")
+                print(self.val_vars)
                 for i in self.val_vars:
                     for j in x:
                         if i in j:
@@ -282,6 +289,78 @@ class Generator():
                         soln.append(int(d[y]))
                 soln.append(req_val_comb_minus_comm)
                 val_tuple = soln
+
+            elif("#nosat_f" in req_val_comb):
+                d={}
+                soln = []
+                req_val_comb_minus_comm = req_val_comb.split("#")[0]
+                x = req_val_comb_minus_comm.split(" and ")
+
+                # fs + fe + fm -> Combiner Script
+                if len(x) == (1*3 + 1):																# 1 Operand Instructions
+                	fs1 = x[0].split(" == ")[1]
+                	fe1 = x[1].split(" == ")[1]
+                	fm1 = x[2].split(" == ")[1]
+                	rm = x[-1].split(" == ")[1]
+                	if flen == 32:
+                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                		x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
+                elif len(x) == (2*3 + 1):															# 2 Operand Instructions
+                	fs1 = x[0].split(" == ")[1]
+                	fe1 = x[1].split(" == ")[1]
+                	fm1 = x[2].split(" == ")[1]
+                	fs2 = x[3].split(" == ")[1]
+                	fe2 = x[4].split(" == ")[1]
+                	fm2 = x[5].split(" == ")[1]
+                	rm = x[-1].split(" == ")[1]
+                	if flen == 32:
+                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
+                elif len(x) == (3*3 + 1):															# 3 Operand Instructions
+                	fs1 = x[0].split(" == ")[1]
+                	fe1 = x[1].split(" == ")[1]
+                	fm1 = x[2].split(" == ")[1]
+                	fs2 = x[3].split(" == ")[1]
+                	fe2 = x[4].split(" == ")[1]
+                	fm2 = x[5].split(" == ")[1]
+                	fs3 = x[6].split(" == ")[1]
+                	fe3 = x[7].split(" == ")[1]
+                	fm3 = x[8].split(" == ")[1]
+                	rm = x[-1].split(" == ")[1]
+                	if flen == 32:
+                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+                		bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
+                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+                		hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
+                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
+
+                for i in self.val_vars:
+                    for j in x:
+                        if i in j:
+                            if(d.get(i,"None") == "None"):
+                                d[i] = j.split("==")[1]
+                            else:
+                                logger.error("Invalid Coverpoint: More than one value of "+ i +" found!")
+                                sys.exit(1)
+                if(list(d.keys()) != self.val_vars):
+                    logger.error("Invalid Coverpoint: Cannot bypass SAT Solver for partially defined coverpoints!")
+                    sys.exit(1)
+                for y in d:
+                    if("0x" in d[y]):
+                        soln.append(int(d[y],16))
+                    elif("0b" in d[y]):
+                        soln.append(int(d[y],2))
+                    else:
+                        soln.append(int(d[y]))
+                soln.append(req_val_comb_minus_comm)
+                val_tuple = soln
+
             else:
                 if self.random:
                     problem = Problem(MinConflictsSolver())
@@ -618,9 +697,47 @@ class Generator():
                 rs1 = instr['rs1']
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
+                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                bin_val = ''
+                e_sz = 0
+                m_sz = 0
+                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                    if (flen == 32):
+                        e_sz = 8
+                    else:
+                        e_sz = 11
+                    if (flen == 32):
+                        m_sz = 23
+                    else:
+                        m_sz = 52
+                    rm_val = instr['rm_val']
+                    if 'rs1_val' in instr:
+                        if (flen == 32):
+                            bin_val = '{:032b}'.format(rs1_val)
+                        else:
+                            bin_val = '{:064b}'.format(rs1_val)
+                        fs1 = int(bin_val[0],2)
+                        fe1 = int(bin_val[1:e_sz+1],2)
+                        fm1 = int(bin_val[e_sz+1:],2)
+                    if 'rs2_val' in instr:
+                        if (flen == 32):
+                            bin_val = '{:032b}'.format(rs2_val)
+                        else:
+                            bin_val = '{:064b}'.format(rs2_val)
+                        fs2 = int(bin_val[0],2)
+                        fe2 = int(bin_val[1:e_sz+1],2)
+                        fm2 = int(bin_val[e_sz+1:],2)
+                    if 'rs3_val' in instr:
+                        if (flen == 32):
+                            bin_val = '{:032b}'.format(rs3_val)
+                        else:
+                            bin_val = '{:064b}'.format(rs3_val)
+                        fs3 = int(bin_val[0],2)
+                        fe3 = int(bin_val[1:e_sz+1],2)
+                        fm3 = int(bin_val[e_sz+1:],2)
                 for coverpoint in coverpoints['val_comb']:
-                    if eval(coverpoint):
-                        valcomb_hits.add(coverpoint)
+                	if eval(coverpoint):
+                		valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
             if 'op_comb' in coverpoints:
                 opcomb_hits = set([])
@@ -668,8 +785,8 @@ class Generator():
                 else:
                     i+=1
         return final_instr
-    @staticmethod
-    def swreg(instr_dict):
+    
+    def swreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a signature pointer for each instruction.
@@ -688,6 +805,38 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+           offset = 0
+           val_offset = 0
+           hardcoded_regs = ['x15','x16','x17']
+           for i in range(len(instr_dict)):
+                if 'swreg' not in instr_dict[i]:
+                    instr_dict[i]['swreg'] = 'x15'
+                    instr_dict[i]['valaddr_reg'] = 'x16'
+                    instr_dict[i]['flagreg'] = 'x17'
+                    if self.opcode == 'fsw':
+                        if instr_dict[i]['rs1'] in hardcoded_regs:
+                            instr_dict[i]['swreg'] = 'x19'
+                            instr_dict[i]['valaddr_reg'] = 'x20'
+                            instr_dict[i]['flagreg'] = 'x21'
+                    elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
+                        instr_dict[i]['swreg'] = 'x19'
+                        instr_dict[i]['valaddr_reg'] = 'x20'
+                        instr_dict[i]['flagreg'] = 'x21'
+                    instr_dict[i]['offset'] = str(offset)
+                    instr_dict[i]['val_offset'] = str(val_offset)
+                    offset += int((flen/8)+(xlen/8))
+                    if self.fmt == 'frformat' or self.fmt == 'rformat':
+                        val_offset += 2*(int(flen/8))
+                    elif self.fmt == 'fsrformat':
+                        val_offset += (int(flen/8))
+                    elif self.fmt == 'fr4format':
+                        val_offset += 3*(int(flen/8))
+                    if offset == 2048:
+                        offset = 0
+                    if val_offset == 2040:
+                        val_offset = 0
+           return instr_dict
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -728,8 +877,8 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-    @staticmethod
-    def testreg(instr_dict):
+    
+    def testreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
         as a test register for each instruction.
@@ -745,6 +894,16 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+            for i in range(len(instr_dict)):
+                instr_dict[i]['testreg'] = 'x18'
+                if self.opcode == 'fsw':
+                    if instr_dict[i]['rs1'] == 'x18':
+                        instr_dict[i]['testreg'] = 'x22'
+                elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
+                    instr_dict[i]['testreg'] = 'x22'
+            return instr_dict
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -788,6 +947,10 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+            for i in range(len(instr_dict)):
+                instr_dict[i]['correctval'] = '0'
+            return instr_dict
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -824,7 +987,7 @@ class Generator():
                 #         size = '>Q'
                 #     else:
                 #         size = '>q'
-                if 'val' in field and field != 'correctval':
+                if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and field != 'val_offset':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(xlen/4))
@@ -836,8 +999,7 @@ class Generator():
         return instr_dict
 
 
-    @staticmethod
-    def write_test(file_name,node,label,instr_dict, op_node, usage_str):
+    def write_test(self, file_name,node,label,instr_dict, op_node, usage_str):
         '''
         This function generates the test using various templates.
 
@@ -857,9 +1019,16 @@ class Generator():
         '''
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
+        vreg = 0
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
+        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+            vreg = instr_dict[0]['valaddr_reg']
+            k = 0
+            if self.opcode not in ['fsw','flw']:
+                data.append("test_fp:")
+            code.append("RVTEST_FP_ENABLE()")
         n = 0
         opcode = instr_dict[0]['inst']
         extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
@@ -867,12 +1036,43 @@ class Generator():
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
+            if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                if self.fmt == 'frformat' or self.fmt == 'rformat':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                        data.append(".word "+instr["rs2_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                        data.append(".dword "+instr["rs2_val"])
+                elif self.fmt == 'fsrformat':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                elif self.fmt == 'fr4format':
+                    if flen == 32:
+                        data.append(".word "+instr["rs1_val"])
+                        data.append(".word "+instr["rs2_val"])
+                        data.append(".word "+instr["rs3_val"])
+                    elif flen == 64:
+                        data.append(".dword "+instr["rs1_val"])
+                        data.append(".dword "+instr["rs2_val"])
+                        data.append(".dword "+instr["rs3_val"])
+                if self.opcode not in ['fsw','flw']:
+                    if instr['val_offset'] == '0' and k == 0:
+                        code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
+                        k = 1;
+                    elif instr['val_offset'] == '0' and k!= 0:
+                        code.append("RVTEST_VALBASEUPD("+vreg+")")
+                    if instr['valaddr_reg'] != vreg:
+                        code.append("RVTEST_VALBASEMOV("+instr['valaddr_reg']+", "+vreg+")")
+                        vreg = instr['valaddr_reg']
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = 1
                 regs[sreg]+=1
                 sreg = instr['swreg']
-                code.append("RVTEST_SIGBASE( "+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
+                code.append("RVTEST_SIGBASE("+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
             else:
                 n+=1
             code.append(res)
