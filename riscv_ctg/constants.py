@@ -77,8 +77,8 @@ def gen_sp_dataset(bit_width,sign=True):
     dataset = list(map(conv_func,dataset)) + [int(sqrt(abs(conv_func("0x8"+"".join(["0"]*int((bit_width/4)-1)))))*(-1 if sign else 1))] + [sqrt_min,sqrt_max]
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
     
-def gen_fp_dataset(flen,instr,field):
-        return (ibm_dataset(flen,instr,field))   # Dataset will be returned by isac 
+# def gen_fp_dataset(flen,instr,field):
+#         return (ibm_dataset(flen,instr,field))   # Dataset will be returned by isac 
 
 def gen_sign_dataset(bit_width):
     '''
@@ -105,7 +105,6 @@ def gen_sign_dataset(bit_width):
     t1 =( '' if bit_width%2 == 0 else '1') + ''.join(['01']*int(bit_width/2))
     t2 =( '' if bit_width%2 == 0 else '0') + ''.join(['10']*int(bit_width/2))
     data += [twos(t1,bit_width),twos(t2,bit_width)]
-    print('\n------- dataset from gen_sign_dataset -----------\n', list(set(data)))
     return list(set(data))
 
 def gen_usign_dataset(bit_width):

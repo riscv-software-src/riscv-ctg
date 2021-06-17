@@ -1510,14 +1510,11 @@ fadd.s:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fadd.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fadd.s","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fadd.d:
   xlen: [32,64]
@@ -1527,14 +1524,11 @@ fadd.d:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fadd.d","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fadd.d","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
 fsub.s:
   xlen: [32,64]
@@ -1544,14 +1538,11 @@ fsub.s:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fsub.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fsub.s","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fsub.d:
   xlen: [32,64]
@@ -1561,14 +1552,11 @@ fsub.d:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fsub.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fsub.s","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fmul.s:
   xlen: [32,64]
@@ -1578,14 +1566,11 @@ fmul.s:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fmul.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmul.s","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fmul.d:
   xlen: [32,64]
@@ -1595,14 +1580,11 @@ fmul.d:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fmul.d","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fmul.d","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fdiv.s:
   xlen: [32,64]
@@ -1612,14 +1594,11 @@ fdiv.s:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fdiv.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fdiv.s","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fdiv.d:
   xlen: [32,64]
@@ -1629,14 +1608,11 @@ fdiv.d:
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fdiv.d","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fdiv.d","rs2_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; correctval:$correctval; testreg:$testreg
-    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fsqrt.s:
   xlen: [32,64]

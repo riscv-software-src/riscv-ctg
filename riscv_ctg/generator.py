@@ -236,7 +236,7 @@ class Generator():
 
 
 
-    def valcomb(self, cgf, flen):
+    def valcomb(self, cgf):
         '''
         This function finds the solutions for the various value combinations
         defined by the coverpoints in the CGF under the "val_comb" node of the
@@ -263,82 +263,58 @@ class Generator():
         inds = set(range(len(conds)))
         while inds:
             req_val_comb = conds[inds.pop()]
-            if("#nosat_k" in req_val_comb):
-                d={}
-                soln = []
-                req_val_comb_minus_comm = req_val_comb.split("#")[0]
-                x = req_val_comb_minus_comm.split(" and ")
-                print(self.val_vars)
-                for i in self.val_vars:
-                    for j in x:
-                        if i in j:
-                            if(d.get(i,"None") == "None"):
-                                d[i] = j.split("==")[1]
-                            else:
-                                logger.error("Invalid Coverpoint: More than one value of "+ i +" found!")
-                                sys.exit(1)
-                if(list(d.keys()) != self.val_vars):
-                    logger.error("Invalid Coverpoint: Cannot bypass SAT Solver for partially defined coverpoints!")
-                    sys.exit(1)
-                for y in d:
-                    if("0x" in d[y]):
-                        soln.append(int(d[y],16))
-                    elif("0b" in d[y]):
-                        soln.append(int(d[y],2))
-                    else:
-                        soln.append(int(d[y]))
-                soln.append(req_val_comb_minus_comm)
-                val_tuple = soln
-
-            elif("#nosat_f" in req_val_comb):
+            if("#nosat" in req_val_comb):
                 d={}
                 soln = []
                 req_val_comb_minus_comm = req_val_comb.split("#")[0]
                 x = req_val_comb_minus_comm.split(" and ")
 
-                # fs + fe + fm -> Combiner Script
-                if len(x) == (1*3 + 1):																# 1 Operand Instructions
-                	fs1 = x[0].split(" == ")[1]
-                	fe1 = x[1].split(" == ")[1]
-                	fm1 = x[2].split(" == ")[1]
-                	rm = x[-1].split(" == ")[1]
-                	if flen == 32:
-                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                		x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
-                elif len(x) == (2*3 + 1):															# 2 Operand Instructions
-                	fs1 = x[0].split(" == ")[1]
-                	fe1 = x[1].split(" == ")[1]
-                	fm1 = x[2].split(" == ")[1]
-                	fs2 = x[3].split(" == ")[1]
-                	fe2 = x[4].split(" == ")[1]
-                	fm2 = x[5].split(" == ")[1]
-                	rm = x[-1].split(" == ")[1]
-                	if flen == 32:
-                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
-                elif len(x) == (3*3 + 1):															# 3 Operand Instructions
-                	fs1 = x[0].split(" == ")[1]
-                	fe1 = x[1].split(" == ")[1]
-                	fm1 = x[2].split(" == ")[1]
-                	fs2 = x[3].split(" == ")[1]
-                	fe2 = x[4].split(" == ")[1]
-                	fm2 = x[5].split(" == ")[1]
-                	fs3 = x[6].split(" == ")[1]
-                	fe3 = x[7].split(" == ")[1]
-                	fm3 = x[8].split(" == ")[1]
-                	rm = x[-1].split(" == ")[1]
-                	if flen == 32:
-                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-                		bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
-                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-                		hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
-                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
+                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+	                # fs + fe + fm -> Combiner Script
+	                if len(x) == (1*3 + 1):																# 1 Operand Instructions
+	                	fs1 = x[0].split(" == ")[1]
+	                	fe1 = x[1].split(" == ")[1]
+	                	fm1 = x[2].split(" == ")[1]
+	                	rm = x[-1].split(" == ")[1]
+	                	if flen == 32:
+	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+	                		x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
+	                elif len(x) == (2*3 + 1):															# 2 Operand Instructions
+	                	print(x)
+	                	fs1 = x[0].split(" == ")[1]
+	                	fe1 = x[1].split(" == ")[1]
+	                	fm1 = x[2].split(" == ")[1]
+	                	fs2 = x[3].split(" == ")[1]
+	                	fe2 = x[4].split(" == ")[1]
+	                	fm2 = x[5].split(" == ")[1]
+	                	rm = x[-1].split(" == ")[1]
+	                	if flen == 32:
+	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+	                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+	                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+	                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
+	                		print(x)
+	                elif len(x) == (3*3 + 1):															# 3 Operand Instructions
+	                	fs1 = x[0].split(" == ")[1]
+	                	fe1 = x[1].split(" == ")[1]
+	                	fm1 = x[2].split(" == ")[1]
+	                	fs2 = x[3].split(" == ")[1]
+	                	fe2 = x[4].split(" == ")[1]
+	                	fm2 = x[5].split(" == ")[1]
+	                	fs3 = x[6].split(" == ")[1]
+	                	fe3 = x[7].split(" == ")[1]
+	                	fm3 = x[8].split(" == ")[1]
+	                	rm = x[-1].split(" == ")[1]
+	                	if flen == 32:
+	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+	                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+	                		bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
+	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+	                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+	                		hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
+	                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
 
                 for i in self.val_vars:
                     for j in x:
