@@ -1041,6 +1041,262 @@ kslra16.u:
         'walking_zeros("rs2_val", ceil(log(16, 2)), True)': 0
         'alternate("rs2_val", ceil(log(16, 2)), True)': 0
 
+sra8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sra8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+srai8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srai8: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+sra8.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sra8.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+srai8.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srai8.u: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+srl8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srl8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+srli8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srli8: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+srl8.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srl8.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+srli8.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srli8.u: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+sll8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sll8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+slli8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      slli8: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+ksll8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      ksll8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), False)': 0
+
+kslli8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      kslli8: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_imm_val("imm_val", 3)': 0
+
+kslra8:
+    config: 
+      - check isa:=regex(.*i.*p.*)
+    opcode: 
+      kslra8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), True)': 0
+
+kslra8.u:
+    config: 
+      - check isa:=regex(.*i.*p.*)
+    opcode: 
+      kslra8.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(8, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(8, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(8, 2)), True)': 0
+
 sclip8:
     config: 
       - check ISA:=regex(.*I.*P.*)
