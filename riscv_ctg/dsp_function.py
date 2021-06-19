@@ -4,7 +4,9 @@ OPS_RVP = {
     'pbrformat': ['rs1', 'rd'],
     'phrformat': ['rs1', 'rd'],
     'pbriformat': ['rs1', 'rd'],
-    'phriformat': ['rs1', 'rd']
+    'phriformat': ['rs1', 'rd'],
+    'psbrrformat': ['rs1', 'rs2', 'rd'],
+    'pshrrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping RVP instruction formats to operands used by those formats '''
 
@@ -14,7 +16,9 @@ VALS_RVP = {
     'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
     'phrformat': 'simd_val_vars("rs1", xlen, 16)',
     'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
-    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]'
+    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
+    'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
+    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]'
 }
 ''' Dictionary mapping RVP instruction formats to operand value variables used by those formats '''
 
@@ -60,7 +64,7 @@ def init_rvp_ops_vals(OPS, VALS):
     
 def concat_simd_data(instr_dict, xlen, bit_width):
     '''
-    This function concatenates all element of a SIMD register into a single value.
+    This function concatenates all element of a SIMD register into a single value in the hex format.
 
     :param instr_dict: a dict holding metadata and operand data for the current instruction. 
     :param xlen: an integer indicating the XLEN value to be used.
@@ -89,20 +93,35 @@ def concat_simd_data(instr_dict, xlen, bit_width):
         sz = "d"
     for instr in instr_dict:
         if 'rs1' in instr:
-            rs1_val = 0
-            for i in range(xlen//bit_width):
-                val_var = f"rs1_{sz}{i}_val"
-                val = int(instr[val_var])
-                if val < 0:
-                    val = val + twocompl_offset
-                rs1_val += val << (i*bit_width)
-            instr['rs1_val'] = format(rs1_val, f"#0{xlen//4}x")
+            if 'rs1_val' in instr:  # single element value
+                rs1_val = int(instr['rs1_val'])
+                if rs1_val < 0:
+                    rs1_val = rs1_val + twocompl_offset
+                instr['rs1_val'] = format(rs1_val, f"#0x")
+            else:   # concatenates all element of a SIMD register into a single value
+                rs1_val = 0
+                for i in range(xlen//bit_width):
+                    val_var = f"rs1_{sz}{i}_val"
+                    val = int(instr[val_var])
+                    if val < 0:
+                        val = val + twocompl_offset
+                    rs1_val += val << (i*bit_width)
+                instr['rs1_val'] = format(rs1_val, f"#0{xlen//4}x")
         if 'rs2' in instr:
-            rs2_val = 0
-            for i in range(xlen//bit_width):
-                val_var = f"rs2_{sz}{i}_val"
-                val = int(instr[val_var])
-                if val < 0:
-                    val = val + twocompl_offset
-                rs2_val += val << (i*bit_width)
-            instr['rs2_val'] = format(rs2_val, f"#0{xlen//4}x")
+            if 'rs2_val' in instr:  # single element value
+                rs2_val = int(instr['rs2_val'])
+                if rs2_val < 0:
+                    rs2_val = rs2_val + twocompl_offset
+                instr['rs2_val'] = format(rs2_val, f"#0x")
+            else:   # concatenates all element of a SIMD register into a single value
+                rs2_val = 0
+                for i in range(xlen//bit_width):
+                    val_var = f"rs2_{sz}{i}_val"
+                    val = int(instr[val_var])
+                    if val < 0:
+                        val = val + twocompl_offset
+                    rs2_val += val << (i*bit_width)
+                instr['rs2_val'] = format(rs2_val, f"#0{xlen//4}x")
+        if 'imm_val' in instr:
+            imm_val = int(instr['imm_val'])
+            instr['imm_val'] = format(imm_val, f"#0x")

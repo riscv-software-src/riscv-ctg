@@ -801,11 +801,9 @@ sra16:
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 srai16:
     config: 
@@ -821,7 +819,6 @@ srai16:
     val_comb:
       abstract_comb: 
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
 sra16.u:
@@ -840,11 +837,9 @@ sra16.u:
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 srai16.u:
     config: 
@@ -860,7 +855,6 @@ srai16.u:
     val_comb:
       abstract_comb: 
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
 srl16:
@@ -878,12 +872,10 @@ srl16:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 srli16:
     config: 
@@ -898,7 +890,6 @@ srli16:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb: 
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
@@ -917,12 +908,10 @@ srl16.u:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 srli16.u:
     config: 
@@ -937,7 +926,6 @@ srli16.u:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb: 
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
@@ -956,12 +944,10 @@ sll16:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 slli16:
     config: 
@@ -976,7 +962,6 @@ slli16:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb: 
-        'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
@@ -996,11 +981,9 @@ ksll16:
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), False)': 0
 
 kslli16:
     config: 
@@ -1016,7 +999,6 @@ kslli16:
     val_comb:
       abstract_comb: 
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
         'simd_imm_val("imm_val", 4)': 0
 
 kslra16:
@@ -1035,11 +1017,9 @@ kslra16:
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), True)': 0
 
 kslra16.u:
     config: 
@@ -1057,11 +1037,9 @@ kslra16.u:
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
-        'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
-        'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(16, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(16, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(16, 2)), True)': 0
 
 sclip8:
     config: 
