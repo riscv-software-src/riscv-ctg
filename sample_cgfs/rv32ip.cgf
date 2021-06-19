@@ -1395,6 +1395,103 @@ ucmple16:
         'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=False)': 0
 
+cmpeq8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      cmpeq8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
+scmplt8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      scmplt8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+
+scmple8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      scmple8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+
+ucmplt8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      ucmplt8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
+ucmple8:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      ucmple8: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
 sclip8:
     config: 
       - check ISA:=regex(.*I.*P.*)
