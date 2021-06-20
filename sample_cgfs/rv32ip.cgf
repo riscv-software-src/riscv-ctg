@@ -2067,3 +2067,133 @@ swap8:
       abstract_comb:
         'simd_base_val("rs1", xlen, 8, signed=False)': 0
 
+sunpkd810:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sunpkd810: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+
+sunpkd820:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sunpkd820: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+
+sunpkd830:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sunpkd830: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+
+sunpkd831:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sunpkd831: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+
+sunpkd832:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sunpkd832: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+
+zunpkd810:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      zunpkd810: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+
+zunpkd820:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      zunpkd820: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+
+zunpkd830:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      zunpkd830: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+
+zunpkd831:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      zunpkd831: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+
+zunpkd832:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      zunpkd832: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+
