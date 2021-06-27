@@ -281,7 +281,6 @@ class Generator():
 	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
 	                		x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
 	                elif len(x) == (2*3 + 1):															# 2 Operand Instructions
-	                	print(x)
 	                	fs1 = x[0].split(" == ")[1]
 	                	fe1 = x[1].split(" == ")[1]
 	                	fm1 = x[2].split(" == ")[1]
@@ -295,7 +294,6 @@ class Generator():
 	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
 	                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
 	                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
-	                		print(x)
 	                elif len(x) == (3*3 + 1):															# 3 Operand Instructions
 	                	fs1 = x[0].split(" == ")[1]
 	                	fe1 = x[1].split(" == ")[1]
@@ -393,7 +391,13 @@ class Generator():
                 instr[var] = str(reg)
         else:
             for i,var in enumerate(self.op_vars):
-                instr[var] = 'x'+str(i+10)
+                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                    if self.opnode[var+'_op_data'][2] == 'f':
+                        instr[var] = 'f'+str(i+10)
+                    else:
+                        instr[var] = 'x'+str(i+10)
+                else:
+                    instr[var] = 'x'+str(i+10)
         if val:
             for i,var in enumerate(self.val_vars):
                 if var == "imm_val":
@@ -564,7 +568,11 @@ class Generator():
                 instr[var] = str(reg)
         else:
             for i,var in enumerate(self.op_vars):
-                instr[var] = 'x'+str(i+10)
+                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                    if self.opnode[var+'_op_data'][2] == 'f':
+                        instr[var] = 'f'+str(i+10)
+                    else:
+                        instr[var] = 'x'+str(i+10)
         if val:
             for i,var in enumerate(self.val_vars):
                 instr[var] = str(val[i])
@@ -603,11 +611,12 @@ class Generator():
             val_comb = list(val_comb) + [[self.datasets[var][0] for var in self.val_vars] + [""]] * (len(op_comb) - len(val_comb))
 
         x = dict([(y,x) for x,y in enumerate(self.val_vars)])
+        
         ind_dict = {}
         for ind,var in enumerate(self.op_vars):
             if var+"_val" in x:
                 ind_dict[ind] = x[var+"_val"]
-
+        
         for op,val_soln in zip(op_comb,val_comb):
             val = [x for x in val_soln]
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
@@ -660,6 +669,10 @@ class Generator():
                 rs1_val = int(instr['rs1_val'])
             if 'rs2_val' in instr:
                 rs2_val = int(instr['rs2_val'])
+            if 'rs3_val' in instr:
+                rs3_val = int(instr['rs3_val'])
+            if 'rm_val' in instr:
+                rm = int(instr['rm_val'])
             if 'imm_val' in instr:
                 if instr['inst'] in ['c.j','c.jal']:
                     imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
@@ -673,47 +686,47 @@ class Generator():
                 rs1 = instr['rs1']
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
-                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-                bin_val = ''
-                e_sz = 0
-                m_sz = 0
-                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-                    if (flen == 32):
-                        e_sz = 8
-                    else:
-                        e_sz = 11
-                    if (flen == 32):
-                        m_sz = 23
-                    else:
-                        m_sz = 52
-                    rm_val = instr['rm_val']
-                    if 'rs1_val' in instr:
-                        if (flen == 32):
-                            bin_val = '{:032b}'.format(rs1_val)
-                        else:
-                            bin_val = '{:064b}'.format(rs1_val)
-                        fs1 = int(bin_val[0],2)
-                        fe1 = int(bin_val[1:e_sz+1],2)
-                        fm1 = int(bin_val[e_sz+1:],2)
-                    if 'rs2_val' in instr:
-                        if (flen == 32):
-                            bin_val = '{:032b}'.format(rs2_val)
-                        else:
-                            bin_val = '{:064b}'.format(rs2_val)
-                        fs2 = int(bin_val[0],2)
-                        fe2 = int(bin_val[1:e_sz+1],2)
-                        fm2 = int(bin_val[e_sz+1:],2)
-                    if 'rs3_val' in instr:
-                        if (flen == 32):
-                            bin_val = '{:032b}'.format(rs3_val)
-                        else:
-                            bin_val = '{:064b}'.format(rs3_val)
-                        fs3 = int(bin_val[0],2)
-                        fe3 = int(bin_val[1:e_sz+1],2)
-                        fm3 = int(bin_val[e_sz+1:],2)
                 for coverpoint in coverpoints['val_comb']:
-                	if eval(coverpoint):
-                		valcomb_hits.add(coverpoint)
+	                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+	                bin_val = ''
+	                e_sz = 0
+	                m_sz = 0
+	                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+	                    if (flen == 32):
+	                        e_sz = 8
+	                    else:
+	                        e_sz = 11
+	                    if (flen == 32):
+	                        m_sz = 23
+	                    else:
+	                        m_sz = 52
+	                    rm_val = int(instr['rm_val'])
+	                    if 'rs1_val' in instr:
+	                        if (flen == 32):
+	                            bin_val = '{:032b}'.format(rs1_val)
+	                        else:
+	                            bin_val = '{:064b}'.format(rs1_val)
+	                        fs1 = int(bin_val[0],2)
+	                        fe1 = int(bin_val[1:e_sz+1],2)
+	                        fm1 = int(bin_val[e_sz+1:],2)
+	                    if 'rs2_val' in instr:
+	                        if (flen == 32):
+	                            bin_val = '{:032b}'.format(rs2_val)
+	                        else:
+	                            bin_val = '{:064b}'.format(rs2_val)
+	                        fs2 = int(bin_val[0],2)
+	                        fe2 = int(bin_val[1:e_sz+1],2)
+	                        fm2 = int(bin_val[e_sz+1:],2)
+	                    if 'rs3_val' in instr:
+	                        if (flen == 32):
+	                            bin_val = '{:032b}'.format(rs3_val)
+	                        else:
+	                            bin_val = '{:064b}'.format(rs3_val)
+	                        fs3 = int(bin_val[0],2)
+	                        fe3 = int(bin_val[1:e_sz+1],2)
+	                        fm3 = int(bin_val[e_sz+1:],2)
+	                if eval(coverpoint):
+	                	valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
             if 'op_comb' in coverpoints:
                 opcomb_hits = set([])
@@ -740,16 +753,16 @@ class Generator():
                     if instr['rs1'] == instr['rs2']:
                         skip_val = True
                 if 'rs1' in instr:
-                    if instr['rs1'] == 'x0':
+                    if instr['rs1'] == 'x0' or instr['rs2'] == 'f0':
                         skip_val = True
                 if 'rs2' in instr:
-                    if instr['rs2'] == 'x0':
+                    if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
                         skip_val = True
                 if 'rd' in instr:
-                    if instr['rd'] == 'x0':
+                    if instr['rd'] == 'x0' or instr['rs2'] == 'f0':
                         skip_val = True
                 cover_hits = eval_inst_coverage(cgf,instr)
-                for entry in cover_hits:
+                for entry in cover_hits:	
                     if entry=='val_comb' and skip_val:
                         continue
                     over = hits[entry] & cover_hits[entry]
@@ -760,6 +773,7 @@ class Generator():
                     final_instr.append(instr)
                 else:
                     i+=1
+
         return final_instr
     
     def swreg(self, instr_dict):
