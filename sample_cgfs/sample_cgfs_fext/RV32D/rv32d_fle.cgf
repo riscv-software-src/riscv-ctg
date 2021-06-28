@@ -10,7 +10,7 @@ fle_b1:
     rs2:
       <<: *all_fregs
     rd: 
-      <<: *all_fregs
+      <<: *all_regs
     op_comb: 
       <<: *sfmt_op_comb
     val_comb:
@@ -27,7 +27,7 @@ fle_b19:
     rs2:
       <<: *all_fregs
     rd: 
-      <<: *all_fregs
+      <<: *all_regs
     op_comb: 
       <<: *sfmt_op_comb
     val_comb:

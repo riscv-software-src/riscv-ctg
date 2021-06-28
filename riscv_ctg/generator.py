@@ -271,48 +271,48 @@ class Generator():
 
                 if self.opcode[0] == 'f' and 'fence' not in self.opcode:
 	                # fs + fe + fm -> Combiner Script
-	                if len(x) == (1*3 + 1):																# 1 Operand Instructions
-	                	fs1 = x[0].split(" == ")[1]
-	                	fe1 = x[1].split(" == ")[1]
-	                	fm1 = x[2].split(" == ")[1]
-	                	rm = x[-1].split(" == ")[1]
-	                	if flen == 32:
-	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-	                		x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
-	                elif len(x) == (2*3 + 1):															# 2 Operand Instructions
-	                	fs1 = x[0].split(" == ")[1]
-	                	fe1 = x[1].split(" == ")[1]
-	                	fm1 = x[2].split(" == ")[1]
-	                	fs2 = x[3].split(" == ")[1]
-	                	fe2 = x[4].split(" == ")[1]
-	                	fm2 = x[5].split(" == ")[1]
-	                	rm = x[-1].split(" == ")[1]
-	                	if flen == 32:
-	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-	                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-	                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-	                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
-	                elif len(x) == (3*3 + 1):															# 3 Operand Instructions
-	                	fs1 = x[0].split(" == ")[1]
-	                	fe1 = x[1].split(" == ")[1]
-	                	fm1 = x[2].split(" == ")[1]
-	                	fs2 = x[3].split(" == ")[1]
-	                	fe2 = x[4].split(" == ")[1]
-	                	fm2 = x[5].split(" == ")[1]
-	                	fs3 = x[6].split(" == ")[1]
-	                	fe3 = x[7].split(" == ")[1]
-	                	fm3 = x[8].split(" == ")[1]
-	                	rm = x[-1].split(" == ")[1]
-	                	if flen == 32:
-	                		bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-	                		bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-	                		bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
-	                		hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-	                		hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-	                		hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
-	                		x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
+                    if len(x) == (1*3 + 1):																# 1 Operand Instructions
+                        fs1 = x[0].split(" == ")[1]
+                        fe1 = x[1].split(" == ")[1]
+                        fm1 = x[2].split(" == ")[1]
+                        rm = x[-1].split(" == ")[1]
+                        if flen == 32:
+                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                            x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
+                    elif len(x) == (2*3 + 1):															# 2 Operand Instructions
+                        fs1 = x[0].split(" == ")[1]
+                        fe1 = x[1].split(" == ")[1]
+                        fm1 = x[2].split(" == ")[1]
+                        fs2 = x[3].split(" == ")[1]
+                        fe2 = x[4].split(" == ")[1]
+                        fm2 = x[5].split(" == ")[1]
+                        rm = x[-1].split(" == ")[1]
+                        if flen == 32:
+                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                            bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                            hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+                            x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
+                    elif len(x) == (3*3 + 1):															# 3 Operand Instructions
+                        fs1 = x[0].split(" == ")[1]
+                        fe1 = x[1].split(" == ")[1]
+                        fm1 = x[2].split(" == ")[1]
+                        fs2 = x[3].split(" == ")[1]
+                        fe2 = x[4].split(" == ")[1]
+                        fm2 = x[5].split(" == ")[1]
+                        fs3 = x[6].split(" == ")[1]
+                        fe3 = x[7].split(" == ")[1]
+                        fm3 = x[8].split(" == ")[1]
+                        rm = x[-1].split(" == ")[1]
+                        if flen == 32:
+                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
+                            bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
+                            bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
+                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
+                            hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
+                            hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
+                            x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
 
                 for i in self.val_vars:
                     for j in x:
@@ -684,6 +684,8 @@ class Generator():
                 rd = instr['rd']
             if 'rs1' in instr:
                 rs1 = instr['rs1']
+            if 'rs3' in instr:
+                rs3 = instr['rs3']
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
