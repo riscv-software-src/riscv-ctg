@@ -4381,6 +4381,7 @@ sra16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4398,6 +4399,7 @@ srai16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4416,6 +4418,7 @@ sra16.u:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4433,6 +4436,7 @@ srai16.u:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4451,6 +4455,7 @@ srl16:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4468,6 +4473,7 @@ srli16:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4486,6 +4492,7 @@ srl16.u:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4503,6 +4510,7 @@ srli16.u:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4521,6 +4529,7 @@ sll16:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4538,6 +4547,7 @@ slli16:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4556,6 +4566,7 @@ ksll16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4573,6 +4584,7 @@ kslli16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4591,6 +4603,7 @@ kslra16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   rs2_val_data: 'gen_sign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4609,6 +4622,7 @@ kslra16.u:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   rs2_val_data: 'gen_sign_dataset(ceil(log(16,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4631,6 +4645,7 @@ sra8:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4652,6 +4667,7 @@ srai8:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4674,6 +4690,7 @@ sra8.u:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4695,6 +4712,7 @@ srai8.u:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4717,6 +4735,7 @@ srl8:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4738,6 +4757,7 @@ srli8:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4760,6 +4780,7 @@ srl8.u:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4781,6 +4802,7 @@ srli8.u:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4803,6 +4825,7 @@ sll8:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4824,6 +4847,7 @@ slli8:
   rs1_b7_val_data: 'gen_usign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4846,6 +4870,7 @@ ksll8:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   rs2_val_data: 'gen_usign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4867,6 +4892,7 @@ kslli8:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   imm_val_data: 'gen_imm_dataset(3)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -4889,6 +4915,7 @@ kslra8:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   rs2_val_data: 'gen_sign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -4911,6 +4938,7 @@ kslra8.u:
   rs1_b7_val_data: 'gen_sign_dataset(8)'
   rs2_val_data: 'gen_sign_dataset(ceil(log(8,2)))'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -5504,6 +5532,7 @@ smin16:
   rs2_h2_val_data: 'gen_sign_dataset(16)'
   rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -5525,6 +5554,7 @@ umin16:
   rs2_h2_val_data: 'gen_usign_dataset(16)'
   rs2_h3_val_data: 'gen_usign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -5546,6 +5576,7 @@ smax16:
   rs2_h2_val_data: 'gen_sign_dataset(16)'
   rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -5567,6 +5598,7 @@ umax16:
   rs2_h2_val_data: 'gen_usign_dataset(16)'
   rs2_h3_val_data: 'gen_usign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
@@ -5584,6 +5616,7 @@ sclip16:
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -5601,6 +5634,7 @@ uclip16:
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   imm_val_data: 'gen_imm_dataset(4)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
@@ -5617,6 +5651,7 @@ kabs16:
   rs1_h2_val_data: 'gen_sign_dataset(16)'
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -5633,6 +5668,7 @@ clrs16:
   rs1_h2_val_data: 'gen_sign_dataset(16)'
   rs1_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -5649,6 +5685,7 @@ clz16:
   rs1_h2_val_data: 'gen_usign_dataset(16)'
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -5665,6 +5702,7 @@ clo16:
   rs1_h2_val_data: 'gen_usign_dataset(16)'
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -5681,6 +5719,7 @@ swap16:
   rs1_h2_val_data: 'gen_usign_dataset(16)'
   rs1_h3_val_data: 'gen_usign_dataset(16)'
   template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
