@@ -6,7 +6,11 @@ OPS_RVP = {
     'pbriformat': ['rs1', 'rd'],
     'phriformat': ['rs1', 'rd'],
     'psbrrformat': ['rs1', 'rs2', 'rd'],
-    'pshrrformat': ['rs1', 'rs2', 'rd']
+    'pshrrformat': ['rs1', 'rs2', 'rd'],
+    'pwrrformat': ['rs1', 'rs2', 'rd'],
+    'pwriformat': ['rs1', 'rd'],
+    'pwrformat': ['rs1', 'rd'],
+    'pswrrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping RVP instruction formats to operands used by those formats '''
 
@@ -18,7 +22,11 @@ VALS_RVP = {
     'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
     'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
     'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
-    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]'
+    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]',
+    'pwrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 32)',
+    'pwriformat': 'simd_val_vars("rs1", xlen, 32) + ["imm_val"]',
+    'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
+    'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]'
 }
 ''' Dictionary mapping RVP instruction formats to operand value variables used by those formats '''
 

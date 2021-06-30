@@ -749,6 +749,14 @@ class Generator():
                 rs2_h2_val = int(instr['rs2_h2_val'])
             if 'rs2_h3_val' in instr:
                 rs2_h3_val = int(instr['rs2_h3_val'])
+            if 'rs1_w0_val' in instr:
+                rs1_w0_val = int(instr['rs1_w0_val'])
+            if 'rs1_w1_val' in instr:
+                rs1_w1_val = int(instr['rs1_w1_val'])
+            if 'rs2_w0_val' in instr:
+                rs2_w0_val = int(instr['rs2_w0_val'])
+            if 'rs2_w1_val' in instr:
+                rs2_w1_val = int(instr['rs2_w1_val'])
             if 'imm_val' in instr:
                 if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
