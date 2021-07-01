@@ -9,8 +9,6 @@ fcvt.s.wu_b25:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b25(32, "fcvt.s.wu", 1)': 0
@@ -24,8 +22,6 @@ fcvt.s.wu_b26:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b26(32, "fcvt.s.wu", 1)': 0

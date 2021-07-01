@@ -6,9 +6,9 @@ fmv.w.x_b25:
     opcode: 
       fmv.w.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
+    rd: 
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -21,9 +21,9 @@ fmv.w.x_b26:
     opcode: 
       fmv.w.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
+    rd: 
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:

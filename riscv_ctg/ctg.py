@@ -46,8 +46,10 @@ def create_test(usage_str, node,label,base_isa):
                 flen = 64
             elif '.s' in opcode:
                 flen = 32
-            if flen not in op_node['flen']:
-                return
+            flen = op_node['flen'][0]
+            print(flen)
+            #if flen not in op_node['flen']:
+            #    return
         fname = os.path.join(out_dir,str(label+"-01.S"))
         logger.info('Generating Test for :' + opcode)
         formattype  = op_node['formattype']

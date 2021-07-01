@@ -271,15 +271,25 @@ class Generator():
 
                 if self.opcode[0] == 'f' and 'fence' not in self.opcode:
 	                # fs + fe + fm -> Combiner Script
+                    if (flen == 32):
+                        e_sz = 8
+                        m_sz = 23
+                    else:
+                        e_sz = 11
+                        m_sz = 52
+                    e_sz_string = '{:0'+str(e_sz)+'b}'
+                    m_sz_string = '{:0'+str(m_sz)+'b}'
+                    size_string = '{:0'+str(int(flen/4))+'x}'
+
                     if len(x) == (1*3 + 1):																# 1 Operand Instructions
                         fs1 = x[0].split(" == ")[1]
                         fe1 = x[1].split(" == ")[1]
                         fm1 = x[2].split(" == ")[1]
                         rm = x[-1].split(" == ")[1]
-                        if flen == 32:
-                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                            x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
+                        bin_val1 = fs1 + e_sz_string.format(int(fe1,16)) + m_sz_string.format(int(fm1,16))
+                        hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
+                        x = ["rs1_val == " + hex_val1, "rm_val == " + rm]
+
                     elif len(x) == (2*3 + 1):															# 2 Operand Instructions
                         fs1 = x[0].split(" == ")[1]
                         fe1 = x[1].split(" == ")[1]
@@ -288,12 +298,12 @@ class Generator():
                         fe2 = x[4].split(" == ")[1]
                         fm2 = x[5].split(" == ")[1]
                         rm = x[-1].split(" == ")[1]
-                        if flen == 32:
-                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                            bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                            hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-                            x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
+                        bin_val1 = fs1 + e_sz_string.format(int(fe1,16)) + m_sz_string.format(int(fm1,16))
+                        bin_val2 = fs2 + e_sz_string.format(int(fe2,16)) + m_sz_string.format(int(fm2,16))
+                        hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
+                        hex_val2 = '0x' + size_string.format(int(bin_val2, 2))
+                        x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rm_val == " + rm]
+
                     elif len(x) == (3*3 + 1):															# 3 Operand Instructions
                         fs1 = x[0].split(" == ")[1]
                         fe1 = x[1].split(" == ")[1]
@@ -305,14 +315,13 @@ class Generator():
                         fe3 = x[7].split(" == ")[1]
                         fm3 = x[8].split(" == ")[1]
                         rm = x[-1].split(" == ")[1]
-                        if flen == 32:
-                            bin_val1 = fs1 + '{:08b}'.format(int(fe1,16)) + '{:023b}'.format(int(fm1,16))
-                            bin_val2 = fs2 + '{:08b}'.format(int(fe2,16)) + '{:023b}'.format(int(fm2,16))
-                            bin_val3 = fs3 + '{:08b}'.format(int(fe3,16)) + '{:023b}'.format(int(fm3,16))
-                            hex_val1 = '0x' + '{:08x}'.format(int(bin_val1, 2))
-                            hex_val2 = '0x' + '{:08x}'.format(int(bin_val2, 2))
-                            hex_val3 = '0x' + '{:08x}'.format(int(bin_val3, 2))
-                            x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
+                        bin_val1 = fs1 + e_sz_string.format(int(fe1,16)) + m_sz_string.format(int(fm1,16))
+                        bin_val2 = fs2 + e_sz_string.format(int(fe2,16)) + m_sz_string.format(int(fm2,16))
+                        bin_val3 = fs3 + e_sz_string.format(int(fe3,16)) + m_sz_string.format(int(fm3,16))
+                        hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
+                        hex_val2 = '0x' + size_string.format(int(bin_val2, 2))
+                        hex_val3 = '0x' + size_string.format(int(bin_val3, 2))
+                        x = ["rs1_val == " + hex_val1, "rs2_val == " + hex_val2, "rs3_val == " + hex_val3, "rm_val == " + rm]
 
                 for i in self.val_vars:
                     for j in x:
@@ -672,7 +681,7 @@ class Generator():
             if 'rs3_val' in instr:
                 rs3_val = int(instr['rs3_val'])
             if 'rm_val' in instr:
-                rm = int(instr['rm_val'])
+                rm_val = int(instr['rm_val'])
             if 'imm_val' in instr:
                 if instr['inst'] in ['c.j','c.jal']:
                     imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
@@ -693,7 +702,7 @@ class Generator():
 	                bin_val = ''
 	                e_sz = 0
 	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode:
 	                    if (flen == 32):
 	                        e_sz = 8
 	                    else:
@@ -702,7 +711,6 @@ class Generator():
 	                        m_sz = 23
 	                    else:
 	                        m_sz = 52
-	                    rm_val = int(instr['rm_val'])
 	                    if 'rs1_val' in instr:
 	                        if (flen == 32):
 	                            bin_val = '{:032b}'.format(rs1_val)
@@ -755,13 +763,13 @@ class Generator():
                     if instr['rs1'] == instr['rs2']:
                         skip_val = True
                 if 'rs1' in instr:
-                    if instr['rs1'] == 'x0' or instr['rs2'] == 'f0':
+                    if instr['rs1'] == 'x0' or instr['rs1'] == 'f0':
                         skip_val = True
                 if 'rs2' in instr:
                     if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
                         skip_val = True
                 if 'rd' in instr:
-                    if instr['rd'] == 'x0' or instr['rs2'] == 'f0':
+                    if instr['rd'] == 'x0' or instr['rd'] == 'f0':
                         skip_val = True
                 cover_hits = eval_inst_coverage(cgf,instr)
                 for entry in cover_hits:	
@@ -824,9 +832,9 @@ class Generator():
                         val_offset += (int(flen/8))
                     elif self.fmt == 'fr4format':
                         val_offset += 3*(int(flen/8))
-                    if offset == 2048:
+                    if offset >= 2048:
                         offset = 0
-                    if val_offset == 2040:
+                    if val_offset >= 2040:
                         val_offset = 0
            return instr_dict
         regset = e_regset if 'e' in base_isa else default_regset
