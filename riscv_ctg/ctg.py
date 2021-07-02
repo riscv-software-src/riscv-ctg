@@ -46,8 +46,8 @@ def create_test(usage_str, node,label,base_isa):
                 flen = 64
             elif '.s' in opcode:
                 flen = 32
-            flen = op_node['flen'][0]
-            print(flen)
+            else:
+                flen = op_node['flen'][0]
             #if flen not in op_node['flen']:
             #    return
         fname = os.path.join(out_dir,str(label+"-01.S"))
