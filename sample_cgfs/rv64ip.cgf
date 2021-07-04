@@ -588,3 +588,260 @@ ukstsa32:
         'simd_base_val("rs1", xlen, 32, signed=False)': 0
         'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=False)': 0
+
+sra32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sra32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+srai32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srai32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+sra32.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sra32.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+srai32.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srai32.u: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+srl32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srl32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+srli32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srli32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+srl32.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srl32.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+srli32.u:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      srli32.u: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+sll32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sll32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+slli32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      slli32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_imm_val("imm_val", 5)': 0
+        
+ksll32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      ksll32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), False)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), False)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), False)': 0
+
+kslli32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      kslli32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+kslra32:
+    config: 
+      - check isa:=regex(.*i.*p.*)
+    opcode: 
+      kslra32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), True)': 0
+
+kslra32.u:
+    config: 
+      - check isa:=regex(.*i.*p.*)
+    opcode: 
+      kslra32.u: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'walking_ones("rs2_val", ceil(log(32, 2)), True)': 0
+        'walking_zeros("rs2_val", ceil(log(32, 2)), True)': 0
+        'alternate("rs2_val", ceil(log(32, 2)), True)': 0
+
