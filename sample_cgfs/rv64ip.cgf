@@ -1,0 +1,590 @@
+# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
+
+add32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      add32: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+radd32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      radd32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+uradd32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      uradd32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+kadd32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kadd32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+ukadd32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ukadd32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+sub32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      sub32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+rsub32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      rsub32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+
+ursub32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ursub32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+ksub32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ksub32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+uksub32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      uksub32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+cras32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      cras32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+rcras32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      rcras32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+urcras32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      urcras32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+kcras32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kcras32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+ukcras32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ukcras32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+crsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      crsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+rcrsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      rcrsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+urcrsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      urcrsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+kcrsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kcrsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+ukcrsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ukcrsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+stas32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      stas32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+rstas32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      rstas32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+urstas32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      urstas32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+kstas32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kstas32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+ukstas32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ukstas32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+stsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      stsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+rstsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      rstsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+urstsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      urstsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
+
+kstsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      kstsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
+
+ukstsa32:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      ukstsa32: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0

@@ -6291,6 +6291,8 @@ pktt16:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 2.5. Non-SIMD Instructions
+
 kaddh:
   xlen: [32,64]
   isa: IP
@@ -6718,3 +6720,547 @@ kabsw:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
+# 2.6. RV64 Only Instructions
+
+add32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+radd32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+uradd32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kadd32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ukadd32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+sub32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+
+rsub32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+
+ursub32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ksub32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+uksub32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+cras32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+rcras32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+
+urcras32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kcras32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ukcras32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+crsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+rcrsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+urcrsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kcrsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ukcrsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+stas32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+rstas32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+urstas32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kstas32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ukstas32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+stsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+rstsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+urstsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kstsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+ukstsa32:
+  xlen: [64]
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
