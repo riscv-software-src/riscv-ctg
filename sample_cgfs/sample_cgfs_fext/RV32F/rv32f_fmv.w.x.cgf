@@ -9,8 +9,6 @@ fmv.w.x_b25:
       <<: *all_regs
     rd: 
       <<: *all_fregs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b25(32, "fmv.w.x", 1)': 0
@@ -24,8 +22,6 @@ fmv.w.x_b26:
       <<: *all_regs
     rd: 
       <<: *all_fregs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b26(32, "fmv.w.x", 1)': 0
