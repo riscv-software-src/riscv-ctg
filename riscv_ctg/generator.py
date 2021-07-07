@@ -114,7 +114,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = OPS[fmt]
         self.val_vars = VALS[fmt]
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -702,7 +702,7 @@ class Generator():
 	                bin_val = ''
 	                e_sz = 0
 	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode:
+	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode:
 	                    if (flen == 32):
 	                        e_sz = 8
 	                    else:
