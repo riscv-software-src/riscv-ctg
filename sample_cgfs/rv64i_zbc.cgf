@@ -1,0 +1,65 @@
+clmul:
+    config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
+      - check ISA:=regex(.*RV64.*I.*Zbc.*)
+    opcode: 
+      clmul: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_ones("rs2_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+        'walking_zeros("rs2_val", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1_val","rs2_val"], [xlen, xlen])': 0
+        
+clmulh:
+    config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
+      - check ISA:=regex(.*RV64.*I.*Zbc.*)
+    opcode: 
+      clmulh: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_ones("rs2_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+        'walking_zeros("rs2_val", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1_val","rs2_val"], [xlen, xlen])': 0
+        
+clmulr:
+    config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
+      - check ISA:=regex(.*RV64.*I.*Zbc.*)
+    opcode: 
+      clmulr: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_ones("rs2_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+        'walking_zeros("rs2_val", xlen, False)': 0
+        'uniform_random(20, 100, ["rs1_val","rs2_val"], [xlen, xlen])': 0
