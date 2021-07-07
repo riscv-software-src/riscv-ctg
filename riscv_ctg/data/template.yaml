@@ -1709,15 +1709,11 @@ fnmadd.s:
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.s","rs3_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
-    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fnmadd.d:
   xlen: [32,64]
@@ -1728,15 +1724,11 @@ fnmadd.d:
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmadd.d","rs3_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
-    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fnmsub.s:
   xlen: [32,64]
@@ -1747,15 +1739,11 @@ fnmsub.s:
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.s","rs3_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
-    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
 fnmsub.d:
   xlen: [32,64]
@@ -1766,15 +1754,11 @@ fnmsub.d:
   rs2_op_data: *all_fregs
   rs3_op_data: *all_fregs
   rd_op_data: *all_fregs
-  rs1_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs1_val")'
-  rs2_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs2_val")'
-  rs3_val_data: 'gen_fp_dataset(flen,"fnmsub.d","rs3_val")'
-  rm_val_data: [0,1,2,3,4]
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm; testreg:$testreg
-    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
 fsgnj.s:
   xlen: [32,64]
