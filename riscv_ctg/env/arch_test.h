@@ -921,7 +921,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
       FLREG freg1, val_offset(valaddr_reg); \
       FLREG freg2, val_offset+FREGWIDTH(valaddr_reg); \
-      FLREG freg2, val_offset+2*FREGWIDTH(valaddr_reg); \
+      FLREG freg3, val_offset+2*FREGWIDTH(valaddr_reg); \
       csrrwi x0, frm, rm; \
       inst destreg, freg1, freg2, freg3; \
       csrrs flagreg, fflags, x0; \
