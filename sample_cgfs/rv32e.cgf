@@ -2,13 +2,13 @@
 
 fence:
   config: 
-    - check ISA:=regex(.*I.*)
+    - check ISA:=regex(.*E.*)
   opcode: 
     fence: 0
 
 addi:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       addi: 0
     rs1: 
@@ -25,7 +25,7 @@ addi:
 
 slti:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       slti: 0
     rs1: 
@@ -42,7 +42,7 @@ slti:
 
 sltiu:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sltiu: 0
     rs1: 
@@ -59,7 +59,7 @@ sltiu:
 
 andi:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       andi: 0
     rs1: 
@@ -76,7 +76,7 @@ andi:
 
 ori:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       ori: 0
     rs1: 
@@ -93,7 +93,7 @@ ori:
 
 xori:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       xori: 0
     rs1: 
@@ -110,7 +110,7 @@ xori:
 
 slli:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       slli: 0
     rs1: 
@@ -130,7 +130,7 @@ slli:
 
 srai:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       srai: 0
     rs1: 
@@ -150,7 +150,7 @@ srai:
 
 srli:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       srli: 0
     rs1: 
@@ -170,7 +170,7 @@ srli:
 
 add:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       add: 0
     rs1: 
@@ -189,7 +189,7 @@ add:
 
 sub:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sub: 0
     rs1: 
@@ -208,7 +208,7 @@ sub:
 
 slt:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       slt: 0
     rs1: 
@@ -227,7 +227,7 @@ slt:
 
 sltu:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sltu: 0
     rs1: 
@@ -246,7 +246,7 @@ sltu:
 
 and:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       and: 0
     rs1: 
@@ -265,7 +265,7 @@ and:
 
 or:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       or: 0
     rs1: 
@@ -284,7 +284,7 @@ or:
 
 xor:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       xor: 0
     rs1: 
@@ -303,7 +303,7 @@ xor:
 
 sll:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sll: 0
     rs1: 
@@ -325,7 +325,7 @@ sll:
 
 srl:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       srl: 0
     rs1: 
@@ -347,7 +347,7 @@ srl:
 
 sra:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sra: 0
     rs1: 
@@ -369,7 +369,7 @@ sra:
 
 beq:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       beq: 0
     rs1: 
@@ -386,7 +386,7 @@ beq:
 
 bge:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       bge: 0
     rs1: 
@@ -403,7 +403,7 @@ bge:
 
 bgeu:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       bgeu: 0
     rs1: 
@@ -420,7 +420,7 @@ bgeu:
 
 blt:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       blt: 0
     rs1: 
@@ -437,7 +437,7 @@ blt:
 
 bltu:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       bltu: 0
     rs1: 
@@ -454,7 +454,7 @@ bltu:
 
 bne:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       bne: 0
     rs1: 
@@ -471,7 +471,7 @@ bne:
 
 lhu-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lhu: 0
     rs1: 
@@ -495,7 +495,7 @@ lhu-align:
 
 lh-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lh: 0
     rs1: 
@@ -519,7 +519,7 @@ lh-align:
 
 lbu-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lbu: 0
     rs1: 
@@ -551,7 +551,7 @@ lbu-align:
 
 lb-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lb: 0
     rs1: 
@@ -583,7 +583,7 @@ lb-align:
 
 lw-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lw: 0
     rs1: 
@@ -604,7 +604,7 @@ lw-align:
 
 sh-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sh: 0
     rs1: 
@@ -631,7 +631,7 @@ sh-align:
 
 sb-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sb: 0
     rs1: 
@@ -666,7 +666,7 @@ sb-align:
 
 sw-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       sw: 0
     rs1: 
@@ -689,7 +689,7 @@ sw-align:
 
 auipc:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       auipc: 0
     rd: 
@@ -706,7 +706,7 @@ auipc:
 
 lui:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       lui: 0
     rd: 
@@ -723,7 +723,7 @@ lui:
 
 jal:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       jal: 0
     rd: 
@@ -736,7 +736,7 @@ jal:
 
 jalr:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*E.*)
     opcode: 
       jalr: 0
     rs1:
