@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2021-07-16
+- Update the sample cgf for RV32E
+- fix the generation of RV32E Tests and defined a new test macro to initialize only supported registers for RV32E
+
 ## [0.5.0] - 2021-05-27
 - support for K extension and subextension instructions
 - support for comments in coverpoints
