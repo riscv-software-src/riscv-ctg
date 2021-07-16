@@ -141,6 +141,35 @@
   rvtest_code_begin:
 .endm
 
+.macro RVETEST_CODE_BEGIN
+  .align UNROLLSZ
+  .section .text.init;
+  .globl rvtest_init;                                                  \
+  rvtest_init:
+#ifdef rvtest_mtrap_routine
+  LA(x1, rvtest_trap_prolog );
+  jalr ra, x1
+  rvtest_prolog_done:
+#endif
+     LI (x1,  (0xFEEDBEADFEEDBEAD & MASK));
+     LI (x2,  (0xFF76DF56FF76DF56 & MASK));
+     LI (x3,  (0x7FBB6FAB7FBB6FAB & MASK));
+     LI (x4,  (0xBFDDB7D5BFDDB7D5 & MASK));
+     LA (x5, rvtest_code_begin);
+     LA (x6, rvtest_data_begin);
+     LI (x7,  (0xB7FBB6FAB7FBB6FA & MASK));
+     LI (x8,  (0x5BFDDB7D5BFDDB7D & MASK));
+     LI (x9,  (0xADFEEDBEADFEEDBE & MASK));
+     LI (x10, (0x56FF76DF56FF76DF & MASK));
+     LI (x11, (0xAB7FBB6FAB7FBB6F & MASK));
+     LI (x12, (0xD5BFDDB7D5BFDDB7 & MASK));
+     LI (x13, (0xEADFEEDBEADFEEDB & MASK));
+     LI (x14, (0xF56FF76DF56FF76D & MASK));
+     LI (x15, (0xFAB7FBB6FAB7FBB6 & MASK));
+  .globl rvtest_code_begin
+  rvtest_code_begin:
+.endm
+
 // --------------------------------- CODE BEGIN w/ TRAP HANDLER END -----------------------------//
 
 .macro RVTEST_CODE_END

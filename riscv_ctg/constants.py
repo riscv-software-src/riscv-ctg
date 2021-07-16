@@ -157,7 +157,7 @@ RVTEST_ISA("$isa")
 .globl rvtest_entry_point
 rvtest_entry_point:
 RVMODEL_BOOT
-RVTEST_CODE_BEGIN
+$TEST_CODE_BEGIN
 $test
 
 RVTEST_CODE_END
