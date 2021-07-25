@@ -6,14 +6,12 @@ fcvt.s.lu_b25:
     opcode: 
       fcvt.s.lu: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b25(64, "fcvt.s.lu", 1)': 0
+        'ibm_b25(32, "fcvt.s.lu", 1)': 0
         
 fcvt.s.lu_b26:
     config: 
@@ -21,12 +19,10 @@ fcvt.s.lu_b26:
     opcode: 
       fcvt.s.lu: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b26(64, "fcvt.s.lu", 1)': 0
+        'ibm_b26(32, "fcvt.s.lu", 1)': 0
 

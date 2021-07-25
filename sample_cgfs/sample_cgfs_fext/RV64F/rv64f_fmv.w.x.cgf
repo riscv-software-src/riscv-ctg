@@ -6,14 +6,12 @@ fmv.w.x_b25:
     opcode: 
       fmv.w.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b25(64, "fmv.w.x", 1)': 0
+        'ibm_b25(32, "fmv.w.x", 1)': 0
         
 fmv.w.x_b26:
     config: 
@@ -21,12 +19,10 @@ fmv.w.x_b26:
     opcode: 
       fmv.w.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b26(64, "fmv.w.x", 1)': 0
+        'ibm_b26(32, "fmv.w.x", 1)': 0
 
