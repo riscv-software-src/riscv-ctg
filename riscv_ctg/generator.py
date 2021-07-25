@@ -702,7 +702,7 @@ class Generator():
 	                bin_val = ''
 	                e_sz = 0
 	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode:
+	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode:
 	                    if (flen == 32):
 	                        e_sz = 8
 	                    else:
@@ -832,7 +832,7 @@ class Generator():
                         val_offset += (int(flen/8))
                     elif self.fmt == 'fr4format':
                         val_offset += 3*(int(flen/8))
-                    if offset >= 2048:
+                    if offset >= 2040:
                         offset = 0
                     if val_offset >= 2040:
                         val_offset = 0
