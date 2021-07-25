@@ -81,18 +81,27 @@
   #endif
 #endif
 
-//#if FLEN==64
-//  #define FLREG fld
-//  #define FSREG fsd
-//  #define FREGWIDTH 8
+#if FLEN==64
+  #define FLREG fld
+  #define FSREG fsd
+  #define FREGWIDTH 8
 
-//#else 
-//  #if FLEN==32
-#define FLREG flw
-#define FSREG fsw
-#define FREGWIDTH 4
-//  #endif
-//#endif
+#else 
+  #if FLEN==32
+    #define FLREG flw
+    #define FSREG fsw
+    #define FREGWIDTH 4
+  #endif
+#endif
+
+#if XLEN==64
+  #if FLEN==32
+    #define SREG sw
+    #define LREG lW
+    #define REGWIDTH 4
+    #define MASK 0xFFFFFFFF
+  #endif
+#endif
 
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
@@ -571,6 +580,7 @@ rvtest_data_end:
   .if NARG(__VA_ARGS__) == 1;\
     FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
     SREG _F,_ARG1(__VA_ARGS__,0)+FREGWIDTH(_BR);\
+    SREG _F,_ARG1(__VA_ARGS__,0)+(FREGWIDTH+REGWIDTH)(_BR);\
     .set offset,_ARG1(__VA_ARGS__,0)+(FREGWIDTH+REGWIDTH);\
   .endif;\
   .if NARG(__VA_ARGS__) == 0;\
