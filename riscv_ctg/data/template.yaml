@@ -2067,10 +2067,10 @@ fsw:
   rs2_op_data: *all_fregs
   xlen: [32,64]
   isa: IF
-  flen: [32,64]
+  flen: [32]
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
-  rs2_val_data: 'gen_sign_dataset(flen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
     // $comment
@@ -2082,7 +2082,7 @@ flw:
   rd_op_data: *all_fregs
   xlen: [32,64]
   isa: IF
-  flen: [32,64]
+  flen: [32]
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -2090,6 +2090,54 @@ flw:
     // $comment
     // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
     TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+fcvt.l.s:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.lu.s:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.s.l:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
+fcvt.s.lu:
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
         
 aes32dsi:
   rs1_op_data: *all_regs
