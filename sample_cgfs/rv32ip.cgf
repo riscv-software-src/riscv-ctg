@@ -2727,6 +2727,63 @@ pbsada:
         'simd_base_val("rs2", xlen, 8, signed=False)': 0
         'simd_val_comb(xlen, 8, signed=False)': 0
 
+smaqa:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      smaqa: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+
+umaqa:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      umaqa: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
+smaqa.su:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      smaqa.su: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=True)': 0
+        'simd_val_comb(xlen, 8, signed=True)': 0
+
 # 2.5 Non-SIMD Instructions
 
 kaddh:
