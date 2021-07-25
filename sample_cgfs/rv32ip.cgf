@@ -2616,6 +2616,117 @@ kmsxda:
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
 
+# 2.3.6 Miscellaneous Instructions
+
+sclip32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      sclip32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+uclip32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      uclip32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb: 
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_imm_val("imm_val", 5)': 0
+
+clrs32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      clrs32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+
+clz32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      clz32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+
+clo32:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      clo32: 0
+    rs1: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+
+pbsad:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      pbsad: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
+pbsada:
+    config: 
+      - check ISA:=regex(.*I.*P.*)
+    opcode: 
+      pbsada: 0
+    rs1: 
+      <<: *all_regs
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 8, signed=False)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
+        'simd_val_comb(xlen, 8, signed=False)': 0
+
 # 2.5 Non-SIMD Instructions
 
 kaddh:
