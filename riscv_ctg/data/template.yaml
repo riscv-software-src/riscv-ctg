@@ -20,7 +20,7 @@ add:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-  
+ 
 
 sub:
   xlen: [32,64]
@@ -165,7 +165,7 @@ sllw:
   rd_op_data: *all_regs
   xlen: [64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex(sign_extend((rs1_val << (rs2_val%32)) ,32))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
@@ -182,7 +182,7 @@ srlw:
   rd_op_data: *all_regs
   xlen: [64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex(sign_extend((rs1_val & 0xffffffff) >> (rs2_val%32), 32))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
@@ -199,7 +199,7 @@ sraw:
   rd_op_data: *all_regs
   xlen: [64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex(sign_extend((sign_extend(rs1_val,32) >> ((rs2_val & 0xffffffff) %32))& 0xffffffff ,32))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
@@ -216,7 +216,7 @@ sll:
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex((rs1_val << (rs2_val%xlen)) & (2**(xlen)-1))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
@@ -233,7 +233,7 @@ srl:
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex((rs1_val & (2**(xlen)-1)) >> (rs2_val%xlen))'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
@@ -250,7 +250,7 @@ sra:
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
-  isa: i
+  isa: I
   operation: 'hex(rs1_val >> (rs2_val%xlen) )'
   formattype: 'rformat'
   rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'

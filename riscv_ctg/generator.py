@@ -860,7 +860,8 @@ class Generator():
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
         n = 0
         opcode = instr_dict[0]['inst']
-        extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
+        op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
+        extension = op_node_isa.replace('I',"").replace('E',"") if len(op_node_isa)>1 else op_node_isa
         count = 0
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
@@ -881,5 +882,5 @@ class Generator():
         sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
-            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
+            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node_isa,opcode=opcode,extension=extension,label=label))
 
