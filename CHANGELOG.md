@@ -2,10 +2,6 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5.2] - 2021-08-02
-- Added the generation support for RV32EM Tests
-- Added the generation support for RV32EC Tests
-
 ## [0.5.1] - 2021-07-16
 - Update the sample cgf for RV32E
 - fix the generation of RV32E Tests
