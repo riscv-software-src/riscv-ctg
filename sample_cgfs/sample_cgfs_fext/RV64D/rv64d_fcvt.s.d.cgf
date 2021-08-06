@@ -8,7 +8,7 @@ fcvt.s.d_b1:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -23,7 +23,7 @@ fcvt.s.d_b22:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -38,7 +38,7 @@ fcvt.s.d_b23:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -53,7 +53,7 @@ fcvt.s.d_b24:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -68,7 +68,7 @@ fcvt.s.d_b27:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -83,7 +83,7 @@ fcvt.s.d_b28:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -98,7 +98,7 @@ fcvt.s.d_b29:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:

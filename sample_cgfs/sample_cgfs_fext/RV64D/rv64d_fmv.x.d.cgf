@@ -9,8 +9,6 @@ fmv.x.d_b1:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b1(64, "fmv.x.d", 1)': 0
@@ -24,8 +22,6 @@ fmv.x.d_b22:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b22(64, "fmv.x.d", 1)': 0
@@ -39,8 +35,6 @@ fmv.x.d_b23:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b23(64, "fmv.x.d", 1)': 0
@@ -54,8 +48,6 @@ fmv.x.d_b24:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b24(64, "fmv.x.d", 1)': 0
@@ -69,8 +61,6 @@ fmv.x.d_b27:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b27(64, "fmv.x.d", 1)': 0
@@ -84,8 +74,6 @@ fmv.x.d_b28:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b28(64, "fmv.x.d", 1)': 0
@@ -99,8 +87,6 @@ fmv.x.d_b29:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b29(64, "fmv.x.d", 1)': 0

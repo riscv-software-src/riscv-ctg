@@ -6,11 +6,9 @@ fmv.d.x_b25:
     opcode: 
       fmv.d.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
         'ibm_b25(64, "fmv.d.x", 1)': 0
@@ -21,11 +19,9 @@ fmv.d.x_b26:
     opcode: 
       fmv.d.x: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
         'ibm_b26(64, "fmv.d.x", 1)': 0

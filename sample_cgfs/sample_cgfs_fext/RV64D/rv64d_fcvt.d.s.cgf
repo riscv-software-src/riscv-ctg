@@ -8,12 +8,12 @@ fcvt.d.s_b1:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(32, "fcvt.d.s", 1)': 0
+        'ibm_b1(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b22:
     config: 
@@ -23,12 +23,12 @@ fcvt.d.s_b22:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b22(32, "fcvt.d.s", 1)': 0
+        'ibm_b22(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b23:
     config: 
@@ -38,12 +38,12 @@ fcvt.d.s_b23:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b23(32, "fcvt.d.s", 1)': 0
+        'ibm_b23(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b24:
     config: 
@@ -53,12 +53,12 @@ fcvt.d.s_b24:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b24(32, "fcvt.d.s", 1)': 0
+        'ibm_b24(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b27:
     config: 
@@ -68,12 +68,12 @@ fcvt.d.s_b27:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b27(32, "fcvt.d.s", 1)': 0
+        'ibm_b27(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b28:
     config: 
@@ -83,12 +83,12 @@ fcvt.d.s_b28:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b28(32, "fcvt.d.s", 1)': 0
+        'ibm_b28(64, "fcvt.d.s", 1)': 0
         
 fcvt.d.s_b29:
     config: 
@@ -98,9 +98,9 @@ fcvt.d.s_b29:
     rs1: 
       <<: *all_fregs
     rd: 
-      <<: *all_regs
+      <<: *all_fregs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b29(32, "fcvt.d.s", 1)': 0
+        'ibm_b29(64, "fcvt.d.s", 1)': 0

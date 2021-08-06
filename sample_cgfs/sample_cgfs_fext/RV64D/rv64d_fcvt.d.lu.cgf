@@ -6,11 +6,9 @@ fcvt.d.lu_b25:
     opcode: 
       fcvt.d.lu: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
         'ibm_b25(64, "fcvt.d.lu", 1)': 0
@@ -21,11 +19,9 @@ fcvt.d.lu_b26:
     opcode: 
       fcvt.d.lu: 0
     rs1: 
-      <<: *all_fregs
-    rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
+    rd: 
+      <<: *all_fregs
     val_comb:
       abstract_comb:
         'ibm_b26(64, "fcvt.d.lu", 1)': 0
