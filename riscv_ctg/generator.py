@@ -10,6 +10,10 @@ from math import *
 import struct
 import sys
 
+one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu"]
+two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
+three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
+
 twos_xlen = lambda x: twos(x,xlen)
 
 OPS = {
@@ -114,7 +118,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = OPS[fmt]
         self.val_vars = VALS[fmt]
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -702,7 +706,7 @@ class Generator():
 	                bin_val = ''
 	                e_sz = 0
 	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode:
+	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode:
 	                    if (flen == 32):
 	                        e_sz = 8
 	                    else:
@@ -814,7 +818,7 @@ class Generator():
                     instr_dict[i]['swreg'] = 'x15'
                     instr_dict[i]['valaddr_reg'] = 'x16'
                     instr_dict[i]['flagreg'] = 'x17'
-                    if self.opcode == 'fsw':
+                    if self.opcode in ['fsw','fsd']:
                         if instr_dict[i]['rs1'] in hardcoded_regs:
                             instr_dict[i]['swreg'] = 'x19'
                             instr_dict[i]['valaddr_reg'] = 'x20'
@@ -832,9 +836,9 @@ class Generator():
                         val_offset += (int(flen/8))
                     elif self.fmt == 'fr4format':
                         val_offset += 3*(int(flen/8))
-                    if offset >= 2040:
+                    if offset >= 2030:
                         offset = 0
-                    if val_offset >= 2040:
+                    if val_offset >= 2030:
                         val_offset = 0
            return instr_dict
         regset = e_regset if 'e' in base_isa else default_regset
@@ -897,7 +901,7 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['testreg'] = 'x18'
-                if self.opcode == 'fsw':
+                if self.opcode in ['fsw','fsd']:
                     if instr_dict[i]['rs1'] == 'x18':
                         instr_dict[i]['testreg'] = 'x22'
                 elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
@@ -1063,7 +1067,12 @@ class Generator():
                         code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                         k = 1;
                     elif instr['val_offset'] == '0' and k!= 0:
-                        code.append("RVTEST_VALBASEUPD("+vreg+")")
+                        if instr['inst'] in three_operand_dinstructions:
+                            code.append("addi "+vreg+","+vreg+","+str(2040))
+                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions:
+                            code.append("addi "+vreg+","+vreg+","+str(2032))
+                        else:
+                            code.append("RVTEST_VALBASEUPD("+vreg+")")
                     if instr['valaddr_reg'] != vreg:
                         code.append("RVTEST_VALBASEMOV("+instr['valaddr_reg']+", "+vreg+")")
                         vreg = instr['valaddr_reg']
