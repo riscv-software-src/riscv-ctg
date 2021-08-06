@@ -603,7 +603,7 @@ rvtest_data_end:
   
 #define RVTEST_VALBASEUPD(_BR,...)\
   .if NARG(__VA_ARGS__) == 0;\
-      addi _BR,_BR,2040;\
+      addi _BR,_BR,2032;\
   .endif;\
   .if NARG(__VA_ARGS__) == 1;\
       LA(_BR,_ARG1(__VA_ARGS__,x0));\
