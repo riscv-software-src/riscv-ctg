@@ -17,6 +17,3 @@ fsw-align:
         'imm_val > 0': 0
         'imm_val < 0': 0
         'imm_val == 0': 0
-        <<: [  *base_rs2val_sgn]
-        abstract_comb:
-          <<: [*rs2val_walking]
