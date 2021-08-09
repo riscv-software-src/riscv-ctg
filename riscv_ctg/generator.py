@@ -10,6 +10,10 @@ from math import *
 import struct
 import sys
 
+one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
+two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
+three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
+
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
@@ -1067,9 +1071,9 @@ class Generator():
                         code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                         k = 1;
                     elif instr['val_offset'] == '0' and k!= 0:
-                        if instr['inst'] in three_operand_dinstructions:
+                        if instr['inst'] in three_operand_dinstructions + three_operand_finstructions:
                             code.append("addi "+vreg+","+vreg+","+str(2040))
-                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions:
+                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions + one_operand_finstructions + two_operand_finstructions:
                             code.append("addi "+vreg+","+vreg+","+str(2032))
                         else:
                             code.append("RVTEST_VALBASEUPD("+vreg+")")
