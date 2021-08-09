@@ -285,18 +285,18 @@ class Generator():
                     problem = Problem(MinConflictsSolver())
                 else:
                     problem = Problem()
-    
+
                 for var in self.val_vars:
                     if var == 'ea_align' and var not in req_val_comb:
                         problem.addVariable(var, [0])
                     else:
                         problem.addVariable(var, self.datasets[var])
-    
+
                 def condition(*argv):
                     for var,val in zip(self.val_vars,argv):
                         locals()[var]=val
                     return eval(req_val_comb)
-    
+
                 problem.addConstraint(condition,tuple(self.val_vars))
                 # if boundconstraint:
                 #     problem.addConstraint(boundconstraint,tuple(['rs1_val', 'imm_val']))
@@ -311,7 +311,7 @@ class Generator():
                 val_tuple = []
                 for i,key in enumerate(self.val_vars):
                     val_tuple.append(solution[key])
-    
+
                 def eval_func(cond):
                     for var,val in zip(self.val_vars,val_tuple):
                         locals()[var] = val
@@ -582,12 +582,14 @@ class Generator():
         for val in cont:
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
-            elif self.opcode in ['c.beqz', 'c.bneqz']:
+            elif self.opcode in ['c.beqz', 'c.bnez']:
                 instr_dict.append(self.__cb_instr__(op,val))
-            elif self.opcode in ['c.lwsp', 'c.swsp']:
+            elif self.opcode in ['c.lwsp', 'c.swsp', 'c.ldsp', 'c.sdsp']:
                 instr_dict.append(self.__cmemsp_instr__(op,val))
-            elif self.fmt == 'bformat':
+            elif self.fmt == 'bformat' or self.opcode in ['c.j']:
                 instr_dict.append(self.__bfmt_instr__(op,val))
+            elif self.opcode in ['c.jal', 'c.jalr']:
+                instr_dict.append(self.__cj_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
@@ -604,7 +606,8 @@ class Generator():
             if 'rs2_val' in instr:
                 rs2_val = int(instr['rs2_val'])
             if 'imm_val' in instr:
-                if instr['inst'] in ['c.j','c.jal']:
+                if self.fmt in ['jformat','bformat'] or instr['inst'] in \
+                        ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                     imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
                 else:
                     imm_val = int(instr['imm_val'])
