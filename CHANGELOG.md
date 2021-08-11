@@ -2,6 +2,14 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.2] - 2021-08-09
+- Fix sign of immediate value for branching instructions while filtering.
+- Fix instruction generation while result shadowing.
+
+## [0.5.1] - 2021-07-16
+- Update the sample cgf for RV32E
+- fix the generation of RV32E Tests
+
 ## [0.5.0] - 2021-05-27
 - support for K extension and subextension instructions
 - support for comments in coverpoints

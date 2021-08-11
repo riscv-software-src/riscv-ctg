@@ -665,12 +665,14 @@ class Generator():
         for val in cont:
             if self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
-            elif self.opcode in ['c.beqz', 'c.bneqz']:
+            elif self.opcode in ['c.beqz', 'c.bnez']:
                 instr_dict.append(self.__cb_instr__(op,val))
-            elif self.opcode in ['c.lwsp', 'c.swsp']:
+            elif self.opcode in ['c.lwsp', 'c.swsp', 'c.ldsp', 'c.sdsp']:
                 instr_dict.append(self.__cmemsp_instr__(op,val))
-            elif self.fmt == 'bformat':
+            elif self.fmt == 'bformat' or self.opcode in ['c.j']:
                 instr_dict.append(self.__bfmt_instr__(op,val))
+            elif self.opcode in ['c.jal', 'c.jalr']:
+                instr_dict.append(self.__cj_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
@@ -691,7 +693,8 @@ class Generator():
             if 'rm_val' in instr:
                 rm_val = int(instr['rm_val'])
             if 'imm_val' in instr:
-                if instr['inst'] in ['c.j','c.jal']:
+                if self.fmt in ['jformat','bformat'] or instr['inst'] in \
+                        ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                     imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
                 else:
                     imm_val = int(instr['imm_val'])
@@ -1039,7 +1042,8 @@ class Generator():
             code.append("RVTEST_FP_ENABLE()")
         n = 0
         opcode = instr_dict[0]['inst']
-        extension = (op_node['isa']).replace('I',"") if len(op_node['isa'])>1 else op_node['isa']
+        op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
+        extension = op_node_isa.replace('I',"").replace('E',"") if len(op_node_isa)>1 else op_node_isa
         count = 0
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
@@ -1096,5 +1100,5 @@ class Generator():
         sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
-            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node['isa'],opcode=opcode,extension=extension,label=label))
+            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node_isa,opcode=opcode,extension=extension,label=label))
 
