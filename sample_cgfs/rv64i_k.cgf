@@ -341,11 +341,13 @@ sm4ed:
       <<: *all_regs
     rs2:
       <<: *all_regs
+    rd:
+      <<: *all_regs
     op_comb: 
-      <<: *sfmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'byte_count(64, ["rs1_val","rs2_val","imm_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val","imm_val"], "Y")': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val","imm_val"], [64, 64, 2])': 0
 
 sm4ks:
@@ -359,11 +361,13 @@ sm4ks:
       <<: *all_regs
     rs2:
       <<: *all_regs
+    rd:
+      <<: *all_regs
     op_comb: 
-      <<: *sfmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       abstract_comb:      
-        'byte_count(64, ["rs1_val","rs2_val","imm_val"])': 0
+        'byte_count(64, ["rs1_val","rs2_val","imm_val"], "Y")': 0
         'uniform_random(20, 100, ["rs1_val","rs2_val","imm_val"], [64, 64, 2])': 0
         
 ror:
