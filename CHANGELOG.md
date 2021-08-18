@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.3] - 2021-08-12
+
+- Update instruction format of aes32 and sm4 instructions for K extensions.
+- Improve the coverage of S-boxes for sm4 instructions by setting overlap = "Y" in byte_count.
+
 ## [0.5.2] - 2021-08-09
 - Fix sign of immediate value for branching instructions while filtering.
 - Fix instruction generation while result shadowing.
