@@ -126,6 +126,7 @@ class Generator():
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
+        self.stride = opnode['stride']
         if 'operation' in opnode:
             self.operation = opnode['operation']
         else:
@@ -831,13 +832,11 @@ class Generator():
                             instr_dict[i]['valaddr_reg'] = 'x20'
                             instr_dict[i]['flagreg'] = 'x21'
                             offset = 0
-                            val_offset = 0
                     elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
                         instr_dict[i]['swreg'] = 'x19'
                         instr_dict[i]['valaddr_reg'] = 'x20'
                         instr_dict[i]['flagreg'] = 'x21'
                         offset = 0
-                        val_offset = 0
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
                     offset += int((flen/8)+(xlen/8))
@@ -1038,11 +1037,10 @@ class Generator():
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
-        stride = 1
+        stride = self.stride
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
-            stride = 2
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
