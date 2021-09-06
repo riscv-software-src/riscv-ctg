@@ -830,10 +830,14 @@ class Generator():
                             instr_dict[i]['swreg'] = 'x19'
                             instr_dict[i]['valaddr_reg'] = 'x20'
                             instr_dict[i]['flagreg'] = 'x21'
+                            offset = 0
+                            val_offset = 0
                     elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
                         instr_dict[i]['swreg'] = 'x19'
                         instr_dict[i]['valaddr_reg'] = 'x20'
                         instr_dict[i]['flagreg'] = 'x21'
+                        offset = 0
+                        val_offset = 0
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
                     offset += int((flen/8)+(xlen/8))
@@ -1047,6 +1051,7 @@ class Generator():
         op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
         extension = op_node_isa.replace('I',"").replace('E',"") if len(op_node_isa)>1 else op_node_isa
         count = 0
+        neg_offset = 0
         for instr in instr_dict:
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
