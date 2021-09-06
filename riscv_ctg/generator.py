@@ -628,12 +628,12 @@ class Generator():
             val_comb = list(val_comb) + [[self.datasets[var][0] for var in self.val_vars] + [""]] * (len(op_comb) - len(val_comb))
 
         x = dict([(y,x) for x,y in enumerate(self.val_vars)])
-        
+
         ind_dict = {}
         for ind,var in enumerate(self.op_vars):
             if var+"_val" in x:
                 ind_dict[ind] = x[var+"_val"]
-        
+
         for op,val_soln in zip(op_comb,val_comb):
             val = [x for x in val_soln]
             if any([x=='x0' for x in op]) or not (len(op) == len(set(op))):
@@ -783,7 +783,7 @@ class Generator():
                     if instr['rd'] == 'x0' or instr['rd'] == 'f0':
                         skip_val = True
                 cover_hits = eval_inst_coverage(cgf,instr)
-                for entry in cover_hits:	
+                for entry in cover_hits:
                     if entry=='val_comb' and skip_val:
                         continue
                     over = hits[entry] & cover_hits[entry]
@@ -796,7 +796,7 @@ class Generator():
                     i+=1
 
         return final_instr
-    
+
     def swreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
@@ -888,7 +888,7 @@ class Generator():
                     if offset == 2048:
                         offset = 0
         return instr_dict
-    
+
     def testreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
@@ -1034,9 +1034,11 @@ class Generator():
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe"]
+        stride = 1
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             vreg = instr_dict[0]['valaddr_reg']
             k = 0
+            stride = 2
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
@@ -1086,12 +1088,12 @@ class Generator():
                         vreg = instr['valaddr_reg']
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
-                n = 1
+                n = stride
                 regs[sreg]+=1
                 sreg = instr['swreg']
                 code.append("RVTEST_SIGBASE("+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
             else:
-                n+=1
+                n+=stride
             code.append(res)
             count = count + 1
         case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
