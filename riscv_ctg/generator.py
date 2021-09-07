@@ -821,6 +821,7 @@ class Generator():
            offset = 0
            val_offset = 0
            hardcoded_regs = ['x15','x16','x17']
+           flag = True
            for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
                     instr_dict[i]['swreg'] = 'x15'
@@ -831,12 +832,22 @@ class Generator():
                             instr_dict[i]['swreg'] = 'x19'
                             instr_dict[i]['valaddr_reg'] = 'x20'
                             instr_dict[i]['flagreg'] = 'x21'
+                            if not flag:
+                                offset = 0
+                                flag = True
+                        elif flag:
                             offset = 0
+                            flag = False
                     elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
                         instr_dict[i]['swreg'] = 'x19'
                         instr_dict[i]['valaddr_reg'] = 'x20'
                         instr_dict[i]['flagreg'] = 'x21'
+                        if not flag:
+                            flag = True
+                            offset = 0
+                    elif flag:
                         offset = 0
+                        flag = False
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
                     offset += int((flen/8)+(xlen/8))
