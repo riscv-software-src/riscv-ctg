@@ -1602,6 +1602,7 @@ fadd.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1617,6 +1618,7 @@ fadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1632,6 +1634,7 @@ fsub.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1647,6 +1650,7 @@ fsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1662,6 +1666,7 @@ fmul.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1677,6 +1682,7 @@ fmul.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1692,6 +1698,7 @@ fdiv.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1707,6 +1714,7 @@ fdiv.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1722,6 +1730,7 @@ fsqrt.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
@@ -1736,6 +1745,7 @@ fsqrt.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
@@ -1750,6 +1760,7 @@ fmadd.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1766,6 +1777,7 @@ fmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1782,6 +1794,7 @@ fmsub.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1798,6 +1811,7 @@ fmsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1814,6 +1828,7 @@ fnmadd.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1830,6 +1845,7 @@ fnmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1846,6 +1862,7 @@ fnmsub.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1862,6 +1879,7 @@ fnmsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1878,6 +1896,7 @@ fsgnj.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1893,6 +1912,7 @@ fsgnj.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1908,6 +1928,7 @@ fsgnjn.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1923,6 +1944,7 @@ fsgnjn.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1938,6 +1960,7 @@ fsgnjx.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1953,6 +1976,7 @@ fsgnjx.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1968,6 +1992,7 @@ fmin.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1983,6 +2008,7 @@ fmin.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -1998,6 +2024,7 @@ fmax.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2013,6 +2040,7 @@ fmax.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2028,6 +2056,7 @@ feq.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2042,6 +2071,7 @@ feq.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2056,6 +2086,7 @@ flt.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2070,6 +2101,7 @@ flt.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2084,6 +2116,7 @@ fle.s:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2098,6 +2131,7 @@ fle.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
   rs2_op_data: *all_fregs
@@ -2112,6 +2146,7 @@ fmv.w.x:
   xlen: [32,64]
   isa: IF
   flen: [32]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2125,6 +2160,7 @@ fmv.x.w:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2138,6 +2174,7 @@ fcvt.w.s:
   xlen: [32,64]
   isa: IF
   flen: [32]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2151,6 +2188,7 @@ fcvt.w.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2164,6 +2202,7 @@ fcvt.wu.s:
   xlen: [32,64]
   isa: IF
   flen: [32]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2177,6 +2216,7 @@ fcvt.wu.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2190,6 +2230,7 @@ fcvt.l.d:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2203,6 +2244,7 @@ fcvt.lu.d:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2216,6 +2258,7 @@ fmv.x.d:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2229,6 +2272,7 @@ fcvt.s.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
@@ -2243,6 +2287,7 @@ fcvt.d.s:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
@@ -2257,6 +2302,7 @@ fcvt.s.w:
   xlen: [32,64]
   isa: IF
   flen: [32]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2270,6 +2316,7 @@ fcvt.s.wu:
   xlen: [32,64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2283,6 +2330,7 @@ fcvt.d.w:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2296,6 +2344,7 @@ fcvt.d.wu:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2309,6 +2358,7 @@ fcvt.d.l:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2322,6 +2372,7 @@ fcvt.d.lu:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2335,6 +2386,7 @@ fmv.d.x:
   xlen: [64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
@@ -2347,6 +2399,7 @@ fclass.s:
   stride: 2
   xlen: [32,64]
   isa: IF
+  std_op:
   flen: [32]
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -2361,6 +2414,7 @@ fclass.d:
   xlen: [32, 64]
   isa: IFD
   flen: [64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2375,6 +2429,7 @@ fsw:
   rs2_op_data: *all_fregs
   xlen: [32,64]
   isa: IF
+  std_op:
   flen: [32]
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
@@ -2390,6 +2445,7 @@ flw:
   rs1_op_data: *all_regs_mx0 
   rd_op_data: *all_fregs
   xlen: [32,64]
+  std_op:
   isa: IF
   flen: [32]
   formattype: 'iformat'
@@ -2404,6 +2460,7 @@ fsd:
   stride: 2
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_fregs
+  std_op:
   xlen: [32,64]
   isa: IFD
   flen: [64]
@@ -2421,6 +2478,7 @@ fld:
   rs1_op_data: *all_regs_mx0 
   rd_op_data: *all_fregs
   xlen: [32,64]
+  std_op:
   isa: IFD
   flen: [64]
   formattype: 'iformat'
@@ -2434,6 +2492,7 @@ fld:
 fcvt.l.s:
   stride: 2
   xlen: [64]
+  std_op:
   isa: IF
   flen: [32,64]
   formattype: 'fsrformat'
@@ -2449,6 +2508,7 @@ fcvt.lu.s:
   xlen: [64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2461,6 +2521,7 @@ fcvt.s.l:
   stride: 2
   xlen: [64]
   isa: IF
+  std_op:
   flen: [32,64]
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
@@ -2475,6 +2536,7 @@ fcvt.s.lu:
   xlen: [64]
   isa: IF
   flen: [32,64]
+  std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_fregs
