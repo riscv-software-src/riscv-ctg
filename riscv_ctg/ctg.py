@@ -59,9 +59,9 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
         logger.info("Writing tests for :"+str(label))
         my_dict = gen.reformat_instr(instr_dict)
-        gen.write_test(fprefix,node,label,my_dict, op_node, usage_str)
+        gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst=1000):
     global op_template
     global randomize
     global out_dir

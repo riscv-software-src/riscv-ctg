@@ -591,6 +591,8 @@ class Generator():
                         instr[var] = 'f'+str(i+10)
                     else:
                         instr[var] = 'x'+str(i+10)
+                else:
+                    instr[var] = 'x'+str(i+10)
         if val:
             for i,var in enumerate(self.val_vars):
                 instr[var] = str(val[i])
@@ -1023,8 +1025,24 @@ class Generator():
                     instr_dict[i][field] = hex(value)
         return instr_dict
 
+    def write_test(self, fprefix, node, label, instr_dict, op_node, usage_str,max_inst):
+        start = 0
+        end = max_inst
+        i = 0
+        total = len(instr_dict)
+        while end <= total and start<total:
+            fname = fprefix+("{:02d}.S".format(i))
+            logger.debug("Writing Test to "+str(fname))
+            self.__write_test__(fname,node,label,instr_dict[start:end], op_node, usage_str)
+            start += max_inst
+            left = total - end
+            if left>=max_inst:
+                end += max_inst
+            else:
+                end = total
 
-    def write_test(self, file_name,node,label,instr_dict, op_node, usage_str):
+
+    def __write_test__(self, file_name,node,label,instr_dict, op_node, usage_str):
         '''
         This function generates the test using various templates.
 
