@@ -76,9 +76,9 @@ def gen_sp_dataset(bit_width,sign=True):
     dataset = [3, "0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), 5, "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4))]
     dataset = list(map(conv_func,dataset)) + [int(sqrt(abs(conv_func("0x8"+"".join(["0"]*int((bit_width/4)-1)))))*(-1 if sign else 1))] + [sqrt_min,sqrt_max]
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
-    
+
 # def gen_fp_dataset(flen,instr,field):
-#         return (ibm_dataset(flen,instr,field))   # Dataset will be returned by isac 
+#         return (ibm_dataset(flen,instr,field))   # Dataset will be returned by isac
 
 def gen_sign_dataset(bit_width):
     '''
@@ -143,7 +143,7 @@ usage = Template('''
 // timestamp : $time
 // usage     : riscv_ctg \\
 //                  -- cgf $cgf \\
-//                  -- xlen $xlen \\
+//                  -- xlen $xlen $randomize \\
 // -----------
 //''')
 
