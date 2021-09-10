@@ -26,7 +26,7 @@ test_requirements = [ ]
 
 setup(
     name='riscv_ctg',
-    version='0.5.4',
+    version='0.5.5',
     description="RISC-V CTG",
     long_description=readme + '\n\n',
     classifiers=[
@@ -34,9 +34,9 @@ setup(
           "License :: OSI Approved :: BSD License",
           "Development Status :: 4 - Beta"
     ],
-    url='https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg',
+    url='https://github.com/riscv/riscv-ctg',
     author="InCore Semiconductors Pvt. Ltd.",
-    author_email='incorebot@gmail.com',
+    author_email='info@incoresemi.com',
     license="BSD-3-Clause",
     packages=find_packages(),
     package_dir={'riscv_ctg': 'riscv_ctg'},

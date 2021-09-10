@@ -13,11 +13,12 @@ from riscv_ctg.generator import Generator
 from math import *
 from riscv_ctg.__init__ import __version__
 
-def create_test(usage_str, node,label,base_isa):
+def create_test(usage_str, node,label,base_isa,max_inst):
     global op_template
     global ramdomize
     global out_dir
     global xlen
+    flen = 0
     if 'opcode' not in node:
         return
     if 'ignore' in node:
@@ -40,18 +41,27 @@ def create_test(usage_str, node,label,base_isa):
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
-        fname = os.path.join(out_dir,str(label+"-01.S"))
-        logger.info('Generating Test for :' + opcode)
+        if 'flen' in op_node:
+            if '.d' in opcode:
+                flen = 64
+            elif '.s' in opcode:
+                flen = 32
+            else:
+                flen = op_node['flen'][0]
+            #if flen not in op_node['flen']:
+            #    return
+        fprefix = os.path.join(out_dir,str(label))
+        logger.info('Generating Test for :' + str(label) +"-" + opcode)
         formattype  = op_node['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize,xlen,base_isa)
+        gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
         instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
-        logger.info("Writing test to "+str(fname))
-        mydict = gen.reformat_instr(instr_dict)
-        gen.write_test(fname,node,label,mydict, op_node, usage_str)
+        logger.info("Writing tests for :"+str(label))
+        my_dict = gen.reformat_instr(instr_dict)
+        gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     global op_template
     global randomize
     global out_dir
@@ -75,11 +85,11 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa):
     if random is True:
         randomize_argument = ' \\\n//                  --randomize'
     usage_str = const.usage.safe_substitute(base_isa=base_isa, \
-            cgf_argument=cgf_argument, version = __version__, time=mytime, \
-            randomize_argument=randomize_argument)
+            cgf=cgf_argument, version = __version__, time=mytime, \
+            randomize=randomize_argument,xlen=str(xlen_arg))
     op_template = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
     pool = mp.Pool(num_procs)
-    results = pool.starmap(create_test, [(usage_str, node,label,base_isa) for label,node in cgf.items()])
+    results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
     pool.close()
 

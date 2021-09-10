@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.5] - 2021-09-10
+- Add CGFs for F&D extensions
+- Add support for F & D extension test generation
+- Add support for test splitting based on number of macro instances
+- Add macro based signature entry sizes
+
 ## [0.5.4] - 2021-09-02
 - Updated logger to enable logging for API calls.
 

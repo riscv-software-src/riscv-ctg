@@ -1,10 +1,12 @@
 # See LICENSE.incore for details
 metadata:
   all_regs: &all_regs "['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]"
+  all_fregs: &all_fregs "['f'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]"
   all_regs_mx0: &all_regs_mx0 "['x'+str(x) for x in range(1,32 if 'e' not in base_isa else 16)]"
   c_regs: &c_regs "['x'+str(x) for x in range(8,16)]"
 
 add:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -23,6 +25,7 @@ add:
  
 
 sub:
+  stride: 1
   xlen: [32,64]
   std_op:
   rs1_op_data: *all_regs
@@ -41,6 +44,7 @@ sub:
 
 
 addw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -58,6 +62,7 @@ addw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 subw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -75,6 +80,7 @@ subw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 and:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -92,6 +98,7 @@ and:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 or:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -110,6 +117,7 @@ or:
 
 slt:
   rs1_op_data: *all_regs
+  stride: 1
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -126,6 +134,7 @@ slt:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sltu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -143,6 +152,7 @@ sltu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 xor:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -160,6 +170,7 @@ xor:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sllw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -177,6 +188,7 @@ sllw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srlw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -195,6 +207,7 @@ srlw:
 
 sraw:
   rs1_op_data: *all_regs
+  stride: 1
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -211,6 +224,7 @@ sraw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sll:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -228,6 +242,7 @@ sll:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srl:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -245,6 +260,7 @@ srl:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sra:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -262,6 +278,7 @@ sra:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 addi:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -278,6 +295,7 @@ addi:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 addiw:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -294,6 +312,7 @@ addiw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slti:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -310,6 +329,7 @@ slti:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sltiu:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -326,6 +346,7 @@ sltiu:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 andi:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -342,6 +363,7 @@ andi:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ori:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -358,6 +380,7 @@ ori:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 xori:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -374,6 +397,7 @@ xori:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slli:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -390,6 +414,7 @@ slli:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srli:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -406,6 +431,7 @@ srli:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srai:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -422,6 +448,7 @@ srai:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slliw:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -438,6 +465,7 @@ slliw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srliw:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -454,6 +482,7 @@ srliw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sraiw:
+  stride: 1
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -470,6 +499,7 @@ sraiw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 lui:
+  stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -484,6 +514,7 @@ lui:
     TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd,$imm_val)
 
 auipc:
+  stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -498,6 +529,7 @@ auipc:
     TEST_AUIPC($inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 beq:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -515,6 +547,7 @@ beq:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bge:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -532,6 +565,7 @@ bge:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bgeu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -549,6 +583,7 @@ bgeu:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 blt:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -566,6 +601,7 @@ blt:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bltu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -583,6 +619,7 @@ bltu:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bne:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -600,6 +637,7 @@ bne:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 sd:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -617,6 +655,7 @@ sd:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sw:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -633,6 +672,7 @@ sw:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sh:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -649,6 +689,7 @@ sh:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sb:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -665,6 +706,7 @@ sb:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 ld:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   isa: I
@@ -680,6 +722,7 @@ ld:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lwu:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   isa: I
@@ -695,6 +738,7 @@ lwu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lw:
+  stride: 1
   rs1_op_data: *all_regs_mx0 
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -710,6 +754,7 @@ lw:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lhu:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -725,6 +770,7 @@ lhu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lh:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -740,6 +786,7 @@ lh:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lbu:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -755,6 +802,7 @@ lbu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lb:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -770,6 +818,7 @@ lb:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 jal:
+  stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -784,6 +833,7 @@ jal:
     TEST_JAL_OP($testreg, $rd, $imm_val, $label, $swreg, $offset,$ea_align)
 
 jalr:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -799,6 +849,7 @@ jalr:
     TEST_JALR_OP($testreg, $rd, $rs1, $imm_val, $swreg, $offset,$ea_align)
 
 mul:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -816,6 +867,7 @@ mul:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulh:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -833,6 +885,7 @@ mulh:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -850,6 +903,7 @@ mulhu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhsu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -867,6 +921,7 @@ mulhsu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 div:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -884,6 +939,7 @@ div:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -901,6 +957,7 @@ divu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 rem:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -919,6 +976,7 @@ rem:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remu:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -936,6 +994,7 @@ remu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -953,6 +1012,7 @@ mulw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -971,6 +1031,7 @@ divw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divuw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -988,6 +1049,7 @@ divuw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1006,6 +1068,7 @@ remw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remuw:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1023,6 +1086,7 @@ remuw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.mv:
+  stride: 1
   rs2_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -1038,6 +1102,7 @@ c.mv:
     TEST_CMV_OP( $inst, $rd, $rs2, $correctval, $rs2_val, $swreg, $offset, $testreg)
 
 c.add:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs_mx0
   xlen: [32,64]
@@ -1054,6 +1119,7 @@ c.add:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.addw:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1070,6 +1136,7 @@ c.addw:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.and:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1086,6 +1153,7 @@ c.and:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.or:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1102,6 +1170,7 @@ c.or:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.xor:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1118,6 +1187,7 @@ c.xor:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.sub:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1134,6 +1204,7 @@ c.sub:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.subw:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1150,6 +1221,7 @@ c.subw:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.andi:
+  stride: 1
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1165,6 +1237,7 @@ c.andi:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.nop:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IC
@@ -1177,6 +1250,7 @@ c.nop:
     TEST_CNOP_OP($inst, $testreg, $imm_val, $swreg, $offset)
 
 c.addi:
+  stride: 1
   rd_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1192,6 +1266,7 @@ c.addi:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addiw:
+  stride: 1
   rd_op_data: *all_regs_mx0
   xlen: [64]
   std_op:
@@ -1207,6 +1282,7 @@ c.addiw:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi16sp:
+  stride: 1
   rd_op_data: "['x2']"
   xlen: [32,64]
   std_op:
@@ -1222,6 +1298,7 @@ c.addi16sp:
     TEST_CI_OP( $inst, x2, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi4spn:
+  stride: 1
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1236,6 +1313,7 @@ c.addi4spn:
     TEST_CADDI4SPN_OP( $inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 c.slli:
+  stride: 1
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1251,6 +1329,7 @@ c.slli:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srli:
+  stride: 1
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1266,6 +1345,7 @@ c.srli:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srai:
+  stride: 1
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1281,6 +1361,7 @@ c.srai:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.li:
+  stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1295,6 +1376,7 @@ c.li:
     TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd, $imm_val;)
 
 c.lui:
+  stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1310,6 +1392,7 @@ c.lui:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.sw:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1326,6 +1409,7 @@ c.sw:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sd:
+  stride: 1
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1342,6 +1426,7 @@ c.sd:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.ld:
+  stride: 1
   rs1_op_data: *c_regs
   rd_op_data: *c_regs 
   xlen: [64]
@@ -1357,6 +1442,7 @@ c.ld:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$rs1_val)
 
 c.lw:
+  stride: 1
   rs1_op_data: *c_regs
   rd_op_data: *c_regs
   xlen: [32,64]
@@ -1372,6 +1458,7 @@ c.lw:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.lwsp:
+  stride: 1
   rd_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1385,6 +1472,7 @@ c.lwsp:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.ldsp:
+  stride: 1
   rd_op_data: *all_regs_mx0
   xlen: [64]
   std_op:
@@ -1398,6 +1486,7 @@ c.ldsp:
     TEST_LOAD($swreg,$testreg,$index,x2,$rd,$imm_val,$offset,$inst,0)
 
 c.swsp:
+  stride: 1
   rs2_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1412,6 +1501,7 @@ c.swsp:
     TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sdsp:
+  stride: 1
   rs2_op_data: *all_regs
   xlen: [64]
   std_op:
@@ -1426,6 +1516,7 @@ c.sdsp:
     TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.beqz:
+  stride: 1
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1440,6 +1531,7 @@ c.beqz:
     TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.bnez:
+  stride: 1
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1454,6 +1546,7 @@ c.bnez:
     TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.j:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IC
@@ -1466,6 +1559,7 @@ c.j:
     TEST_CJ_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jal:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IC
@@ -1478,6 +1572,7 @@ c.jal:
     TEST_CJAL_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jr:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1490,6 +1585,7 @@ c.jr:
     TEST_CJR_OP($testreg, $rs1, $swreg, $offset)
 
 c.jalr:
+  stride: 1
   rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1501,7 +1597,956 @@ c.jalr:
     // opcode:c.jalr; op1:$rs1
     TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
 
+fadd.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fadd.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fsub.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsub.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmul.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmul.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fdiv.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fdiv.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsqrt.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsqrt.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmadd.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmadd.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmsub.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmsub.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmadd.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmadd.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmsub.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmsub.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fsgnj.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnj.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjn.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjn.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjx.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjx.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmin.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmin.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmax.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmax.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+feq.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+feq.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+flt.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+flt.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fle.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fle.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmv.w.x:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmv.x.w:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.w.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.w.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.wu.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.wu.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.l.d:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.lu.d:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmv.x.d:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.s.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.d.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)  
+    
+fcvt.s.w:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.s.wu:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
+fcvt.d.w:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.d.wu:
+  stride: 2
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.d.l:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.d.lu:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fmv.d.x:
+  stride: 2
+  xlen: [64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fclass.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IF
+  std_op:
+  flen: [32]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+   
+fclass.d:
+  stride: 2
+  xlen: [32, 64]
+  isa: IFD
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fsw:
+  stride: 2
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_fregs
+  xlen: [32,64]
+  isa: IF
+  std_op:
+  flen: [32]
+  formattype: 'sformat'
+  ea_align_data: '[0,1,2,3]'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align; flagreg:$flagreg;
+    TEST_STORE_F($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+flw:
+  stride: 2
+  rs1_op_data: *all_regs_mx0 
+  rd_op_data: *all_fregs
+  xlen: [32,64]
+  std_op:
+  isa: IF
+  flen: [32]
+  formattype: 'iformat'
+  ea_align_data: '[0,1,2,3]'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
+    TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+fsd:
+  stride: 2
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_fregs
+  std_op:
+  xlen: [32,64]
+  isa: IFD
+  flen: [64]
+  formattype: 'sformat'
+  ea_align_data: '[0,1,2,3]'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align; flagreg:$flagreg;
+    TEST_STORE_F($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+fld:
+  stride: 2
+  rs1_op_data: *all_regs_mx0 
+  rd_op_data: *all_fregs
+  xlen: [32,64]
+  std_op:
+  isa: IFD
+  flen: [64]
+  formattype: 'iformat'
+  ea_align_data: '[0,1,2,3]'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
+    TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+fcvt.l.s:
+  stride: 2
+  xlen: [64]
+  std_op:
+  isa: IF
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.lu.s:
+  stride: 2
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.s.l:
+  stride: 2
+  xlen: [64]
+  isa: IF
+  std_op:
+  flen: [32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
+fcvt.s.lu:
+  stride: 2
+  xlen: [64]
+  isa: IF
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+        
 aes32dsi:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1516,6 +2561,7 @@ aes32dsi:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32dsmi:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1530,6 +2576,7 @@ aes32dsmi:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32esi:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1544,6 +2591,7 @@ aes32esi:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32esmi:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1558,6 +2606,7 @@ aes32esmi:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sm4ed:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1572,6 +2621,7 @@ sm4ed:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sm4ks:
+  stride: 1
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1586,6 +2636,7 @@ sm4ks:
     TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sha256sig0:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1603,6 +2654,7 @@ sha256sig0:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha256sig1:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1620,6 +2672,7 @@ sha256sig1:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha256sum0:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1637,6 +2690,7 @@ sha256sum0:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha256sum1:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1654,6 +2708,7 @@ sha256sum1:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sm3p0:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I_Zks
@@ -1671,6 +2726,7 @@ sm3p0:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sm3p1:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I_Zks
@@ -1688,6 +2744,7 @@ sm3p1:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha512sig0h:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1704,6 +2761,7 @@ sha512sig0h:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sha512sig0l:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1720,6 +2778,7 @@ sha512sig0l:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)    
     
 sha512sig1h:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1736,6 +2795,7 @@ sha512sig1h:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)    
 
 sha512sig1l:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1752,6 +2812,7 @@ sha512sig1l:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sha512sum0r:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1768,6 +2829,7 @@ sha512sum0r:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sha512sum1r:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: IK
@@ -1784,6 +2846,7 @@ sha512sum1r:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 ror:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1798,6 +2861,7 @@ ror:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 rol:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1812,6 +2876,7 @@ rol:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 rori:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1825,6 +2890,7 @@ rori:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
     
 rev.b:
+  stride: 1
   xlen: [32,64]
   std_op: grevi
   isa: I
@@ -1841,6 +2907,7 @@ rev.b:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 rev8:
+  stride: 1
   xlen: [32,64]
   std_op: grevi
   isa: I
@@ -1857,6 +2924,7 @@ rev8:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 zip:
+  stride: 1
   xlen: [32, 64]
   std_op: shfli
   isa: I
@@ -1873,6 +2941,7 @@ zip:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 unzip:
+  stride: 1
   xlen: [32, 64]
   std_op: unshfli
   isa: I
@@ -1889,6 +2958,7 @@ unzip:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 clmul:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1903,6 +2973,7 @@ clmul:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 clmulh:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1917,6 +2988,7 @@ clmulh:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 andn:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1931,6 +3003,7 @@ andn:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 orn:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1945,6 +3018,7 @@ orn:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 xnor:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1959,6 +3033,7 @@ xnor:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 pack:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1973,6 +3048,7 @@ pack:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 packu:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -1987,6 +3063,7 @@ packu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 packh:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -2001,6 +3078,7 @@ packh:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 xperm.n:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -2015,6 +3093,7 @@ xperm.n:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 xperm.b:
+  stride: 1
   xlen: [32,64]
   std_op:
   isa: I
@@ -2029,6 +3108,7 @@ xperm.b:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 aes64ds:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2043,6 +3123,7 @@ aes64ds:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes64dsm:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2057,6 +3138,7 @@ aes64dsm:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes64es:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2071,6 +3153,7 @@ aes64es:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes64esm:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2085,6 +3168,7 @@ aes64esm:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes64ks1i:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2098,6 +3182,7 @@ aes64ks1i:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
     
 aes64ks2:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2114,6 +3199,7 @@ aes64ks2:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sha512sig0:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2131,6 +3217,7 @@ sha512sig0:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha512sig1:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2148,6 +3235,7 @@ sha512sig1:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha512sum0:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2165,6 +3253,7 @@ sha512sum0:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha512sum1:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2182,6 +3271,7 @@ sha512sum1:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 aes64im:
+  stride: 1
   xlen: [64]
   std_op:
   isa: IK
@@ -2199,6 +3289,7 @@ aes64im:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 rorw:
+  stride: 1
   xlen: [64]
   std_op:
   isa: I
@@ -2213,6 +3304,7 @@ rorw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 rolw:
+  stride: 1
   xlen: [64]
   std_op:
   isa: I
@@ -2227,6 +3319,7 @@ rolw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 roriw:
+  stride: 1
   xlen: [64]
   std_op:
   isa: I
@@ -2240,6 +3333,7 @@ roriw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 rev8.w:
+  stride: 1
   xlen: [64]
   std_op: grevi
   isa: I
@@ -2256,6 +3350,7 @@ rev8.w:
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 packw:
+  stride: 1
   xlen: [64]
   std_op:
   isa: I
@@ -2270,6 +3365,7 @@ packw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 packuw:
+  stride: 1
   xlen: [64]
   std_op:
   isa: I
@@ -2282,4 +3378,3 @@ packuw:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-

@@ -1,0 +1,92 @@
+# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
+
+fcvt.wu.d_b1:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b1(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b22:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b22(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b23:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b23(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b24:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b24(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b27:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b27(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b28:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b28(64, "fcvt.wu.d", 1)': 0
+        
+fcvt.wu.d_b29:
+    config: 
+      - check ISA:=regex(.*I.*F.*)
+    opcode: 
+      fcvt.wu.d: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_regs
+    val_comb:
+      abstract_comb:
+        'ibm_b29(64, "fcvt.wu.d", 1)': 0
