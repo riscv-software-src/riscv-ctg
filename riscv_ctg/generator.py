@@ -1031,11 +1031,12 @@ class Generator():
         i = 0
         total = len(instr_dict)
         while end <= total and start<total:
-            fname = fprefix+("{:02d}.S".format(i))
+            fname = fprefix+("-{:02d}.S".format(i))
             logger.debug("Writing Test to "+str(fname))
             self.__write_test__(fname,node,label,instr_dict[start:end], op_node, usage_str)
             start += max_inst
             left = total - end
+            i+=1
             if left>=max_inst:
                 end += max_inst
             else:

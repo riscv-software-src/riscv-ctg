@@ -61,7 +61,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst=1000):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     global op_template
     global randomize
     global out_dir
