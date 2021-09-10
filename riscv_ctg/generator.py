@@ -1027,9 +1027,13 @@ class Generator():
 
     def write_test(self, fprefix, node, label, instr_dict, op_node, usage_str,max_inst):
         start = 0
-        end = max_inst
-        i = 0
         total = len(instr_dict)
+        end = len(instr_dict)
+        if max_inst:
+            end = max_inst
+        else:
+            max_inst = total
+        i = 1
         while end <= total and start<total:
             fname = fprefix+("-{:02d}.S".format(i))
             logger.debug("Writing Test to "+str(fname))

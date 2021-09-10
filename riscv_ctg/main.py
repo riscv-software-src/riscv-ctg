@@ -16,7 +16,7 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.option('--cgf','-cf',multiple=True,type=click.Path(exists=True,resolve_path=True,readable=True),help="Path to the cgf file(s). Multiple allowed.")
 @click.option('--procs','-p',type=int,default=1,help='Max number of processes to spawn')
 @click.option('--base-isa','-bi',type=click.Choice(['rv32e','rv32i','rv64i']),help="Base ISA string for the tests.")
-@click.option("--inst",type=int,help="Maximum number of Macro Instances per test.",default=1000)
+@click.option("--inst",type=int,help="Maximum number of Macro Instances per test.")
 def cli(verbose, out_dir, randomize , cgf,procs,base_isa,inst):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
