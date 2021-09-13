@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.6] - 2021-09-13
+- Fix the generation of rv32ec/cswsp test
+
 ## [0.5.5] - 2021-09-10
 - Add CGFs for F&D extensions
 - Add support for F & D extension test generation
