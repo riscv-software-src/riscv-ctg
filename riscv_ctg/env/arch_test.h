@@ -943,6 +943,50 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       inst imm_val; \
       )
 
+#define TEST_RRR_OP(inst, destreg, reg1, reg2, reg3, correctval, val1, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(reg1, MASK_XLEN(val1)); \
+      LI(reg2, MASK_XLEN(val2)); \
+      inst destreg, reg1, reg2; \
+    )
+
+#if __riscv_xlen == 32
+
+//Tests for a instructions with pair register rd, pair register rs1 and pair register rs2
+#define TEST_P64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg) \
+    TEST_P64_PPP_OP_32(inst, rd, rd_hi, rs1, rs1_hi, rs2,, rs2_hi correctval, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg)
+//Tests for a instructions with pair register rd, pair register rs1 and normal register rs2
+#define TEST_P64_PPN_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
+    TEST_P64_PPN_OP_32(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg)
+//Tests for a instructions with pair register rd, normal register rs1 and normal register rs2
+#define TEST_P64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg) \
+    TEST_P64_PNN_OP_32(inst, rd, rd_hi, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+//Tests for a instructions with normal register rd, pair register rs1 and normal register rs2
+#define TEST_P64_NPN_OP(inst, rd, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
+    TEST_P64_NPN_OP_32(inst, rd, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg)
+
+//Tests for a instructions with normal register rd, pair register rs1
+#define TEST_P64_NP_OP(inst, rd, rs1, rs1_hi, correctval, rs1_val, rs1_val_hi, imm_val, swreg, offset, testreg) \
+    TEST_P64_NP_OP_32(inst, rd, rs1, rs1_hi, correctval, rs1_val, rs1_val_hi, imm_val, swreg, offset, testreg)
+
+#else
+// When in rv64, there are no instructions with pair operand, so Macro is redefined to normal TEST_RR_OP
+#define TEST_P64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg) \
+    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_P64_PPN_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
+    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_P64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg) \
+    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_P64_NPN_OP(inst, rd, rs1, rs1_hi, rs2, correctval, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
+    TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_P64_NP_OP(inst, rd, rs1, rs1_hi, correctval, rs1_val, rs1_val_hi, imm_val, swreg, offset, testreg) \
+    TEST_IMM_OP(inst, rd, rs1, correctval, rs1_val, imm_val, swreg, offset, testreg)
+
+#endif
+
+
+
+
 #define TEST_CMV_OP( inst, destreg, reg, correctval, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg, MASK_XLEN(val2)); \

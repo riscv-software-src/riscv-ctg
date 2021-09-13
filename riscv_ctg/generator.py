@@ -666,7 +666,7 @@ class Generator():
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.opcode in ['c.jal', 'c.jalr']:
                 instr_dict.append(self.__cj_instr__(op,val))
-            elif self.fmt == 'jformat':
+            elif self.fmt == 'jformat' or self.fmt == 'cjformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
                 instr_dict.append(self.__instr__(op,val))
@@ -826,6 +826,10 @@ class Generator():
             if 'rs2' in coverpoints:
                 if rs2 in coverpoints['rs2']:
                     cover_hits['rs2'] = set([rs2])
+            if 'rs3' in coverpoints:
+                if rs3 in coverpoints['rs3']:
+                    cover_hits['rs3'] = set([rs3])
+
             if 'rd' in coverpoints:
                 if rd in coverpoints['rd']:
                     cover_hits['rd'] = set([rd])
@@ -1065,8 +1069,16 @@ class Generator():
         '''
         mydict = instr_dict.copy()
         if (self.opnode['isa'] == 'IP'):
-            concat_simd_data(instr_dict, xlen, self.opnode['bit_width'])
-            return instr_dict
+            if ('p64_profile' in self.opnode):
+                gen_pair_reg_data(instr_dict, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
+
+            if ('bit_width' in self.opnode):
+                if (type(self.opnode['bit_width'])==int):
+                    concat_simd_data(instr_dict, xlen, self.opnode['bit_width'])
+                elif (type(self.opnode['bit_width'])==str):
+                    concat_simd_data(instr_dict, xlen, tuple(map(int, self.opnode['bit_width'].split(','))))
+                return instr_dict
+
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
                 # if xlen == 32:
