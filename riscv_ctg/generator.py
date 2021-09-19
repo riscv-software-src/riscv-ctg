@@ -1072,7 +1072,8 @@ class Generator():
         vreg = 0
         code = []
         sign = [""]
-        data = [".align 4","rvtest_data:",".word 0xbabecafe"]
+        data = [".align 4","rvtest_data:",".word 0xbabecafe", \
+                ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
         stride = self.stride
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             vreg = instr_dict[0]['valaddr_reg']
