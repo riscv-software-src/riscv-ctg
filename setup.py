@@ -26,7 +26,7 @@ test_requirements = [ ]
 
 setup(
     name='riscv_ctg',
-    version='0.5.6',
+    version='0.5.7',
     description="RISC-V CTG",
     long_description=readme + '\n\n',
     classifiers=[
