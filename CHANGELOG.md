@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.7] - 2021-09-20
+- Fix the generation of rv32ec/cswsp test
+
 ## [0.5.6] - 2021-09-19
 - rvtest\_data section now includes 16 bytes of rotated versions of `0xbabecafe`
 
