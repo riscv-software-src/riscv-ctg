@@ -439,8 +439,8 @@ srai:
   isa: I
   operation: 'hex(rs1_val >> (imm_val))'
   formattype: 'iformat'
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  imm_val_data: 'gen_sign_dataset(ceil(log(xlen,2)))'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
+  imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -3326,6 +3326,12 @@ roriw:
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+
 rev8.w:
   stride: 1
   xlen: [64]
