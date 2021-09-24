@@ -301,7 +301,7 @@ datasets:
     'rs1_val > 0 and imm_val < 0': 0
     'rs1_val < 0 and imm_val > 0': 0
     'rs1_val < 0 and imm_val < 0': 0
-  
+
   ifmt_val_comb_unsgn: &ifmt_val_comb_unsgn
     'rs1_val == imm_val and rs1_val > 0 and imm_val > 0': 0
     'rs1_val != imm_val and rs1_val > 0 and imm_val > 0': 0
@@ -318,7 +318,11 @@ datasets:
     'imm_val == (2**(ceil(log(xlen,2))-1)-1)': 0
     'imm_val == 1': 0
 
-  
+  ifmt_base_immval_unsgn_len_sub_3: &ifmt_base_immval_unsgn_len_sub_3
+    'imm_val == 0': 0
+    'imm_val == (2**(ceil(log(xlen,2))-3))': 0
+    'imm_val == 1': 0
+
   ifmt_base_immval_unsgn: &ifmt_base_immval_unsgn
     'imm_val == 0': 0
     'imm_val == (2**(12)-1)': 0
@@ -407,6 +411,12 @@ datasets:
     'walking_ones("imm_val", ceil(log(xlen,2)), False)': 0
     'walking_zeros("imm_val", ceil(log(xlen,2)), False)': 0
     'alternate("imm_val",ceil(log(xlen,2)), False)': 0
+
+  ifmt_immval_walking_len_sub_3: &ifmt_immval_walking_len_sub_3
+    'walking_ones("imm_val", ceil(log(xlen,2))-3, False)': 0
+    'walking_zeros("imm_val", ceil(log(xlen,2))-3, False)': 0
+    'alternate("imm_val", ceil(log(xlen,2))-3, False)': 0
+
 
   ifmt_immval_walking_5u: &ifmt_immval_walking_5u
     'walking_ones("imm_val", 5, False)': 0

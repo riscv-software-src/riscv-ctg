@@ -126,10 +126,16 @@ class Generator():
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
+
         if (opnode['isa'] == 'IP'):
             init_rvp_ops_vals(OPS, VALS)
         self.op_vars = OPS[fmt]
-        self.val_vars = eval(VALS[fmt])
+
+        try:
+            self.val_vars = eval(VALS[fmt])
+        except:
+            self.val_vars=VALS[fmt]
+
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
@@ -1071,6 +1077,7 @@ class Generator():
         if (self.opnode['isa'] == 'IP'):
             if ('p64_profile' in self.opnode):
                 gen_pair_reg_data(instr_dict, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
+                return instr_dict
 
             if ('bit_width' in self.opnode):
                 if (type(self.opnode['bit_width'])==int):

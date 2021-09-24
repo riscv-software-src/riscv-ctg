@@ -1003,7 +1003,7 @@ kslli16:
 
 kslra16:
     config:
-      - check isa:=regex(.*i.*p.*)
+      - check isa:=regex(.*I.*P.*)
     opcode:
       kslra16: 0
     rs1:
@@ -1023,7 +1023,7 @@ kslra16:
 
 kslra16.u:
     config:
-      - check isa:=regex(.*i.*p.*)
+      - check isa:=regex(.*I.*P.*)
     opcode:
       kslra16.u: 0
     rs1:
@@ -1279,7 +1279,7 @@ kslra8:
 
 kslra8.u:
     config:
-      - check isa:=regex(.*i.*p.*)
+      - check isa:=regex(.*I.*P.*)
     opcode:
       kslra8.u: 0
     rs1:
@@ -4299,11 +4299,13 @@ rdov:
       <<: *all_regs
 
 
-clov:
+clrov:
     config:
       - check ISA:=regex(.*I.*)
     opcode:
-      clov: 0
+      clrov: 0
+    rd:
+      <<: *all_regs
 
 # 2.5.5.
 ave:
@@ -4320,11 +4322,9 @@ ave:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        'simd_base_val("rs1", xlen, xlen, signed=True)': 0
-        'simd_base_val("rs2", xlen, xlen, signed=True)': 0
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
-
+        <<: [*rs1val_walking, *rs2val_walking]
 
 sra.u:
     config:
@@ -4340,10 +4340,9 @@ sra.u:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        'simd_base_val("rs1", xlen, xlen, signed=True)': 0
-        'simd_base_val("rs2", xlen, xlen, signed=True)': 0
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
+        <<: [*rs1val_walking, *rs2val_walking]
 
 srai.u:
     config:
@@ -4357,11 +4356,9 @@ srai.u:
     op_comb:
       <<: *ifmt_op_comb
     val_comb:
-      <<: *ifmt_base_shift
       abstract_comb:
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
-        'sp_dataset(xlen,["rs1_val",("imm_val",ceil(log(xlen,2)))])': 0
-        <<: [*rs1val_walking, *ifmt_immval_walking]
+        <<: [*rs1val_walking, *ifmt_immval_walking_len]
+
 
 bitrev:
     config:
@@ -4377,10 +4374,10 @@ bitrev:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        'simd_base_val("rs1", xlen, xlen, signed=True)': 0
-        'simd_base_val("rs2", xlen, xlen, signed=True)': 0
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
+        <<: [*rs1val_walking, *rs2val_walking]
+
 
 bitrevi:
     config:
@@ -4394,17 +4391,14 @@ bitrevi:
     op_comb:
       <<: *ifmt_op_comb
     val_comb:
-      <<: *ifmt_base_shift
       abstract_comb:
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
-        'sp_dataset(xlen,["rs1_val",("imm_val",ceil(log(xlen,2)))])': 0
-        <<: [*rs1val_walking, *ifmt_immval_walking]
+        <<: [*rs1val_walking, *ifmt_immval_walking_len]
 
 insb:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      bitrevi: 0
+      insb: 0
     rs1:
       <<: *all_regs
     rd:
@@ -4412,11 +4406,10 @@ insb:
     op_comb:
       <<: *ifmt_op_comb
     val_comb:
-      <<: *ifmt_base_shift
+      <<: [ *ifmt_val_comb_unsgn, *base_rs1val_sgn, *ifmt_base_immval_unsgn_len_sub_3]
       abstract_comb:
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
-        'sp_dataset(xlen,["rs1_val",("imm_val",ceil(log(xlen,2))-2)])': 0
-        <<: [*rs1val_walking, *ifmt_immval_walking]
+        <<: [*rs1val_walking, *ifmt_immval_walking_len_sub_3]
+
 
 maddr32:
     config:
@@ -4435,5 +4428,4 @@ maddr32:
       abstract_comb:
         'simd_base_val("rs1", xlen, xlen, signed=True)': 0
         'simd_base_val("rs2", xlen, xlen, signed=True)': 0
-        'sp_dataset(xlen,["rs1_val","rs2_val"])': 0
 
