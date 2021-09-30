@@ -3405,6 +3405,7 @@ add16:
 radd16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3428,6 +3429,7 @@ radd16:
 uradd16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3451,6 +3453,7 @@ uradd16:
 kadd16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3474,6 +3477,7 @@ kadd16:
 ukadd16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3497,6 +3501,7 @@ ukadd16:
 sub16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3521,6 +3526,7 @@ sub16:
 rsub16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3545,6 +3551,7 @@ rsub16:
 ursub16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3568,6 +3575,7 @@ ursub16:
 ksub16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3591,6 +3599,7 @@ ksub16:
 uksub16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3614,6 +3623,7 @@ uksub16:
 cras16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3637,6 +3647,7 @@ cras16:
 rcras16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3661,6 +3672,7 @@ rcras16:
 urcras16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3684,6 +3696,7 @@ urcras16:
 kcras16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3707,6 +3720,7 @@ kcras16:
 ukcras16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3730,6 +3744,7 @@ ukcras16:
 crsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3753,6 +3768,7 @@ crsa16:
 rcrsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3776,6 +3792,7 @@ rcrsa16:
 urcrsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3799,6 +3816,7 @@ urcrsa16:
 kcrsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3822,6 +3840,7 @@ kcrsa16:
 ukcrsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3845,6 +3864,7 @@ ukcrsa16:
 stas16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3868,6 +3888,7 @@ stas16:
 rstas16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3891,6 +3912,7 @@ rstas16:
 urstas16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3914,6 +3936,7 @@ urstas16:
 kstas16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3937,6 +3960,7 @@ kstas16:
 ukstas16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3960,6 +3984,7 @@ ukstas16:
 stsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -3983,6 +4008,7 @@ stsa16:
 rstsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -4006,6 +4032,7 @@ rstsa16:
 urstsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -4029,6 +4056,7 @@ urstsa16:
 kstsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -4052,6 +4080,7 @@ kstsa16:
 ukstsa16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -4077,6 +4106,7 @@ ukstsa16:
 add8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4108,6 +4138,7 @@ add8:
 radd8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4139,6 +4170,7 @@ radd8:
 uradd8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4170,6 +4202,7 @@ uradd8:
 kadd8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4201,6 +4234,7 @@ kadd8:
 ukadd8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4232,6 +4266,7 @@ ukadd8:
 sub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4263,6 +4298,7 @@ sub8:
 rsub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4294,6 +4330,7 @@ rsub8:
 ursub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4326,6 +4363,7 @@ ursub8:
 usub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4357,6 +4395,7 @@ usub8:
 ksub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4388,6 +4427,7 @@ ksub8:
 uksub8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -4419,6 +4459,7 @@ uksub8:
 sra16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4439,6 +4480,7 @@ sra16:
 srai16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4458,6 +4500,7 @@ srai16:
 sra16.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4478,6 +4521,7 @@ sra16.u:
 srai16.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4497,6 +4541,7 @@ srai16.u:
 srl16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4517,6 +4562,7 @@ srl16:
 srli16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4536,6 +4582,7 @@ srli16:
 srl16.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4556,6 +4603,7 @@ srl16.u:
 srli16.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4575,6 +4623,7 @@ srli16.u:
 sll16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4595,6 +4644,7 @@ sll16:
 slli16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4614,6 +4664,7 @@ slli16:
 ksll16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4634,6 +4685,7 @@ ksll16:
 kslli16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -4653,6 +4705,7 @@ kslli16:
 kslra16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4673,6 +4726,7 @@ kslra16:
 kslra16.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'pshrrformat'
@@ -4693,6 +4747,7 @@ kslra16.u:
 sra8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4717,6 +4772,7 @@ sra8:
 srai8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4740,6 +4796,7 @@ srai8:
 sra8.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4764,6 +4821,7 @@ sra8.u:
 srai8.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4787,6 +4845,7 @@ srai8.u:
 srl8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4811,6 +4870,7 @@ srl8:
 srli8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4834,6 +4894,7 @@ srli8:
 srl8.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4855,9 +4916,10 @@ srl8.u:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-srli8.u:  
+srli8.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4881,6 +4943,7 @@ srli8.u:
 sll8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4905,6 +4968,7 @@ sll8:
 slli8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4928,6 +4992,7 @@ slli8:
 ksll8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4952,6 +5017,7 @@ ksll8:
 kslli8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -4975,6 +5041,7 @@ kslli8:
 kslra8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -4999,6 +5066,7 @@ kslra8:
 kslra8.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'psbrrformat'
@@ -5023,6 +5091,7 @@ kslra8.u:
 cmpeq16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5046,6 +5115,7 @@ cmpeq16:
 scmplt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5069,6 +5139,7 @@ scmplt16:
 scmple16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5092,6 +5163,7 @@ scmple16:
 ucmplt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5115,6 +5187,7 @@ ucmplt16:
 ucmple16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5138,6 +5211,7 @@ ucmple16:
 cmpeq8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5169,6 +5243,7 @@ cmpeq8:
 scmplt8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5200,6 +5275,7 @@ scmplt8:
 scmple8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5231,6 +5307,7 @@ scmple8:
 ucmplt8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5262,6 +5339,7 @@ ucmplt8:
 ucmple8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5293,6 +5371,7 @@ ucmple8:
 smul16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5316,6 +5395,7 @@ smul16:
 smulx16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5339,6 +5419,7 @@ smulx16:
 umul16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5362,6 +5443,7 @@ umul16:
 umulx16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5385,6 +5467,7 @@ umulx16:
 khm16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5408,6 +5491,7 @@ khm16:
 khmx16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5429,8 +5513,9 @@ khmx16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 smul8:
-  stride: 1  
+  stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5462,6 +5547,7 @@ smul8:
 smulx8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5493,6 +5579,7 @@ smulx8:
 umul8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5524,6 +5611,7 @@ umul8:
 umulx8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5555,6 +5643,7 @@ umulx8:
 khm8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5584,8 +5673,9 @@ khm8:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 khmx8:
-  stride: 1  
+  stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5617,6 +5707,7 @@ khmx8:
 smin16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5640,6 +5731,7 @@ smin16:
 umin16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5663,6 +5755,7 @@ umin16:
 smax16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5686,6 +5779,7 @@ smax16:
 umax16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -5709,6 +5803,7 @@ umax16:
 sclip16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -5728,6 +5823,7 @@ sclip16:
 uclip16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phriformat'
@@ -5747,6 +5843,7 @@ uclip16:
 kabs16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrformat'
@@ -5765,6 +5862,7 @@ kabs16:
 clrs16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrformat'
@@ -5783,6 +5881,7 @@ clrs16:
 clz16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrformat'
@@ -5801,6 +5900,7 @@ clz16:
 clo16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrformat'
@@ -5819,6 +5919,7 @@ clo16:
 swap16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrformat'
@@ -5837,6 +5938,7 @@ swap16:
 smin8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5868,6 +5970,7 @@ smin8:
 umin8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5899,6 +6002,7 @@ umin8:
 smax8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5930,6 +6034,7 @@ smax8:
 umax8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -5961,6 +6066,7 @@ umax8:
 kabs8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -5983,6 +6089,7 @@ kabs8:
 sclip8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -6006,6 +6113,7 @@ sclip8:
 uclip8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbriformat'
@@ -6029,6 +6137,7 @@ uclip8:
 clrs8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6051,6 +6160,7 @@ clrs8:
 clz8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6073,6 +6183,7 @@ clz8:
 clo8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6095,6 +6206,7 @@ clo8:
 swap8:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6117,6 +6229,7 @@ swap8:
 sunpkd810:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6139,6 +6252,7 @@ sunpkd810:
 sunpkd820:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6161,6 +6275,7 @@ sunpkd820:
 sunpkd830:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6183,6 +6298,7 @@ sunpkd830:
 sunpkd831:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6205,6 +6321,7 @@ sunpkd831:
 sunpkd832:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6227,6 +6344,7 @@ sunpkd832:
 zunpkd810:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6249,6 +6367,7 @@ zunpkd810:
 zunpkd820:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6271,6 +6390,7 @@ zunpkd820:
 zunpkd830:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6293,6 +6413,7 @@ zunpkd830:
 zunpkd831:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6315,6 +6436,7 @@ zunpkd831:
 zunpkd832:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrformat'
@@ -6339,6 +6461,7 @@ zunpkd832:
 pkbb16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6362,6 +6485,7 @@ pkbb16:
 pkbt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6385,6 +6509,7 @@ pkbt16:
 pktb16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6408,6 +6533,7 @@ pktb16:
 pktt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6431,6 +6557,7 @@ pktt16:
 smmul:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6450,6 +6577,7 @@ smmul:
 smmul.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6469,6 +6597,7 @@ smmul.u:
 kmmac:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6488,6 +6617,7 @@ kmmac:
 kmmac.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6507,6 +6637,7 @@ kmmac.u:
 kmmsb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6526,6 +6657,7 @@ kmmsb:
 kmmsb.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6545,6 +6677,7 @@ kmmsb.u:
 kwmmul:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6564,6 +6697,7 @@ kwmmul:
 kwmmul.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -6585,6 +6719,7 @@ kwmmul.u:
 smmwb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6608,6 +6743,7 @@ smmwb:
 smmwb.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6629,6 +6765,7 @@ smmwb.u:
 smmwt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6650,6 +6787,7 @@ smmwt:
 smmwt.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6672,6 +6810,7 @@ smmwt.u:
 kmmawb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6693,6 +6832,7 @@ kmmawb:
 kmmawb.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6714,6 +6854,7 @@ kmmawb.u:
 kmmawt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6735,6 +6876,7 @@ kmmawt:
 kmmawt.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6756,6 +6898,7 @@ kmmawt.u:
 kmmwb2:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6778,6 +6921,7 @@ kmmwb2:
 kmmwb2.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6799,6 +6943,7 @@ kmmwb2.u:
 kmmwt2:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6820,6 +6965,7 @@ kmmwt2:
 kmmwt2.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6842,6 +6988,7 @@ kmmwt2.u:
 kmmawb2:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6863,6 +7010,7 @@ kmmawb2:
 kmmawb2.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6884,6 +7032,7 @@ kmmawb2.u:
 kmmawt2:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6905,6 +7054,7 @@ kmmawt2:
 kmmawt2.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32, 16
   formattype: 'pwhrrformat'
@@ -6929,6 +7079,7 @@ kmmawt2.u:
 smbb16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6952,6 +7103,7 @@ smbb16:
 smbt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6975,6 +7127,7 @@ smbt16:
 smtt16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -6998,6 +7151,7 @@ smtt16:
 kmda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7021,6 +7175,7 @@ kmda:
 kmxda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7044,6 +7199,7 @@ kmxda:
 smds:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7068,6 +7224,7 @@ smds:
 smdrs:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7091,6 +7248,7 @@ smdrs:
 smxds:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7114,6 +7272,7 @@ smxds:
 kmabb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7137,6 +7296,7 @@ kmabb:
 kmabt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7160,6 +7320,7 @@ kmabt:
 kmatt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7183,6 +7344,7 @@ kmatt:
 kmada:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7206,6 +7368,7 @@ kmada:
 kmaxda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7229,6 +7392,7 @@ kmaxda:
 kmads:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7252,6 +7416,7 @@ kmads:
 kmadrs:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7275,6 +7440,7 @@ kmadrs:
 kmaxds:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7298,6 +7464,7 @@ kmaxds:
 kmsda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7321,6 +7488,7 @@ kmsda:
 kmsxda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -7346,6 +7514,7 @@ kmsxda:
 smal:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   p64_profile: 'ppn'
@@ -7369,6 +7538,7 @@ smal:
 sclip32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -7384,8 +7554,9 @@ sclip32:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 uclip32:
-  stride: 1  
+  stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -7403,6 +7574,7 @@ uclip32:
 clrs32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrformat'
@@ -7419,6 +7591,7 @@ clrs32:
 clz32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrformat'
@@ -7435,6 +7608,7 @@ clz32:
 clo32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrformat'
@@ -7451,6 +7625,7 @@ clo32:
 pbsad:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -7482,6 +7657,7 @@ pbsad:
 pbsada:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -7513,6 +7689,7 @@ pbsada:
 smaqa:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -7544,6 +7721,7 @@ smaqa:
 umaqa:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -7575,6 +7753,7 @@ umaqa:
 smaqa.su:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 8
   formattype: 'pbrrformat'
@@ -7607,6 +7786,7 @@ smaqa.su:
 add64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7626,6 +7806,7 @@ add64:
 radd64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7645,6 +7826,7 @@ radd64:
 uradd64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7664,6 +7846,7 @@ uradd64:
 kadd64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7683,6 +7866,7 @@ kadd64:
 ukadd64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7702,6 +7886,7 @@ ukadd64:
 sub64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7721,6 +7906,7 @@ sub64:
 rsub64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7740,6 +7926,7 @@ rsub64:
 ursub64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7759,6 +7946,7 @@ ursub64:
 ksub64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7778,6 +7966,7 @@ ksub64:
 uksub64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'ppp'
@@ -7798,6 +7987,7 @@ uksub64:
 smar64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7817,6 +8007,7 @@ smar64:
 smsr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7836,6 +8027,7 @@ smsr64:
 umar64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7855,6 +8047,7 @@ umar64:
 umsr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7874,6 +8067,7 @@ umsr64:
 kmar64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7893,6 +8087,7 @@ kmar64:
 kmsr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7912,6 +8107,7 @@ kmsr64:
 ukmar64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7931,6 +8127,7 @@ ukmar64:
 ukmsr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7952,6 +8149,7 @@ ukmsr64:
 smalbb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7971,6 +8169,7 @@ smalbb:
 smalbt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -7990,6 +8189,7 @@ smalbt:
 smaltt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8009,6 +8209,7 @@ smaltt:
 smalda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8028,6 +8229,7 @@ smalda:
 smalxda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8047,6 +8249,7 @@ smalxda:
 smalds:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8066,6 +8269,7 @@ smalds:
 smaldrs:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8085,6 +8289,7 @@ smaldrs:
 smalxds:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8104,6 +8309,7 @@ smalxds:
 smslda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8123,6 +8329,7 @@ smslda:
 smslxda:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'pnn'
@@ -8144,6 +8351,7 @@ smslxda:
 kaddh:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8164,6 +8372,7 @@ kaddh:
 ksubh:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8184,6 +8393,7 @@ ksubh:
 khmbb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8208,6 +8418,7 @@ khmbb:
 khmbt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8231,6 +8442,7 @@ khmbt:
 khmtt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8254,6 +8466,7 @@ khmtt:
 ukaddh:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8273,6 +8486,7 @@ ukaddh:
 uksubh:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8293,6 +8507,7 @@ uksubh:
 kaddw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8312,6 +8527,7 @@ kaddw:
 ukaddw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8331,6 +8547,7 @@ ukaddw:
 ksubw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8350,6 +8567,7 @@ ksubw:
 uksubw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8369,6 +8587,7 @@ uksubw:
 kdmbb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8392,6 +8611,7 @@ kdmbb:
 kdmbt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8415,6 +8635,7 @@ kdmbt:
 kdmtt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8438,6 +8659,7 @@ kdmtt:
 kslraw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8457,6 +8679,7 @@ kslraw:
 kslraw.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8476,6 +8699,7 @@ kslraw.u:
 ksllw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -8494,6 +8718,7 @@ ksllw:
 kslliw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -8512,6 +8737,7 @@ kslliw:
 kdmabb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8535,6 +8761,7 @@ kdmabb:
 kdmabt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8558,6 +8785,7 @@ kdmabt:
 kdmatt:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -8581,6 +8809,7 @@ kdmatt:
 kabsw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrformat'
@@ -8599,6 +8828,7 @@ kabsw:
 raddw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8616,6 +8846,7 @@ raddw:
 uraddw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8633,6 +8864,7 @@ uraddw:
 rsubw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8650,6 +8882,7 @@ rsubw:
 ursubw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8667,6 +8900,7 @@ ursubw:
 maxw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8684,6 +8918,7 @@ maxw:
 minw:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8701,6 +8936,7 @@ minw:
 msubr32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8718,6 +8954,7 @@ msubr32:
 mulr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   p64_profile: 'pnn'
@@ -8737,6 +8974,7 @@ mulr64:
 mulsr64:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   p64_profile: 'pnn'
@@ -8758,6 +8996,7 @@ rdov:
   stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
+  std_op:
   isa: IP
   formattype: 'uformat'
   imm_val_data: 'gen_usign_dataset(2)'
@@ -8771,6 +9010,7 @@ clrov:
   stride: 1
   rd_op_data: *all_regs
   xlen: [32,64]
+  std_op:
   isa: IP
   formattype: 'uformat'
   imm_val_data: 'gen_usign_dataset(2)'
@@ -8787,6 +9027,7 @@ clrov:
 ave:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'rformat'
@@ -8804,6 +9045,7 @@ ave:
 sra.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'rformat'
@@ -8821,6 +9063,7 @@ sra.u:
 srai.u:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'iformat'
@@ -8838,6 +9081,7 @@ srai.u:
 bitrev:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'rformat'
@@ -8855,6 +9099,7 @@ bitrev:
 bitrevi:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'iformat'
@@ -8872,6 +9117,7 @@ bitrevi:
 wext:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'npn'
@@ -8891,6 +9137,7 @@ wext:
 wexti:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 64
   p64_profile: 'np '
@@ -8911,6 +9158,7 @@ wexti:
 bpick:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   formattype: 'prrrformat'
   rs1_op_data: *all_regs
@@ -8929,6 +9177,7 @@ bpick:
 insb:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'iformat'
@@ -8946,6 +9195,7 @@ insb:
 maddr32:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8966,6 +9216,7 @@ maddr32:
 add32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -8985,6 +9236,7 @@ add32:
 radd32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9004,6 +9256,7 @@ radd32:
 uradd32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9023,6 +9276,7 @@ uradd32:
 kadd32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9042,6 +9296,7 @@ kadd32:
 ukadd32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9061,6 +9316,7 @@ ukadd32:
 sub32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9080,6 +9336,7 @@ sub32:
 kmda32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9099,6 +9356,7 @@ kmda32:
 kmxda32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9118,6 +9376,7 @@ kmxda32:
 kmada32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9137,6 +9396,7 @@ kmada32:
 kmaxda32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9156,6 +9416,7 @@ kmaxda32:
 kmads32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9175,6 +9436,7 @@ kmads32:
 kmadrs32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9194,6 +9456,7 @@ kmadrs32:
 kmaxds32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9213,6 +9476,7 @@ kmaxds32:
 kmsda32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9232,6 +9496,7 @@ kmsda32:
 kmsxda32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9251,6 +9516,7 @@ kmsxda32:
 smds32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9270,6 +9536,7 @@ smds32:
 smdrs32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9289,6 +9556,7 @@ smdrs32:
 smxds32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9308,6 +9576,7 @@ smxds32:
 sraiw.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -9326,6 +9595,7 @@ sraiw.u:
 pkbb32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9345,6 +9615,7 @@ pkbb32:
 pkbt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9364,6 +9635,7 @@ pkbt32:
 pktb32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9384,6 +9656,7 @@ pktb32:
 pktt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9404,6 +9677,7 @@ pktt32:
 rsub32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9424,6 +9698,7 @@ rsub32:
 ursub32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9443,6 +9718,7 @@ ursub32:
 ksub32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9462,6 +9738,7 @@ ksub32:
 uksub32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9481,6 +9758,7 @@ uksub32:
 cras32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9500,6 +9778,7 @@ cras32:
 rcras32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9520,6 +9799,7 @@ rcras32:
 urcras32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9539,6 +9819,7 @@ urcras32:
 kcras32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9558,6 +9839,7 @@ kcras32:
 ukcras32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9577,6 +9859,7 @@ ukcras32:
 crsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9596,6 +9879,7 @@ crsa32:
 rcrsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9615,6 +9899,7 @@ rcrsa32:
 urcrsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9634,6 +9919,7 @@ urcrsa32:
 kcrsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9653,6 +9939,7 @@ kcrsa32:
 ukcrsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9672,6 +9959,7 @@ ukcrsa32:
 stas32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9691,6 +9979,7 @@ stas32:
 rstas32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9710,6 +9999,7 @@ rstas32:
 urstas32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9729,6 +10019,7 @@ urstas32:
 kstas32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9748,6 +10039,7 @@ kstas32:
 ukstas32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9767,6 +10059,7 @@ ukstas32:
 stsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9786,6 +10079,7 @@ stsa32:
 rstsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9805,6 +10099,7 @@ rstsa32:
 urstsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9824,6 +10119,7 @@ urstsa32:
 kstsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9843,6 +10139,7 @@ kstsa32:
 ukstsa32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -9862,6 +10159,7 @@ ukstsa32:
 sra32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -9880,6 +10178,7 @@ sra32:
 srai32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -9897,6 +10196,7 @@ srai32:
 sra32.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -9915,6 +10215,7 @@ sra32.u:
 srai32.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -9932,6 +10233,7 @@ srai32.u:
 srl32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -9950,6 +10252,7 @@ srl32:
 srli32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -9967,6 +10270,7 @@ srli32:
 srl32.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -9985,6 +10289,7 @@ srl32.u:
 srli32.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -10002,6 +10307,7 @@ srli32.u:
 sll32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -10020,6 +10326,7 @@ sll32:
 slli32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -10037,6 +10344,7 @@ slli32:
 ksll32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -10055,6 +10363,7 @@ ksll32:
 kslli32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwriformat'
@@ -10072,6 +10381,7 @@ kslli32:
 kslra32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -10090,6 +10400,7 @@ kslra32:
 kslra32.u:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pswrrformat'
@@ -10108,6 +10419,7 @@ kslra32.u:
 smin32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10127,6 +10439,7 @@ smin32:
 umin32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10146,6 +10459,7 @@ umin32:
 smax32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10165,6 +10479,7 @@ smax32:
 umax32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10184,6 +10499,7 @@ umax32:
 kabs32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrformat'
@@ -10200,6 +10516,7 @@ kabs32:
 khmbb16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10223,6 +10540,7 @@ khmbb16:
 khmbt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10246,6 +10564,7 @@ khmbt16:
 khmtt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10269,6 +10588,7 @@ khmtt16:
 kdmbb16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10292,6 +10612,7 @@ kdmbb16:
 kdmbt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10315,6 +10636,7 @@ kdmbt16:
 kdmtt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10338,6 +10660,7 @@ kdmtt16:
 kdmabb16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10361,6 +10684,7 @@ kdmabb16:
 kdmabt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10384,6 +10708,7 @@ kdmabt16:
 kdmatt16:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
@@ -10407,6 +10732,7 @@ kdmatt16:
 smbb32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10426,6 +10752,7 @@ smbb32:
 smbt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10445,6 +10772,7 @@ smbt32:
 smtt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10464,6 +10792,7 @@ smtt32:
 kmabb32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10483,6 +10812,7 @@ kmabb32:
 kmabt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
@@ -10502,6 +10832,7 @@ kmabt32:
 kmatt32:
   stride: 1
   xlen: [64]
+  std_op:
   isa: IP
   bit_width: 32
   formattype: 'pwrrformat'
