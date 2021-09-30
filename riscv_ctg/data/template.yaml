@@ -3382,6 +3382,7 @@ packuw:
 add16:
   stride: 1
   xlen: [32,64]
+  std_op:
   isa: IP
   bit_width: 16
   formattype: 'phrrformat'
