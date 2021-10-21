@@ -2,7 +2,7 @@
 
 fsd-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsd: 0
     rs1: 

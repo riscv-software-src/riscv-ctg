@@ -2,7 +2,7 @@
 
 fsw-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
       fsw: 0
     rs1: 

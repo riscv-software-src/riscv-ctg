@@ -2,7 +2,7 @@
 
 flw-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*F.*)
     opcode: 
       flw: 0
     rs1: 

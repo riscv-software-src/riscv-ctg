@@ -2,7 +2,7 @@
 
 flt_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       flt.d: 0
     rs1: 
@@ -19,7 +19,7 @@ flt_b1:
         
 flt_b19:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       flt.d: 0
     rs1: 

@@ -2,7 +2,7 @@
 
 fmsub_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -21,7 +21,7 @@ fmsub_b1:
         
 fmsub_b2:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -40,7 +40,7 @@ fmsub_b2:
         
 fmsub_b3:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -59,7 +59,7 @@ fmsub_b3:
         
 fmsub_b4:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -78,7 +78,7 @@ fmsub_b4:
         
 fmsub_b5:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -97,7 +97,7 @@ fmsub_b5:
         
 fmsub_b6:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -116,7 +116,7 @@ fmsub_b6:
         
 fmsub_b7:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -135,7 +135,7 @@ fmsub_b7:
         
 fmsub_b8:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -154,7 +154,7 @@ fmsub_b8:
         
 fmsub_b14:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -173,7 +173,7 @@ fmsub_b14:
         
 fmsub_b15:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -192,7 +192,7 @@ fmsub_b15:
         
 fmsub_b16:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -211,7 +211,7 @@ fmsub_b16:
         
 fmsub_b17:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 
@@ -230,7 +230,7 @@ fmsub_b17:
         
 fmsub_b18:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmsub.d: 0
     rs1: 

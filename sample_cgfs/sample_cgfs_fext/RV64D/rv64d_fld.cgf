@@ -2,7 +2,7 @@
 
 fld-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fld: 0
     rs1: 

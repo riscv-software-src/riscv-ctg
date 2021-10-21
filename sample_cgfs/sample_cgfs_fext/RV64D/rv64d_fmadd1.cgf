@@ -2,7 +2,7 @@
 
 fmadd_b2:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -21,7 +21,7 @@ fmadd_b2:
         
 fmadd_b3:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -40,7 +40,7 @@ fmadd_b3:
         
 fmadd_b4:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -59,7 +59,7 @@ fmadd_b4:
         
 fmadd_b5:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -78,7 +78,7 @@ fmadd_b5:
         
 fmadd_b6:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -97,7 +97,7 @@ fmadd_b6:
         
 fmadd_b7:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -116,7 +116,7 @@ fmadd_b7:
         
 fmadd_b8:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -135,7 +135,7 @@ fmadd_b8:
         
 fmadd_b14:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -154,7 +154,7 @@ fmadd_b14:
         
 fmadd_b16:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -173,7 +173,7 @@ fmadd_b16:
         
 fmadd_b17:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 
@@ -192,7 +192,7 @@ fmadd_b17:
         
 fmadd_b18:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmadd.d: 0
     rs1: 

@@ -2,7 +2,7 @@
 
 fcvt.s.d_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -17,7 +17,7 @@ fcvt.s.d_b1:
         
 fcvt.s.d_b22:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -32,7 +32,7 @@ fcvt.s.d_b22:
         
 fcvt.s.d_b23:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -47,7 +47,7 @@ fcvt.s.d_b23:
         
 fcvt.s.d_b24:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -62,7 +62,7 @@ fcvt.s.d_b24:
         
 fcvt.s.d_b27:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -77,7 +77,7 @@ fcvt.s.d_b27:
         
 fcvt.s.d_b28:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 
@@ -92,7 +92,7 @@ fcvt.s.d_b28:
         
 fcvt.s.d_b29:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fcvt.s.d: 0
     rs1: 

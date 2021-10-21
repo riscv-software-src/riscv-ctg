@@ -2,7 +2,7 @@
 
 fle_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fle.d: 0
     rs1: 
@@ -19,7 +19,7 @@ fle_b1:
         
 fle_b19:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fle.d: 0
     rs1: 

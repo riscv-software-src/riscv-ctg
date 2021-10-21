@@ -2,7 +2,7 @@
       
 fmv.d.x_b25:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmv.d.x: 0
     rs1: 
@@ -15,7 +15,7 @@ fmv.d.x_b25:
         
 fmv.d.x_b26:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmv.d.x: 0
     rs1: 

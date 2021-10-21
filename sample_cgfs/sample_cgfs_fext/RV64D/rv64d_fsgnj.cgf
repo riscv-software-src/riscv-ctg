@@ -2,7 +2,7 @@
 
 fsgnj_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsgnj.d: 0
     rs1: 

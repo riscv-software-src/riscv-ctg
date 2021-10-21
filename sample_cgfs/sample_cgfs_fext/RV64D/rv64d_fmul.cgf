@@ -2,7 +2,7 @@
 
 fmul_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -19,7 +19,7 @@ fmul_b1:
         
 fmul_b2:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -36,7 +36,7 @@ fmul_b2:
         
 fmul_b3:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -53,7 +53,7 @@ fmul_b3:
         
 fmul_b4:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -70,7 +70,7 @@ fmul_b4:
         
 fmul_b5:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -87,7 +87,7 @@ fmul_b5:
 
 fmul_b6:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -104,7 +104,7 @@ fmul_b6:
         
 fmul_b7:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -121,7 +121,7 @@ fmul_b7:
         
 fmul_b8:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 
@@ -138,7 +138,7 @@ fmul_b8:
         
 fmul_b9:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fmul.d: 0
     rs1: 

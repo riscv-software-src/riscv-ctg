@@ -2,7 +2,7 @@
 
 fsqrt_b1:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -17,7 +17,7 @@ fsqrt_b1:
 
 fsqrt_b2:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -32,7 +32,7 @@ fsqrt_b2:
         
 fsqrt_b3:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -47,7 +47,7 @@ fsqrt_b3:
 
 fsqrt_b4:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -62,7 +62,7 @@ fsqrt_b4:
 
 fsqrt_b5:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -77,7 +77,7 @@ fsqrt_b5:
 
 fsqrt_b7:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -92,7 +92,7 @@ fsqrt_b7:
 
 fsqrt_b8:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -107,7 +107,7 @@ fsqrt_b8:
 
 fsqrt_b9:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
@@ -122,7 +122,7 @@ fsqrt_b9:
 
 fsqrt_b20:
     config: 
-      - check ISA:=regex(.*I.*F.*)
+      - check ISA:=regex(.*I.*D.*)
     opcode: 
       fsqrt.d: 0
     rs1: 
