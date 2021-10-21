@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fmin_b1:
+d_fmin_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -17,7 +17,7 @@ fmin_b1:
       abstract_comb:
         'ibm_b1(64, "fmin.d", 2)': 0
         
-fmin_b19:
+d_fmin_b19:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 

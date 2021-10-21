@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fld-align:
+d_fld-align:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 

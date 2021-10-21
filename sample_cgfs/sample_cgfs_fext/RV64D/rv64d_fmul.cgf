@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fmul_b1:
+d_fmul_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -17,7 +17,7 @@ fmul_b1:
       abstract_comb:
         'ibm_b1(64, "fmul.d", 2)': 0
         
-fmul_b2:
+d_fmul_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -34,7 +34,7 @@ fmul_b2:
       abstract_comb:
         'ibm_b2(64, "fmul.d", 2)': 0
         
-fmul_b3:
+d_fmul_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -51,7 +51,7 @@ fmul_b3:
       abstract_comb:
         'ibm_b3(64, "fmul.d", 2)': 0
         
-fmul_b4:
+d_fmul_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -68,7 +68,7 @@ fmul_b4:
       abstract_comb:
         'ibm_b4(64, "fmul.d", 2)': 0
         
-fmul_b5:
+d_fmul_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -85,7 +85,7 @@ fmul_b5:
       abstract_comb:
         'ibm_b5(64, "fmul.d", 2)': 0
 
-fmul_b6:
+d_fmul_b6:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -102,7 +102,7 @@ fmul_b6:
       abstract_comb:
         'ibm_b6(64, "fmul.d", 2)': 0
         
-fmul_b7:
+d_fmul_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -119,7 +119,7 @@ fmul_b7:
       abstract_comb:
         'ibm_b7(64, "fmul.d", 2)': 0
         
-fmul_b8:
+d_fmul_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -136,7 +136,7 @@ fmul_b8:
       abstract_comb:
         'ibm_b8(64, "fmul.d", 2)': 0
         
-fmul_b9:
+d_fmul_b9:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 

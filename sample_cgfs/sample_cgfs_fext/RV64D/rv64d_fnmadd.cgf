@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fnmadd_b1:
+d_fnmadd_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -19,7 +19,7 @@ fnmadd_b1:
       abstract_comb:
         'ibm_b1(64, "fnmadd.d", 3)': 0
         
-fnmadd_b2:
+d_fnmadd_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -38,7 +38,7 @@ fnmadd_b2:
       abstract_comb:
         'ibm_b2(64, "fnmadd.d", 3)': 0
         
-fnmadd_b3:
+d_fnmadd_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -57,7 +57,7 @@ fnmadd_b3:
       abstract_comb:
         'ibm_b3(64, "fnmadd.d", 3)': 0
         
-fnmadd_b4:
+d_fnmadd_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -76,7 +76,7 @@ fnmadd_b4:
       abstract_comb:
         'ibm_b4(64, "fnmadd.d", 3)': 0
         
-fnmadd_b5:
+d_fnmadd_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -95,7 +95,7 @@ fnmadd_b5:
       abstract_comb:
         'ibm_b5(64, "fnmadd.d", 3)': 0
         
-fnmadd_b6:
+d_fnmadd_b6:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -114,7 +114,7 @@ fnmadd_b6:
       abstract_comb:
         'ibm_b6(64, "fnmadd.d", 3)': 0
         
-fnmadd_b7:
+d_fnmadd_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -133,7 +133,7 @@ fnmadd_b7:
       abstract_comb:
         'ibm_b7(64, "fnmadd.d", 3)': 0
         
-fnmadd_b8:
+d_fnmadd_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -152,7 +152,7 @@ fnmadd_b8:
       abstract_comb:
         'ibm_b8(64, "fnmadd.d", 3)': 0
         
-fnmadd_b14:
+d_fnmadd_b14:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -171,7 +171,7 @@ fnmadd_b14:
       abstract_comb:
         'ibm_b14(64, "fnmadd.d", 3)': 0
         
-fnmadd_b15:
+d_fnmadd_b15:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -190,7 +190,7 @@ fnmadd_b15:
       abstract_comb:
         'ibm_b15(64, "fnmadd.d", 3)': 0
         
-fnmadd_b16:
+d_fnmadd_b16:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -209,7 +209,7 @@ fnmadd_b16:
       abstract_comb:
         'ibm_b16(64, "fnmadd.d", 3)': 0
         
-fnmadd_b17:
+d_fnmadd_b17:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -228,7 +228,7 @@ fnmadd_b17:
       abstract_comb:
         'ibm_b17(64, "fnmadd.d", 3)': 0
         
-fnmadd_b18:
+d_fnmadd_b18:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 

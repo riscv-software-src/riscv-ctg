@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fmadd_b2:
+d_fmadd_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -19,7 +19,7 @@ fmadd_b2:
       abstract_comb:
         'ibm_b2(64, "fmadd.d", 3)': 0
         
-fmadd_b3:
+d_fmadd_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -38,7 +38,7 @@ fmadd_b3:
       abstract_comb:
         'ibm_b3(64, "fmadd.d", 3)': 0
         
-fmadd_b4:
+d_fmadd_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -57,7 +57,7 @@ fmadd_b4:
       abstract_comb:
         'ibm_b4(64, "fmadd.d", 3)': 0
         
-fmadd_b5:
+d_fmadd_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -76,7 +76,7 @@ fmadd_b5:
       abstract_comb:
         'ibm_b5(64, "fmadd.d", 3)': 0
         
-fmadd_b6:
+d_fmadd_b6:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -95,7 +95,7 @@ fmadd_b6:
       abstract_comb:
         'ibm_b6(64, "fmadd.d", 3)': 0
         
-fmadd_b7:
+d_fmadd_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -114,7 +114,7 @@ fmadd_b7:
       abstract_comb:
         'ibm_b7(64, "fmadd.d", 3)': 0
         
-fmadd_b8:
+d_fmadd_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -133,7 +133,7 @@ fmadd_b8:
       abstract_comb:
         'ibm_b8(64, "fmadd.d", 3)': 0
         
-fmadd_b14:
+d_fmadd_b14:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -152,7 +152,7 @@ fmadd_b14:
       abstract_comb:
         'ibm_b14(64, "fmadd.d", 3)': 0
         
-fmadd_b16:
+d_fmadd_b16:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -171,7 +171,7 @@ fmadd_b16:
       abstract_comb:
         'ibm_b16(64, "fmadd.d", 3)': 0
         
-fmadd_b17:
+d_fmadd_b17:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -190,7 +190,7 @@ fmadd_b17:
       abstract_comb:
         'ibm_b17(64, "fmadd.d", 3)': 0
         
-fmadd_b18:
+d_fmadd_b18:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 

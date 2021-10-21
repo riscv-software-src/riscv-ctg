@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fcvt.l.d_b1:
+d_fcvt.l.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -13,7 +13,7 @@ fcvt.l.d_b1:
       abstract_comb:
         'ibm_b1(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b22:
+d_fcvt.l.d_b22:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -26,7 +26,7 @@ fcvt.l.d_b22:
       abstract_comb:
         'ibm_b22(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b23:
+d_fcvt.l.d_b23:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -39,7 +39,7 @@ fcvt.l.d_b23:
       abstract_comb:
         'ibm_b23(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b24:
+d_fcvt.l.d_b24:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -52,7 +52,7 @@ fcvt.l.d_b24:
       abstract_comb:
         'ibm_b24(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b27:
+d_fcvt.l.d_b27:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -65,7 +65,7 @@ fcvt.l.d_b27:
       abstract_comb:
         'ibm_b27(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b28:
+d_fcvt.l.d_b28:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
@@ -78,7 +78,7 @@ fcvt.l.d_b28:
       abstract_comb:
         'ibm_b28(64, "fcvt.l.d", 1)': 0
         
-fcvt.l.d_b29:
+d_fcvt.l.d_b29:
     config: 
       - check ISA:=regex(.*I.*D.*)
     opcode: 
