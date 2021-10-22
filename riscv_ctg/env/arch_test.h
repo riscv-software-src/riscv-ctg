@@ -13,7 +13,7 @@
 
 
 //-----------------------------------------------------------------------
-// RV Compliance Macros
+// RV Arch Test Macros
 //-----------------------------------------------------------------------
 #ifndef RVMODEL_SET_MSW_INT
   #warning "RVMODEL_SET_MSW_INT is not defined by target. Declaring as empty macro"
@@ -91,15 +91,6 @@
     #define FLREG flw
     #define FSREG fsw
     #define FREGWIDTH 4
-  #endif
-#endif
-
-#if XLEN==64
-  #if FLEN==32
-    #define SREG sw
-    #define LREG lW
-    #define REGWIDTH 4
-    #define MASK 0xFFFFFFFF
   #endif
 #endif
 
@@ -888,7 +879,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       inst destreg, freg; \
       csrrs flagreg, fflags, x0; \
     )
-
+//Tests for a instructions with register-register operand
 #define TEST_RRI_OP(inst, destreg, reg1, reg2, imm, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg1, MASK_XLEN(val1)); \
