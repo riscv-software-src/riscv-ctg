@@ -94,14 +94,14 @@
   #endif
 #endif
 
-#if XLEN==64
+/*#if XLEN==64
   #if FLEN==32
     #define SREG sw
     #define LREG lW
     #define REGWIDTH 4
     #define MASK 0xFFFFFFFF
   #endif
-#endif
+#endif */
 
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
@@ -583,29 +583,44 @@ rvtest_data_end:
   .set offset,offset+REGWIDTH;\
   .endif;
   
-#define RVTEST_SIGUPD_F(_BR,_R,_F,...)\
-  .if NARG(__VA_ARGS__) == 1;\
-    FSREG _R,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
-    .if offset<REGWIDTH;\
-    SREG _F,_ARG1(__VA_ARGS__,0)+2*REGWIDTH(_BR);\
-    .endif;\
-    .if offset>=REGWIDTH;\
-    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
-    .endif;\
-    .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,)0)+(REGWIDTH+REGWIDTH);\
-  .endif;\
-  .if NARG(__VA_ARGS__) == 0;\
-    FSREG _R,offset+REGWIDTH(_BR);\
-    .if offset<REGWIDTH;\
-    SREG _F,_ARG1(__VA_ARGS__,0)+2*REGWIDTH(_BR);\
-    .endif;\
-    .if offset>=REGWIDTH;\
-    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
-    .endif;\
-    .set offset,offset+(REGWIDTH+REGWIDTH);\
-  .endif; 
+#define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
+  FLENN();\
+  .if NARG(__VA_ARGS__) == 1	;\
+    .set offset, _ARG1(__VA_ARGS__,0) ;\
+    .if offset > 2048-(2*SIGALIGN) ;\
+      addi _BR, _BR, 2048-(2*SIGALIGN) ;\
+      .set offset, offset-(2048-(2*SIGALIGN)) ;\
+    .endif  ;\
+    .if (offset&(SIGALIGN-1))!=0 ;\
+       .warning "Incorrect Offset Alginment for signature." ;\
+     .endif;\
+    FSREG _R,offset+ 0(_BR) ;\
+    SREG _F,offset+SIGALIGN(_BR) ;\
+    .set offset,offset+(2*SIGALIGN) ;\
+  .endif ;
+  
+#define FLENN()  
+  #if XLEN==64
+    #if FLEN==32
+      #undef SREG
+      #undef LREG
+      #undef REGWIDTH
+      #undef MASK
+      #define SREG sw
+      #define LREG lW
+      #define REGWIDTH 4
+      #define MASK 0xFFFFFFFF
+    #endif
+  #endif
+  #if FREGWIDTH>REGWIDTH
+    #define SIGALIGN FREGWIDTH
+  #else
+    #define SIGALIGN REGWIDTH
+  #endif
+  
   
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
+  FLENN();\
   .if NARG(__VA_ARGS__) == 1;\
     SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
     SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
