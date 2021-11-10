@@ -566,6 +566,7 @@ rvtest_data_end:
   LA(_R,_TAG);\
   .set offset,0;
 
+
 .set offset,0;
 #define _ARG5(_1ST,_2ND, _3RD,_4TH,_5TH,...) _5TH
 #define _ARG4(_1ST,_2ND, _3RD,_4TH,...) _4TH
@@ -575,16 +576,25 @@ rvtest_data_end:
 #define NARG(...) _ARG5(__VA_OPT__(__VA_ARGS__,)4,3,2,1,0)
 #define RVTEST_SIGUPD(_BR,_R,...)\
   .if NARG(__VA_ARGS__) == 1;\
-    SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    .if XLEN==64 && FLEN==32;\
+      sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    .else;\
+      SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    .endif;\
     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,)0)+REGWIDTH;\
   .endif;\
   .if NARG(__VA_ARGS__) == 0;\
-    SREG _R,offset(_BR);\
-  .set offset,offset+REGWIDTH;\
+    .if XLEN==64 && FLEN==32;\
+      sw _R,offset(_BR);\
+    .else;\
+      SREG _R,offset(_BR);\
+    .endif;\
+    .set offset,offset+REGWIDTH;\
   .endif;
   
+  
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
-  FLENN();\
+  FLENN() ;\
   .if NARG(__VA_ARGS__) == 1	;\
     .set offset, _ARG1(__VA_ARGS__,0) ;\
     .if offset > 2048-(2*SIGALIGN) ;\
@@ -593,21 +603,45 @@ rvtest_data_end:
     .endif  ;\
     .if (offset&(SIGALIGN-1))!=0 ;\
        .warning "Incorrect Offset Alginment for signature." ;\
-     .endif;\
+    .endif;\
     FSREG _R,offset+ 0(_BR) ;\
-    SREG _F,offset+SIGALIGN(_BR) ;\
+    .if XLEN==64 && FLEN==32;\
+      sw _F,offset+SIGALIGN(_BR) ;\
+    .else;\
+      SREG _F,offset+SIGALIGN(_BR) ;\
+    .endif;\
     .set offset,offset+(2*SIGALIGN) ;\
   .endif ;
+
   
-#define FLENN()  
+#define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
+  FLENN();\
+  .if NARG(__VA_ARGS__) == 1;\
+    .if XLEN==64 && FLEN==32;\
+      sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
+      sw _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
+    .else;\
+      SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+      SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
+    .endif;\
+    .set offset,_ARG1(__VA_ARGS__,0)+(2*REGWIDTH);\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 0;\
+    .if XLEN==64 && FLEN==32;\
+      sw _R,offset(_BR);\
+      sw _F,offset+REGWIDTH(_BR);\
+    .else;\
+      SREG _R,offset(_BR);\
+      SREG _F,offset+REGWIDTH(_BR);\
+    .endif;\
+    .set offset,offset+(2*REGWIDTH);\
+  .endif;
+
+#define FLENN()
   #if XLEN==64
     #if FLEN==32
-      #undef SREG
-      #undef LREG
       #undef REGWIDTH
       #undef MASK
-      #define SREG sw
-      #define LREG lW
       #define REGWIDTH 4
       #define MASK 0xFFFFFFFF
     #endif
@@ -616,21 +650,7 @@ rvtest_data_end:
     #define SIGALIGN FREGWIDTH
   #else
     #define SIGALIGN REGWIDTH
-  #endif
-  
-  
-#define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
-  FLENN();\
-  .if NARG(__VA_ARGS__) == 1;\
-    SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
-    SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
-    .set offset,_ARG1(__VA_ARGS__,0)+(2*REGWIDTH);\
-  .endif;\
-  .if NARG(__VA_ARGS__) == 0;\
-    SREG _R,offset(_BR);\
-    SREG _F,offset+REGWIDTH(_BR);\
-    .set offset,offset+(2*REGWIDTH);\
-  .endif;
+  #endif 
   
 #define RVTEST_VALBASEUPD(_BR,...)\
   .if NARG(__VA_ARGS__) == 0;\
@@ -905,7 +925,11 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 //Tests for floating-point instructions with a single register operand and integer operand register
 #define TEST_FPIO_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
-      LREG freg, val_offset(valaddr_reg); \
+      .if XLEN==64 && FLEN==32;\
+        lw freg, val_offset(valaddr_reg); \
+      .else;\
+        LREG freg, val_offset(valaddr_reg); \
+      .endif;\
       csrrwi x0, frm, rm; \
       inst destreg, freg; \
       csrrs flagreg, fflags, x0; \
