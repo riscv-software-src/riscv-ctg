@@ -94,6 +94,12 @@
   #endif
 #endif
 
+#if FREGWIDTH>REGWIDTH
+    #define SIGALIGN FREGWIDTH
+#else
+    #define SIGALIGN REGWIDTH
+#endif 
+
 /*#if XLEN==64
   #if FLEN==32
     #define SREG sw
@@ -594,7 +600,6 @@ rvtest_data_end:
   
   
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
-  FLENN() ;\
   .if NARG(__VA_ARGS__) == 1	;\
     .set offset, _ARG1(__VA_ARGS__,0) ;\
     .if offset > 2048-(2*SIGALIGN) ;\
@@ -606,7 +611,7 @@ rvtest_data_end:
     .endif;\
     FSREG _R,offset+ 0(_BR) ;\
     .if XLEN==64 && FLEN==32;\
-      sw _F,offset+SIGALIGN(_BR) ;\
+      sw _F,offset+4(_BR) ;\
     .else;\
       SREG _F,offset+SIGALIGN(_BR) ;\
     .endif;\
@@ -615,11 +620,10 @@ rvtest_data_end:
 
   
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
-  FLENN();\
   .if NARG(__VA_ARGS__) == 1;\
     .if XLEN==64 && FLEN==32;\
       sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
-      sw _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
+      sw _F,_ARG1(__VA_ARGS__,0)+4(_BR);\
     .else;\
       SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
       SREG _F,_ARG1(__VA_ARGS__,0)+REGWIDTH(_BR);\
@@ -629,7 +633,7 @@ rvtest_data_end:
   .if NARG(__VA_ARGS__) == 0;\
     .if XLEN==64 && FLEN==32;\
       sw _R,offset(_BR);\
-      sw _F,offset+REGWIDTH(_BR);\
+      sw _F,offset+4(_BR);\
     .else;\
       SREG _R,offset(_BR);\
       SREG _F,offset+REGWIDTH(_BR);\
@@ -637,20 +641,6 @@ rvtest_data_end:
     .set offset,offset+(2*REGWIDTH);\
   .endif;
 
-#define FLENN()
-  #if XLEN==64
-    #if FLEN==32
-      #undef REGWIDTH
-      #undef MASK
-      #define REGWIDTH 4
-      #define MASK 0xFFFFFFFF
-    #endif
-  #endif
-  #if FREGWIDTH>REGWIDTH
-    #define SIGALIGN FREGWIDTH
-  #else
-    #define SIGALIGN REGWIDTH
-  #endif 
   
 #define RVTEST_VALBASEUPD(_BR,...)\
   .if NARG(__VA_ARGS__) == 0;\
