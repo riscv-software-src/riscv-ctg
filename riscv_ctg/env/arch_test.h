@@ -580,8 +580,14 @@ rvtest_data_end:
 #define _ARG2(_1ST,_2ND, ...) _2ND
 #define _ARG1(_1ST,...) _1ST
 #define NARG(...) _ARG5(__VA_OPT__(__VA_ARGS__,)4,3,2,1,0)
+
+
+/* automatically adjust base and offset if offset is too big for sig size*/
+/* RVTEST_SIGUPD(basereg, sigreg)        stores sigreg at offset(basereg) and updates offset by regwidth*/
+/* RVTEST_SIGUPD(basereg, sigreg,newoff) stores sigreg at newoff(basereg) and updates offset to regwidth+newoff*/
 #define RVTEST_SIGUPD(_BR,_R,...)\
   .if NARG(__VA_ARGS__) == 1;\
+    /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd */\
     .if XLEN==64 && FLEN==32;\
       sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
     .else;\
@@ -598,7 +604,9 @@ rvtest_data_end:
     .set offset,offset+REGWIDTH;\
   .endif;
   
-  
+/* automatically adjust base and offset for Floating point tests if offset is too big for total signature size */
+/* RVTEST_SIGUPD_F(basereg, sigreg,fsigreg,newoff) stores fsigreg,sigreg at newoff(basereg) and updates offset by 2*max(fregwidth,regwidth) i.e SIGALIGN */
+/* first, figure out and align size, then replace offset with opt arg, and then make sure offset in range, then store fregwidth,regwidth */
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
   .if NARG(__VA_ARGS__) == 1	;\
     .set offset, _ARG1(__VA_ARGS__,0) ;\
@@ -607,9 +615,10 @@ rvtest_data_end:
       .set offset, offset-(2048-(2*SIGALIGN)) ;\
     .endif  ;\
     .if (offset&(SIGALIGN-1))!=0 ;\
-       .warning "Incorrect Offset Alginment for signature." ;\
+       .warning "Incorrect Offset Alginment for signature." ;/* Better to throw warnings rather than modify offset which modifies the ultimate target */\
     .endif;\
     FSREG _R,offset+ 0(_BR) ;\
+    /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd and the regwidth should be 4 instead of 8 */\
     .if XLEN==64 && FLEN==32;\
       sw _F,offset+4(_BR) ;\
     .else;\
@@ -618,9 +627,14 @@ rvtest_data_end:
     .set offset,offset+(2*SIGALIGN) ;\
   .endif ;
 
-  
+/*RVTEST_SIGUPD_FID(basereg, sigreg,fsigreg,newoff)*/
+/*It is same as the RVTEST_SIGUPD but stores twice*/
+/* stores sigreg at offset(basereg)  */
+/*stores fsigreg at offset(basereg) by adding regwidth */
+/*updates offset by 2*regwidth*/
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
+    /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd and the regwidth should be 4 instead of 8*/\
     .if XLEN==64 && FLEN==32;\
       sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
       sw _F,_ARG1(__VA_ARGS__,0)+4(_BR);\
@@ -915,8 +929,9 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 //Tests for floating-point instructions with a single register operand and integer operand register
 #define TEST_FPIO_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
+      /* For if XLEN==64 && FLEN==32 the lw instruction should be used. so, if statements is been given to use lw in place of ld */\
       .if XLEN==64 && FLEN==32;\
-        lw freg, val_offset(valaddr_reg); \
+        lw freg, val_offset(valaddr_reg);\
       .else;\
         LREG freg, val_offset(valaddr_reg); \
       .endif;\
