@@ -568,11 +568,6 @@ rvtest_data_end:
     or x2, x3, x2;\
     csrrw x0,mstatus,x2;                      
 
-
-
-/*defines the base register used to update signature values
-Register BaseReg is loaded with value Val
-hidden_offset is initialized to zero*/
 #define RVTEST_SIGBASE(_R,_TAG) \
   LA(_R,_TAG);\
   .set offset,0;
@@ -587,11 +582,9 @@ hidden_offset is initialized to zero*/
 #define NARG(...) _ARG5(__VA_OPT__(__VA_ARGS__,)4,3,2,1,0)
 
 
-/* automatically adjust base and offset if offset is too big for signature size*/
+/* automatically adjust base and offset if offset is too big for sig size*/
 /* RVTEST_SIGUPD(basereg, sigreg)        stores sigreg at offset(basereg) and updates offset by regwidth*/
 /* RVTEST_SIGUPD(basereg, sigreg,newoff) stores sigreg at newoff(basereg) and updates offset to regwidth+newoff*/
-/*hidden_offset is post incremented so repeated uses store signature values sequentially*/
-
 #define RVTEST_SIGUPD(_BR,_R,...)\
   .if NARG(__VA_ARGS__) == 1;\
     /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd */\
@@ -611,13 +604,9 @@ hidden_offset is initialized to zero*/
     .set offset,offset+REGWIDTH;\
   .endif;
   
-  
-/*  RVTEST_SIGUPD_F(basereg, sigreg,flagreg,newoff)*/
-/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPSR_OP, FPIO_OP, FPRR_OP, FPR4_OP) opcodes 
-/*  It Adjust base and offset, if offset is too big for total signature size  (offset > 2048-(2*SIGALIGN))
-/*  SIGALIGN is used to store the maximum value between FREGWIDTH and REGWIDTH.
-/*  stores flagreg,sigreg at newoff+SIGALIGN(basereg) and updates offset by 2*SIGALIGN
-/*  _BR - Base Register, _R - Signature register, _F - Flag register */ 
+/* automatically adjust base and offset for Floating point tests if offset is too big for total signature size */
+/* RVTEST_SIGUPD_F(basereg, sigreg,fsigreg,newoff) stores fsigreg,sigreg at newoff(basereg) and updates offset by 2*max(fregwidth,regwidth) i.e SIGALIGN */
+/* first, figure out and align size, then replace offset with opt arg, and then make sure offset in range, then store fregwidth,regwidth */
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
   .if NARG(__VA_ARGS__) == 1	;\
     .set offset, _ARG1(__VA_ARGS__,0) ;\
@@ -638,16 +627,14 @@ hidden_offset is initialized to zero*/
     .set offset,offset+(2*SIGALIGN) ;\
   .endif ;
 
-
-/*  RVTEST_SIGUPD_FID(basereg, sigreg,flagreg,newoff) */
-/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPID_OP, FCMP_OP) opcodes 
-/*  SigReg is stored at offset[BaseReg]  */
-/*  FlagReg is stored at offset+Regwidth[BaseReg] */
-/*  Updates offset by 2*regwidth and is post incremented so repeated uses store signature values sequentially */
-/*  _BR - Base Register, _R - Signature register, _F - Flag register */ 
+/*RVTEST_SIGUPD_FID(basereg, sigreg,fsigreg,newoff)*/
+/*It is same as the RVTEST_SIGUPD but stores twice*/
+/* stores sigreg at offset(basereg)  */
+/*stores fsigreg at offset(basereg) by adding regwidth */
+/*updates offset by 2*regwidth*/
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
-    /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd and the regwidth should be 4 instead of 8 */\
+    /* For if XLEN==64 && FLEN==32 the sw instruction should be used. so, if statements is been given to use sw in place of sd and the regwidth should be 4 instead of 8*/\
     .if XLEN==64 && FLEN==32;\
       sw _R,_ARG1(__VA_ARGS__,0)(_BR);\
       sw _F,_ARG1(__VA_ARGS__,0)+4(_BR);\
