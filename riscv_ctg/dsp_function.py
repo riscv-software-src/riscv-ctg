@@ -239,11 +239,14 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                         val = val + twocompl_offset
                     rs1_val += val << (i*bit_width)
             if xlen == 32:
-                instr['rs1_val'] = format(0xffffffff & rs1_val, f"#08x")
-                instr['rs1_val_hi'] = format(0xffffffff & (rs1_val>>32), f"#08x")
+                instr['rs1_val'] = format(0xffffffff & rs1_val, f"#0{xlen//4}x")
+                instr['rs1_val_hi'] = format(0xffffffff & (rs1_val>>32), f"#0{xlen//4}x")
                 instr['rs1_hi'] = incr_reg_num(instr['rs1'])
             else:
                 instr['rs1_val'] = format(rs1_val, f"#0{xlen//4}x")
+                instr['rs1_val_hi'] = '0x0'
+                instr['rs1_hi'] = ''
+            instr['rs1_val64'] = format(rs1_val, f"#016x")
 
         if 'rs2' in instr and rs2_is_pair:
             twocompl_offset = 1<<bit_width
@@ -262,17 +265,20 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                         val = val + twocompl_offset
                     rs2_val += val << (i*bit_width)
             if xlen == 32:
-                instr['rs2_val'] = format(0xffffffff & rs2_val, f"#08x")
-                instr['rs2_val_hi'] = format(0xffffffff & (rs2_val>>32), f"#08x")
+                instr['rs2_val'] = format(0xffffffff & rs2_val, f"#0{xlen//4}x")
+                instr['rs2_val_hi'] = format(0xffffffff & (rs2_val>>32), f"#0{xlen//4}x")
                 instr['rs2_hi'] = incr_reg_num(instr['rs2'])
             else:
                 instr['rs2_val'] = format(rs2_val, f"#0{xlen//4}x")
+                instr['rs2_val_hi'] = '0x0'
+                instr['rs2_hi'] = ''
+            instr['rs2_val64'] = format(rs2_val, f"#016x")
 
         if 'rd' in instr and rd_is_pair:
             if xlen == 32:
                 instr['rd_hi'] = incr_reg_num(instr['rd'])
             else:
-                instr['rd_hi'] = instr['rd']
+                instr['rd_hi'] = ''
 
         if 'imm_val' in instr:
             imm_val = int(instr['imm_val'])

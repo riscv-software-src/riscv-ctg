@@ -7530,8 +7530,8 @@ smal:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs1_hi_val op3val:$rs2_val;  op4val:$rs2_hi_val
-    TEST_P64_PPN_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64; op2val:$rs2_val;
+    TEST_P64_PPN_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 
 # 2.3.6 Miscellaneous Instructions
@@ -7801,8 +7801,8 @@ add64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64 op2val:$rs2_val64
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 radd64:
   stride: 1
@@ -7821,8 +7821,8 @@ radd64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 uradd64:
   stride: 1
@@ -7841,8 +7841,8 @@ uradd64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 kadd64:
   stride: 1
@@ -7861,8 +7861,8 @@ kadd64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ukadd64:
   stride: 1
@@ -7881,8 +7881,8 @@ ukadd64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 sub64:
   stride: 1
@@ -7901,8 +7901,8 @@ sub64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 rsub64:
   stride: 1
@@ -7921,8 +7921,8 @@ rsub64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ursub64:
   stride: 1
@@ -7941,8 +7941,8 @@ ursub64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ksub64:
   stride: 1
@@ -7961,8 +7961,8 @@ ksub64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 uksub64:
   stride: 1
@@ -7981,8 +7981,8 @@ uksub64:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; op4:$rs2_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val;  op4val:$rs2_val_hi
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
+    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 # 2.4.2 32-bit Multiply with 64-bit Add/Subtract Instructions
 smar64:
@@ -8003,7 +8003,7 @@ smar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smsr64:
   stride: 1
@@ -8023,7 +8023,7 @@ smsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umar64:
   stride: 1
@@ -8043,7 +8043,7 @@ umar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umsr64:
   stride: 1
@@ -8063,7 +8063,7 @@ umsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 kmar64:
   stride: 1
@@ -8083,7 +8083,7 @@ kmar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 kmsr64:
   stride: 1
@@ -8103,7 +8103,7 @@ kmsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 ukmar64:
   stride: 1
@@ -8123,7 +8123,7 @@ ukmar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 ukmsr64:
   stride: 1
@@ -8143,7 +8143,7 @@ ukmsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 
 # 2.4.3 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
@@ -8165,7 +8165,7 @@ smalbb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalbt:
   stride: 1
@@ -8185,7 +8185,7 @@ smalbt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smaltt:
   stride: 1
@@ -8205,7 +8205,7 @@ smaltt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalda:
   stride: 1
@@ -8225,7 +8225,7 @@ smalda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalxda:
   stride: 1
@@ -8245,7 +8245,7 @@ smalxda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalds:
   stride: 1
@@ -8265,7 +8265,7 @@ smalds:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smaldrs:
   stride: 1
@@ -8285,7 +8285,7 @@ smaldrs:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalxds:
   stride: 1
@@ -8305,7 +8305,7 @@ smalxds:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smslda:
   stride: 1
@@ -8325,7 +8325,7 @@ smslda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smslxda:
   stride: 1
@@ -8345,7 +8345,7 @@ smslxda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 # 2.5. Non-SIMD Instructions
 
@@ -8970,7 +8970,7 @@ mulr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val;
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 mulsr64:
   stride: 1
@@ -8990,7 +8990,7 @@ mulsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 # 2.5.4
 rdov:
@@ -9132,7 +9132,7 @@ wext:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; op3:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi op3val:$rs2_val
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64; op2val:$rs2_val
     TEST_P64_NPN_OP($inst, $rd, $rs1, $rs1_hi, $rs2, $correctval, $rs1_val, $rs1_val_hi, $rs2_val, $swreg, $offset, $testreg)
 
 wexti:
@@ -9141,7 +9141,7 @@ wexti:
   std_op:
   isa: IP
   bit_width: 64
-  p64_profile: 'np '
+  p64_profile: 'npi'
   formattype: 'iformat'
   rs1_op_data: *pair_regs
   rd_op_data: *all_regs
@@ -9151,7 +9151,7 @@ wexti:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs1_hi; dest:$rd; op1val:$rs1_val;  op2val:$rs1_val_hi; immval:$imm_val
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val64; immval:$imm_val
     TEST_P64_NP_OP($inst, $rd, $rs1, $rs1_hi, $correctval, $rs1_val, $rs1_val_hi, $imm_val, $swreg, $offset, $testreg)
 
 

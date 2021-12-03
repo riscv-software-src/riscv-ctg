@@ -936,6 +936,12 @@ class Generator():
                     if val_offset >= 2030:
                         val_offset = 0
            return instr_dict
+
+        rd_is_pair = False
+        if 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            rd_is_pair  = len(p64_profile) >= 3 and p64_profile[0]=='p'
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -950,6 +956,12 @@ class Generator():
                 available_reg.remove(instr['rs2'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
+            if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
+                available_reg.remove(instr['rs1_hi'])
+            if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
+                available_reg.remove(instr['rs2_hi'])
+            if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
+                available_reg.remove(instr['rd_hi'])
 
             if len(available_reg) <= 3:
                 curr_swreg = available_reg[0]
@@ -962,6 +974,11 @@ class Generator():
                         assigned += 1
                         if offset == 2048:
                             offset = 0
+                        if rd_is_pair:
+                            instr_dict[i]['offset_hi'] = str(offset)
+                            offset += int(xlen/8)
+                            if offset == 2048:
+                                offset = 0
                 available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
@@ -975,6 +992,11 @@ class Generator():
                     offset += int(xlen/8)
                     if offset == 2048:
                         offset = 0
+                    if rd_is_pair:
+                        instr_dict[i]['offset_hi'] = str(offset)
+                        offset += int(xlen/8)
+                        if offset == 2048:
+                            offset = 0
         return instr_dict
 
     def testreg(self, instr_dict):
@@ -1050,6 +1072,11 @@ class Generator():
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0'
             return instr_dict
+        if 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            if len(p64_profile) >= 3 and p64_profile[0]=='p':
+                for i in range(len(instr_dict)):
+                    instr_dict[i]['correctval_hi'] = '0'
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
