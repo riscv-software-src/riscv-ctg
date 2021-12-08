@@ -852,13 +852,20 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       sub destreg, destreg, testreg; \
       )
 
-//Tests for a instructions with register-immediate operand
+//Tests for instructions with register-immediate operand
 #define TEST_IMM_OP( inst, destreg, reg, correctval, val, imm, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg, MASK_XLEN(val)); \
       inst destreg, reg, SEXT_IMM(imm); \
     )
     
+//Tests for instructions with a single register operand
+#define TEST_R_OP( inst, destreg, reg, correctval, val, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(reg, MASK_XLEN(val)); \
+      inst destreg, reg; \
+    )
+
 //Tests for floating-point instructions with a single register operand
 #define TEST_FPSR_OP( inst, destreg, freg, rm, correctval, valaddr_reg, val_offset, flagreg, swreg, offset, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, offset, \
