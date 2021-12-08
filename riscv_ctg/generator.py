@@ -597,12 +597,15 @@ class Generator():
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
         else:
+            p64_profile = 'p64_profile' in self.opnode
             for i,var in enumerate(self.op_vars):
                 if self.opcode[0] == 'f' and 'fence' not in self.opcode:
                     if self.opnode[var+'_op_data'][2] == 'f':
                         instr[var] = 'f'+str(i+10)
                     else:
                         instr[var] = 'x'+str(i+10)
+                elif p64_profile:
+                    instr[var] = 'x'+str(i*2+10)
                 else:
                     instr[var] = 'x'+str(i+10)
         if val:
