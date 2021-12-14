@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.8] - 2021-10-21
+- Updated and added bitmanip_real_world.py script to generate test with real world patterns.
+
 ## [0.5.7] - 2021-09-20
 - Fix the generation of rv32ec/cswsp test
 
