@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.9] - 2021-12-20
+- Add CGFs for P extensions
+- Add support for P extension test generation
+
 ## [0.5.8] - 2021-10-21
 - Updated and added bitmanip_real_world.py script to generate test with real world patterns.
 
