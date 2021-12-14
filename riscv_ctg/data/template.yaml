@@ -9027,7 +9027,7 @@ clrov:
 
     // $comment
     // opcode: $inst
-    TEST_CASE($testreg, $correctval, $swreg, $offset, $inst)
+    TEST_CASE($testreg, x0, $correctval, $swreg, $offset, $inst)
 
 
 
