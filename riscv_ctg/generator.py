@@ -9,6 +9,7 @@ import time
 from math import *
 import struct
 import sys
+import itertools
 
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
@@ -84,6 +85,34 @@ def isInt(s):
         return True
     except ValueError:
         return False
+
+def get_default_registers(ops, datasets):
+    problem = Problem()
+    not_x0 = lambda x: x not in ['x0']
+
+    for op in ops:
+        dataset = datasets[op]
+        # problem.addVariable(op,list(random.sample(dataset, len(dataset))))
+        problem.addVariable(op,dataset)
+        problem.addConstraint(not_x0,tuple([op]))
+    if len(ops) > 1:
+        cond = " and ".join(["!=".join(x) for x in itertools.combinations(ops,2) if x[0]!=x[1]])
+    else:
+        cond = 'True'
+    def unique_constraint(*args):
+        for var,val in zip(ops,args):
+            locals()[var] = val
+        return eval(cond)
+    problem.addConstraint(unique_constraint,tuple(ops))
+    solution = None
+    count = 0
+    while solution is None and count < 5:
+        solution = problem.getSolution()
+        count += 1
+    if count == 5:
+        return []
+    else:
+        return solution
 
 class Generator():
     '''
@@ -162,6 +191,7 @@ class Generator():
                 datasets[entry] = [0]
         self.datasets = datasets
         self.random=randomization
+        self.default_regs = get_default_registers(self.op_vars, self.datasets)
 
     def opcomb(self, cgf):
         '''
@@ -597,17 +627,8 @@ class Generator():
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
         else:
-            p64_profile = 'p64_profile' in self.opnode
             for i,var in enumerate(self.op_vars):
-                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-                    if self.opnode[var+'_op_data'][2] == 'f':
-                        instr[var] = 'f'+str(i+10)
-                    else:
-                        instr[var] = 'x'+str(i+10)
-                elif p64_profile:
-                    instr[var] = 'x'+str(i*2+10)
-                else:
-                    instr[var] = 'x'+str(i+10)
+                instr[var]=self.default_regs[var]
         if val:
             for i,var in enumerate(self.val_vars):
                 instr[var] = str(val[i])
