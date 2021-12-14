@@ -1503,7 +1503,7 @@ smul16:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1522,7 +1522,7 @@ smulx16:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1541,7 +1541,7 @@ umul16:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1560,7 +1560,7 @@ umulx16:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1617,7 +1617,7 @@ smul8:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1636,7 +1636,7 @@ smulx8:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1655,7 +1655,7 @@ umul8:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -1674,7 +1674,7 @@ umulx8:
     rs2:
       <<: *all_regs
     rd:
-      <<: *all_regs
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:

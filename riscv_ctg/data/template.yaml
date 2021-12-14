@@ -5375,10 +5375,11 @@ smul16:
   std_op:
   isa: IP
   bit_width: 16
+  p64_profile: 'pnn'
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_h0_val_data: 'gen_sign_dataset(16)'
   rs1_h1_val_data: 'gen_sign_dataset(16)'
   rs1_h2_val_data: 'gen_sign_dataset(16)'
@@ -5391,7 +5392,7 @@ smul16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smulx16:
   stride: 1
@@ -5399,10 +5400,11 @@ smulx16:
   std_op:
   isa: IP
   bit_width: 16
+  p64_profile: 'pnn'
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_h0_val_data: 'gen_sign_dataset(16)'
   rs1_h1_val_data: 'gen_sign_dataset(16)'
   rs1_h2_val_data: 'gen_sign_dataset(16)'
@@ -5415,7 +5417,7 @@ smulx16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umul16:
   stride: 1
@@ -5423,10 +5425,11 @@ umul16:
   std_op:
   isa: IP
   bit_width: 16
+  p64_profile: 'pnn'
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_h0_val_data: 'gen_usign_dataset(16)'
   rs1_h1_val_data: 'gen_usign_dataset(16)'
   rs1_h2_val_data: 'gen_usign_dataset(16)'
@@ -5439,7 +5442,7 @@ umul16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umulx16:
   stride: 1
@@ -5447,10 +5450,11 @@ umulx16:
   std_op:
   isa: IP
   bit_width: 16
+  p64_profile: 'pnn'
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_h0_val_data: 'gen_usign_dataset(16)'
   rs1_h1_val_data: 'gen_usign_dataset(16)'
   rs1_h2_val_data: 'gen_usign_dataset(16)'
@@ -5463,7 +5467,7 @@ umulx16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 khm16:
   stride: 1
@@ -5519,10 +5523,11 @@ smul8:
   std_op:
   isa: IP
   bit_width: 8
+  p64_profile: 'pnn'
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_b0_val_data: 'gen_sign_dataset(8)'
   rs1_b1_val_data: 'gen_sign_dataset(8)'
   rs1_b2_val_data: 'gen_sign_dataset(8)'
@@ -5543,7 +5548,7 @@ smul8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smulx8:
   stride: 1
@@ -5551,10 +5556,11 @@ smulx8:
   std_op:
   isa: IP
   bit_width: 8
+  p64_profile: 'pnn'
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_b0_val_data: 'gen_sign_dataset(8)'
   rs1_b1_val_data: 'gen_sign_dataset(8)'
   rs1_b2_val_data: 'gen_sign_dataset(8)'
@@ -5575,7 +5581,7 @@ smulx8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umul8:
   stride: 1
@@ -5583,10 +5589,11 @@ umul8:
   std_op:
   isa: IP
   bit_width: 8
+  p64_profile: 'pnn'
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_b0_val_data: 'gen_usign_dataset(8)'
   rs1_b1_val_data: 'gen_usign_dataset(8)'
   rs1_b2_val_data: 'gen_usign_dataset(8)'
@@ -5607,7 +5614,7 @@ umul8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umulx8:
   stride: 1
@@ -5615,10 +5622,11 @@ umulx8:
   std_op:
   isa: IP
   bit_width: 8
+  p64_profile: 'pnn'
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
-  rd_op_data: *all_regs
+  rd_op_data: *pair_regs
   rs1_b0_val_data: 'gen_usign_dataset(8)'
   rs1_b1_val_data: 'gen_usign_dataset(8)'
   rs1_b2_val_data: 'gen_usign_dataset(8)'
@@ -5639,7 +5647,7 @@ umulx8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 khm8:
   stride: 1
