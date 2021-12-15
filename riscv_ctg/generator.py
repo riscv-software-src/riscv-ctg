@@ -894,6 +894,15 @@ class Generator():
                 else:
                     i+=1
 
+        if self.opnode['isa'] == 'IP':
+            if 'p64_profile' in self.opnode:
+                gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
+            elif 'bit_width' in self.opnode:
+                if (type(self.opnode['bit_width'])==int):
+                    concat_simd_data(final_instr, xlen, self.opnode['bit_width'])
+                elif (type(self.opnode['bit_width'])==str):
+                    concat_simd_data(final_instr, xlen, tuple(map(int, self.opnode['bit_width'].split(','))))
+
         return final_instr
 
     def swreg(self, instr_dict):
@@ -961,10 +970,21 @@ class Generator():
                         val_offset = 0
            return instr_dict
 
-        rd_is_pair = False
+        rs1_is_pair=False
+        rs2_is_pair=False
+        rd_is_pair=False
+        paired_regs=0
         if 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
-            rd_is_pair  = len(p64_profile) >= 3 and p64_profile[0]=='p'
+            rd_is_pair = len(p64_profile) >= 3 and p64_profile[0]=='p'
+            rs1_is_pair = len(p64_profile) >= 3 and p64_profile[1]=='p'
+            rs2_is_pair = len(p64_profile) >= 3 and p64_profile[2]=='p'
+        if rs1_is_pair:
+            paired_regs += 1
+        if rs2_is_pair:
+            paired_regs += 1
+        if rd_is_pair:
+            paired_regs += 1
 
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
@@ -974,20 +994,23 @@ class Generator():
         assigned = 0
         offset = 0
         for instr in instr_dict:
+            if rd_is_pair and not 'rd_hi' in instr:
+                print("instr={}".format(instr))
+
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
             if 'rs2' in instr and instr['rs2'] in available_reg:
                 available_reg.remove(instr['rs2'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
-            if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
+            if rs1_is_pair and instr['rs1_hi'] in available_reg:
                 available_reg.remove(instr['rs1_hi'])
-            if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
+            if rs2_is_pair and instr['rs2_hi'] in available_reg:
                 available_reg.remove(instr['rs2_hi'])
-            if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
+            if rd_is_pair and instr['rd_hi'] in available_reg:
                 available_reg.remove(instr['rd_hi'])
 
-            if len(available_reg) <= 3:
+            if len(available_reg) <= 3+paired_regs:
                 curr_swreg = available_reg[0]
                 offset = 0
                 for i in range(assigned, count+1):
@@ -1056,17 +1079,39 @@ class Generator():
         count = 0
         assigned = 0
 
+        rs1_is_pair=False
+        rs2_is_pair=False
+        rd_is_pair=False
+        paired_regs=0
+        if 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            rd_is_pair = len(p64_profile) >= 3 and p64_profile[0]=='p'
+            rs1_is_pair = len(p64_profile) >= 3 and p64_profile[1]=='p'
+            rs2_is_pair = len(p64_profile) >= 3 and p64_profile[2]=='p'
+        if rs1_is_pair:
+            paired_regs += 1
+        if rs2_is_pair:
+            paired_regs += 1
+        if rd_is_pair:
+            paired_regs += 1
+
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
+                if rs1_is_pair and instr['rs1_hi'] in available_reg:
+                    available_reg.remove(instr['rs1_hi'])
             if 'rs2' in instr and instr['rs2'] in available_reg:
                 available_reg.remove(instr['rs2'])
+                if rs2_is_pair and instr['rs2_hi'] in available_reg:
+                    available_reg.remove(instr['rs2_hi'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
+                if rd_is_pair and instr['rd_hi'] in available_reg:
+                    available_reg.remove(instr['rd_hi'])
             if 'swreg' in instr and instr['swreg'] in available_reg:
                 available_reg.remove(instr['swreg'])
 
-            if len(available_reg) <= 3:
+            if len(available_reg) <= (4+paired_regs):
                 curr_testreg = available_reg[0]
                 for i in range(assigned, count+1):
                     if 'testreg' not in instr_dict[i]:
@@ -1125,17 +1170,10 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
         mydict = instr_dict.copy()
-        if (self.opnode['isa'] == 'IP'):
-            if ('p64_profile' in self.opnode):
-                gen_pair_reg_data(instr_dict, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
-                return instr_dict
 
-            if ('bit_width' in self.opnode):
-                if (type(self.opnode['bit_width'])==int):
-                    concat_simd_data(instr_dict, xlen, self.opnode['bit_width'])
-                elif (type(self.opnode['bit_width'])==str):
-                    concat_simd_data(instr_dict, xlen, tuple(map(int, self.opnode['bit_width'].split(','))))
-                return instr_dict
+        if self.opnode['isa'] == 'IP':
+            if 'p64_profile' in self.opnode or 'bit_width' in self.opnode:
+                return mydict
 
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
