@@ -1003,7 +1003,7 @@ kslli16:
 
 kslra16:
     config:
-      - check isa:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kslra16: 0
     rs1:
@@ -1023,7 +1023,7 @@ kslra16:
 
 kslra16.u:
     config:
-      - check isa:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kslra16.u: 0
     rs1:
@@ -1259,7 +1259,7 @@ kslli8:
 
 kslra8:
     config:
-      - check isa:=regex(.*i.*p.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kslra8: 0
     rs1:
@@ -1279,7 +1279,7 @@ kslra8:
 
 kslra8.u:
     config:
-      - check isa:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kslra8.u: 0
     rs1:

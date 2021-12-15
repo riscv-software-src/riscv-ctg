@@ -807,7 +807,7 @@ kslli32:
 
 kslra32:
     config: 
-      - check isa:=regex(.*i.*p.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode: 
       kslra32: 0
     rs1: 
@@ -827,7 +827,7 @@ kslra32:
 
 kslra32.u:
     config: 
-      - check isa:=regex(.*i.*p.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode: 
       kslra32.u: 0
     rs1: 
