@@ -217,13 +217,13 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
     :type p64_profile: string
 
     '''
-    rs1_is_pair = len(p64_profile) >= 3 and p64_profile[1]=='p'
-    rs2_is_pair = len(p64_profile) >= 3 and p64_profile[2]=='p'
-    rd_is_pair  = len(p64_profile) >= 3 and p64_profile[0]=='p'
+    rs1_is_paired = len(p64_profile) >= 3 and p64_profile[1]=='p'
+    rs2_is_paired = len(p64_profile) >= 3 and p64_profile[2]=='p'
+    rd_is_paired  = len(p64_profile) >= 3 and p64_profile[0]=='p'
 
     for instr in instr_dict:
         if 'rs1' in instr:
-            op_width = 64 if rs1_is_pair else xlen
+            op_width = 64 if rs1_is_paired else xlen
             twocompl_offset = 1<<bit_width
             fmt, sz= get_fmt_sz(bit_width)
 
@@ -239,7 +239,7 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                     if val < 0:
                         val = val + twocompl_offset
                     rs1_val += val << (i*bit_width)
-            if xlen == 32 and rs1_is_pair:
+            if xlen == 32 and rs1_is_paired:
                 instr['rs1_val'] = format(0xffffffff & rs1_val, f"#0{2+xlen//4}x")
                 instr['rs1_val_hi'] = format(0xffffffff & (rs1_val>>32), f"#0{2+xlen//4}x")
                 instr['rs1_hi'] = incr_reg_num(instr['rs1'])
@@ -250,7 +250,7 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
             instr['rs1_val64'] = format(rs1_val, f"#018x")
 
         if 'rs2' in instr:
-            op_width = 64 if rs2_is_pair else xlen
+            op_width = 64 if rs2_is_paired else xlen
             twocompl_offset = 1<<bit_width
             fmt, sz= get_fmt_sz(bit_width)
 
@@ -276,7 +276,7 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                 instr['rs2_hi'] = ''
             instr['rs2_val64'] = format(rs2_val, f"#018x")
 
-        if 'rd' in instr and rd_is_pair:
+        if 'rd' in instr and rd_is_paired:
             if xlen == 32:
                 instr['rd_hi'] = incr_reg_num(instr['rd'])
             else:
