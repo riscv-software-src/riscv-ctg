@@ -3058,7 +3058,7 @@ kmsxda:
 # 2.3.5
 smal:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smal: 0
     rs1:
@@ -3245,7 +3245,7 @@ smaqa.su:
 # 2.4.1
 add64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       add64: 0
     rs1:
@@ -3263,7 +3263,7 @@ add64:
 
 radd64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       radd64: 0
     rs1:
@@ -3281,7 +3281,7 @@ radd64:
 
 uradd64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       uradd64: 0
     rs1:
@@ -3293,13 +3293,13 @@ uradd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
 kadd64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kadd64: 0
     rs1:
@@ -3317,7 +3317,7 @@ kadd64:
 
 ukadd64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       ukadd64: 0
     rs1:
@@ -3329,13 +3329,13 @@ ukadd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
 sub64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       sub64: 0
     rs1:
@@ -3353,7 +3353,7 @@ sub64:
 
 rsub64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       rsub64: 0
     rs1:
@@ -3371,7 +3371,7 @@ rsub64:
 
 ursub64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       ursub64: 0
     rs1:
@@ -3383,13 +3383,13 @@ ursub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
 ksub64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       ksub64: 0
     rs1:
@@ -3407,7 +3407,7 @@ ksub64:
 
 uksub64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       uksub64: 0
     rs1:
@@ -3419,14 +3419,14 @@ uksub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
 # 2.4.2
 smar64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smar64: 0
     rs1:
@@ -3438,13 +3438,14 @@ smar64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
 
 smsr64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smsr64: 0
     rs1:
@@ -3456,13 +3457,14 @@ smsr64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
 
 umar64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       umar64: 0
     rs1:
@@ -3474,13 +3476,14 @@ umar64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
 
 umsr64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       umsr64: 0
     rs1:
@@ -3492,13 +3495,14 @@ umsr64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
 
 kmar64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kmar64: 0
     rs1:
@@ -3510,13 +3514,14 @@ kmar64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
 
 kmsr64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       kmsr64: 0
     rs1:
@@ -3528,13 +3533,14 @@ kmsr64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_val_comb(xlen, 32, signed=True)': 0
 
 ukmar64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       ukmar64: 0
     rs1:
@@ -3546,13 +3552,14 @@ ukmar64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
 
 ukmsr64:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       ukmsr64: 0
     rs1:
@@ -3564,14 +3571,15 @@ ukmsr64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+        'simd_val_comb(xlen, 32, signed=False)': 0
 
 # 2.4.3
 smalbb:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalbb: 0
     rs1:
@@ -3583,13 +3591,14 @@ smalbb:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smalbt:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalbt: 0
     rs1:
@@ -3601,13 +3610,14 @@ smalbt:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smaltt:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smaltt: 0
     rs1:
@@ -3619,13 +3629,14 @@ smaltt:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smalda:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalda: 0
     rs1:
@@ -3637,13 +3648,14 @@ smalda:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smalxda:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalxda: 0
     rs1:
@@ -3655,13 +3667,14 @@ smalxda:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smalds:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalds: 0
     rs1:
@@ -3673,13 +3686,14 @@ smalds:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smaldrs:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smaldrs: 0
     rs1:
@@ -3691,13 +3705,14 @@ smaldrs:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smalxds:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smalxds: 0
     rs1:
@@ -3709,13 +3724,14 @@ smalxds:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smslda:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smslda: 0
     rs1:
@@ -3727,13 +3743,14 @@ smslda:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 smslxda:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       smslxda: 0
     rs1:
@@ -4292,7 +4309,7 @@ msubr32:
 
 rdov:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       rdov: 0
     rd:
@@ -4301,7 +4318,7 @@ rdov:
 
 clrov:
     config:
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*P.*)
     opcode:
       clrov: 0
     rd:
