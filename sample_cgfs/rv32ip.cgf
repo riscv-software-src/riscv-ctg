@@ -3070,9 +3070,9 @@ smal:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
 
 # 2.3.6 Miscellaneous Instructions
 
@@ -3257,9 +3257,9 @@ add64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 radd64:
     config:
@@ -3275,9 +3275,9 @@ radd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 uradd64:
     config:
@@ -3293,9 +3293,9 @@ uradd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
+      <<: [*rvp64_rs1val_unsgn, *rvp64_rs2val_unsgn, *rfmt_val_comb_unsgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_unsgn, *rvp64_rs2val_walking_unsgn]
 
 kadd64:
     config:
@@ -3311,9 +3311,9 @@ kadd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 ukadd64:
     config:
@@ -3329,9 +3329,9 @@ ukadd64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
+      <<: [*rvp64_rs1val_unsgn, *rvp64_rs2val_unsgn, *rfmt_val_comb_unsgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_unsgn, *rvp64_rs2val_walking_unsgn]
 
 sub64:
     config:
@@ -3347,9 +3347,9 @@ sub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 rsub64:
     config:
@@ -3365,9 +3365,9 @@ rsub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 ursub64:
     config:
@@ -3383,9 +3383,9 @@ ursub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
+      <<: [*rvp64_rs1val_unsgn, *rvp64_rs2val_unsgn, *rfmt_val_comb_unsgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_unsgn, *rvp64_rs2val_walking_unsgn]
 
 ksub64:
     config:
@@ -3401,9 +3401,9 @@ ksub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*rvp64_rs1val_sgn, *rvp64_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_sgn, *rvp64_rs2val_walking_sgn]
 
 uksub64:
     config:
@@ -3419,9 +3419,9 @@ uksub64:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
+      <<: [*rvp64_rs1val_unsgn, *rvp64_rs2val_unsgn, *rfmt_val_comb_unsgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        <<: [*rvp64_rs1val_walking_unsgn, *rvp64_rs2val_walking_unsgn]
 
 # 2.4.2
 smar64:
@@ -3762,9 +3762,10 @@ smslxda:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *rs2val_walking]
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 # 2.5 Non-SIMD Instructions
 
@@ -4212,8 +4213,8 @@ uraddw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
 
 rsubw:
     config:
@@ -4248,16 +4249,32 @@ ursubw:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
 
-maxw:
+wexti:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      maxw: 0
+      wexti: 0
     rs1:
+      <<: *pair_regs
+    rd:
       <<: *all_regs
+    op_comb:
+      <<: *ifmt_op_comb
+    val_comb:
+      <<: [*rvp64_rs1val_sgn]
+      abstract_comb:
+        'simd_imm_val("imm_val", 5)': 0
+
+wext:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      wext: 0
+    rs1:
+      <<: *pair_regs
     rs2:
       <<: *all_regs
     rd:
@@ -4265,27 +4282,9 @@ maxw:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
+      <<: [*rvp64_rs1val_sgn]
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
-
-minw:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      minw: 0
-    rs1:
-      <<: *all_regs
-    rs2:
-      <<: *all_regs
-    rd:
-      <<: *all_regs
-    op_comb:
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 8, signed=False)': 0
 
 msubr32:
     config:
@@ -4298,6 +4297,41 @@ msubr32:
       <<: *all_regs
     rd:
       <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
+
+mulr64:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      mulr64: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *pair_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 32, signed=False)': 0
+        'simd_base_val("rs2", xlen, 32, signed=False)': 0
+mulsr64:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      mulrs64: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *pair_regs
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
@@ -4339,7 +4373,7 @@ ave:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn, *base_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
@@ -4357,7 +4391,7 @@ sra.u:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn, *base_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
@@ -4391,7 +4425,7 @@ bitrev:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn, *base_rs2val_sgn, *rfmt_val_comb_sgn]
       abstract_comb:
         <<: [*rs1val_walking, *rs2val_walking]
 
@@ -4423,9 +4457,9 @@ insb:
     op_comb:
       <<: *ifmt_op_comb
     val_comb:
-      <<: [ *ifmt_val_comb_unsgn, *base_rs1val_sgn, *ifmt_base_immval_unsgn_len_sub_3]
+      <<: [*base_rs1val_sgn]
       abstract_comb:
-        <<: [*rs1val_walking, *ifmt_immval_walking_len_sub_3]
+        'simd_imm_val("imm_val", 3)': 0
 
 
 maddr32:
@@ -4443,6 +4477,6 @@ maddr32:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, xlen, signed=True)': 0
-        'simd_base_val("rs2", xlen, xlen, signed=True)': 0
+        'simd_base_val("rs1", xlen, 32, signed=True)': 0
+        'simd_base_val("rs2", xlen, 32, signed=True)': 0
 

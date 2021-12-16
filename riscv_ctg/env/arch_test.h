@@ -950,13 +950,6 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       inst imm_val; \
       )
 
-#define TEST_RRR_OP(inst, destreg, reg1, reg2, reg3, correctval, val1, val2, swreg, offset, testreg) \
-    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
-      LI(reg1, MASK_XLEN(val1)); \
-      LI(reg2, MASK_XLEN(val2)); \
-      inst destreg, reg1, reg2; \
-    )
-
 #if __riscv_xlen == 32
 //Tests for a instruction with register pair operands for all its three operands
 #define TEST_P64_PPP_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, reg2_hi, correctval, correctval_hi, val1, val1_hi, val2, val2_hi, swreg, offset, offset_hi, testreg) \

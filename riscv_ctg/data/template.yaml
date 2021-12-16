@@ -4361,38 +4361,6 @@ ursub8:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 
-usub8:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 8
-  formattype: 'pbrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_usign_dataset(8)'
-  rs1_b1_val_data: 'gen_usign_dataset(8)'
-  rs1_b2_val_data: 'gen_usign_dataset(8)'
-  rs1_b3_val_data: 'gen_usign_dataset(8)'
-  rs1_b4_val_data: 'gen_usign_dataset(8)'
-  rs1_b5_val_data: 'gen_usign_dataset(8)'
-  rs1_b6_val_data: 'gen_usign_dataset(8)'
-  rs1_b7_val_data: 'gen_usign_dataset(8)'
-  rs2_b0_val_data: 'gen_usign_dataset(8)'
-  rs2_b1_val_data: 'gen_usign_dataset(8)'
-  rs2_b2_val_data: 'gen_usign_dataset(8)'
-  rs2_b3_val_data: 'gen_usign_dataset(8)'
-  rs2_b4_val_data: 'gen_usign_dataset(8)'
-  rs2_b5_val_data: 'gen_usign_dataset(8)'
-  rs2_b6_val_data: 'gen_usign_dataset(8)'
-  rs2_b7_val_data: 'gen_usign_dataset(8)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 ksub8:
   stride: 1
   xlen: [32,64]
@@ -7527,13 +7495,16 @@ smal:
   isa: IP
   bit_width: 16
   p64_profile: 'ppn'
-  formattype: 'prrformat'
+  formattype: 'pphrrformat'
   rs1_op_data: *pair_regs
   rs2_op_data: *all_regs
 
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -7803,8 +7774,8 @@ add64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7823,8 +7794,8 @@ radd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7843,8 +7814,8 @@ uradd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(64)'
+  rs2_val_data: 'gen_usign_dataset(64)'
 
   template: |-
 
@@ -7863,8 +7834,8 @@ kadd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7883,8 +7854,8 @@ ukadd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(64)'
+  rs2_val_data: 'gen_usign_dataset(64)'
 
   template: |-
 
@@ -7903,8 +7874,8 @@ sub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7923,8 +7894,8 @@ rsub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7943,8 +7914,8 @@ ursub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(64)'
+  rs2_val_data: 'gen_usign_dataset(64)'
 
   template: |-
 
@@ -7963,8 +7934,8 @@ ksub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_val_data: 'gen_sign_dataset(64)'
 
   template: |-
 
@@ -7983,8 +7954,8 @@ uksub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(64)'
+  rs2_val_data: 'gen_usign_dataset(64)'
 
   template: |-
 
@@ -7998,14 +7969,16 @@ smar64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
 
   template: |-
 
@@ -8018,14 +7991,16 @@ smsr64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
 
   template: |-
 
@@ -8038,14 +8013,16 @@ umar64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
 
   template: |-
 
@@ -8058,14 +8035,16 @@ umsr64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
 
   template: |-
 
@@ -8078,14 +8057,16 @@ kmar64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
 
   template: |-
 
@@ -8098,14 +8079,16 @@ kmsr64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
 
   template: |-
 
@@ -8118,14 +8101,16 @@ ukmar64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
 
   template: |-
 
@@ -8138,14 +8123,16 @@ ukmsr64:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
 
   template: |-
 
@@ -8160,14 +8147,20 @@ smalbb:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8180,14 +8173,20 @@ smalbt:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8200,14 +8199,20 @@ smaltt:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8220,14 +8225,20 @@ smalda:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8240,14 +8251,20 @@ smalxda:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8260,14 +8277,20 @@ smalds:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8280,14 +8303,20 @@ smaldrs:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8300,14 +8329,20 @@ smalxds:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8320,14 +8355,20 @@ smslda:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8340,14 +8381,20 @@ smslxda:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 16
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'phrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
 
   template: |-
 
@@ -8845,7 +8892,9 @@ raddw:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
   rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -8863,7 +8912,9 @@ uraddw:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
   rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
   template: |-
 
     // $comment
@@ -8881,7 +8932,9 @@ rsubw:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
   rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -8899,43 +8952,9 @@ ursubw:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
   rs2_w0_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-maxw:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-minw:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
   template: |-
 
     // $comment
@@ -8953,7 +8972,9 @@ msubr32:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
   rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -8967,12 +8988,14 @@ mulr64:
   isa: IP
   bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
 
   template: |-
 
@@ -8987,12 +9010,14 @@ mulsr64:
   isa: IP
   bit_width: 32
   p64_profile: 'pnn'
-  formattype: 'prrformat'
+  formattype: 'pwrrformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
 
   template: |-
 
@@ -9128,14 +9153,21 @@ wext:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 64
+  bit_width: 64, 8
   p64_profile: 'npn'
-  formattype: 'prrformat'
+  formattype: 'ppbrrformat'
   rs1_op_data: *pair_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
+  rs2_b0_val_data: 'gen_usign_dataset(8)'
+  rs2_b1_val_data: 'gen_usign_dataset(8)'
+  rs2_b2_val_data: 'gen_usign_dataset(8)'
+  rs2_b3_val_data: 'gen_usign_dataset(8)'
+  rs2_b4_val_data: 'gen_usign_dataset(8)'
+  rs2_b5_val_data: 'gen_usign_dataset(8)'
+  rs2_b6_val_data: 'gen_usign_dataset(8)'
+  rs2_b7_val_data: 'gen_usign_dataset(8)'
 
   template: |-
 
@@ -9153,7 +9185,7 @@ wexti:
   formattype: 'iformat'
   rs1_op_data: *pair_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(64)'
   imm_val_data: 'gen_imm_dataset(ceil(log(32,2)))'
 
   template: |-
@@ -9164,31 +9196,11 @@ wexti:
 
 
 
-bpick:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  formattype: 'prrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rs3_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
-  rs3_val_data: 'gen_sign_dataset(xlen)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val op3val:$rs3_val
-    TEST_RRR_OP($inst, $rd, $rs1, $rs2, $rs3, $correctval, $rs1_val, $rs2_val, $rs3_val, $swreg, $offset, $testreg)
-
 insb:
   stride: 1
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -9212,7 +9224,9 @@ maddr32:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
   rs2_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
   template: |-
 
     // $comment

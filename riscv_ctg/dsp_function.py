@@ -12,6 +12,8 @@ OPS_RVP = {
     'pwrformat': ['rs1', 'rd'],
     'pswrrformat': ['rs1', 'rs2', 'rd'],
     'pwhrrformat': ['rs1', 'rs2', 'rd'],
+    'pphrrformat': ['rs1', 'rs2', 'rd'],
+    'ppbrrformat': ['rs1', 'rs2', 'rd'],
     'prrformat': ['rs1', 'rs2', 'rd'],
     'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
 
@@ -32,7 +34,9 @@ VALS_RVP = {
     'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
     'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]',
     'pwhrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 16)',
-    'prrformat': "['rs1_val', 'rs2_val']",
+    'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
+    'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
+    'prrformat': '["rs1_val", "rs2_val"]',
     'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
 
 }

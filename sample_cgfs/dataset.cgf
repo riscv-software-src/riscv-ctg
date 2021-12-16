@@ -446,3 +446,45 @@ datasets:
     'walking_ones("imm_val", 12,False)': 0
     'walking_zeros("imm_val", 12,False)': 0
     'alternate("imm_val",12,False)': 0
+
+  rvp64_rs1val_sgn: &rvp64_rs1val_sgn
+    'rs1_val == (-2**63)': 0
+    'rs1_val == 0': 0
+    'rs1_val == (2**63-1)': 0
+    'rs1_val == 1': 0
+
+  rvp64_rs2val_sgn: &rvp64_rs2val_sgn
+    'rs2_val == (-2**63)': 0
+    'rs2_val == 0': 0
+    'rs2_val == (2**63-1)': 0
+    'rs2_val == 1': 0
+
+  rvp64_rs1val_unsgn: &rvp64_rs1val_unsgn
+    'rs1_val == 0': 0
+    'rs1_val == (2**64-1)': 0
+    'rs1_val == 1': 0
+
+  rvp64_rs2val_unsgn: &rvp64_rs2val_unsgn
+    'rs2_val == 0': 0
+    'rs2_val == (2**64-1)': 0
+    'rs2_val == 1': 0
+
+  rvp64_rs1val_walking_sgn: &rvp64_rs1val_walking_sgn
+    'walking_ones("rs1_val", 64)': 0
+    'walking_zeros("rs1_val", 64)': 0
+    'alternate("rs1_val",64)': 0
+
+  rvp64_rs2val_walking_sgn: &rvp64_rs2val_walking_sgn
+    'walking_ones("rs2_val", 64)': 0
+    'walking_zeros("rs2_val", 64)': 0
+    'alternate("rs2_val",64)': 0
+
+  rvp64_rs1val_walking_unsgn: &rvp64_rs1val_walking_unsgn
+    'walking_ones("rs1_val", 64, signed=False)': 0
+    'walking_zeros("rs1_val", 64, signed=False)': 0
+    'alternate("rs1_val",64, signed=False)': 0
+
+  rvp64_rs2val_walking_unsgn: &rvp64_rs2val_walking_unsgn
+    'walking_ones("rs2_val", 64, signed=False)': 0
+    'walking_zeros("rs2_val", 64, signed=False)': 0
+    'alternate("rs2_val",64, signed=False)': 0
