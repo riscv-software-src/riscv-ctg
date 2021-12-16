@@ -142,14 +142,14 @@ def concat_simd_data(instr_dict, xlen, _bit_width):
 
     :param instr_dict: a dict holding metadata and operand data for the current instruction.
     :param xlen: an integer indicating the XLEN value to be used.
-    :param bit_width: an integer indicating the element bit width of the current RVP instruction.
+    :param bit_width: an integer or string of integer pair indicating the element bit width of rs1/rs2 of the current RVP instruction.
 
     :type instr_dict: dict
     :type xlen: int
     :type bit_width: int
     '''
-    if type(_bit_width)==tuple:
-        bit_width1, bit_width2 = _bit_width
+    if type(_bit_width)==str:
+        bit_width1, bit_width2 = map(int, _bit_width.split(','))
     else:
         bit_width1, bit_width2 = _bit_width, _bit_width
 
@@ -201,14 +201,14 @@ def incr_reg_num(reg):
     num = num + 1
     return name + str(num)
 
-def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
+def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
     '''
     This function generate high registers for paired register operands, rs1_hi, rs2_hi and rd_hi depending on the specification of the p64_profile string.
     It also generate the corresponding values rs1_val_hi, rs2_val_hi.
 
     :param instr_dict: a dict holding metadata and operand data for the current instruction.
     :param xlen: an integer indicating the XLEN value to be used.
-    :param bit_width: an integer indicating the element bit width of the current RVP instruction.
+    :param bit_width: an integer or string of integer pair indicating the element bit width of rs1/rs2 of the current RVP instruction.
     :param p64_profile: a string of 3 chars indicating the type of operands (pair/non-pair) of the current RVP instruction. (rd, rs1 and rs2)
 
     :type instr_dict: dict
@@ -217,6 +217,10 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
     :type p64_profile: string
 
     '''
+    if type(_bit_width)==str:
+        bit_width1, bit_width2 = map(int, _bit_width.split(','))
+    else:
+        bit_width1, bit_width2 = _bit_width, _bit_width
     rs1_is_paired = len(p64_profile) >= 3 and p64_profile[1]=='p'
     rs2_is_paired = len(p64_profile) >= 3 and p64_profile[2]=='p'
     rd_is_paired  = len(p64_profile) >= 3 and p64_profile[0]=='p'
@@ -224,8 +228,8 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
     for instr in instr_dict:
         if 'rs1' in instr:
             op_width = 64 if rs1_is_paired else xlen
-            twocompl_offset = 1<<bit_width
-            fmt, sz= get_fmt_sz(bit_width)
+            twocompl_offset = 1<<bit_width1
+            fmt, sz= get_fmt_sz(bit_width1)
 
             if 'rs1_val' in instr:
                 rs1_val = int(instr['rs1_val'])
@@ -233,12 +237,12 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                     rs1_val = rs1_val + twocompl_offset
             else:
                 rs1_val = 0
-                for i in range(op_width//bit_width):
+                for i in range(op_width//bit_width1):
                     val_var = f"rs1_{sz}{i}_val"
                     val = int(instr[val_var])
                     if val < 0:
                         val = val + twocompl_offset
-                    rs1_val += val << (i*bit_width)
+                    rs1_val += val << (i*bit_width1)
             if xlen == 32 and rs1_is_paired:
                 instr['rs1_val'] = format(0xffffffff & rs1_val, f"#0{2+xlen//4}x")
                 instr['rs1_val_hi'] = format(0xffffffff & (rs1_val>>32), f"#0{2+xlen//4}x")
@@ -249,8 +253,8 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
 
         if 'rs2' in instr:
             op_width = 64 if rs2_is_paired else xlen
-            twocompl_offset = 1<<bit_width
-            fmt, sz= get_fmt_sz(bit_width)
+            twocompl_offset = 1<<bit_width2
+            fmt, sz= get_fmt_sz(bit_width2)
 
             if 'rs2_val' in instr:  # single element value
                 rs2_val = int(instr['rs2_val'])
@@ -258,12 +262,12 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                     rs2_val = rs2_val + twocompl_offset
             else: # concatenates all element of a SIMD register into a single value
                 rs2_val = 0
-                for i in range(op_width//bit_width):
+                for i in range(op_width//bit_width2):
                     val_var = f"rs2_{sz}{i}_val"
                     val = int(instr[val_var])
                     if val < 0:
                         val = val + twocompl_offset
-                    rs2_val += val << (i*bit_width)
+                    rs2_val += val << (i*bit_width2)
             if xlen == 32:
                 instr['rs2_val'] = format(0xffffffff & rs2_val, f"#0{2+xlen//4}x")
                 instr['rs2_val_hi'] = format(0xffffffff & (rs2_val>>32), f"#0{2+xlen//4}x")

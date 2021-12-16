@@ -898,10 +898,7 @@ class Generator():
             if 'p64_profile' in self.opnode:
                 gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
             elif 'bit_width' in self.opnode:
-                if (type(self.opnode['bit_width'])==int):
-                    concat_simd_data(final_instr, xlen, self.opnode['bit_width'])
-                elif (type(self.opnode['bit_width'])==str):
-                    concat_simd_data(final_instr, xlen, tuple(map(int, self.opnode['bit_width'].split(','))))
+                concat_simd_data(final_instr, xlen, self.opnode['bit_width'])
 
         return final_instr
 
