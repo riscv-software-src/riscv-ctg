@@ -970,21 +970,12 @@ class Generator():
                         val_offset = 0
            return instr_dict
 
-        rs1_is_paired=False
-        rs2_is_paired=False
         rd_is_paired=False
         paired_regs=0
         if 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
-            rs1_is_paired = len(p64_profile) >= 3 and p64_profile[1]=='p'
-            rs2_is_paired = len(p64_profile) >= 3 and p64_profile[2]=='p'
-        if rs1_is_paired:
-            paired_regs += 1
-        if rs2_is_paired:
-            paired_regs += 1
-        if rd_is_paired:
-            paired_regs += 1
+            paired_regs = self.opnode['p64_profile'].count('p')
 
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
@@ -994,23 +985,20 @@ class Generator():
         assigned = 0
         offset = 0
         for instr in instr_dict:
-            if rd_is_paired and not 'rd_hi' in instr:
-                print("instr={}".format(instr))
-
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
             if 'rs2' in instr and instr['rs2'] in available_reg:
                 available_reg.remove(instr['rs2'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
-            if rs1_is_paired and instr['rs1_hi'] in available_reg:
+            if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
                 available_reg.remove(instr['rs1_hi'])
-            if rs2_is_paired and instr['rs2_hi'] in available_reg:
+            if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
                 available_reg.remove(instr['rs2_hi'])
-            if rd_is_paired and instr['rd_hi'] in available_reg:
+            if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
                 available_reg.remove(instr['rd_hi'])
 
-            if len(available_reg) <= 3+paired_regs:
+            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
                 curr_swreg = available_reg[0]
                 offset = 0
                 for i in range(assigned, count+1):
@@ -1079,39 +1067,28 @@ class Generator():
         count = 0
         assigned = 0
 
-        rs1_is_paired=False
-        rs2_is_paired=False
-        rd_is_paired=False
         paired_regs=0
         if 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
-            rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
-            rs1_is_paired = len(p64_profile) >= 3 and p64_profile[1]=='p'
-            rs2_is_paired = len(p64_profile) >= 3 and p64_profile[2]=='p'
-        if rs1_is_paired:
-            paired_regs += 1
-        if rs2_is_paired:
-            paired_regs += 1
-        if rd_is_paired:
-            paired_regs += 1
+            paired_regs = p64_profile.count('p')
 
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
-                if rs1_is_paired and instr['rs1_hi'] in available_reg:
+                if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
                     available_reg.remove(instr['rs1_hi'])
             if 'rs2' in instr and instr['rs2'] in available_reg:
                 available_reg.remove(instr['rs2'])
-                if rs2_is_paired and instr['rs2_hi'] in available_reg:
+                if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
                     available_reg.remove(instr['rs2_hi'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
-                if rd_is_paired and instr['rd_hi'] in available_reg:
+                if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
                     available_reg.remove(instr['rd_hi'])
             if 'swreg' in instr and instr['swreg'] in available_reg:
                 available_reg.remove(instr['swreg'])
 
-            if len(available_reg) <= (4+paired_regs):
+            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
                 curr_testreg = available_reg[0]
                 for i in range(assigned, count+1):
                     if 'testreg' not in instr_dict[i]:

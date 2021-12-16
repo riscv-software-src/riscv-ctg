@@ -245,8 +245,6 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                 instr['rs1_hi'] = incr_reg_num(instr['rs1'])
             else:
                 instr['rs1_val'] = format(rs1_val, f"#0{2+xlen//4}x")
-                instr['rs1_val_hi'] = '0x0'
-                instr['rs1_hi'] = ''
             instr['rs1_val64'] = format(rs1_val, f"#018x")
 
         if 'rs2' in instr:
@@ -272,15 +270,11 @@ def gen_pair_reg_data(instr_dict, xlen, bit_width, p64_profile):
                 instr['rs2_hi'] = incr_reg_num(instr['rs2'])
             else:
                 instr['rs2_val'] = format(rs2_val, f"#0{2+xlen//4}x")
-                instr['rs2_val_hi'] = '0x0'
-                instr['rs2_hi'] = ''
             instr['rs2_val64'] = format(rs2_val, f"#018x")
 
         if 'rd' in instr and rd_is_paired:
             if xlen == 32:
                 instr['rd_hi'] = incr_reg_num(instr['rd'])
-            else:
-                instr['rd_hi'] = ''
 
         if 'imm_val' in instr:
             imm_val = int(instr['imm_val'])
