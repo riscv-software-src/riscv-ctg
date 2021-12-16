@@ -7843,8 +7843,8 @@ uradd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -7883,8 +7883,8 @@ ukadd64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -7943,8 +7943,8 @@ ursub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -7983,8 +7983,8 @@ uksub64:
   rs1_op_data: *pair_regs
   rs2_op_data: *pair_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -8044,8 +8044,8 @@ umar64:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -8064,8 +8064,8 @@ umsr64:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -8124,8 +8124,8 @@ ukmar64:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -8144,8 +8144,8 @@ ukmsr64:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *pair_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)'
 
   template: |-
 
@@ -8862,8 +8862,8 @@ uraddw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
   template: |-
 
     // $comment
@@ -8898,8 +8898,8 @@ ursubw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
   template: |-
 
     // $comment
