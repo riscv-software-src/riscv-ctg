@@ -3379,6 +3379,8 @@ packuw:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 3.1.1. 16-bit Addition & Subtraction Instructions
+
 add16:
   stride: 1
   xlen: [32,64]
@@ -4102,7 +4104,7 @@ ukstsa16:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-# 2.2.2. 8-bit Addition & Subtraction Instructions
+# 3.1.2. 8-bit Addition & Subtraction Instructions
 
 add8:
   stride: 1
@@ -4425,6 +4427,8 @@ uksub8:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 3.1.3. 16-bit Shift Instructions
+
 sra16:
   stride: 1
   xlen: [32,64]
@@ -4712,6 +4716,8 @@ kslra16.u:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# 3.1.4. 8-bit Shift Instructions
 
 sra8:
   stride: 1
@@ -5057,6 +5063,8 @@ kslra8.u:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 3.1.5. 16-bit Compare Instructions
+
 cmpeq16:
   stride: 1
   xlen: [32,64]
@@ -5176,6 +5184,8 @@ ucmple16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# 3.1.6. 8-bit Compare Instructions
 
 cmpeq8:
   stride: 1
@@ -5337,6 +5347,8 @@ ucmple8:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 3.1.7. 16-bit Multiply Instructions
+
 smul16:
   stride: 1
   xlen: [32,64]
@@ -5484,6 +5496,8 @@ khmx16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# 3.1.8. 8-bit Multiply Instructions
 
 smul8:
   stride: 1
@@ -5681,6 +5695,8 @@ khmx8:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# 3.1.9. 16-bit Misc Instructions
+
 smin16:
   stride: 1
   xlen: [32,64]
@@ -5874,25 +5890,6 @@ clz16:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
-clo16:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 16
-  formattype: 'phrformat'
-  rs1_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_usign_dataset(16)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
-
 swap16:
   stride: 1
   xlen: [32,64]
@@ -5911,6 +5908,8 @@ swap16:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+
+# 3.1.10. 8-bit Misc Instructions
 
 smin8:
   stride: 1
@@ -6157,29 +6156,6 @@ clz8:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
-clo8:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 8
-  formattype: 'pbrformat'
-  rs1_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_usign_dataset(8)'
-  rs1_b1_val_data: 'gen_usign_dataset(8)'
-  rs1_b2_val_data: 'gen_usign_dataset(8)'
-  rs1_b3_val_data: 'gen_usign_dataset(8)'
-  rs1_b4_val_data: 'gen_usign_dataset(8)'
-  rs1_b5_val_data: 'gen_usign_dataset(8)'
-  rs1_b6_val_data: 'gen_usign_dataset(8)'
-  rs1_b7_val_data: 'gen_usign_dataset(8)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
-
 swap8:
   stride: 1
   xlen: [32,64]
@@ -6202,6 +6178,8 @@ swap8:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+
+# 3.1.11. 8-bit Unpacking Instructions
 
 sunpkd810:
   stride: 1
@@ -6433,7 +6411,7 @@ zunpkd832:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
-# 2.3 Partial-SIMD Data Processing Instructions
+# 3.2 Partial-SIMD Data Processing Instructions
 
 pkbb16:
   stride: 1
@@ -6530,7 +6508,7 @@ pktt16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-# 2.3.2 Most Significant Word 32x32 Multiply & Add Instructions
+# 3.2.2 Most Significant Word 32x32 Multiply & Add Instructions
 smmul:
   stride: 1
   xlen: [32,64]
@@ -6692,7 +6670,7 @@ kwmmul.u:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 
-# 2.3.3 Most Significant Word 32x32 Multiply & Add Instructions
+# 3.2.3 Most Significant Word 32x16 Multiply & Add Instructions
 smmwb:
   stride: 1
   xlen: [32,64]
@@ -6714,8 +6692,6 @@ smmwb:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-
 
 smmwb.u:
   stride: 1
@@ -6782,7 +6758,6 @@ smmwt.u:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 
 kmmawb:
   stride: 1
@@ -7051,7 +7026,7 @@ kmmawt2.u:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 
-# 2.3.4 Signed 16-bit Multiply with 32-bit Add/Subtract Instructions
+# 3.2.4 Signed 16-bit Multiply with 32-bit Add/Subtract Instructions
 
 smbb16:
   stride: 1
@@ -7196,7 +7171,6 @@ smds:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 
 smdrs:
   stride: 1
@@ -7486,7 +7460,7 @@ kmsxda:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-# 2.3.5 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
+# 3.2.5 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
 
 smal:
   stride: 1
@@ -7513,7 +7487,7 @@ smal:
     TEST_P64_PPN_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 
-# 2.3.6 Miscellaneous Instructions
+# 3.2.6 Miscellaneous Instructions
 
 sclip32:
   stride: 1
@@ -7569,23 +7543,6 @@ clrs32:
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 clz32:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrformat'
-  rs1_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
-
-clo32:
   stride: 1
   xlen: [32,64]
   std_op:
@@ -7665,6 +7622,8 @@ pbsada:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# 3.2.7. 8-bit Multiply with 32-bit Add Instructions
 
 smaqa:
   stride: 1
@@ -7762,7 +7721,8 @@ smaqa.su:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-# 2.4.1 64-bit Addition & Subtraction Instructions
+# 3.3.1 64-bit Addition & Subtraction Instructions
+
 add64:
   stride: 1
   xlen: [32,64]
@@ -7963,7 +7923,8 @@ uksub64:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
-# 2.4.2 32-bit Multiply with 64-bit Add/Subtract Instructions
+# 3.2.2 32-bit Multiply with 64-bit Add/Subtract Instructions
+
 smar64:
   stride: 1
   xlen: [32,64]
@@ -8141,7 +8102,8 @@ ukmsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 
-# 2.4.3 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
+# 3.3.3 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
+
 smalbb:
   stride: 1
   xlen: [32,64]
@@ -8402,7 +8364,7 @@ smslxda:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
-# 2.5. Non-SIMD Instructions
+# 3.4.1 Q15 Saturation Instructions
 
 kaddh:
   stride: 1
@@ -8559,7 +8521,8 @@ uksubh:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-# 2.5.2 Q31 saturation Instructions
+# 3.4.2 Q31 Saturation Instructions
+
 kaddw:
   stride: 1
   xlen: [32,64]
@@ -8879,7 +8842,7 @@ kabsw:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
-# 2.5.3. 32-bit Computation Instructions
+# 3.4.3. 32-bit Computation Instructions
 
 raddw:
   stride: 1
@@ -8961,26 +8924,6 @@ ursubw:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-msubr32:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 mulr64:
   stride: 1
   xlen: [32,64]
@@ -9025,7 +8968,48 @@ mulsr64:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
-# 2.5.4
+maddr32:
+  stride: 1
+  xlen: [32,64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+msubr32:
+  stride: 1
+  xlen: [32,64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# 3.4.4 Overflow/Saturation Status Manipulation Instructions
+
 rdov:
   stride: 1
   rd_op_data: *all_regs
@@ -9054,9 +9038,7 @@ clrov:
     // opcode: $inst
     TEST_CASE($testreg, x0, $correctval, $swreg, $offset, $inst)
 
-
-
-# 2.5.5. Miscellaneous Instructions
+# 3.4.5. Miscellaneous Instructions
 
 ave:
   stride: 1
@@ -9147,7 +9129,6 @@ bitrevi:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
-
 wext:
   stride: 1
   xlen: [32,64]
@@ -9195,7 +9176,6 @@ wexti:
     TEST_P64_NP_OP($inst, $rd, $rs1, $rs1_hi, $correctval, $rs1_val, $rs1_val_hi, $imm_val, $swreg, $offset, $testreg)
 
 
-
 insb:
   stride: 1
   xlen: [32,64]
@@ -9212,29 +9192,8 @@ insb:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
-
-maddr32:
-  stride: 1
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_sp_dataset(32,True)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-
-# 2.6. RV64 Only Instructions
+# 8. RV64 Only Instructions
+# Table 27. (RV64 Only) SIMD 32-bit Add/Subtract Instructions
 
 add32:
   stride: 1
@@ -9356,347 +9315,6 @@ sub32:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-kmda32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmxda32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmada32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmaxda32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmads32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmadrs32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmaxds32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmsda32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-kmsxda32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-smds32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-smdrs32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-smxds32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-sraiw.u:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwriformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  imm_val_data: 'gen_imm_dataset(5)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-pkbb32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-pkbt32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-pktb32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-
-pktt32:
-  stride: 1
-  xlen: [64]
-  std_op:
-  isa: IP
-  bit_width: 32
-  formattype: 'pwrrformat'
-  rs1_op_data: *all_regs
-  rs2_op_data: *all_regs
-  rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_usign_dataset(32)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
-
 rsub32:
   stride: 1
   xlen: [64]
@@ -9716,7 +9334,6 @@ rsub32:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 
 ursub32:
   stride: 1
@@ -9817,7 +9434,6 @@ rcras32:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-
 
 urcras32:
   stride: 1
@@ -10179,6 +9795,8 @@ ukstsa32:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# Table 28. (RV64 Only) SIMD 32-bit Shift Instructions
+
 sra32:
   stride: 1
   xlen: [64]
@@ -10439,6 +10057,8 @@ kslra32.u:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# Table 29. (RV64 Only) SIMD 32-bit Miscellaneous Instructions
+
 smin32:
   stride: 1
   xlen: [64]
@@ -10535,6 +10155,8 @@ kabs32:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+
+# Table 30. (RV64 Only) SIMD Q15 saturating Multiply Instructions
 
 khmbb16:
   stride: 1
@@ -10752,6 +10374,8 @@ kdmatt16:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# Table 31. (RV64 Only) 32-bit Multiply Instructions
+
 smbb32:
   stride: 1
   xlen: [64]
@@ -10780,6 +10404,7 @@ smbt32:
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32)'
   rs1_w1_val_data: 'gen_sign_dataset(32)'
@@ -10788,8 +10413,8 @@ smbt32:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 smtt32:
   stride: 1
@@ -10810,6 +10435,8 @@ smtt32:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# Table 32. (RV64 Only) 32-bit Multiply & Add Instructions
 
 kmabb32:
   stride: 1
@@ -10871,4 +10498,346 @@ kmatt32:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
+# Table 33. (RV64 Only) 32-bit Parallel Multiply & Add Instructions
 
+kmda32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmxda32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmada32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmaxda32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmads32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmadrs32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmaxds32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmsda32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+kmsxda32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+smds32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+smdrs32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+smxds32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+# Table 34. (RV64 Only) Non-SIMD 32-bit Shift Instructions
+
+sraiw.u:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwriformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  imm_val_data: 'gen_imm_dataset(5)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
+    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+
+# Table 35. (RV64 Only) 32-bit Packing Instructions
+
+pkbb32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+pkbt32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+pktb32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+pktt32:
+  stride: 1
+  xlen: [64]
+  std_op:
+  isa: IP
+  bit_width: 32
+  formattype: 'pwrrformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_w0_val_data: 'gen_usign_dataset(32)'
+  rs2_w1_val_data: 'gen_usign_dataset(32)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
