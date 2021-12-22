@@ -4289,23 +4289,23 @@ msubr32:
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
 
 # 2.5.4
-
-rdov:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      rdov: 0
-    rd:
-      <<: *all_regs
-
-
-clrov:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      clrov: 0
-    rd:
-      <<: *all_regs
+# alias of csr operations 
+# rdov:
+#     config:
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode:
+#       rdov: 0
+#     rd:
+#       <<: *all_regs
+# 
+# 
+# clrov:
+#     config:
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode:
+#       clrov: 0
+#     rd:
+#       <<: *all_regs
 
 # 2.5.5.
 ave:

@@ -9009,34 +9009,35 @@ msubr32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 # 3.4.4 Overflow/Saturation Status Manipulation Instructions
+# alias for CSRR Rd, vxsat 
+# rdov:
+#   stride: 1
+#   rd_op_data: *all_regs
+#   xlen: [32,64]
+#   std_op:
+#   isa: IP
+#   formattype: 'uformat'
+#   imm_val_data: 'gen_usign_dataset(2)'
+#   template: |-
+# 
+#     // $comment
+#     // opcode: $inst ; dest:$rd
+#     TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd)
 
-rdov:
-  stride: 1
-  rd_op_data: *all_regs
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  formattype: 'uformat'
-  imm_val_data: 'gen_usign_dataset(2)'
-  template: |-
-
-    // $comment
-    // opcode: $inst ; dest:$rd
-    TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd)
-
-clrov:
-  stride: 1
-  rd_op_data: *all_regs
-  xlen: [32,64]
-  std_op:
-  isa: IP
-  formattype: 'uformat'
-  imm_val_data: 'gen_usign_dataset(2)'
-  template: |-
-
-    // $comment
-    // opcode: $inst
-    TEST_CASE($testreg, x0, $correctval, $swreg, $offset, $inst)
+# alias for CSRRCI x0, vxsat, 1
+# clrov:
+#   stride: 1
+#   rd_op_data: *all_regs
+#   xlen: [32,64]
+#   std_op:
+#   isa: IP
+#   formattype: 'uformat'
+#   imm_val_data: 'gen_usign_dataset(2)'
+#   template: |-
+# 
+#     // $comment
+#     // opcode: $inst
+#     TEST_CASE($testreg, x0, $correctval, $swreg, $offset, $inst)
 
 # 3.4.5. Miscellaneous Instructions
 
