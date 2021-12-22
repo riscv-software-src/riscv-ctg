@@ -969,7 +969,7 @@ class Generator():
 
         rd_is_paired=False
         paired_regs=0
-        if 'p64_profile' in self.opnode:
+        if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
             paired_regs = self.opnode['p64_profile'].count('p')
@@ -1065,7 +1065,7 @@ class Generator():
         assigned = 0
 
         paired_regs=0
-        if 'p64_profile' in self.opnode:
+        if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             paired_regs = p64_profile.count('p')
 
@@ -1115,7 +1115,7 @@ class Generator():
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0'
             return instr_dict
-        if 'p64_profile' in self.opnode:
+        if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             if len(p64_profile) >= 3 and p64_profile[0]=='p':
                 for i in range(len(instr_dict)):
@@ -1146,7 +1146,7 @@ class Generator():
         mydict = instr_dict.copy()
 
         if self.opnode['isa'] == 'IP':
-            if 'p64_profile' in self.opnode or 'bit_width' in self.opnode:
+            if (xlen == 32 and 'p64_profile' in self.opnode) or 'bit_width' in self.opnode:
                 return mydict
 
         for i in range(len(instr_dict)):
@@ -1226,6 +1226,12 @@ class Generator():
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
+
+        rd_is_paired = False
+        if xlen == 32 and 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
+
         n = 0
         opcode = instr_dict[0]['inst']
         op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
@@ -1279,6 +1285,8 @@ class Generator():
                 code.append("RVTEST_SIGBASE("+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
             else:
                 n+=stride
+            if rd_is_paired:
+                n+=1
             code.append(res)
             count = count + 1
         case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
