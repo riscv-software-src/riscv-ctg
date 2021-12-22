@@ -982,7 +982,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       RVTEST_SIGUPD(swreg,destreg_hi,offset_hi); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
 
-#define TEST_P64_NPN_OP_32(inst, destreg, reg1, reg1_hi, reg2, correctval, correct_val_hi, val1, val1_hi, val2, swreg, offset, testreg) \
+#define TEST_P64_NPN_OP_32(inst, destreg, reg1, reg1_hi, reg2, correctval, val1, val1_hi, val2, swreg, offset, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg2, MASK_XLEN(val2)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
@@ -990,7 +990,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       RVTEST_SIGUPD(swreg,destreg,offset); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval);
 
-#define TEST_P64_NP_OP_32(inst, destreg, reg1, reg1_hi, correctval, correctval_hi, val1, val1_hi, imm_val, swreg, offset, testreg) \
+#define TEST_P64_NP_OP_32(inst, destreg, reg1, reg1_hi, correctval, val1, val1_hi, imm_val, swreg, offset, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
       inst destreg, reg1, imm_val; \
