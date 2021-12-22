@@ -3180,7 +3180,7 @@ smaqa.su:
 # 2.4.1
 add64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*32.*I.*P.*)
     opcode:
       add64: 0
     rs1:
@@ -3270,7 +3270,7 @@ ukadd64:
 
 sub64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*32.*I.*P.*)
     opcode:
       sub64: 0
     rs1:

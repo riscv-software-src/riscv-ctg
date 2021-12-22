@@ -7725,7 +7725,7 @@ smaqa.su:
 
 add64:
   stride: 1
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: IP
   bit_width: 64
@@ -7825,7 +7825,7 @@ ukadd64:
 
 sub64:
   stride: 1
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: IP
   bit_width: 64
