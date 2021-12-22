@@ -4238,7 +4238,7 @@ mulsr64:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      mulrs64: 0
+      mulsr64: 0
     rs1:
       <<: *all_regs
     rs2:
