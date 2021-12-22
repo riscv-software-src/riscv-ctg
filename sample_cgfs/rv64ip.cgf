@@ -1463,24 +1463,25 @@ sraiw.u:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_imm_val("imm_val", 5)': 0
 
-pkbb32:
-    config: 
-      - check ISA:=regex(.*I.*P.*)
-    opcode: 
-      pkbb32: 0
-    rs1: 
-      <<: *all_regs
-    rs2: 
-      <<: *all_regs
-    rd: 
-      <<: *all_regs
-    op_comb: 
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
+# instructions overlapping with those in the B extension in RV64 configuration (Zbpbo)
+# pkbb32:
+#     config: 
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode: 
+#       pkbb32: 0
+#     rs1: 
+#       <<: *all_regs
+#     rs2: 
+#       <<: *all_regs
+#     rd: 
+#       <<: *all_regs
+#     op_comb: 
+#       <<: *rfmt_op_comb
+#     val_comb:
+#       abstract_comb:
+#         'simd_base_val("rs1", xlen, 32, signed=False)': 0
+#         'simd_base_val("rs2", xlen, 32, signed=False)': 0
+#         'simd_val_comb(xlen, 32, signed=False)': 0
 
 pkbt32:
     config: 
@@ -1520,22 +1521,74 @@ pktb32:
         'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=False)': 0
 
-pktt32:
-    config: 
+# instructions overlapping with those in the B extension in RV64 configuration (Zbpbo)
+# pktt32:
+#     config: 
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode: 
+#       pktt32: 0
+#     rs1: 
+#       <<: *all_regs
+#     rs2: 
+#       <<: *all_regs
+#     rd: 
+#       <<: *all_regs
+#     op_comb: 
+#       <<: *rfmt_op_comb
+#     val_comb:
+#       abstract_comb:
+#         'simd_base_val("rs1", xlen, 32, signed=False)': 0
+#         'simd_base_val("rs2", xlen, 32, signed=False)': 0
+#         'simd_val_comb(xlen, 32, signed=False)': 0
+
+# instructions overlapping with those in the B extension in RV32 configuration (Zbpbo)
+clz32:
+    config:
       - check ISA:=regex(.*I.*P.*)
-    opcode: 
-      pktt32: 0
-    rs1: 
+    opcode:
+      clz32: 0
+    rs1:
       <<: *all_regs
-    rs2: 
+    rd:
       <<: *all_regs
-    rd: 
-      <<: *all_regs
-    op_comb: 
-      <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
+pkbb16:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      pkbb16: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+        'simd_base_val("rs2", xlen, 16, signed=False)': 0
+        'simd_val_comb(xlen, 16, signed=False)': 0
+
+pktt16:
+    config:
+      - check ISA:=regex(.*I.*P.*)
+    opcode:
+      pktt16: 0
+    rs1:
+      <<: *all_regs
+    rs2:
+      <<: *all_regs
+    rd:
+      <<: *all_regs
+    op_comb:
+      <<: *rfmt_op_comb
+    val_comb:
+      abstract_comb:
+        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+        'simd_base_val("rs2", xlen, 16, signed=False)': 0
+        'simd_val_comb(xlen, 16, signed=False)': 0
