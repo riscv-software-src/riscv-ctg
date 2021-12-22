@@ -17,10 +17,7 @@ add16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 radd16:
     config:
@@ -115,10 +112,7 @@ sub16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 rsub16:
     config:
@@ -214,10 +208,7 @@ cras16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 rcras16:
     config:
@@ -312,10 +303,7 @@ crsa16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 rcrsa16:
     config:
@@ -410,10 +398,7 @@ stas16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 rstas16:
     config:
@@ -508,10 +493,7 @@ stsa16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 rstsa16:
     config:
@@ -606,10 +588,7 @@ add8:
       abstract_comb:
         'simd_base_val("rs1", xlen, 8, signed=True)': 0
         'simd_base_val("rs2", xlen, 8, signed=True)': 0
-        'simd_base_val("rs1", xlen, 8, signed=False)': 0
-        'simd_base_val("rs2", xlen, 8, signed=False)': 0
         'simd_val_comb(xlen, 8, signed=True)': 0
-        'simd_val_comb(xlen, 8, signed=False)': 0
 
 radd8:
     config:
@@ -704,10 +683,7 @@ sub8:
       abstract_comb:
         'simd_base_val("rs1", xlen, 8, signed=True)': 0
         'simd_base_val("rs2", xlen, 8, signed=True)': 0
-        'simd_base_val("rs1", xlen, 8, signed=False)': 0
-        'simd_base_val("rs2", xlen, 8, signed=False)': 0
         'simd_val_comb(xlen, 8, signed=True)': 0
-        'simd_val_comb(xlen, 8, signed=False)': 0
 
 rsub8:
     config:
@@ -1314,10 +1290,7 @@ cmpeq16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=True)': 0
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
-        'simd_base_val("rs2", xlen, 16, signed=False)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
-        'simd_val_comb(xlen, 16, signed=False)': 0
 
 scmplt16:
     config:
@@ -1412,10 +1385,7 @@ cmpeq8:
       abstract_comb:
         'simd_base_val("rs1", xlen, 8, signed=True)': 0
         'simd_base_val("rs2", xlen, 8, signed=True)': 0
-        'simd_base_val("rs1", xlen, 8, signed=False)': 0
-        'simd_base_val("rs2", xlen, 8, signed=False)': 0
         'simd_val_comb(xlen, 8, signed=True)': 0
-        'simd_val_comb(xlen, 8, signed=False)': 0
 
 scmplt8:
     config:

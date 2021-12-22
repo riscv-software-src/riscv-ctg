@@ -17,10 +17,7 @@ add32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 radd32:
     config:
@@ -115,10 +112,7 @@ sub32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 rsub32:
     config:
@@ -214,10 +208,7 @@ cras32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 rcras32:
     config:
@@ -312,10 +303,7 @@ crsa32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 rcrsa32:
     config:
@@ -410,10 +398,7 @@ stas32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 rstas32:
     config:
@@ -508,10 +493,7 @@ stsa32:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=True)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
 
 rstsa32:
     config:

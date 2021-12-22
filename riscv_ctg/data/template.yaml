@@ -3391,14 +3391,14 @@ add16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -3511,14 +3511,14 @@ sub16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -3633,14 +3633,14 @@ cras16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -3754,14 +3754,14 @@ crsa16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -3874,14 +3874,14 @@ stas16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -3994,14 +3994,14 @@ stsa16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -4116,22 +4116,22 @@ add8:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
+  rs1_b0_val_data: 'gen_sign_dataset(8)'
+  rs1_b1_val_data: 'gen_sign_dataset(8)'
+  rs1_b2_val_data: 'gen_sign_dataset(8)'
+  rs1_b3_val_data: 'gen_sign_dataset(8)'
+  rs1_b4_val_data: 'gen_sign_dataset(8)'
+  rs1_b5_val_data: 'gen_sign_dataset(8)'
+  rs1_b6_val_data: 'gen_sign_dataset(8)'
+  rs1_b7_val_data: 'gen_sign_dataset(8)'
+  rs2_b0_val_data: 'gen_sign_dataset(8)'
+  rs2_b1_val_data: 'gen_sign_dataset(8)'
+  rs2_b2_val_data: 'gen_sign_dataset(8)'
+  rs2_b3_val_data: 'gen_sign_dataset(8)'
+  rs2_b4_val_data: 'gen_sign_dataset(8)'
+  rs2_b5_val_data: 'gen_sign_dataset(8)'
+  rs2_b6_val_data: 'gen_sign_dataset(8)'
+  rs2_b7_val_data: 'gen_sign_dataset(8)'
   template: |-
 
     // $comment
@@ -4276,22 +4276,22 @@ sub8:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
+  rs1_b0_val_data: 'gen_sign_dataset(8)'
+  rs1_b1_val_data: 'gen_sign_dataset(8)'
+  rs1_b2_val_data: 'gen_sign_dataset(8)'
+  rs1_b3_val_data: 'gen_sign_dataset(8)'
+  rs1_b4_val_data: 'gen_sign_dataset(8)'
+  rs1_b5_val_data: 'gen_sign_dataset(8)'
+  rs1_b6_val_data: 'gen_sign_dataset(8)'
+  rs1_b7_val_data: 'gen_sign_dataset(8)'
+  rs2_b0_val_data: 'gen_sign_dataset(8)'
+  rs2_b1_val_data: 'gen_sign_dataset(8)'
+  rs2_b2_val_data: 'gen_sign_dataset(8)'
+  rs2_b3_val_data: 'gen_sign_dataset(8)'
+  rs2_b4_val_data: 'gen_sign_dataset(8)'
+  rs2_b5_val_data: 'gen_sign_dataset(8)'
+  rs2_b6_val_data: 'gen_sign_dataset(8)'
+  rs2_b7_val_data: 'gen_sign_dataset(8)'
   template: |-
 
     // $comment
@@ -5075,14 +5075,14 @@ cmpeq16:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h0_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h1_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h2_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
-  rs2_h3_val_data: 'gen_sign_dataset(16) + gen_usign_dataset(16)'
+  rs1_h0_val_data: 'gen_sign_dataset(16)'
+  rs1_h1_val_data: 'gen_sign_dataset(16)'
+  rs1_h2_val_data: 'gen_sign_dataset(16)'
+  rs1_h3_val_data: 'gen_sign_dataset(16)'
+  rs2_h0_val_data: 'gen_sign_dataset(16)'
+  rs2_h1_val_data: 'gen_sign_dataset(16)'
+  rs2_h2_val_data: 'gen_sign_dataset(16)'
+  rs2_h3_val_data: 'gen_sign_dataset(16)'
   template: |-
 
     // $comment
@@ -5197,22 +5197,22 @@ cmpeq8:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs1_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b0_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b1_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b2_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b3_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b4_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b5_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b6_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
-  rs2_b7_val_data: 'gen_sign_dataset(8) + gen_usign_dataset(8)'
+  rs1_b0_val_data: 'gen_sign_dataset(8)'
+  rs1_b1_val_data: 'gen_sign_dataset(8)'
+  rs1_b2_val_data: 'gen_sign_dataset(8)'
+  rs1_b3_val_data: 'gen_sign_dataset(8)'
+  rs1_b4_val_data: 'gen_sign_dataset(8)'
+  rs1_b5_val_data: 'gen_sign_dataset(8)'
+  rs1_b6_val_data: 'gen_sign_dataset(8)'
+  rs1_b7_val_data: 'gen_sign_dataset(8)'
+  rs2_b0_val_data: 'gen_sign_dataset(8)'
+  rs2_b1_val_data: 'gen_sign_dataset(8)'
+  rs2_b2_val_data: 'gen_sign_dataset(8)'
+  rs2_b3_val_data: 'gen_sign_dataset(8)'
+  rs2_b4_val_data: 'gen_sign_dataset(8)'
+  rs2_b5_val_data: 'gen_sign_dataset(8)'
+  rs2_b6_val_data: 'gen_sign_dataset(8)'
+  rs2_b7_val_data: 'gen_sign_dataset(8)'
   template: |-
 
     // $comment
@@ -9206,10 +9206,10 @@ add32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -9306,10 +9306,10 @@ sub32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -9406,10 +9406,10 @@ cras32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -9506,10 +9506,10 @@ crsa32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -9606,10 +9606,10 @@ stas32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
@@ -9706,10 +9706,10 @@ stsa32:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w0_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
-  rs2_w1_val_data: 'gen_sign_dataset(32) + gen_usign_dataset(32)'
+  rs1_w0_val_data: 'gen_sign_dataset(32)'
+  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs2_w0_val_data: 'gen_sign_dataset(32)'
+  rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
 
     // $comment
