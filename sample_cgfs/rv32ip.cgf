@@ -4444,4 +4444,4 @@ insb:
     val_comb:
       <<: [*base_rs1val_sgn]
       abstract_comb:
-        'simd_imm_val("imm_val", 3)': 0
+        'simd_imm_val("imm_val", ceil(log(xlen,2))-3)': 0
