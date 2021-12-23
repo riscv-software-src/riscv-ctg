@@ -9046,7 +9046,6 @@ ave:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -9064,7 +9063,6 @@ sra.u:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -9082,7 +9080,6 @@ srai.u:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -9100,7 +9097,6 @@ bitrev:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -9118,7 +9114,6 @@ bitrevi:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 32
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
