@@ -153,7 +153,10 @@ def concat_simd_data(instr_dict, xlen, _bit_width):
     :type bit_width: int
     '''
     if type(_bit_width)==str:
-        bit_width1, bit_width2 = map(int, _bit_width.split(','))
+        _bit_width = eval(_bit_width)
+
+    if type(_bit_width)==tuple:
+        bit_width1, bit_width2 = _bit_width
     else:
         bit_width1, bit_width2 = _bit_width, _bit_width
 
