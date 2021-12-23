@@ -3719,9 +3719,9 @@ kaddh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 ksubh:
     config:
@@ -3738,9 +3738,9 @@ ksubh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=True)': 0
+        'simd_base_val("rs1", xlen, 16, signed=True)': 0
+        'simd_base_val("rs2", xlen, 16, signed=True)': 0
+        'simd_val_comb(xlen, 16, signed=True)': 0
 
 khmbb:
     config:
@@ -3814,9 +3814,9 @@ ukaddh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
+        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+        'simd_base_val("rs2", xlen, 16, signed=False)': 0
+        'simd_val_comb(xlen, 16, signed=False)': 0
 
 uksubh:
     config:
@@ -3833,9 +3833,9 @@ uksubh:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=False)': 0
-        'simd_base_val("rs2", xlen, 32, signed=False)': 0
-        'simd_val_comb(xlen, 32, signed=False)': 0
+        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+        'simd_base_val("rs2", xlen, 16, signed=False)': 0
+        'simd_val_comb(xlen, 16, signed=False)': 0
 
 kaddw:
     config:
