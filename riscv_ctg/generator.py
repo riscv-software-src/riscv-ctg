@@ -868,21 +868,16 @@ class Generator():
            return instr_dict
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
-        available_reg = regset.copy()
+        available_reg = set(regset.copy())
         available_reg.remove('x0')
         count = 0
         assigned = 0
         offset = 0
         for instr in instr_dict:
-            if 'rs1' in instr and instr['rs1'] in available_reg:
-                available_reg.remove(instr['rs1'])
-            if 'rs2' in instr and instr['rs2'] in available_reg:
-                available_reg.remove(instr['rs2'])
-            if 'rd' in instr and instr['rd'] in available_reg:
-                available_reg.remove(instr['rd'])
-
+            for op in self.op_vars:
+                available_reg.discard(instr[op])
             if len(available_reg) <= 3:
-                curr_swreg = available_reg[0]
+                curr_swreg = available_reg.pop()
                 offset = 0
                 for i in range(assigned, count+1):
                     if 'swreg' not in instr_dict[i]:
@@ -892,11 +887,11 @@ class Generator():
                         assigned += 1
                         if offset == 2048:
                             offset = 0
-                available_reg = regset.copy()
+                available_reg = set(regset.copy())
                 available_reg.remove('x0')
             count += 1
         if assigned != total_instr and len(available_reg) != 0:
-            curr_swreg = available_reg[0]
+            curr_swreg = available_reg.pop()
             offset = 0
             for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
@@ -935,32 +930,27 @@ class Generator():
 
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
-        available_reg = regset.copy()
+        available_reg = set(regset.copy())
         available_reg.remove('x0')
         count = 0
         assigned = 0
 
         for instr in instr_dict:
-            if 'rs1' in instr and instr['rs1'] in available_reg:
-                available_reg.remove(instr['rs1'])
-            if 'rs2' in instr and instr['rs2'] in available_reg:
-                available_reg.remove(instr['rs2'])
-            if 'rd' in instr and instr['rd'] in available_reg:
-                available_reg.remove(instr['rd'])
-            if 'swreg' in instr and instr['swreg'] in available_reg:
-                available_reg.remove(instr['swreg'])
+            for op in self.op_vars:
+                available_reg.discard(instr[op])
+            available_reg.discard(instr['swreg'])
 
             if len(available_reg) <= 3:
-                curr_testreg = available_reg[0]
+                curr_testreg = available_reg.pop()
                 for i in range(assigned, count+1):
                     if 'testreg' not in instr_dict[i]:
                         instr_dict[i]['testreg'] = curr_testreg
                         assigned += 1
-                available_reg = regset.copy()
+                available_reg = set(regset.copy())
                 available_reg.remove('x0')
             count += 1
         if assigned != total_instr and len(available_reg) != 0:
-            curr_testreg = available_reg[0]
+            curr_testreg = available_reg.pop()
             for i in range(len(instr_dict)):
                 if 'testreg' not in instr_dict[i]:
                     instr_dict[i]['testreg'] = curr_testreg
