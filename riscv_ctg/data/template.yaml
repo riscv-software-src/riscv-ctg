@@ -4689,7 +4689,7 @@ kslra16:
   rs1_h1_val_data: 'gen_sign_dataset(16)'
   rs1_h2_val_data: 'gen_sign_dataset(16)'
   rs1_h3_val_data: 'gen_sign_dataset(16)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(16,2)))'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -4706,11 +4706,11 @@ kslra16.u:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_h0_val_data: 'gen_sign_dataset(16)'
-  rs1_h1_val_data: 'gen_sign_dataset(16)'
-  rs1_h2_val_data: 'gen_sign_dataset(16)'
-  rs1_h3_val_data: 'gen_sign_dataset(16)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(16,2)))'
+  rs1_h0_val_data: 'gen_usign_dataset(16)'
+  rs1_h1_val_data: 'gen_usign_dataset(16)'
+  rs1_h2_val_data: 'gen_usign_dataset(16)'
+  rs1_h3_val_data: 'gen_usign_dataset(16)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -5031,7 +5031,7 @@ kslra8:
   rs1_b5_val_data: 'gen_sign_dataset(8)'
   rs1_b6_val_data: 'gen_sign_dataset(8)'
   rs1_b7_val_data: 'gen_sign_dataset(8)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(8,2)))'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -5048,15 +5048,15 @@ kslra8.u:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_b0_val_data: 'gen_sign_dataset(8)'
-  rs1_b1_val_data: 'gen_sign_dataset(8)'
-  rs1_b2_val_data: 'gen_sign_dataset(8)'
-  rs1_b3_val_data: 'gen_sign_dataset(8)'
-  rs1_b4_val_data: 'gen_sign_dataset(8)'
-  rs1_b5_val_data: 'gen_sign_dataset(8)'
-  rs1_b6_val_data: 'gen_sign_dataset(8)'
-  rs1_b7_val_data: 'gen_sign_dataset(8)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(8,2)))'
+  rs1_b0_val_data: 'gen_usign_dataset(8)'
+  rs1_b1_val_data: 'gen_usign_dataset(8)'
+  rs1_b2_val_data: 'gen_usign_dataset(8)'
+  rs1_b3_val_data: 'gen_usign_dataset(8)'
+  rs1_b4_val_data: 'gen_usign_dataset(8)'
+  rs1_b5_val_data: 'gen_usign_dataset(8)'
+  rs1_b6_val_data: 'gen_usign_dataset(8)'
+  rs1_b7_val_data: 'gen_usign_dataset(8)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -8721,8 +8721,8 @@ kslraw.u:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
   rs2_w0_val_data: 'gen_sign_dataset(32)'
   rs2_w1_val_data: 'gen_sign_dataset(32)'
   template: |-
@@ -10043,7 +10043,7 @@ kslra32:
   rd_op_data: *all_regs
   rs1_w0_val_data: 'gen_sign_dataset(32)'
   rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(32,2)))'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -10060,9 +10060,9 @@ kslra32.u:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_w0_val_data: 'gen_sign_dataset(32)'
-  rs1_w1_val_data: 'gen_sign_dataset(32)'
-  rs2_val_data: 'gen_sign_dataset(ceil(log(32,2)))'
+  rs1_w0_val_data: 'gen_usign_dataset(32)'
+  rs1_w1_val_data: 'gen_usign_dataset(32)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
