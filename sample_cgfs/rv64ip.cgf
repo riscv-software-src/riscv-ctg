@@ -1087,30 +1087,31 @@ kdmatt16:
         'simd_base_val("rs2", xlen, 16, signed=True)': 0
         'simd_val_comb(xlen, 16, signed=True)': 0
 
-smbb32:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      smbb32: 0
-    rs1:
-      <<: *all_regs
-    rs2:
-      <<: *all_regs
-    rd:
-      <<: *all_regs
-    op_comb:
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=True)': 0
+# alias of mulsr64
+# smbb32:
+#     config:
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode:
+#       smbb32: 0
+#     rs1:
+#       <<: *all_regs
+#     rs2:
+#       <<: *all_regs
+#     rd:
+#       <<: *all_regs
+#     op_comb:
+#       <<: *rfmt_op_comb
+#     val_comb:
+#       abstract_comb:
+#         'simd_base_val("rs1", xlen, 32, signed=True)': 0
+#         'simd_base_val("rs2", xlen, 32, signed=True)': 0
+#         'simd_val_comb(xlen, 32, signed=True)': 0
 
 smbt32:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      smbb32: 0
+      smbt32: 0
     rs1:
       <<: *all_regs
     rs2:
@@ -1239,24 +1240,25 @@ kmxda32:
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
         'simd_val_comb(xlen, 32, signed=True)': 0
 
-kmada32:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      kmada32: 0
-    rs1:
-      <<: *all_regs
-    rs2:
-      <<: *all_regs
-    rd:
-      <<: *all_regs
-    op_comb:
-      <<: *rfmt_op_comb
-    val_comb:
-      abstract_comb:
-        'simd_base_val("rs1", xlen, 32, signed=True)': 0
-        'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=True)': 0
+# alias of kmar64
+# kmada32:
+#     config:
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode:
+#       kmada32: 0
+#     rs1:
+#       <<: *all_regs
+#     rs2:
+#       <<: *all_regs
+#     rd:
+#       <<: *all_regs
+#     op_comb:
+#       <<: *rfmt_op_comb
+#     val_comb:
+#       abstract_comb:
+#         'simd_base_val("rs1", xlen, 32, signed=True)': 0
+#         'simd_base_val("rs2", xlen, 32, signed=True)': 0
+#         'simd_val_comb(xlen, 32, signed=True)': 0
 
 kmaxda32:
     config:
