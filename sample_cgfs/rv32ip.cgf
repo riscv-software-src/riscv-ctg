@@ -1838,18 +1838,19 @@ clz16:
       abstract_comb:
         'simd_base_val("rs1", xlen, 16, signed=False)': 0
 
-swap16:
-    config:
-      - check ISA:=regex(.*I.*P.*)
-    opcode:
-      swap16: 0
-    rs1:
-      <<: *all_regs
-    rd:
-      <<: *all_regs
-    val_comb:
-      abstract_comb:
-        'simd_base_val("rs1", xlen, 16, signed=False)': 0
+# alias of pkbt16
+# swap16:
+#     config:
+#       - check ISA:=regex(.*I.*P.*)
+#     opcode:
+#       swap16: 0
+#     rs1:
+#       <<: *all_regs
+#     rd:
+#       <<: *all_regs
+#     val_comb:
+#       abstract_comb:
+#         'simd_base_val("rs1", xlen, 16, signed=False)': 0
 
 smin8:
     config:
