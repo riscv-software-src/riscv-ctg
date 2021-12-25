@@ -4006,7 +4006,8 @@ kslraw.u:
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=False)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'simd_val_comb(xlen, 32, signed=True)': 0
+        'rs1_val == rs2_val': 0
+        'rs1_val != rs2_val': 0
 
 ksllw:
     config:
