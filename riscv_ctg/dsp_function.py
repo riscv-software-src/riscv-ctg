@@ -225,9 +225,13 @@ def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
 
     '''
     if type(_bit_width)==str:
-        bit_width1, bit_width2 = map(int, _bit_width.split(','))
+        _bit_width = eval(_bit_width)
+
+    if type(_bit_width)==tuple:
+        bit_width1, bit_width2 = _bit_width
     else:
         bit_width1, bit_width2 = _bit_width, _bit_width
+
     rs1_is_paired = xlen == 32 and len(p64_profile) >= 3 and p64_profile[1]=='p'
     rs2_is_paired = xlen == 32 and len(p64_profile) >= 3 and p64_profile[2]=='p'
     rd_is_paired  = xlen == 32 and len(p64_profile) >= 3 and p64_profile[0]=='p'

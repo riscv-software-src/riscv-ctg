@@ -7467,7 +7467,7 @@ smal:
   xlen: [32,64]
   std_op:
   isa: IP
-  bit_width: 16
+  bit_width: 64,16
   p64_profile: 'ppn'
   formattype: 'pphrrformat'
   rs1_op_data: *pair_regs
