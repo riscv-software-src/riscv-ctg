@@ -954,8 +954,8 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 //Tests for a instruction with register pair operands for all its three operands
 #define TEST_P64_PPP_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, reg2_hi, correctval, correctval_hi, val1, val1_hi, val2, val2_hi, swreg, offset, offset_hi, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
-      LI(reg2, MASK_XLEN(val2)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
+      LI(reg2, MASK_XLEN(val2)); \
       LI(reg2_hi, MASK_XLEN(val2_hi)); \
       inst destreg, reg1, reg2; \
       RVTEST_SIGUPD(swreg,destreg,offset); \
@@ -965,8 +965,8 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 
 #define TEST_P64_PPN_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, correctval, correctval_hi, val1, val1_hi, val2, swreg, offset, offset_hi, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
-      LI(reg2, MASK_XLEN(val2)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
+      LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
       RVTEST_SIGUPD(swreg,destreg,offset); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
@@ -984,8 +984,8 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 
 #define TEST_P64_NPN_OP_32(inst, destreg, reg1, reg1_hi, reg2, correctval, val1, val1_hi, val2, swreg, offset, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
-      LI(reg2, MASK_XLEN(val2)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
+      LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
       RVTEST_SIGUPD(swreg,destreg,offset); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval);
