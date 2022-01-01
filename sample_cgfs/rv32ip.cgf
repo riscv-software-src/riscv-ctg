@@ -4050,7 +4050,7 @@ kdmabb:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmbb: 0
+      kdmabb: 0
     rs1:
       <<: *all_regs
     rs2:
@@ -4069,7 +4069,7 @@ kdmabt:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmbt: 0
+      kdmabt: 0
     rs1:
       <<: *all_regs
     rs2:
@@ -4088,7 +4088,7 @@ kdmatt:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmtt: 0
+      kdmatt: 0
     rs1:
       <<: *all_regs
     rs2:

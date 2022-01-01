@@ -1034,7 +1034,7 @@ kdmabb16:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmbb16: 0
+      kdmabb16: 0
     rs1:
       <<: *all_regs
     rs2:
@@ -1053,7 +1053,7 @@ kdmabt16:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmbt16: 0
+      kdmabt16: 0
     rs1:
       <<: *all_regs
     rs2:
@@ -1072,7 +1072,7 @@ kdmatt16:
     config:
       - check ISA:=regex(.*I.*P.*)
     opcode:
-      kdmtt16: 0
+      kdmatt16: 0
     rs1:
       <<: *all_regs
     rs2:
