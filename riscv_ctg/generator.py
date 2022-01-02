@@ -1083,7 +1083,16 @@ class Generator():
             code.append("RVTEST_FP_ENABLE()")
         n = 0
         opcode = instr_dict[0]['inst']
-        op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
+        op_node_isa = ""
+        extension = ""
+        if isinstance(op_node['isa'], list): 
+            dut_isa = []
+            for ext in op_node['isa']:
+                dut_isa.append("RV"+str(xlen)+ext)
+            op_node_isa = ",".join(dut_isa)
+        else:
+            op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
+            op_node_isa = "RV"+str(xlen)+op_node_isa
         extension = op_node_isa.replace('I',"").replace('E',"") if len(op_node_isa)>1 else op_node_isa
         count = 0
         neg_offset = 0
@@ -1142,5 +1151,4 @@ class Generator():
         sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
-            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa="RV"+str(xlen)+op_node_isa,opcode=opcode,extension=extension,label=label))
-
+            fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa=op_node_isa,opcode=opcode,extension=extension,label=label))

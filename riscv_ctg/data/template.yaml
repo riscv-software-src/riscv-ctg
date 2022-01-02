@@ -2849,7 +2849,13 @@ rol:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: I
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3171,7 +3177,13 @@ rolw:
   stride: 1
   xlen: [64]
   std_op:
-  isa: I
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3369,7 +3381,13 @@ andn:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3560,7 +3578,13 @@ orn:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa:
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3577,7 +3601,13 @@ rev8:
   stride: 1
   xlen: [32,64]
   std_op: grevi
-  isa: IB
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'kformat'
   #  operation: 'imm_val=7 if xlen==32 else 56'
   rs1_op_data: *all_regs
@@ -3598,7 +3628,13 @@ ror:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3615,7 +3651,13 @@ rori:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -3631,7 +3673,13 @@ roriw:
   stride: 1
   xlen: [64]
   std_op:
-  isa: IB
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -3647,7 +3695,13 @@ rorw:
   stride: 1
   xlen: [64]
   std_op:
-  isa: I
+  isa: 
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3694,7 +3748,13 @@ xnor:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa:
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3726,7 +3786,13 @@ clmul:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa:
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3743,7 +3809,13 @@ clmulh:
   stride: 1
   xlen: [32,64]
   std_op:
-  isa: IB
+  isa:
+    - IB
+    - IK
+    - IZbb
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
