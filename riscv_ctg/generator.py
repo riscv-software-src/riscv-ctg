@@ -43,32 +43,66 @@ OPS = {
     'kformat': ['rs1','rd'],
     'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
-    'fr4format': ['rs1', 'rs2', 'rs3', 'rd']
+    'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
+    'pbrrformat': ['rs1', 'rs2', 'rd'],
+    'phrrformat': ['rs1', 'rs2', 'rd'],
+    'pbrformat': ['rs1', 'rd'],
+    'phrformat': ['rs1', 'rd'],
+    'pbriformat': ['rs1', 'rd'],
+    'phriformat': ['rs1', 'rd'],
+    'psbrrformat': ['rs1', 'rs2', 'rd'],
+    'pshrrformat': ['rs1', 'rs2', 'rd'],
+    'pwrrformat': ['rs1', 'rs2', 'rd'],
+    'pwriformat': ['rs1', 'rd'],
+    'pwrformat': ['rs1', 'rd'],
+    'pswrrformat': ['rs1', 'rs2', 'rd'],
+    'pwhrrformat': ['rs1', 'rs2', 'rd'],
+    'pphrrformat': ['rs1', 'rs2', 'rd'],
+    'ppbrrformat': ['rs1', 'rs2', 'rd'],
+    'prrformat': ['rs1', 'rs2', 'rd'],
+    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
 VALS = {
-    'rformat': ['rs1_val', 'rs2_val'],
-    'iformat': ['rs1_val', 'imm_val'],
-    'sformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'bsformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'bformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'uformat': ['imm_val'],
-    'jformat': ['imm_val'],
-    'crformat': ['rs1_val', 'rs2_val'],
-    'cmvformat': ['rs2_val'],
-    'ciformat': ['rs1_val', 'imm_val'],
-    'cssformat': ['rs2_val', 'imm_val'],
-    'ciwformat': ['imm_val'],
-    'clformat': ['rs1_val', 'imm_val'],
-    'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'caformat': ['rs1_val', 'rs2_val'],
-    'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val'],
-    'kformat': ['rs1_val'],
-    'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
-    'fsrformat': ['rs1_val', 'rm_val'],
-    'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']
+    'rformat': "['rs1_val', 'rs2_val']",
+    'iformat': "['rs1_val', 'imm_val']",
+    'sformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'bsformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'bformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'uformat': "['imm_val']",
+    'jformat': "['imm_val']",
+    'crformat': "['rs1_val', 'rs2_val']",
+    'cmvformat': "['rs2_val']",
+    'ciformat': "['rs1_val', 'imm_val']",
+    'cssformat': "['rs2_val', 'imm_val']",
+    'ciwformat': "['imm_val']",
+    'clformat': "['rs1_val', 'imm_val']",
+    'csformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'caformat': "['rs1_val', 'rs2_val']",
+    'cbformat': "['rs1_val', 'imm_val']",
+    'cjformat': "['imm_val']",
+    'kformat': "['rs1_val']",
+    'frformat': "['rs1_val', 'rs2_val', 'rm_val']",
+    'fsrformat': "['rs1_val', 'rm_val']",
+    'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']",
+    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
+    'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
+    'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
+    'phrformat': 'simd_val_vars("rs1", xlen, 16)',
+    'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
+    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
+    'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
+    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]',
+    'pwrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 32)',
+    'pwriformat': 'simd_val_vars("rs1", xlen, 32) + ["imm_val"]',
+    'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
+    'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]',
+    'pwhrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 16)',
+    'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
+    'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
+    'prrformat': '["rs1_val", "rs2_val"]',
+    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -156,14 +190,9 @@ class Generator():
         self.fmt = fmt
         self.opcode = opcode
 
-        if (opnode['isa'] == 'IP'):
-            init_rvp_ops_vals(OPS, VALS)
         self.op_vars = OPS[fmt]
 
-        try:
-            self.val_vars = eval(VALS[fmt])
-        except:
-            self.val_vars=VALS[fmt]
+        self.val_vars = eval(VALS[fmt])
 
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']

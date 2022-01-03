@@ -1,47 +1,3 @@
-OPS_RVP = {
-    'pbrrformat': ['rs1', 'rs2', 'rd'],
-    'phrrformat': ['rs1', 'rs2', 'rd'],
-    'pbrformat': ['rs1', 'rd'],
-    'phrformat': ['rs1', 'rd'],
-    'pbriformat': ['rs1', 'rd'],
-    'phriformat': ['rs1', 'rd'],
-    'psbrrformat': ['rs1', 'rs2', 'rd'],
-    'pshrrformat': ['rs1', 'rs2', 'rd'],
-    'pwrrformat': ['rs1', 'rs2', 'rd'],
-    'pwriformat': ['rs1', 'rd'],
-    'pwrformat': ['rs1', 'rd'],
-    'pswrrformat': ['rs1', 'rs2', 'rd'],
-    'pwhrrformat': ['rs1', 'rs2', 'rd'],
-    'pphrrformat': ['rs1', 'rs2', 'rd'],
-    'ppbrrformat': ['rs1', 'rs2', 'rd'],
-    'prrformat': ['rs1', 'rs2', 'rd'],
-    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
-
-}
-''' Dictionary mapping RVP instruction formats to operands used by those formats '''
-
-VALS_RVP = {
-    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
-    'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
-    'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
-    'phrformat': 'simd_val_vars("rs1", xlen, 16)',
-    'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
-    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
-    'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
-    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]',
-    'pwrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 32)',
-    'pwriformat': 'simd_val_vars("rs1", xlen, 32) + ["imm_val"]',
-    'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
-    'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]',
-    'pwhrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 16)',
-    'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
-    'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
-    'prrformat': '["rs1_val", "rs2_val"]',
-    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
-
-}
-''' Dictionary mapping RVP instruction formats to operand value variables used by those formats '''
-
 def simd_val_vars(operand, xlen, bit_width):
     '''
     This function generates the operand value variables for SIMD elements of the given operand.
@@ -68,19 +24,6 @@ def simd_val_vars(operand, xlen, bit_width):
     for i in range(nelms):
         val_list += [f"{operand}_{sz}{i}_val"]
     return val_list
-
-def init_rvp_ops_vals(OPS, VALS):
-    '''
-    This function updates the OPS and VALS dictionaries (the dictionaries for operands and operand value variables) with the RVP counter parts.
-
-    :param OPS: the dict mapping instruction formats to operands used by those formats.
-    :param VALS: the dict mapping instruction formats to operand value variables used by those formats.
-
-    :type OPS: dict
-    :type VALS: dict
-    '''
-    OPS.update(OPS_RVP)
-    VALS.update(VALS_RVP)
 
 def get_fmt_sz(bit_width):
     if bit_width == 8:
