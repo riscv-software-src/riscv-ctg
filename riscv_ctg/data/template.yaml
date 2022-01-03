@@ -5350,7 +5350,7 @@ ucmple8:
 # 3.1.7. 16-bit Multiply Instructions
 
 smul16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5375,7 +5375,7 @@ smul16:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smulx16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5400,7 +5400,7 @@ smulx16:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umul16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5425,7 +5425,7 @@ umul16:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umulx16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5500,7 +5500,7 @@ khmx16:
 # 3.1.8. 8-bit Multiply Instructions
 
 smul8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5533,7 +5533,7 @@ smul8:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smulx8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5566,7 +5566,7 @@ smulx8:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umul8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -5599,7 +5599,7 @@ umul8:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umulx8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7463,7 +7463,7 @@ kmsxda:
 # 3.2.5 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
 
 smal:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7724,7 +7724,7 @@ smaqa.su:
 # 3.3.1 64-bit Addition & Subtraction Instructions
 
 add64:
-  stride: 1
+  stride: 2
   xlen: [32]
   std_op:
   isa: IP
@@ -7744,7 +7744,7 @@ add64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 radd64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7764,7 +7764,7 @@ radd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 uradd64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7784,7 +7784,7 @@ uradd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 kadd64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7804,7 +7804,7 @@ kadd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ukadd64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7824,7 +7824,7 @@ ukadd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 sub64:
-  stride: 1
+  stride: 2
   xlen: [32]
   std_op:
   isa: IP
@@ -7844,7 +7844,7 @@ sub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 rsub64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7864,7 +7864,7 @@ rsub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ursub64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7884,7 +7884,7 @@ ursub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 ksub64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7904,7 +7904,7 @@ ksub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $offset_hi, $testreg)
 
 uksub64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7926,7 +7926,7 @@ uksub64:
 # 3.2.2 32-bit Multiply with 64-bit Add/Subtract Instructions
 
 smar64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7948,7 +7948,7 @@ smar64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smsr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7970,7 +7970,7 @@ smsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umar64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -7992,7 +7992,7 @@ umar64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 umsr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8014,7 +8014,7 @@ umsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 kmar64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8036,7 +8036,7 @@ kmar64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 kmsr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8058,7 +8058,7 @@ kmsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 ukmar64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8080,7 +8080,7 @@ ukmar64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 ukmsr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8105,7 +8105,7 @@ ukmsr64:
 # 3.3.3 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
 
 smalbb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8131,7 +8131,7 @@ smalbb:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalbt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8157,7 +8157,7 @@ smalbt:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smaltt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8183,7 +8183,7 @@ smaltt:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8209,7 +8209,7 @@ smalda:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalxda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8235,7 +8235,7 @@ smalxda:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalds:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8261,7 +8261,7 @@ smalds:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smaldrs:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8287,7 +8287,7 @@ smaldrs:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smalxds:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8313,7 +8313,7 @@ smalxds:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smslda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8339,7 +8339,7 @@ smslda:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 smslxda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8941,7 +8941,7 @@ ursubw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP
@@ -8963,7 +8963,7 @@ mulr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $offset_hi, $testreg)
 
 mulsr64:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: IP

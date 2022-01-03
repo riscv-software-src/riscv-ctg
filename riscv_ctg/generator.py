@@ -967,11 +967,9 @@ class Generator():
                         val_offset = 0
            return instr_dict
 
-        rd_is_paired=False
         paired_regs=0
         if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
-            rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
             paired_regs = self.opnode['p64_profile'].count('p')
 
         regset = e_regset if 'e' in base_isa else default_regset
@@ -1006,11 +1004,6 @@ class Generator():
                         assigned += 1
                         if offset == 2048:
                             offset = 0
-                        if rd_is_paired:
-                            instr_dict[i]['offset_hi'] = str(offset)
-                            offset += int(xlen/8)
-                            if offset == 2048:
-                                offset = 0
                 available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
@@ -1024,11 +1017,6 @@ class Generator():
                     offset += int(xlen/8)
                     if offset == 2048:
                         offset = 0
-                    if rd_is_paired:
-                        instr_dict[i]['offset_hi'] = str(offset)
-                        offset += int(xlen/8)
-                        if offset == 2048:
-                            offset = 0
         return instr_dict
 
     def testreg(self, instr_dict):
@@ -1227,10 +1215,8 @@ class Generator():
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
 
-        rd_is_paired = False
         if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
-            rd_is_paired = len(p64_profile) >= 3 and p64_profile[0]=='p'
 
         n = 0
         opcode = instr_dict[0]['inst']
@@ -1285,8 +1271,6 @@ class Generator():
                 code.append("RVTEST_SIGBASE("+sreg+",signature_"+sreg+"_"+str(regs[sreg])+")")
             else:
                 n+=stride
-            if rd_is_paired:
-                n+=1
             code.append(res)
             count = count + 1
         case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
