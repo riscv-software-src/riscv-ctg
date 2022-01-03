@@ -998,12 +998,14 @@ class Generator():
                 offset = 0
                 for i in range(assigned, count+1):
                     if 'swreg' not in instr_dict[i]:
+                        next_offset = offset + int(xlen/8)*self.stride
+                        if next_offset > 2048:
+                            offset = 0
+                            next_offset = 0
                         instr_dict[i]['swreg'] = curr_swreg
                         instr_dict[i]['offset'] = str(offset)
-                        offset += int(xlen/8)
+                        offset = next_offset
                         assigned += 1
-                        if offset == 2048:
-                            offset = 0
                 available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
@@ -1012,11 +1014,13 @@ class Generator():
             offset = 0
             for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
+                    next_offset = offset + int(xlen/8)*self.stride
+                    if next_offset > 2048:
+                        offset = 0
+                        next_offset = 0
                     instr_dict[i]['swreg'] = curr_swreg
                     instr_dict[i]['offset'] = str(offset)
-                    offset += int(xlen/8)
-                    if offset == 2048:
-                        offset = 0
+                    offset = next_offset
         return instr_dict
 
     def testreg(self, instr_dict):
