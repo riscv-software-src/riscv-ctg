@@ -61,7 +61,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
+def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst,list_duplicate):
     global op_template
     global randomize
     global out_dir
@@ -88,7 +88,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
             cgf=cgf_argument, version = __version__, time=mytime, \
             randomize=randomize_argument,xlen=str(xlen_arg))
     op_template = utils.load_yaml(const.template_file)
-    cgf = expand_cgf(cgf_file,xlen)
+    cgf = expand_cgf(cgf_file,xlen,list_duplicate)
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
     pool.close()
