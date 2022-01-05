@@ -175,13 +175,12 @@ def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
     else:
         bit_width1, bit_width2 = _bit_width, _bit_width
 
-    rs1_is_paired = xlen == 32 and len(p64_profile) >= 3 and p64_profile[1]=='p'
-    rs2_is_paired = xlen == 32 and len(p64_profile) >= 3 and p64_profile[2]=='p'
-    rd_is_paired  = xlen == 32 and len(p64_profile) >= 3 and p64_profile[0]=='p'
+    rs1_width = 64 if len(p64_profile) >= 3 and p64_profile[1]=='p' else xlen
+    rs2_width = 64 if len(p64_profile) >= 3 and p64_profile[2]=='p' else xlen
+    rd_width  = 64 if len(p64_profile) >= 3 and p64_profile[0]=='p' else xlen
 
     for instr in instr_dict:
         if 'rs1' in instr:
-            op_width = 64 if rs1_is_paired else xlen
             twocompl_offset = 1<<bit_width1
             fmt, sz= get_fmt_sz(bit_width1)
 
@@ -191,22 +190,22 @@ def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
                     rs1_val = rs1_val + twocompl_offset
             else:
                 rs1_val = 0
-                for i in range(op_width//bit_width1):
+                for i in range(rs1_width//bit_width1):
                     val_var = f"rs1_{sz}{i}_val"
                     val = int(instr[val_var])
                     if val < 0:
                         val = val + twocompl_offset
                     rs1_val += val << (i*bit_width1)
-            if xlen == 32 and rs1_is_paired:
+            if rs1_width > xlen:
                 instr['rs1_val'] = format(0xffffffff & rs1_val, f"#0{2+xlen//4}x")
                 instr['rs1_val_hi'] = format(0xffffffff & (rs1_val>>32), f"#0{2+xlen//4}x")
                 instr['rs1_hi'] = incr_reg_num(instr['rs1'])
             else:
                 instr['rs1_val'] = format(rs1_val, f"#0{2+xlen//4}x")
-            instr['rs1_val64'] = format(rs1_val, f"#018x")
+            if rs1_width == 64 and (len(p64_profile) >= 3):
+                instr['rs1_val64'] = format(rs1_val, f"#018x")
 
         if 'rs2' in instr:
-            op_width = 64 if rs2_is_paired else xlen
             twocompl_offset = 1<<bit_width2
             fmt, sz= get_fmt_sz(bit_width2)
 
@@ -216,23 +215,23 @@ def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
                     rs2_val = rs2_val + twocompl_offset
             else: # concatenates all element of a SIMD register into a single value
                 rs2_val = 0
-                for i in range(op_width//bit_width2):
+                for i in range(rs2_width//bit_width2):
                     val_var = f"rs2_{sz}{i}_val"
                     val = int(instr[val_var])
                     if val < 0:
                         val = val + twocompl_offset
                     rs2_val += val << (i*bit_width2)
-            if xlen == 32:
+            if rs2_width > xlen:
                 instr['rs2_val'] = format(0xffffffff & rs2_val, f"#0{2+xlen//4}x")
                 instr['rs2_val_hi'] = format(0xffffffff & (rs2_val>>32), f"#0{2+xlen//4}x")
                 instr['rs2_hi'] = incr_reg_num(instr['rs2'])
             else:
                 instr['rs2_val'] = format(rs2_val, f"#0{2+xlen//4}x")
-            instr['rs2_val64'] = format(rs2_val, f"#018x")
+            if rs2_width == 64 and (len(p64_profile) >= 3):
+                instr['rs2_val64'] = format(rs2_val, f"#018x")
 
-        if 'rd' in instr and rd_is_paired:
-            if xlen == 32:
-                instr['rd_hi'] = incr_reg_num(instr['rd'])
+        if 'rd' in instr and rd_width > xlen:
+            instr['rd_hi'] = incr_reg_num(instr['rd'])
 
         if 'imm_val' in instr:
             imm_val = int(instr['imm_val'])
