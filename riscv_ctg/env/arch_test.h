@@ -613,10 +613,11 @@ hidden_offset is initialized to zero*/
   
   
 /*  RVTEST_SIGUPD_F(basereg, sigreg,flagreg,newoff)*/
-/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPSR_OP, FPIO_OP, FPRR_OP, FPR4_OP) opcodes 
-/*  It Adjust base and offset, if offset is too big for total signature size  (offset > 2048-(2*SIGALIGN))
-/*  SIGALIGN is used to store the maximum value between FREGWIDTH and REGWIDTH.
-/*  stores flagreg,sigreg at newoff+SIGALIGN(basereg) and updates offset by 2*SIGALIGN
+/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPSR_OP, FPIO_OP, FPRR_OP, FPR4_OP) opcodes */
+/*  Stores an integer register and a floating point register.
+/*  It Adjust base and offset, if offset is too big for total signature size  (offset > 2048-(2*SIGALIGN)) */
+/*  SIGALIGN is used to store the maximum value between FREGWIDTH and REGWIDTH. */
+/*  stores flagreg,sigreg at newoff+SIGALIGN(basereg) and updates offset by 2*SIGALIGN */
 /*  _BR - Base Register, _R - Signature register, _F - Flag register */ 
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...) \
   .if NARG(__VA_ARGS__) == 1	;\
@@ -640,7 +641,8 @@ hidden_offset is initialized to zero*/
 
 
 /*  RVTEST_SIGUPD_FID(basereg, sigreg,flagreg,newoff) */
-/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPID_OP, FCMP_OP) opcodes 
+/*  This macro is used to store the signature values of (32 & 64) F and D instructions which uses TEST_(FPID_OP, FCMP_OP) opcodes */
+/*  Stores two integer registers */
 /*  SigReg is stored at offset[BaseReg]  */
 /*  FlagReg is stored at offset+Regwidth[BaseReg] */
 /*  Updates offset by 2*regwidth and is post incremented so repeated uses store signature values sequentially */
