@@ -1085,15 +1085,10 @@ class Generator():
         opcode = instr_dict[0]['inst']
         op_node_isa = ""
         extension = ""
-        if isinstance(op_node['isa'], list): 
-            dut_isa = []
-            for ext in op_node['isa']:
-                dut_isa.append("RV"+str(xlen)+ext)
-            op_node_isa = ",".join(dut_isa)
-        else:
-            op_node_isa = (op_node['isa']).replace('I','E',1) if 'e' in base_isa else op_node['isa']
-            op_node_isa = "RV"+str(xlen)+op_node_isa
-        extension = op_node_isa.replace('I',"").replace('E',"") if len(op_node_isa)>1 else op_node_isa
+        rvxlen = "RV"+str(xlen)
+        op_node_isa = ",".join([rvxlen + isa for isa in op_node['isa']])
+        op_node_isa = op_node_isa.replace("I","E") if 'e' in base_isa else op_node_isa
+        extension = op_node_isa.replace('I',"").replace('E',"")
         count = 0
         neg_offset = 0
         for instr in instr_dict:
