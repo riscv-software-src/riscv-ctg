@@ -35,6 +35,25 @@ datasets:
     x30: 0
     x31: 0
 
+  pair_regs: &pair_regs
+    x0: 0
+    x2: 0
+    x4: 0
+    x6: 0
+    x8: 0
+    x10: 0
+    x12: 0
+    x14: 0
+    x16: 0
+    x18: 0
+    x20: 0
+    x22: 0
+    x24: 0
+    x26: 0
+    x28: 0
+    x30: 0
+
+
   c_regs: &c_regs
     x8: 0
     x9: 0
@@ -120,6 +139,12 @@ datasets:
     'rs2_val == 0': 0
     'rs2_val == (2**(xlen)-1)': 0
     'rs2_val == 1': 0
+
+  base_rs3val_unsgn: &base_rs3val_unsgn
+    'rs3_val == 0': 0
+    'rs3_val == (2**(xlen)-1)': 0
+    'rs3_val == 1': 0
+
 
   rfmt_val_comb_sgn: &rfmt_val_comb_sgn
     'rs1_val > 0 and rs2_val > 0': 0
@@ -225,6 +250,11 @@ datasets:
     'walking_ones("rs2_val", xlen)': 0
     'walking_zeros("rs2_val", xlen)': 0
     'alternate("rs2_val",xlen)': 0
+  
+  rs3val_walking: &rs3val_walking
+    'walking_ones("rs3_val", xlen)': 0
+    'walking_zeros("rs3_val", xlen)': 0
+    'alternate("rs3_val",xlen)': 0
   
   ifmt_immval_walking: &ifmt_immval_walking
     'walking_ones("imm_val", 12)': 0

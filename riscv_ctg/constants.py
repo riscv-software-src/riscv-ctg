@@ -51,6 +51,21 @@ def twos(val,bits):
         val = val - (1 << bits)
     return val
 
+def gen_imm_dataset(bit_width):
+    '''
+    Function to enumerate a dataset for immediate values:
+     - [0,2**bit_width]
+
+     :param bit_width: Integer defining the size of the input
+     :type bit_width: int
+     :return: a list of integers
+    '''
+    usign_val = (2**(bit_width))
+    dataset = []
+    for i in range(usign_val):
+        dataset.append(i)
+    return dataset
+
 def gen_sp_dataset(bit_width,sign=True):
     '''
     Function generates a special dataset of interesting values:
@@ -133,6 +148,8 @@ def gen_usign_dataset(bit_width):
     t2 =( '' if bit_width%2 == 0 else '0') + ''.join(['10']*int(bit_width/2))
     data += [int(t1,2),int(t2,2)]
     return list(set(data))
+
+
 
 template_file = os.path.join(root,"data/template.yaml")
 
