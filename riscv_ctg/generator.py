@@ -1248,6 +1248,9 @@ class Generator():
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
 
+        if 'IP' in self.opnode['isa']:
+            code.append("RVTEST_VXSAT_ENABLE()")
+
         if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
 

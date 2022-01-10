@@ -562,6 +562,10 @@ rvtest_data_end:
     or x2, x3, x2;\
     csrrw x0,mstatus,x2;                      
 
+#define RVTEST_VXSAT_ENABLE()\
+    LI x2, MSTATUS_VS;\
+    csrrs x0, mstatus,x2;
+
 #define RVTEST_SIGBASE(_R,_TAG) \
   LA(_R,_TAG);\
   .set offset,0;
@@ -618,6 +622,23 @@ rvtest_data_end:
     SREG _R,offset(_BR);\
     SREG _R_HI,(offset+REGWIDTH)(_BR);\
   .set offset,offset+REGWIDTH+REGWIDTH;\
+  .endif;
+
+// for updating signatures that include flagreg when 'rd' is a paired register (64-bit) in Zpsfoperand extension in RV32.
+#define RVTEST_SIGUPD_PK64(_BR,_R,_R_HI,_F,...)\
+  .if NARG(__VA_ARGS__) == 1;\
+    SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
+    SREG _R_HI,(_ARG1(__VA_ARGS__,0)+4)(_BR);\
+    rdov _F; \
+    SREG _F,(_ARG1(__VA_ARGS__,0)+8)(_BR);\
+    .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,)0)+REGWIDTH+REGWIDTH+REGWIDTH;\
+  .endif;\
+  .if NARG(__VA_ARGS__) == 0;\
+    SREG _R,offset(_BR);\
+    SREG _R_HI,(offset+REGWIDTH)(_BR);\
+    rdov _F; \
+    SREG _F,(offset+REGWIDTH+REGWIDTH)(_BR);\
+  .set offset,offset+REGWIDTH+REGWIDTH+REGWIDTH;\
   .endif;
 
 #define RVTEST_VALBASEUPD(_BR,...)\
@@ -963,6 +984,31 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       inst imm_val; \
       )
 
+//Tests for instructions with register-immediate operand and update the saturation flag
+#define TEST_PKIMM_OP( inst, destreg, reg, correctval, val, imm, flagreg, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(reg, MASK_XLEN(val)); \
+      inst destreg, reg, SEXT_IMM(imm); \
+      rdov flagreg; \
+    )
+//Tests for instructions with register-register operand and update the saturation flag
+#define TEST_PKRR_OP(inst, destreg, reg1, reg2, correctval, val1, val2, flagreg, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(reg1, MASK_XLEN(val1)); \
+      LI(reg2, MASK_XLEN(val2)); \
+      inst destreg, reg1, reg2; \
+      rdov flagreg; \
+    )
+
+//Tests for instructions with a single register operand and update the saturation flag
+#define TEST_PKR_OP( inst, destreg, reg, correctval, val, flagreg, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(reg, MASK_XLEN(val)); \
+      inst destreg, reg; \
+      rdov flagreg; \
+    )
+
+    
 #if __riscv_xlen == 32
 //Tests for a instruction with register pair operands for all its three operands
 #define TEST_P64_PPP_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, reg2_hi, correctval, correctval_hi, val1, val1_hi, val2, val2_hi, swreg, offset, testreg) \
@@ -975,12 +1021,22 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
 
+#define TEST_PK64_PPP_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, reg2_hi, correctval, correctval_hi, val1, val1_hi, val2, val2_hi, flagreg, swreg, offset, testreg) \
+      LI(reg1, MASK_XLEN(val1)); \
+      LI(reg1_hi, MASK_XLEN(val1_hi)); \
+      LI(reg2, MASK_XLEN(val2)); \
+      LI(reg2_hi, MASK_XLEN(val2_hi)); \
+      inst destreg, reg1, reg2; \
+      RVTEST_SIGUPD_PK64(swreg,destreg, destreg_hi, flagreg, offset); \
+      RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
+      RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
+
 #define TEST_P64_PPN_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, correctval, correctval_hi, val1, val1_hi, val2, swreg, offset, testreg) \
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg1_hi, MASK_XLEN(val1_hi)); \
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
-      RVTEST_SIGUPD_P64(swreg,destreg, destreg_hi, offset); \
+      RVTEST_SIGUPD_P64(swreg, destreg, destreg_hi, offset); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
 
@@ -988,7 +1044,15 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
-      RVTEST_SIGUPD_P64(swreg,destreg, destreg_hi, offset); \
+      RVTEST_SIGUPD_P64(swreg, destreg, destreg_hi, offset); \
+      RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
+      RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
+
+#define TEST_PK64_PNN_OP_32(inst, destreg, destreg_hi, reg1, reg2, correctval, correctval_hi, val1, val2, flagreg, swreg, offset, testreg) \
+      LI(reg1, MASK_XLEN(val1)); \
+      LI(reg2, MASK_XLEN(val2)); \
+      inst destreg, reg1, reg2; \
+      RVTEST_SIGUPD_PK64(swreg, destreg, destreg_hi, flagreg, offset); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval); \
       RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg_hi, correctval_hi)
 
@@ -1010,12 +1074,17 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 //Tests for a instruction with pair register rd, pair register rs1 and pair register rs2
 #define TEST_P64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg) \
     TEST_P64_PPP_OP_32(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg)
+#define TEST_PK64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, flagreg, swreg, offset, testreg) \
+    TEST_PK64_PPP_OP_32(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, flagreg, swreg, offset, testreg)
 //Tests for a instruction with pair register rd, pair register rs1 and normal register rs2
 #define TEST_P64_PPN_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
     TEST_P64_PPN_OP_32(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg)
 //Tests for a instruction with pair register rd, normal register rs1 and normal register rs2
 #define TEST_P64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, swreg, offset, testreg) \
     TEST_P64_PNN_OP_32(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, swreg, offset, testreg)
+//Tests for a instruction with pair register rd, normal register rs1 and normal register rs2
+#define TEST_PK64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, flagreg, swreg, offset, testreg) \
+    TEST_PK64_PNN_OP_32(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, flagreg, swreg, offset, testreg)
 //Tests for a instruction with normal register rd, pair register rs1 and normal register rs2
 #define TEST_P64_NPN_OP(inst, rd, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
     TEST_P64_NPN_OP_32(inst, rd, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg)
@@ -1027,10 +1096,14 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 // When in rv64, there are no instructions with pair operand, so Macro is redefined to normal TEST_RR_OP
 #define TEST_P64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, swreg, offset, testreg) \
     TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_PK64_PPP_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, rs2_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, rs2_val_hi, flagreg, swreg, offset, testreg) \
+    TEST_PKRR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, flagreg, swreg, offset, testreg)
 #define TEST_P64_PPN_OP(inst, rd, rd_hi, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
     TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
 #define TEST_P64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, swreg, offset, testreg) \
     TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
+#define TEST_PK64_PNN_OP(inst, rd, rd_hi, rs1, rs2, correctval, correctval_hi, rs1_val, rs2_val, flagreg, swreg, offset, testreg) \
+    TEST_PKRR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, flagreg, swreg, offset, testreg)
 #define TEST_P64_NPN_OP(inst, rd, rs1, rs1_hi, rs2, correctval, correctval_hi, rs1_val, rs1_val_hi, rs2_val, swreg, offset, testreg) \
     TEST_RR_OP(inst, rd, rs1, rs2, correctval, rs1_val, rs2_val, swreg, offset, testreg)
 #define TEST_P64_NP_OP(inst, rd, rs1, rs1_hi, correctval, correctval_hi, rs1_val, rs1_val_hi, imm_val, swreg, offset, testreg) \
