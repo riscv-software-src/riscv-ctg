@@ -18,6 +18,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
     global ramdomize
     global out_dir
     global xlen
+
     flen = 0
     if 'opcode' not in node:
         return

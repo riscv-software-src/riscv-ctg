@@ -9,6 +9,7 @@ import time
 from math import *
 import struct
 import sys
+import itertools
 
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
@@ -17,6 +18,7 @@ three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
+from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
 
@@ -41,34 +43,71 @@ OPS = {
     'kformat': ['rs1','rd'],
     'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
-    'fr4format': ['rs1', 'rs2', 'rs3', 'rd']
+    'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
+    'pbrrformat': ['rs1', 'rs2', 'rd'],
+    'phrrformat': ['rs1', 'rs2', 'rd'],
+    'pbrformat': ['rs1', 'rd'],
+    'phrformat': ['rs1', 'rd'],
+    'pbriformat': ['rs1', 'rd'],
+    'phriformat': ['rs1', 'rd'],
+    'psbrrformat': ['rs1', 'rs2', 'rd'],
+    'pshrrformat': ['rs1', 'rs2', 'rd'],
+    'pwrrformat': ['rs1', 'rs2', 'rd'],
+    'pwriformat': ['rs1', 'rd'],
+    'pwrformat': ['rs1', 'rd'],
+    'pswrrformat': ['rs1', 'rs2', 'rd'],
+    'pwhrrformat': ['rs1', 'rs2', 'rd'],
+    'pphrrformat': ['rs1', 'rs2', 'rd'],
+    'ppbrrformat': ['rs1', 'rs2', 'rd'],
+    'prrformat': ['rs1', 'rs2', 'rd'],
+    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
 VALS = {
-    'rformat': ['rs1_val', 'rs2_val'],
-    'iformat': ['rs1_val', 'imm_val'],
-    'sformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'bsformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'bformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'uformat': ['imm_val'],
-    'jformat': ['imm_val'],
-    'crformat': ['rs1_val', 'rs2_val'],
-    'cmvformat': ['rs2_val'],
-    'ciformat': ['rs1_val', 'imm_val'],
-    'cssformat': ['rs2_val', 'imm_val'],
-    'ciwformat': ['imm_val'],
-    'clformat': ['rs1_val', 'imm_val'],
-    'csformat': ['rs1_val', 'rs2_val', 'imm_val'],
-    'caformat': ['rs1_val', 'rs2_val'],
-    'cbformat': ['rs1_val', 'imm_val'],
-    'cjformat': ['imm_val'],
-    'kformat': ['rs1_val'],
-    'frformat': ['rs1_val', 'rs2_val', 'rm_val'],
-    'fsrformat': ['rs1_val', 'rm_val'],
-    'fr4format': ['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']
+    'rformat': "['rs1_val', 'rs2_val']",
+    'iformat': "['rs1_val', 'imm_val']",
+    'sformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'bsformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'bformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'uformat': "['imm_val']",
+    'jformat': "['imm_val']",
+    'crformat': "['rs1_val', 'rs2_val']",
+    'cmvformat': "['rs2_val']",
+    'ciformat': "['rs1_val', 'imm_val']",
+    'cssformat': "['rs2_val', 'imm_val']",
+    'ciwformat': "['imm_val']",
+    'clformat': "['rs1_val', 'imm_val']",
+    'csformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'caformat': "['rs1_val', 'rs2_val']",
+    'cbformat': "['rs1_val', 'imm_val']",
+    'cjformat': "['imm_val']",
+    'kformat': "['rs1_val']",
+    'frformat': "['rs1_val', 'rs2_val', 'rm_val']",
+    'fsrformat': "['rs1_val', 'rm_val']",
+    'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']",
+    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
+    'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
+    'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
+    'phrformat': 'simd_val_vars("rs1", xlen, 16)',
+    'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
+    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
+    'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
+    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]',
+    'pwrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 32)',
+    'pwriformat': 'simd_val_vars("rs1", xlen, 32) + ["imm_val"]',
+    'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
+    'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]',
+    'pwhrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 16)',
+    'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
+    'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
+    'prrformat': '["rs1_val", "rs2_val"]',
+    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
+
+
+
 
 def isInt(s):
     '''
@@ -80,6 +119,34 @@ def isInt(s):
         return True
     except ValueError:
         return False
+
+def get_default_registers(ops, datasets):
+    problem = Problem()
+    not_x0 = lambda x: x not in ['x0']
+
+    for op in ops:
+        dataset = datasets[op]
+        # problem.addVariable(op,list(random.sample(dataset, len(dataset))))
+        problem.addVariable(op,dataset)
+        problem.addConstraint(not_x0,tuple([op]))
+    if len(ops) > 1:
+        cond = " and ".join(["!=".join(x) for x in itertools.combinations(ops,2) if x[0]!=x[1]])
+    else:
+        cond = 'True'
+    def unique_constraint(*args):
+        for var,val in zip(ops,args):
+            locals()[var] = val
+        return eval(cond)
+    problem.addConstraint(unique_constraint,tuple(ops))
+    solution = None
+    count = 0
+    while solution is None and count < 5:
+        solution = problem.getSolution()
+        count += 1
+    if count == 5:
+        return []
+    else:
+        return solution
 
 class Generator():
     '''
@@ -122,8 +189,11 @@ class Generator():
         base_isa = base_isa_str
         self.fmt = fmt
         self.opcode = opcode
+
         self.op_vars = OPS[fmt]
-        self.val_vars = VALS[fmt]
+
+        self.val_vars = eval(VALS[fmt])
+
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
@@ -150,6 +220,7 @@ class Generator():
                 datasets[entry] = [0]
         self.datasets = datasets
         self.random=randomization
+        self.default_regs = get_default_registers(self.op_vars, self.datasets)
 
     def opcomb(self, cgf):
         '''
@@ -244,8 +315,6 @@ class Generator():
             solutions.append( tuple(op_tuple) )
 
         return solutions
-
-
 
     def valcomb(self, cgf):
         '''
@@ -588,13 +657,7 @@ class Generator():
                 instr[var] = str(reg)
         else:
             for i,var in enumerate(self.op_vars):
-                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-                    if self.opnode[var+'_op_data'][2] == 'f':
-                        instr[var] = 'f'+str(i+10)
-                    else:
-                        instr[var] = 'x'+str(i+10)
-                else:
-                    instr[var] = 'x'+str(i+10)
+                instr[var]=self.default_regs[var]
         if val:
             for i,var in enumerate(self.val_vars):
                 instr[var] = str(val[i])
@@ -662,7 +725,7 @@ class Generator():
                 instr_dict.append(self.__bfmt_instr__(op,val))
             elif self.opcode in ['c.jal', 'c.jalr']:
                 instr_dict.append(self.__cj_instr__(op,val))
-            elif self.fmt == 'jformat':
+            elif self.fmt == 'jformat' or self.fmt == 'cjformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
             else:
                 instr_dict.append(self.__instr__(op,val))
@@ -697,6 +760,62 @@ class Generator():
                 rs3_val = int(instr['rs3_val'])
             if 'rm_val' in instr:
                 rm_val = int(instr['rm_val'])
+            if 'rs1_b0_val' in instr:
+                rs1_b0_val = int(instr['rs1_b0_val'])
+            if 'rs1_b1_val' in instr:
+                rs1_b1_val = int(instr['rs1_b1_val'])
+            if 'rs1_b2_val' in instr:
+                rs1_b2_val = int(instr['rs1_b2_val'])
+            if 'rs1_b3_val' in instr:
+                rs1_b3_val = int(instr['rs1_b3_val'])
+            if 'rs1_b4_val' in instr:
+                rs1_b4_val = int(instr['rs1_b4_val'])
+            if 'rs1_b5_val' in instr:
+                rs1_b5_val = int(instr['rs1_b5_val'])
+            if 'rs1_b6_val' in instr:
+                rs1_b6_val = int(instr['rs1_b6_val'])
+            if 'rs1_b7_val' in instr:
+                rs1_b7_val = int(instr['rs1_b7_val'])
+            if 'rs2_b0_val' in instr:
+                rs2_b0_val = int(instr['rs2_b0_val'])
+            if 'rs2_b1_val' in instr:
+                rs2_b1_val = int(instr['rs2_b1_val'])
+            if 'rs2_b2_val' in instr:
+                rs2_b2_val = int(instr['rs2_b2_val'])
+            if 'rs2_b3_val' in instr:
+                rs2_b3_val = int(instr['rs2_b3_val'])
+            if 'rs2_b4_val' in instr:
+                rs2_b4_val = int(instr['rs2_b4_val'])
+            if 'rs2_b5_val' in instr:
+                rs2_b5_val = int(instr['rs2_b5_val'])
+            if 'rs2_b6_val' in instr:
+                rs2_b6_val = int(instr['rs2_b6_val'])
+            if 'rs2_b7_val' in instr:
+                rs2_b7_val = int(instr['rs2_b7_val'])
+            if 'rs1_h0_val' in instr:
+                rs1_h0_val = int(instr['rs1_h0_val'])
+            if 'rs1_h1_val' in instr:
+                rs1_h1_val = int(instr['rs1_h1_val'])
+            if 'rs1_h2_val' in instr:
+                rs1_h2_val = int(instr['rs1_h2_val'])
+            if 'rs1_h3_val' in instr:
+                rs1_h3_val = int(instr['rs1_h3_val'])
+            if 'rs2_h0_val' in instr:
+                rs2_h0_val = int(instr['rs2_h0_val'])
+            if 'rs2_h1_val' in instr:
+                rs2_h1_val = int(instr['rs2_h1_val'])
+            if 'rs2_h2_val' in instr:
+                rs2_h2_val = int(instr['rs2_h2_val'])
+            if 'rs2_h3_val' in instr:
+                rs2_h3_val = int(instr['rs2_h3_val'])
+            if 'rs1_w0_val' in instr:
+                rs1_w0_val = int(instr['rs1_w0_val'])
+            if 'rs1_w1_val' in instr:
+                rs1_w1_val = int(instr['rs1_w1_val'])
+            if 'rs2_w0_val' in instr:
+                rs2_w0_val = int(instr['rs2_w0_val'])
+            if 'rs2_w1_val' in instr:
+                rs2_w1_val = int(instr['rs2_w1_val'])
             if 'imm_val' in instr:
                 if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
@@ -766,6 +885,10 @@ class Generator():
             if 'rs2' in coverpoints:
                 if rs2 in coverpoints['rs2']:
                     cover_hits['rs2'] = set([rs2])
+            if 'rs3' in coverpoints:
+                if rs3 in coverpoints['rs3']:
+                    cover_hits['rs3'] = set([rs3])
+
             if 'rd' in coverpoints:
                 if rd in coverpoints['rd']:
                     cover_hits['rd'] = set([rd])
@@ -799,6 +922,12 @@ class Generator():
                     final_instr.append(instr)
                 else:
                     i+=1
+
+        if self.opnode['isa'] == 'IP':
+            if 'p64_profile' in self.opnode:
+                gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
+            elif 'bit_width' in self.opnode:
+                concat_simd_data(final_instr, xlen, self.opnode['bit_width'])
 
         return final_instr
 
@@ -866,6 +995,12 @@ class Generator():
                     if val_offset >= 2030:
                         val_offset = 0
            return instr_dict
+
+        paired_regs=0
+        if xlen == 32 and 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            paired_regs = self.opnode['p64_profile'].count('p')
+
         regset = e_regset if 'e' in base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()
@@ -880,18 +1015,26 @@ class Generator():
                 available_reg.remove(instr['rs2'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
+            if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
+                available_reg.remove(instr['rs1_hi'])
+            if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
+                available_reg.remove(instr['rs2_hi'])
+            if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
+                available_reg.remove(instr['rd_hi'])
 
-            if len(available_reg) <= 3:
+            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
                 curr_swreg = available_reg[0]
                 offset = 0
                 for i in range(assigned, count+1):
                     if 'swreg' not in instr_dict[i]:
+                        next_offset = offset + int(xlen/8)*self.stride
+                        if next_offset > 2048:
+                            offset = 0
+                            next_offset = 0
                         instr_dict[i]['swreg'] = curr_swreg
                         instr_dict[i]['offset'] = str(offset)
-                        offset += int(xlen/8)
+                        offset = next_offset
                         assigned += 1
-                        if offset == 2048:
-                            offset = 0
                 available_reg = regset.copy()
                 available_reg.remove('x0')
             count += 1
@@ -900,11 +1043,13 @@ class Generator():
             offset = 0
             for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
+                    next_offset = offset + int(xlen/8)*self.stride
+                    if next_offset > 2048:
+                        offset = 0
+                        next_offset = 0
                     instr_dict[i]['swreg'] = curr_swreg
                     instr_dict[i]['offset'] = str(offset)
-                    offset += int(xlen/8)
-                    if offset == 2048:
-                        offset = 0
+                    offset = next_offset
         return instr_dict
 
     def testreg(self, instr_dict):
@@ -940,17 +1085,28 @@ class Generator():
         count = 0
         assigned = 0
 
+        paired_regs=0
+        if xlen == 32 and 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            paired_regs = p64_profile.count('p')
+
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
+                if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
+                    available_reg.remove(instr['rs1_hi'])
             if 'rs2' in instr and instr['rs2'] in available_reg:
                 available_reg.remove(instr['rs2'])
+                if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
+                    available_reg.remove(instr['rs2_hi'])
             if 'rd' in instr and instr['rd'] in available_reg:
                 available_reg.remove(instr['rd'])
+                if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
+                    available_reg.remove(instr['rd_hi'])
             if 'swreg' in instr and instr['swreg'] in available_reg:
                 available_reg.remove(instr['swreg'])
 
-            if len(available_reg) <= 3:
+            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
                 curr_testreg = available_reg[0]
                 for i in range(assigned, count+1):
                     if 'testreg' not in instr_dict[i]:
@@ -980,6 +1136,11 @@ class Generator():
             for i in range(len(instr_dict)):
                 instr_dict[i]['correctval'] = '0'
             return instr_dict
+        if xlen == 32 and 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+            if len(p64_profile) >= 3 and p64_profile[0]=='p':
+                for i in range(len(instr_dict)):
+                    instr_dict[i]['correctval_hi'] = '0'
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -1004,6 +1165,11 @@ class Generator():
         :return: list of dictionaries containing the various values necessary for the macro
         '''
         mydict = instr_dict.copy()
+
+        if self.opnode['isa'] == 'IP':
+            if (xlen == 32 and 'p64_profile' in self.opnode) or 'bit_width' in self.opnode:
+                return mydict
+
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
                 # if xlen == 32:
@@ -1081,6 +1247,10 @@ class Generator():
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
+
+        if xlen == 32 and 'p64_profile' in self.opnode:
+            p64_profile = self.opnode['p64_profile']
+
         n = 0
         opcode = instr_dict[0]['inst']
         op_node_isa = ""

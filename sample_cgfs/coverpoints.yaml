@@ -225,7 +225,12 @@ datasets:
     'walking_ones("rs2_val", xlen)': 0
     'walking_zeros("rs2_val", xlen)': 0
     'alternate("rs2_val",xlen)': 0
-  
+
+  rs3val_walking: &rs3val_walking
+    'walking_ones("rs3_val", xlen)': 0
+    'walking_zeros("rs3_val", xlen)': 0
+    'alternate("rs3_val",xlen)': 0
+
   ifmt_immval_walking: &ifmt_immval_walking
     'walking_ones("imm_val", 12)': 0
     'walking_zeros("imm_val", 12)': 0
