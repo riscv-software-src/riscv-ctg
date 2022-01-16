@@ -16,12 +16,12 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/issues.
+Report bugs at https://github.com/riscv-software-src/riscv-ctg/issues/.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/issues.
+The best way to send feedback is to file an issue at https://github.com/riscv-software-src/riscv-ctg/issues/.
 
 If you are proposing a feature:
 
