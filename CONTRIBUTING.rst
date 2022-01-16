@@ -35,10 +35,10 @@ Get Started!
 
 Ready to contribute? Here's how to set up `riscv_ctg` for local development.
 
-1. Fork the `riscv_ctg` repo on GitLab.
+1. Fork the `riscv_ctg` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone  https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg.git
+    $ git clone  https://github.com/riscv-software-src/riscv-ctg.git
 
 3. Create an issue and WIP merge request that creates a working branch for you::
 
@@ -58,7 +58,7 @@ Ready to contribute? Here's how to set up `riscv_ctg` for local development.
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-6. Submit a merge request through the GitLab website.
+6. Submit a merge request through the GitHub website.
 
 Merge Request Guidelines
 ----------------------------
