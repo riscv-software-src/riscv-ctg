@@ -17,7 +17,7 @@ from riscv_isac.cgf_normalize import expand_cgf
 @click.option('--procs','-p',type=int,default=1,help='Max number of processes to spawn')
 @click.option('--base-isa','-bi',type=click.Choice(['rv32e','rv32i','rv64i']),help="Base ISA string for the tests.")
 @click.option("--inst",type=int,help="Maximum number of Macro Instances per test.")
-@click.option('--list-duplicate','-l', default=False , is_flag='True', help='Enable to print out the duplicate coverpoints generated')
+@click.option('--list-duplicate','-z', default=False , is_flag='True', help='Enable to print out the duplicate coverpoints generated')
 def cli(verbose, out_dir, randomize , cgf,procs,base_isa,inst,list_duplicate):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
