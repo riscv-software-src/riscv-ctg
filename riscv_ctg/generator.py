@@ -10,6 +10,10 @@ from math import *
 import struct
 import sys
 
+one_operand_hinstructions = ["fsqrt.h","fclass.h","fcvt.w.h","fcvt.wu.h","fcvt.h.w","fcvt.h.wu"]
+two_operand_hinstructions = ["fadd.h","fsub.h","fmul.h","fdiv.h","fmax.h","fmin.h","feq.h","flt.h","fle.h","fsgnj.h","fsgnjn.h","fsgnjx.h"]
+three_operand_hinstructions = ["fmadd.h","fmsub.h","fnmadd.h","fnmsub.h"]
+
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
 three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
@@ -124,7 +128,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = OPS[fmt]
         self.val_vars = VALS[fmt]
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd", "flh", "fsh"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -281,8 +285,11 @@ class Generator():
                 x = req_val_comb_minus_comm.split(" and ")
 
                 if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-	                # fs + fe + fm -> Combiner Script
-                    if (flen == 32):
+                    # fs + fe + fm -> Combiner Script
+                    if flen == 16:
+                        e_sz = 5
+                        m_sz = 10
+                    elif (flen == 32):
                         e_sz = 8
                         m_sz = 23
                     else:
@@ -714,45 +721,55 @@ class Generator():
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
-	                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-	                bin_val = ''
-	                e_sz = 0
-	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode:
-	                    if (flen == 32):
-	                        e_sz = 8
-	                    else:
-	                        e_sz = 11
-	                    if (flen == 32):
-	                        m_sz = 23
-	                    else:
-	                        m_sz = 52
-	                    if 'rs1_val' in instr:
-	                        if (flen == 32):
-	                            bin_val = '{:032b}'.format(rs1_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs1_val)
-	                        fs1 = int(bin_val[0],2)
-	                        fe1 = int(bin_val[1:e_sz+1],2)
-	                        fm1 = int(bin_val[e_sz+1:],2)
-	                    if 'rs2_val' in instr:
-	                        if (flen == 32):
-	                            bin_val = '{:032b}'.format(rs2_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs2_val)
-	                        fs2 = int(bin_val[0],2)
-	                        fe2 = int(bin_val[1:e_sz+1],2)
-	                        fm2 = int(bin_val[e_sz+1:],2)
-	                    if 'rs3_val' in instr:
-	                        if (flen == 32):
-	                            bin_val = '{:032b}'.format(rs3_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs3_val)
-	                        fs3 = int(bin_val[0],2)
-	                        fe3 = int(bin_val[1:e_sz+1],2)
-	                        fm3 = int(bin_val[e_sz+1:],2)
-	                if eval(coverpoint):
-	                	valcomb_hits.add(coverpoint)
+                    fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                    bin_val = ''
+                    e_sz = 0
+                    m_sz = 0
+                    if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode and 'fcvt.h.w' not in self.opcode and 'fcvt.h.wu' not in self.opcode and 'fcvt.h.l' not in self.opcode and 'fcvt.h.lu' not in self.opcode and 'fmv.h.x' not in self.opcode and "flh" not in self.opcode and "fsh" not in self.opcode:
+                        if flen == 16:
+                            e_sz = 5
+                        elif (flen == 32):
+                            e_sz = 8
+                        else:
+                            e_sz = 11
+                        if flen == 16:
+                            m_sz = 10
+                        elif (flen == 32):
+                            m_sz = 23
+                        else:
+                            m_sz = 52
+                        if 'rs1_val' in instr:
+                            if(flen == 16):
+                                bin_val = '{:016b}'.format(rs1_val)
+                            elif (flen == 32):
+                                bin_val = '{:032b}'.format(rs1_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs1_val)
+                            fs1 = int(bin_val[0],2)
+                            fe1 = int(bin_val[1:e_sz+1],2)
+                            fm1 = int(bin_val[e_sz+1:],2)
+                        if 'rs2_val' in instr:
+                            if(flen == 16):
+                                bin_val = '{:016b}'.format(rs2_val)
+                            elif (flen == 32):
+                                bin_val = '{:032b}'.format(rs2_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs2_val)
+                            fs2 = int(bin_val[0],2)
+                            fe2 = int(bin_val[1:e_sz+1],2)
+                            fm2 = int(bin_val[e_sz+1:],2)
+                        if 'rs3_val' in instr:
+                            if(flen == 16):
+                                bin_val = '{:016b}'.format(rs3_val)
+                            elif (flen == 32):
+                                bin_val = '{:032b}'.format(rs3_val)
+                            else:
+                                bin_val = '{:064b}'.format(rs3_val)
+                            fs3 = int(bin_val[0],2)
+                            fe3 = int(bin_val[1:e_sz+1],2)
+                            fm3 = int(bin_val[e_sz+1:],2)
+                    if eval(coverpoint):
+                        valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
             if 'op_comb' in coverpoints:
                 opcomb_hits = set([])
@@ -1092,19 +1109,29 @@ class Generator():
             res += Template(op_node['template']).safe_substitute(instr)
             if self.opcode[0] == 'f' and 'fence' not in self.opcode:
                 if self.fmt == 'frformat' or self.fmt == 'rformat':
+                    if flen == 16:
+                        data.append(".hword "+instr["rs1_val"])
+                        data.append(".hword "+instr["rs2_val"])
                     if flen == 32:
                         data.append(".word "+instr["rs1_val"])
                         data.append(".word "+instr["rs2_val"])
                     elif flen == 64:
                         data.append(".dword "+instr["rs1_val"])
                         data.append(".dword "+instr["rs2_val"])
+                    
                 elif self.fmt == 'fsrformat':
-                    if flen == 32:
+                    if flen == 16:
+                        data.append(".hword "+instr["rs1_val"])
+                    elif flen == 32:
                         data.append(".word "+instr["rs1_val"])
                     elif flen == 64:
                         data.append(".dword "+instr["rs1_val"])
                 elif self.fmt == 'fr4format':
-                    if flen == 32:
+                    if flen == 16:
+                        data.append(".hword "+instr["rs1_val"])
+                        data.append(".hword "+instr["rs2_val"])
+                        data.append(".hword "+instr["rs3_val"])
+                    elif flen == 32:
                         data.append(".word "+instr["rs1_val"])
                         data.append(".word "+instr["rs2_val"])
                         data.append(".word "+instr["rs3_val"])
@@ -1117,9 +1144,9 @@ class Generator():
                         code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
                         k = 1;
                     elif instr['val_offset'] == '0' and k!= 0:
-                        if instr['inst'] in three_operand_dinstructions + three_operand_finstructions:
+                        if instr['inst'] in three_operand_dinstructions + three_operand_finstructions + three_operand_hinstructions:
                             code.append("addi "+vreg+","+vreg+","+str(2040))
-                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions + one_operand_finstructions + two_operand_finstructions:
+                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions + one_operand_finstructions + two_operand_finstructions + one_operand_hinstructions + two_operand_hinstructions:
                             code.append("addi "+vreg+","+vreg+","+str(2032))
                         else:
                             code.append("RVTEST_VALBASEUPD("+vreg+")")

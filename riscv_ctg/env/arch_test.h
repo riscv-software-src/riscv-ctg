@@ -91,6 +91,13 @@
     #define FLREG flw
     #define FSREG fsw
     #define FREGWIDTH 4
+
+  #else
+      #if FLEN==16
+        #define FLREG flh
+        #define FSREG fsh
+        #define FREGWIDTH 2
+      #endif
   #endif
 #endif
 
