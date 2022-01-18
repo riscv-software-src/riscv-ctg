@@ -3100,7 +3100,12 @@ pack:
   xlen: [32,64]
   std_op:
   isa: 
-    - I
+    - IK
+    - IZbb
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3132,7 +3137,12 @@ packh:
   xlen: [32,64]
   std_op:
   isa: 
-    - I
+    - IK
+    - IZbb
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3411,7 +3421,12 @@ packw:
   xlen: [64]
   std_op:
   isa: 
-    - I
+    - IK
+    - IZbb
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3978,7 +3993,7 @@ clz:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
   
     // $comment
@@ -4012,7 +4027,7 @@ cpop:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
   
     // $comment
@@ -4046,7 +4061,7 @@ ctz:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
   
     // $comment
@@ -4063,7 +4078,7 @@ ctzw:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
   
     // $comment
@@ -4273,6 +4288,7 @@ orc.b:
   std_op:
   isa: 
     - IB
+    - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -4298,8 +4314,8 @@ orn:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -4388,11 +4404,11 @@ rev8:
     - IB
     - IK
     - IZbb
+    - IZk
     - IZbkb
     - IZkn
     - IZks
   formattype: 'kformat'
-  #  operation: 'imm_val=7 if xlen==32 else 56'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
@@ -12022,3 +12038,70 @@ bseti:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+
+xperm4:
+  stride: 1
+  xlen: [32,64]
+  std_op:
+  isa: 
+    - IK
+    - IZk
+    - IZbk
+    - IZkn
+    - IZks
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+xperm8:
+  stride: 1
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IK
+    - IZk
+    - IZbk
+    - IZkn
+    - IZks
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+brev8:
+  stride: 1
+  xlen: [32,64]
+  std_op: brev8
+  isa:
+    - IB
+    - IK
+    - IZbb
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
+  formattype: 'kformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
+    li $rs1, $rs1_val
+    brev8 $rd, $rs1
+    sw $rd, $offset($swreg)
+    RVTEST_SIGUPD($swreg,$rd,$offset)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
