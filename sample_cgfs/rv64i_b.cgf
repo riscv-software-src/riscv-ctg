@@ -6,10 +6,12 @@ add.uw:
       add.uw: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn, *rs2val_walking_unsgn]
@@ -27,7 +29,7 @@ sh1add:
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
@@ -43,6 +45,8 @@ sh1add.uw:
       sh1add.uw: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
@@ -55,16 +59,18 @@ sh1add.uw:
         
 sh2add:
     config: 
-      - check ISA:=regex(.*RV64.*I.*B.*)
-      - check ISA:=regex(.*RV64.*I.*Zba.*)
+      - check ISA:=regex(.*I.*B.*)
+      - check ISA:=regex(.*I.*Zba.*)
     opcode: 
       sh2add: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
@@ -79,10 +85,12 @@ sh2add.uw:
       sh2add.uw: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
@@ -91,16 +99,18 @@ sh2add.uw:
         
 sh3add:
     config: 
-      - check ISA:=regex(.*RV64.*I.*B.*)
-      - check ISA:=regex(.*RV64.*I.*Zba.*)
+      - check ISA:=regex(.*I.*B.*)
+      - check ISA:=regex(.*I.*Zba.*)
     opcode: 
       sh3add: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
       abstract_comb:
@@ -115,10 +125,12 @@ sh3add.uw:
       sh3add.uw: 0
     rs1: 
       <<: *all_regs
+    rs2: 
+      <<: *all_regs
     rd:
       <<: *all_regs
     op_comb: 
-      <<: *ifmt_op_comb
+      <<: *rfmt_op_comb
     val_comb:
       <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
@@ -218,7 +230,7 @@ clz:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        <<: [*rs1val_walking]
+        <<: [*rs1val_walking_unsgn]
         'leading_zeros("rs1_val", xlen, False)': 0
         'leading_ones("rs1_val", xlen, False)': 0
 
@@ -237,7 +249,7 @@ clzw:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        <<: [*rs1val_walking]
+        <<: [*rs1val_walking_unsgn]
         'leading_zeros("rs1_val", xlen, False)': 0
         'leading_ones("rs1_val", xlen, False)': 0
         

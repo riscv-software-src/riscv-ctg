@@ -131,7 +131,7 @@ clz:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        <<: [*rs1val_walking]
+        <<: [*rs1val_walking_unsgn]
         'leading_zeros("rs1_val", xlen, False)': 0
         'leading_ones("rs1_val", xlen, False)': 0
 
