@@ -110,6 +110,13 @@
   #endif
 #endif
 
+#if FLEN == 16
+  #define SREG sw
+  #define LREG lw
+  #define REGWIDTH 2
+  #define MASK 0xFFFF
+#endif
+
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
 

@@ -1645,6 +1645,22 @@ fadd.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
+fsub.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fsub.s:
   stride: 2
   xlen: [32,64]
@@ -1666,6 +1682,22 @@ fsub.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fmul.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1709,6 +1741,22 @@ fmul.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fdiv.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fdiv.s:
   stride: 2
   xlen: [32,64]
@@ -1741,6 +1789,21 @@ fdiv.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fsqrt.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fsqrt.s:
   stride: 2
   xlen: [32,64]
@@ -1771,6 +1834,23 @@ fsqrt.d:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fmadd.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fmadd.s:
   stride: 2
   xlen: [32,64]
@@ -1793,6 +1873,23 @@ fmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmsub.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1839,6 +1936,23 @@ fmsub.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
     TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fnmadd.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fnmadd.s:
   stride: 2
   xlen: [32,64]
@@ -1861,6 +1975,23 @@ fnmadd.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'fr4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fnmsub.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1907,6 +2038,22 @@ fnmsub.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; testreg:$testreg
     TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
+fsgnj.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fsgnj.s:
   stride: 2
   xlen: [32,64]
@@ -1928,6 +2075,22 @@ fsgnj.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fsgnjn.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1971,6 +2134,22 @@ fsgnjn.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fsgnjx.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fsgnjx.s:
   stride: 2
   xlen: [32,64]
@@ -1992,6 +2171,22 @@ fsgnjx.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmin.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -2035,6 +2230,22 @@ fmin.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fmax.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fmax.s:
   stride: 2
   xlen: [32,64]
@@ -2067,6 +2278,21 @@ fmax.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+feq.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 feq.s:
   stride: 2
   xlen: [32,64]
@@ -2097,6 +2323,21 @@ feq.d:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+flt.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 flt.s:
   stride: 2
   xlen: [32,64]
@@ -2117,6 +2358,21 @@ flt.d:
   xlen: [32,64]
   isa: IFD
   flen: [64]
+  std_op:
+  formattype: 'frformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fle.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -2185,6 +2441,48 @@ fmv.x.w:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fmv.h.x:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fmv.x.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.w.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fcvt.w.s:
   stride: 2
   xlen: [32,64]
@@ -2213,6 +2511,20 @@ fcvt.w.d:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fcvt.wu.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
 fcvt.wu.s:
   stride: 2
   xlen: [32,64]
@@ -2309,10 +2621,90 @@ fcvt.d.s:
   rd_op_data: *all_fregs
   template: |-
 
+fcvt.h.d:
+  stride: 2
+  xlen: [32,64]
+  isa: IFDZfh
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.d.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFDZfh
+  flen: [64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+fcvt.s.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.h.s:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)  
     
+fcvt.h.w:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+
+fcvt.h.wu:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
 fcvt.s.w:
   stride: 2
   xlen: [32,64]
@@ -2411,6 +2803,20 @@ fmv.d.x:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fclass.h:
+  stride: 2
+  xlen: [32,64]
+  isa: IFZfh
+  std_op:
+  flen: [16]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+   
 fclass.s:
   stride: 2
   xlen: [32,64]
@@ -2439,6 +2845,39 @@ fclass.d:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
 
+fsh:
+  stride: 2
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_fregs
+  xlen: [32,64]
+  isa: IFZfh
+  std_op:
+  flen: [16]
+  formattype: 'sformat'
+  ea_align_data: '[0,1,2,3]'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align; flagreg:$flagreg;
+    TEST_STORE_F($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
+flh:
+  stride: 2
+  rs1_op_data: *all_regs_mx0 
+  rd_op_data: *all_fregs
+  xlen: [32,64]
+  std_op:
+  isa: IFZfh
+  flen: [16]
+  formattype: 'iformat'
+  ea_align_data: '[0,1,2,3]'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
+    TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
+    
 fsw:
   stride: 2
   rs1_op_data: *all_regs_mx0
@@ -2505,6 +2944,34 @@ fld:
     // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flag_reg
     TEST_LOAD_F($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align,$flagreg)
     
+fcvt.l.h:
+  stride: 2
+  xlen: [64]
+  std_op:
+  isa: IFZfh
+  flen: [16,32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
+fcvt.lu.s:
+  stride: 2
+  xlen: [64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+    
 fcvt.l.s:
   stride: 2
   xlen: [64]
@@ -2533,6 +3000,34 @@ fcvt.lu.s:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
+fcvt.h.l:
+  stride: 2
+  xlen: [64]
+  isa: IFZfh
+  std_op:
+  flen: [16,32,64]
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+ 
+fcvt.h.lu:
+  stride: 2
+  xlen: [64]
+  isa: IFZfh
+  flen: [16,32,64]
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
+        
 fcvt.s.l:
   stride: 2
   xlen: [64]
