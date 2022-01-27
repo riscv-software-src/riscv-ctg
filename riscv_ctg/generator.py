@@ -923,7 +923,7 @@ class Generator():
                 else:
                     i+=1
 
-        if self.opnode['isa'] == 'IP':
+        if 'IP' in self.opnode['isa']:
             if 'p64_profile' in self.opnode:
                 gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
             elif 'bit_width' in self.opnode:
@@ -1166,7 +1166,7 @@ class Generator():
         '''
         mydict = instr_dict.copy()
 
-        if self.opnode['isa'] == 'IP':
+        if 'IP' in self.opnode['isa']:
             if (xlen == 32 and 'p64_profile' in self.opnode) or 'bit_width' in self.opnode:
                 return mydict
 
