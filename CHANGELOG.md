@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2022-01-27
+- Add CGFs for B extensions.
+- Modify ISA node in template.yaml to support multiple ISAs per instruction.
+
 ## [0.5.9] - 2021-12-20
 - Add CGFs for P extensions
 - Add support for P extension test generation
