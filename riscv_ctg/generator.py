@@ -1164,11 +1164,10 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        mydict = instr_dict.copy()
-
         if 'IP' in self.opnode['isa']:
-            if (xlen == 32 and 'p64_profile' in self.opnode) or 'bit_width' in self.opnode:
-                return mydict
+            # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
+            if 'bit_width' in self.opnode or (xlen == 32 and 'p64_profile' in self.opnode):
+                return instr_dict
 
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
