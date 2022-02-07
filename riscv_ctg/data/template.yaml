@@ -1695,7 +1695,8 @@ c.jalr:
 fadd.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -1745,7 +1746,8 @@ fadd.d:
 fsub.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -1795,7 +1797,8 @@ fsub.d:
 fmul.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -1845,7 +1848,8 @@ fmul.d:
 fdiv.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -1895,7 +1899,8 @@ fdiv.d:
 fsqrt.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fsrformat'
@@ -1942,7 +1947,8 @@ fsqrt.d:
 fmadd.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
@@ -1995,7 +2001,8 @@ fmadd.d:
 fmsub.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
@@ -2048,7 +2055,8 @@ fmsub.d:
 fnmadd.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
@@ -2101,7 +2109,8 @@ fnmadd.d:
 fnmsub.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fr4format'
@@ -2154,7 +2163,8 @@ fnmsub.d:
 fsgnj.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2204,7 +2214,8 @@ fsgnj.d:
 fsgnjn.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2254,7 +2265,8 @@ fsgnjn.d:
 fsgnjx.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2304,7 +2316,8 @@ fsgnjx.d:
 fmin.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2354,7 +2367,8 @@ fmin.d:
 fmax.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2404,7 +2418,8 @@ fmax.d:
 feq.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2451,7 +2466,8 @@ feq.d:
 flt.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2498,7 +2514,8 @@ flt.d:
 fle.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'frformat'
@@ -2575,7 +2592,8 @@ fmv.x.w:
 fmv.h.x:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16]
   std_op:
   formattype: 'fsrformat'
@@ -2589,7 +2607,8 @@ fmv.h.x:
 fmv.x.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2603,7 +2622,8 @@ fmv.x.h:
 fcvt.w.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16]
   std_op:
   formattype: 'fsrformat'
@@ -2647,7 +2667,8 @@ fcvt.w.d:
 fcvt.wu.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16]
   std_op:
   formattype: 'fsrformat'
@@ -2764,7 +2785,8 @@ fcvt.d.s:
 fcvt.h.d:
   stride: 2
   xlen: [32,64]
-  isa: IFDZfh
+  isa:
+    - IFDZfh
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2779,7 +2801,8 @@ fcvt.h.d:
 fcvt.d.h:
   stride: 2
   xlen: [32,64]
-  isa: IFDZfh
+  isa:
+    - IFDZfh
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2790,7 +2813,8 @@ fcvt.d.h:
 fcvt.s.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2805,7 +2829,8 @@ fcvt.s.h:
 fcvt.h.s:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2820,7 +2845,8 @@ fcvt.h.s:
 fcvt.h.w:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16]
   std_op:
   formattype: 'fsrformat'
@@ -2834,7 +2860,8 @@ fcvt.h.w:
 fcvt.h.wu:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2953,7 +2980,8 @@ fmv.d.x:
 fclass.h:
   stride: 2
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   std_op:
   flen: [16]
   formattype: 'fsrformat'
@@ -2999,7 +3027,8 @@ fsh:
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_fregs
   xlen: [32,64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   std_op:
   flen: [16]
   formattype: 'sformat'
@@ -3017,7 +3046,8 @@ flh:
   rd_op_data: *all_fregs
   xlen: [32,64]
   std_op:
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16]
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
@@ -3101,7 +3131,8 @@ fcvt.l.h:
   stride: 2
   xlen: [64]
   std_op:
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -3114,7 +3145,8 @@ fcvt.l.h:
 fcvt.lu.s:
   stride: 2
   xlen: [64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fsrformat'
@@ -3158,7 +3190,8 @@ fcvt.lu.s:
 fcvt.h.l:
   stride: 2
   xlen: [64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   std_op:
   flen: [16,32,64]
   formattype: 'fsrformat'
@@ -3172,7 +3205,8 @@ fcvt.h.l:
 fcvt.h.lu:
   stride: 2
   xlen: [64]
-  isa: IFZfh
+  isa:
+    - IFZfh
   flen: [16,32,64]
   std_op:
   formattype: 'fsrformat'
