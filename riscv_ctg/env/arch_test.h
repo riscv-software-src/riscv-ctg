@@ -108,13 +108,12 @@
     #define REGWIDTH 4
     #define MASK 0xFFFFFFFF
   #endif
-#endif
-
-#if FLEN == 16
-  #define SREG sw
-  #define LREG lw
-  #define REGWIDTH 2
-  #define MASK 0xFFFF
+  #if FLEN == 16
+    #define SREG sh
+    #define LREG lh
+    #define REGWIDTH 2
+    #define MASK 0xFFFF
+  #endif
 #endif
 
 #define MMODE_SIG 3

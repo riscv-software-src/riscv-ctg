@@ -2958,7 +2958,7 @@ fcvt.l.h:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)
     
-fcvt.lu.s:
+fcvt.lu.h:
   stride: 2
   xlen: [64]
   isa: IFZfh
