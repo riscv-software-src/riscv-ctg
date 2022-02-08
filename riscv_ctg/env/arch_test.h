@@ -1,7 +1,7 @@
 #include "encoding.h"
 // TODO the following should come from the YAML.
 #ifndef NUM_SPECD_INTCAUSES 
-#define NUM_SPECD_INTCAUSES 16
+  #define NUM_SPECD_INTCAUSES 16
 #endif
 //#define RVTEST_FIXED_LEN
 #ifndef UNROLLSZ
@@ -13,7 +13,7 @@
 
 
 //-----------------------------------------------------------------------
-// RV Compliance Macros
+// RV Arch Test Macros
 //-----------------------------------------------------------------------
 #ifndef RVMODEL_SET_MSW_INT
   #warning "RVMODEL_SET_MSW_INT is not defined by target. Declaring as empty macro"
@@ -343,7 +343,7 @@
           bltz    t4, sv_mtval		        /* correct adjustment is code_begin in t3 */
   
           LA(     t3, mtrap_sigptr) /* adjustment assuming access is to signature region */
-          LI(t4, DATA_REL_TVAL_MSK)   /* trap#s not 14, 11..8, 2 adjust w/ data_begin */
+          LI(t4, DATA_REL_TVAL_MSK)      /* trap#s not 14, 11..8, 2 adjust w/ data_begin */
           sll     t4, t4, t2		          /* put bit# in MSB */
           bgez    t4, no_adj		          /* correct adjustment is data_begin in t3 */
   sigbound_chk:
@@ -377,8 +377,8 @@
 
   sv_mtval:
           csrr   t2, CSR_MTVAL
-          sub     t2, t2, t3		/* perform mtval adjust by either code or data position or zero*/
-          SREG      t2, 3*REGWIDTH(t1)	/* save 4th sig value, (rel mtval) into trap signature area */
+          sub    t2, t2, t3		/* perform mtval adjust by either code or data position or zero*/
+          SREG   t2, 3*REGWIDTH(t1)	/* save 4th sig value, (rel mtval) into trap signature area */
   
   resto_rtn:		/* restore and return */
           addi    t1, t1,4*REGWIDTH		/* adjust trap signature ptr (traps always save 4 words) */
@@ -586,7 +586,7 @@ rvtest_data_end:
     SREG _R,offset(_BR);\
   .set offset,offset+REGWIDTH;\
   .endif;
-  
+
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     FSREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
@@ -892,7 +892,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       LI(reg, MASK_XLEN(val)); \
       inst destreg, reg, SEXT_IMM(imm); \
     )
-    
+
 //Tests for instructions with a single register operand
 #define TEST_R_OP( inst, destreg, reg, correctval, val, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
@@ -927,13 +927,14 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       csrrs flagreg, fflags, x0; \
     )
 
+//Tests for instructions with register-register-immediate operands
 #define TEST_RRI_OP(inst, destreg, reg1, reg2, imm, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg1, MASK_XLEN(val1)); \
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2, imm; \
     )
-    
+
 //Tests for a instructions with register-register operand
 #define TEST_RI_OP(inst, destreg, reg2, imm, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
@@ -1008,7 +1009,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       rdov flagreg; \
     )
 
-    
+
 #if __riscv_xlen == 32
 //Tests for a instruction with register pair operands for all its three operands
 #define TEST_P64_PPP_OP_32(inst, destreg, destreg_hi, reg1, reg1_hi, reg2, reg2_hi, correctval, correctval_hi, val1, val1_hi, val2, val2_hi, swreg, offset, testreg) \
