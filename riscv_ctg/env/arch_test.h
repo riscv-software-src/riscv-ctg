@@ -561,9 +561,14 @@ rvtest_data_end:
  csrs mstatus, a0;                      \
  csrwi fcsr, 0
 
+#ifdef pext_check_vxsat_ov
 #define RVTEST_VXSAT_ENABLE()\
-    LI x2, MSTATUS_VS;\
-    csrrs x0, mstatus,x2;
+ li a0, MSTATUS_VS & (MSTATUS_VS >> 1); \
+ csrs mstatus, a0;                      \
+ clrov
+#else
+#define RVTEST_VXSAT_ENABLE()
+#endif
 
 #define RVTEST_SIGBASE(_R,_TAG) \
   LA(_R,_TAG);\
@@ -623,19 +628,29 @@ rvtest_data_end:
   .set offset,offset+REGWIDTH+REGWIDTH;\
   .endif;
 
+
+// only reads the vxsat.OV flag when Zicsr extension is present
+#ifdef pext_check_vxsat_ov
+#define RDOV(_F)\
+   rdov _F
+#else
+#define RDOV(_F)\
+   nop
+#endif
+
 // for updating signatures that include flagreg when 'rd' is a paired register (64-bit) in Zpsfoperand extension in RV32.
 #define RVTEST_SIGUPD_PK64(_BR,_R,_R_HI,_F,...)\
   .if NARG(__VA_ARGS__) == 1;\
     SREG _R,_ARG1(__VA_ARGS__,0)(_BR);\
     SREG _R_HI,(_ARG1(__VA_ARGS__,0)+4)(_BR);\
-    rdov _F; \
+    RDOV(_F);\
     SREG _F,(_ARG1(__VA_ARGS__,0)+8)(_BR);\
     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,)0)+REGWIDTH+REGWIDTH+REGWIDTH;\
   .endif;\
   .if NARG(__VA_ARGS__) == 0;\
     SREG _R,offset(_BR);\
     SREG _R_HI,(offset+REGWIDTH)(_BR);\
-    rdov _F; \
+    RDOV(_F);\
     SREG _F,(offset+REGWIDTH+REGWIDTH)(_BR);\
   .set offset,offset+REGWIDTH+REGWIDTH+REGWIDTH;\
   .endif;
