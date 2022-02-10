@@ -975,7 +975,7 @@ class Generator():
                     instr_dict[i]['swreg'] = 'x15'
                     instr_dict[i]['valaddr_reg'] = 'x16'
                     instr_dict[i]['flagreg'] = 'x17'
-                    if self.opcode in ['fsw','fsd']:
+                    if self.opcode in ['fsw','fsd','fsh']:
                         if instr_dict[i]['rs1'] in hardcoded_regs:
                             instr_dict[i]['swreg'] = 'x19'
                             instr_dict[i]['valaddr_reg'] = 'x20'
@@ -1086,7 +1086,7 @@ class Generator():
         if self.opcode[0] == 'f' and 'fence' not in self.opcode:
             for i in range(len(instr_dict)):
                 instr_dict[i]['testreg'] = 'x18'
-                if self.opcode in ['fsw','fsd']:
+                if self.opcode in ['fsw','fsd','fsh']:
                     if instr_dict[i]['rs1'] == 'x18':
                         instr_dict[i]['testreg'] = 'x22'
                 elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
