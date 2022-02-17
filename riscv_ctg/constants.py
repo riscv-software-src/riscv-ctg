@@ -155,6 +155,25 @@ def zerotoxlen(bit_width):
         vals.append(i)
     return vals
 
+def gen_bitmanip_dataset(bit_width,sign=True):
+    '''
+    Function generates a special dataset of interesting values:
+     - +/-1 variants of the above
+
+     :param bit_width: Integer defining the size of the input
+     :param sign: Boolen value specifying whether the dataset should be interpreted as signed numbers or not.
+     :type sign: bool
+     :type bit_width: int
+     :return: a list of integers
+    '''
+    if sign:
+        conv_func = lambda x: twos(x,bit_width)
+    else:
+        conv_func = lambda x:(int(x,16) if '0x' in x else int(x,2)) if isinstance(x,str) else x
+
+    dataset = [3, "0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), 5, "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4)),"0x"+"".join(["9"]*int(bit_width/4)),"0x"+"".join(["c"]*int(bit_width/4)),0,"0x"+"".join(["f"]*int(bit_width/4))]
+    dataset = list(map(conv_func,dataset)) 
+    return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
 
 template_file = os.path.join(root,"data/template.yaml")
 

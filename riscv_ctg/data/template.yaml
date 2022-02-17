@@ -3024,6 +3024,7 @@ rol:
   stride: 1
   xlen: [32,64]
   std_op:
+  operation: 'hex((rs1_val << (rs2_val%xlen)) & (2**(xlen)-1))'
   isa: 
     - IB
     - IK
@@ -3035,6 +3036,9 @@ rol:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+
   template: |-
 
     // $comment
@@ -3464,8 +3468,8 @@ add.uw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sp_dataset(xlen)+gen_usign_dataset(xlen)'
-  rs2_val_data: 'gen_sp_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs1_val_data: 'gen_bitmanip_dataset(xlen,False)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_bitmanip_dataset(xlen,False)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -3483,8 +3487,8 @@ sh1add:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -3502,8 +3506,8 @@ sh1add.uw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -3521,8 +3525,8 @@ sh2add:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_bitmanip_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_bitmanip_dataset(xlen)'
   template: |-
 
     // $comment
@@ -3540,8 +3544,8 @@ sh2add.uw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -3559,8 +3563,8 @@ sh3add:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
-  rs2_val_data: 'gen_sign_dataset(xlen)+gen_sp_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_bitmanip_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_bitmanip_dataset(xlen)'
   template: |-
 
     // $comment
@@ -3578,8 +3582,8 @@ sh3add.uw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -3597,7 +3601,7 @@ slli.uw:
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   operation: 'hex(sign_extend((rs1_val << imm_val) , 32))'
-  rs1_val_data: 'gen_usign_dataset(xlen)+ gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+ gen_bitmanip_dataset(xlen,False)'
   imm_val_data: 'gen_usign_dataset(5)'
   template: |-
 
@@ -3621,8 +3625,8 @@ andn:
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   operation: 'hex((rs1_val & rs2_val) & (2**(xlen)-1))'
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -4096,8 +4100,8 @@ max:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -4139,8 +4143,8 @@ maxu:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -4182,8 +4186,8 @@ min:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
-  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_bitmanip_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -4225,8 +4229,8 @@ minu:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -4314,8 +4318,8 @@ orn:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
-  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen,False)'
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
@@ -4411,7 +4415,7 @@ rev8:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+gen_bitmanip_dataset(xlen,False)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
   template: |-
 
     // $comment
@@ -4710,8 +4714,8 @@ xnor:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sp_dataset(xlen)'
-  rs2_val_data: 'gen_usign_dataset(xlen)+gen_sp_dataset(xlen)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_bitmanip_dataset(xlen,False)'
+  rs2_val_data: 'gen_usign_dataset(xlen)+gen_bitmanip_dataset(xlen,False)'
   template: |-
 
     // $comment
