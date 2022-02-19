@@ -157,7 +157,8 @@ def zerotoxlen(bit_width):
 
 def gen_bitmanip_dataset(bit_width,sign=True):
     '''
-    Function generates a special dataset of interesting values:
+    Function generates a special dataset of interesting values for bitmanip:
+    0x3, 0xc, 0x5,0xa,0x6,0x9 each of the pattern exenteding for bit_width
      - +/-1 variants of the above
 
      :param bit_width: Integer defining the size of the input
