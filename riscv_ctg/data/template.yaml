@@ -1697,7 +1697,7 @@ fadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1731,7 +1731,7 @@ fsub.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1765,7 +1765,7 @@ fmul.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1799,7 +1799,7 @@ fdiv.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1833,7 +1833,7 @@ fsqrt.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -1865,7 +1865,7 @@ fmadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1901,7 +1901,7 @@ fmsub.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1937,7 +1937,7 @@ fnmadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32,64]
+  flen: [32]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
