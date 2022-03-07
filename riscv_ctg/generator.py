@@ -983,6 +983,10 @@ class Generator():
                         flag = False
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
+############################################
+#This condition is intrroduced to fix the address misalign issue when we execute double precision instruction on RV32
+#This can further extedned based on the upcoming instructions on different XLEN
+############################################
                     if flen == 64 and xlen == 32:
                         offset += 8
                     else:
