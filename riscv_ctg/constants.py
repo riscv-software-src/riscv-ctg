@@ -158,8 +158,13 @@ def zerotoxlen(bit_width):
 def gen_bitmanip_dataset(bit_width,sign=True):
     '''
     Function generates a special dataset of interesting values for bitmanip:
-    0x3, 0xc, 0x5,0xa,0x6,0x9 each of the pattern exenteding for bit_width
-     - +/-1 variants of the above
+    0x0, 0x3, 0xc, 0x5,0xa,0x6,0x9 each of the pattern exenteding for bit_width
+    for 32 bit
+    0x33333333,0xcccccccc,0x55555555, 0xaaaaaaaaa,0x66666666,0x99999999
+    for 64 bit
+    0x3333333333333333,0xcccccccccccccccc,0x5555555555555555, 0xaaaaaaaaaaaaaaaaa,
+    0x6666666666666666,0x9999999999999999
+     - +1 and -1 variants of the above pattern
 
      :param bit_width: Integer defining the size of the input
      :param sign: Boolen value specifying whether the dataset should be interpreted as signed numbers or not.
@@ -172,8 +177,10 @@ def gen_bitmanip_dataset(bit_width,sign=True):
     else:
         conv_func = lambda x:(int(x,16) if '0x' in x else int(x,2)) if isinstance(x,str) else x
 
-    dataset = [3, "0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), 5, "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4)),"0x"+"".join(["9"]*int(bit_width/4)),"0x"+"".join(["c"]*int(bit_width/4)),0,"0x"+"".join(["f"]*int(bit_width/4))]
+    dataset = ["0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4)),"0x"+"".join(["9"]*int(bit_width/4)),"0x"+"".join(["c"]*int(bit_width/4)),0]
     dataset = list(map(conv_func,dataset)) 
+
+# increment each value in dataset, increment each value in dataset, add them to the dataset
     return dataset + [x - 1 if x > 0 else 0 for x in dataset] + [x+1 for x in dataset]
 
 template_file = os.path.join(root,"data/template.yaml")

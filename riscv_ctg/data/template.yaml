@@ -4422,7 +4422,6 @@ rev8:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
     rev8 $rd, $rs1
-    sw $rd, $offset($swreg)
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
@@ -12105,7 +12104,6 @@ brev8:
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
     brev8 $rd, $rs1
-    sw $rd, $offset($swreg)
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
