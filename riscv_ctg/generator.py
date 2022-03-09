@@ -984,13 +984,9 @@ class Generator():
                     instr_dict[i]['offset'] = str(offset)
                     instr_dict[i]['val_offset'] = str(val_offset)
 ############################################
-#This condition is intrroduced to fix the address misalign issue when we execute double precision instruction on RV32
-#This can further extedned based on the upcoming instructions on different XLEN
+#This is modified to handle the offset values for floating points, and this formula is still returns an expected offsets for all floating extenstions
 ############################################
-                    if flen == 64 and xlen == 32:
-                        offset += 8
-                    else:
-                        offset += int((flen/8)+(xlen/8))
+                    offset += int((flen/8)+(xlen/8)+(abs(flen-xlen)/8))
                     if self.fmt == 'frformat' or self.fmt == 'rformat':
                         val_offset += 2*(int(flen/8))
                     elif self.fmt == 'fsrformat':
