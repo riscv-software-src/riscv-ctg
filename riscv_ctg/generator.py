@@ -986,7 +986,7 @@ class Generator():
 ############################################
 #This is modified to handle the offset values for floating points, and this formula is still returns an expected offsets for all floating extenstions
 ############################################
-                    offset += int((flen/8)+(xlen/8)+(abs(flen-xlen)/8))
+                    offset += int(max(flen,xlen)/4)
                     if self.fmt == 'frformat' or self.fmt == 'rformat':
                         val_offset += 2*(int(flen/8))
                     elif self.fmt == 'fsrformat':
