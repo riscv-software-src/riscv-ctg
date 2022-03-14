@@ -990,7 +990,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
       LI(reg, MASK_XLEN(val)); \
       inst destreg, reg, SEXT_IMM(imm); \
-      rdov flagreg; \
+      RDOV(flagreg); \
     )
 
 //Tests for instructions with register-register operand and update the saturation flag
@@ -998,6 +998,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     LI(reg1, MASK_XLEN(val1)); \
     LI(reg2, MASK_XLEN(val2)); \
     inst destreg, reg1, reg2; \
+    RDOV(flagreg); \
     RVTEST_SIGUPD_PK(swreg, destreg, flagreg, offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
@@ -1006,7 +1007,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, offset, \
       LI(reg, MASK_XLEN(val)); \
       inst destreg, reg; \
-      rdov flagreg; \
+      RDOV(flagreg); \
     )
 
 #if __riscv_xlen == 32
