@@ -3711,7 +3711,7 @@ uradd16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kadd16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -3733,10 +3733,10 @@ kadd16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukadd16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -3758,7 +3758,7 @@ ukadd16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 sub16:
   stride: 1
@@ -3838,7 +3838,7 @@ ursub16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 ksub16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -3860,10 +3860,10 @@ ksub16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 uksub16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -3885,7 +3885,7 @@ uksub16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 cras16:
   stride: 1
@@ -3964,7 +3964,7 @@ urcras16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kcras16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4106,10 +4106,10 @@ max:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukcras16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4149,7 +4149,7 @@ maxu:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 crsa16:
   stride: 1
@@ -4263,7 +4263,7 @@ urcrsa16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kcrsa16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4324,10 +4324,10 @@ orn:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukcrsa16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4349,7 +4349,7 @@ ukcrsa16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 stas16:
   stride: 1
@@ -4475,7 +4475,7 @@ urstas16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kstas16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4497,10 +4497,10 @@ kstas16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukstas16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4588,7 +4588,7 @@ rorw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 stsa16:
   stride: 1
@@ -4722,7 +4722,7 @@ xnor:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kstsa16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4744,10 +4744,10 @@ kstsa16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukstsa16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -4808,7 +4808,7 @@ clmul:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 # 3.1.2. 8-bit Addition & Subtraction Instructions
@@ -4974,7 +4974,7 @@ bclr:
 
 
 kadd8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5004,10 +5004,10 @@ kadd8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukadd8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5072,7 +5072,7 @@ bext:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 sub8:
   stride: 1
@@ -5212,7 +5212,7 @@ ursub8:
 
 
 ksub8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5278,10 +5278,10 @@ bset:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 uksub8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5311,7 +5311,7 @@ uksub8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.1.3. 16-bit Shift Instructions
 
@@ -5531,7 +5531,7 @@ slli16:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ksll16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5550,10 +5550,10 @@ ksll16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslli16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5571,10 +5571,10 @@ kslli16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 kslra16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5593,10 +5593,10 @@ kslra16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslra16.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5615,7 +5615,7 @@ kslra16.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.1.4. 8-bit Shift Instructions
 
@@ -5875,7 +5875,7 @@ slli8:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ksll8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5898,10 +5898,10 @@ ksll8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslli8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5923,10 +5923,10 @@ kslli8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 kslra8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5949,10 +5949,10 @@ kslra8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslra8.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -5975,7 +5975,7 @@ kslra8.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.1.5. 16-bit Compare Instructions
 
@@ -6378,7 +6378,7 @@ umulx16:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 khm16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6400,10 +6400,10 @@ khm16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmx16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6425,7 +6425,7 @@ khmx16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.1.8. 8-bit Multiply Instructions
 
@@ -6566,7 +6566,7 @@ umulx8:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 khm8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6596,10 +6596,10 @@ khm8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmx8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6629,7 +6629,7 @@ khmx8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.1.9. 16-bit Misc Instructions
 
@@ -6734,7 +6734,7 @@ umax16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sclip16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6752,10 +6752,10 @@ sclip16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 uclip16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6773,10 +6773,10 @@ uclip16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 kabs16:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -6793,7 +6793,7 @@ kabs16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_PKR_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $rs1, $swreg, $offset, $testreg)
 
 clrs16:
   stride: 1
@@ -6813,7 +6813,7 @@ clrs16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 clz16:
   stride: 1
@@ -6833,7 +6833,7 @@ clz16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 swap16:
   stride: 1
@@ -6853,7 +6853,7 @@ swap16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 # 3.1.10. 8-bit Misc Instructions
 
@@ -6990,7 +6990,7 @@ umax8:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kabs8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7011,10 +7011,10 @@ kabs8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_PKR_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $rs1, $swreg, $offset, $testreg)
 
 sclip8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7036,10 +7036,10 @@ sclip8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 uclip8:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7061,7 +7061,7 @@ uclip8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 clrs8:
   stride: 1
@@ -7085,7 +7085,7 @@ clrs8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 clz8:
   stride: 1
@@ -7109,7 +7109,7 @@ clz8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 swap8:
   stride: 1
@@ -7133,7 +7133,7 @@ swap8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 # 3.1.11. 8-bit Unpacking Instructions
 
@@ -7159,7 +7159,7 @@ sunpkd810:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 sunpkd820:
   stride: 1
@@ -7183,7 +7183,7 @@ sunpkd820:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 sunpkd830:
   stride: 1
@@ -7207,7 +7207,7 @@ sunpkd830:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 sunpkd831:
   stride: 1
@@ -7231,7 +7231,7 @@ sunpkd831:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 sunpkd832:
   stride: 1
@@ -7255,7 +7255,7 @@ sunpkd832:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 zunpkd810:
   stride: 1
@@ -7279,7 +7279,7 @@ zunpkd810:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 zunpkd820:
   stride: 1
@@ -7303,7 +7303,7 @@ zunpkd820:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 zunpkd830:
   stride: 1
@@ -7327,7 +7327,7 @@ zunpkd830:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 zunpkd831:
   stride: 1
@@ -7351,7 +7351,7 @@ zunpkd831:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 zunpkd832:
   stride: 1
@@ -7375,7 +7375,7 @@ zunpkd832:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 # 3.2 Partial-SIMD Data Processing Instructions
 
@@ -7522,7 +7522,7 @@ smmul.u:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmmac:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7540,10 +7540,10 @@ kmmac:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmac.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7561,10 +7561,10 @@ kmmac.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmsb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7582,10 +7582,10 @@ kmmsb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmsb.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7603,10 +7603,10 @@ kmmsb.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kwmmul:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7624,10 +7624,10 @@ kwmmul:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kwmmul.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7645,7 +7645,7 @@ kwmmul.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 # 3.2.3 Most Significant Word 32x16 Multiply & Add Instructions
@@ -7742,7 +7742,7 @@ smmwt.u:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmmawb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7762,10 +7762,10 @@ kmmawb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawb.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7785,10 +7785,10 @@ kmmawb.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7808,10 +7808,10 @@ kmmawt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawt.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7831,10 +7831,10 @@ kmmawt.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmwb2:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7854,11 +7854,11 @@ kmmwb2:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 kmmwb2.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7878,10 +7878,10 @@ kmmwb2.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmwt2:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7901,10 +7901,10 @@ kmmwt2:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmwt2.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7924,11 +7924,11 @@ kmmwt2.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 kmmawb2:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7948,10 +7948,10 @@ kmmawb2:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawb2.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7971,10 +7971,10 @@ kmmawb2.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawt2:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -7994,10 +7994,10 @@ kmmawt2:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmmawt2.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8017,7 +8017,7 @@ kmmawt2.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 # 3.2.4 Signed 16-bit Multiply with 32-bit Add/Subtract Instructions
@@ -8098,7 +8098,7 @@ smtt16:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8120,10 +8120,10 @@ kmda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmxda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8145,7 +8145,7 @@ kmxda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 smds:
   stride: 1
@@ -8223,7 +8223,7 @@ smxds:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmabb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8245,10 +8245,10 @@ kmabb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmabt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8270,10 +8270,10 @@ kmabt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmatt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8295,10 +8295,10 @@ kmatt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmada:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8320,10 +8320,10 @@ kmada:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmaxda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8345,10 +8345,10 @@ kmaxda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmads:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8370,10 +8370,10 @@ kmads:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmadrs:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8395,10 +8395,10 @@ kmadrs:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmaxds:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8420,10 +8420,10 @@ kmaxds:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8445,10 +8445,10 @@ kmsda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsxda:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8470,7 +8470,7 @@ kmsxda:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.2.5 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
 
@@ -8503,7 +8503,7 @@ smal:
 # 3.2.6 Miscellaneous Instructions
 
 sclip32:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8519,10 +8519,10 @@ sclip32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 uclip32:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -8538,7 +8538,7 @@ uclip32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 clrs32:
   stride: 1
@@ -8556,7 +8556,7 @@ clrs32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 clz32:
   stride: 1
@@ -8574,7 +8574,7 @@ clz32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_RD_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
 
 pbsad:
   stride: 1
@@ -8809,7 +8809,7 @@ uradd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 kadd64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -8827,10 +8827,10 @@ kadd64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 ukadd64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -8848,7 +8848,7 @@ ukadd64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 sub64:
   stride: 2
@@ -8914,7 +8914,7 @@ ursub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 ksub64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -8932,10 +8932,10 @@ ksub64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 uksub64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -8953,7 +8953,7 @@ uksub64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val64;  op2val:$rs2_val64;
-    TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
+    TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 # 3.2.2 32-bit Multiply with 64-bit Add/Subtract Instructions
 
@@ -9050,7 +9050,7 @@ umsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmar64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -9070,10 +9070,10 @@ kmar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsr64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -9093,10 +9093,10 @@ kmsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmar64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -9116,10 +9116,10 @@ ukmar64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmsr64:
-  stride: 2
+  stride: 3
   xlen: [32,64]
   std_op:
   isa: 
@@ -9139,7 +9139,7 @@ ukmsr64:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 
 # 3.3.3 Signed 16-bit Multiply with 64-bit Add/Subtract Instructions
@@ -9417,7 +9417,7 @@ smslxda:
 # 3.4.1 Q15 Saturation Instructions
 
 kaddh:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9440,10 +9440,10 @@ kaddh:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ksubh:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9466,10 +9466,10 @@ ksubh:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmbb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9492,10 +9492,10 @@ khmbb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmbt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9517,10 +9517,10 @@ khmbt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmtt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9542,10 +9542,10 @@ khmtt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukaddh:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9567,10 +9567,10 @@ ukaddh:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 uksubh:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9592,12 +9592,12 @@ uksubh:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.4.2 Q31 Saturation Instructions
 
 kaddw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9615,10 +9615,10 @@ kaddw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukaddw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9636,10 +9636,10 @@ ukaddw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ksubw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9657,10 +9657,10 @@ ksubw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 uksubw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9678,10 +9678,10 @@ uksubw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmbb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9703,10 +9703,10 @@ kdmbb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmbt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9728,10 +9728,10 @@ kdmbt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmtt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9753,10 +9753,10 @@ kdmtt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslraw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9774,10 +9774,10 @@ kslraw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslraw.u:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9795,10 +9795,10 @@ kslraw.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ksllw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9815,10 +9815,10 @@ ksllw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslliw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9835,10 +9835,10 @@ kslliw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 kdmabb:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9860,10 +9860,10 @@ kdmabb:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmabt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9885,10 +9885,10 @@ kdmabt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmatt:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9910,10 +9910,10 @@ kdmatt:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kabsw:
-  stride: 1
+  stride: 2
   xlen: [32,64]
   std_op:
   isa: 
@@ -9928,7 +9928,7 @@ kabsw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_PKR_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $rs1, $swreg, $offset, $testreg)
 
 # 3.4.3. 32-bit Computation Instructions
 
@@ -10361,7 +10361,7 @@ uradd32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kadd32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10379,10 +10379,10 @@ kadd32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukadd32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10400,7 +10400,7 @@ ukadd32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 sub32:
   stride: 1
@@ -10466,7 +10466,7 @@ ursub32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 ksub32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10484,10 +10484,10 @@ ksub32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 uksub32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10505,7 +10505,7 @@ uksub32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 cras32:
   stride: 1
@@ -10571,7 +10571,7 @@ urcras32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kcras32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10589,10 +10589,10 @@ kcras32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukcras32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10610,7 +10610,7 @@ ukcras32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 crsa32:
   stride: 1
@@ -10676,7 +10676,7 @@ urcrsa32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kcrsa32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10694,10 +10694,10 @@ kcrsa32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukcrsa32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10715,7 +10715,7 @@ ukcrsa32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 stas32:
   stride: 1
@@ -10781,7 +10781,7 @@ urstas32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kstas32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10799,10 +10799,10 @@ kstas32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukstas32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10820,7 +10820,7 @@ ukstas32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 stsa32:
   stride: 1
@@ -10886,7 +10886,7 @@ urstsa32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kstsa32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10904,10 +10904,10 @@ kstsa32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukstsa32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -10925,7 +10925,7 @@ ukstsa32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # Table 28. (RV64 Only) SIMD 32-bit Shift Instructions
 
@@ -11125,7 +11125,7 @@ slli32:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ksll32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11142,10 +11142,10 @@ ksll32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslli32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11161,10 +11161,10 @@ kslli32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
-    TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
+    TEST_PKIMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $rs1, $swreg, $offset, $testreg)
 
 kslra32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11181,10 +11181,10 @@ kslra32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kslra32.u:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11201,7 +11201,7 @@ kslra32.u:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # Table 29. (RV64 Only) SIMD 32-bit Miscellaneous Instructions
 
@@ -11290,7 +11290,7 @@ umax32:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kabs32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11305,12 +11305,12 @@ kabs32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    TEST_R_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
+    TEST_PKR_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $rs1, $swreg, $offset, $testreg)
 
 # Table 30. (RV64 Only) SIMD Q15 saturating Multiply Instructions
 
 khmbb16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11332,10 +11332,10 @@ khmbb16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmbt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11357,10 +11357,10 @@ khmbt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 khmtt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11382,10 +11382,10 @@ khmtt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmbb16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11407,10 +11407,10 @@ kdmbb16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmbt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11432,10 +11432,10 @@ kdmbt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmtt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11457,10 +11457,10 @@ kdmtt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmabb16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11482,10 +11482,10 @@ kdmabb16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmabt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11507,10 +11507,10 @@ kdmabt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kdmatt16:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11532,7 +11532,7 @@ kdmatt16:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # Table 31. (RV64 Only) 32-bit Multiply Instructions
 
@@ -11602,7 +11602,7 @@ smtt32:
 # Table 32. (RV64 Only) 32-bit Multiply & Add Instructions
 
 kmabb32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11620,10 +11620,10 @@ kmabb32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmabt32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11641,10 +11641,10 @@ kmabt32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmatt32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11662,12 +11662,12 @@ kmatt32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 # Table 33. (RV64 Only) 32-bit Parallel Multiply & Add Instructions
 
 kmda32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11685,10 +11685,10 @@ kmda32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmxda32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11706,10 +11706,10 @@ kmxda32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmada32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11727,10 +11727,10 @@ kmada32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmaxda32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11748,10 +11748,10 @@ kmaxda32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmads32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11769,10 +11769,10 @@ kmads32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmadrs32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11790,10 +11790,10 @@ kmadrs32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmaxds32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11811,10 +11811,10 @@ kmaxds32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsda32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11832,10 +11832,10 @@ kmsda32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsxda32:
-  stride: 1
+  stride: 2
   xlen: [64]
   std_op:
   isa: 
@@ -11853,7 +11853,7 @@ kmsxda32:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 smds32:
   stride: 1
