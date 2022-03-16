@@ -626,7 +626,7 @@ rvtest_data_end:
    rdov _F
 #else
 #define RDOV(_F)\
-   nop
+   mv _F, zero
 #endif
 
 // for updating signatures that include flagreg when 'rd' is a paired register (64-bit) in Zpsfoperand extension in RV32.
