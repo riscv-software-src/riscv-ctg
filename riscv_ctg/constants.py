@@ -155,6 +155,41 @@ def zerotoxlen(bit_width):
         vals.append(i)
     return vals
 
+def gen_bitmanip_dataset(bit_width,sign=True):
+    '''
+    Function generates a special dataset of interesting values for bitmanip:
+    0x0, 0x3, 0xc, 0x5,0xa,0x6,0x9 each of the pattern exenteding for bit_width
+    for 32 bit
+    0x33333333,0xcccccccc,0x55555555, 0xaaaaaaaaa,0x66666666,0x99999999
+    for 64 bit
+    0x3333333333333333,0xcccccccccccccccc,0x5555555555555555, 0xaaaaaaaaaaaaaaaaa,
+    0x6666666666666666,0x9999999999999999
+     - +1 and -1 variants of the above pattern
+
+     :param bit_width: Integer defining the size of the input
+     :param sign: Boolen value specifying whether the dataset should be interpreted as signed numbers or not.
+     :type sign: bool
+     :type bit_width: int
+     :return: a list of integers
+    '''
+    if sign:
+        conv_func = lambda x: twos(x,bit_width)
+    else:
+        conv_func = lambda x:(int(x,16) if '0x' in x else int(x,2)) if isinstance(x,str) else x
+
+# dataset for 0x5, 0xa, 0x3, 0xc, 0x6, 0x9 patterns
+
+    dataset = ["0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4)),"0x"+"".join(["9"]*int(bit_width/4)),"0x"+"".join(["c"]*int(bit_width/4))]
+    dataset = list(map(conv_func,dataset)) 
+
+# dataset0 is  for 0,1 and 0xf pattern. 0xf pattern is added instead of -1 so that code for checking coverpoints in coverage.py
+# is kept simple.
+
+    dataset0 = [0,1,"0x"+"".join(["f"]*int(bit_width/4))]
+    dataset0 = list(map(conv_func,dataset0)) 
+
+# increment each value in dataset, increment each value in dataset, add them to the dataset
+    return dataset + [x - 1 for x in dataset] + [x+1 for x in dataset] + dataset0
 
 template_file = os.path.join(root,"data/template.yaml")
 

@@ -2,6 +2,14 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2022-15-04
+- Added method to generate data patterns for bitmanip instructions.
+
+## [0.6.1] - 2022-03-04
+- Check the vxsat.OV flag for P-extension instructions that saturate their results.
+- Correct test generation of P-extension instructions affected by the template.yaml ISA node change in 0.6.0.
+- update SIGUPD macros to automatically adjust base and offset if offset gets too big
+
 ## [0.6.0] - 2022-01-27
 - Add CGFs for B extensions.
 - Modify ISA node in template.yaml to support multiple ISAs per instruction.

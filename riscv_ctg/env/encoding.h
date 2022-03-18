@@ -37,6 +37,7 @@
 #define MSTATUS_HPP         0x00000600
 #define MSTATUS_MPP         0x00001800
 #define MSTATUS_FS          0x00006000
+#define MSTATUS_VS          0x00000600
 #define MSTATUS_XS          0x00018000
 #define MSTATUS_MPRV        0x00020000
 #define MSTATUS_SUM         0x00040000
@@ -996,6 +997,8 @@
 #define CAUSE_FETCH_PAGE_FAULT 0xc
 #define CAUSE_LOAD_PAGE_FAULT 0xd
 #define CAUSE_STORE_PAGE_FAULT 0xf
+#define CSR_MENTROPY 0xF15
+#define CSR_MNOISE 0x7A9
 #endif
 #ifdef DECLARE_INSN
 DECLARE_INSN(beq, MATCH_BEQ, MASK_BEQ)

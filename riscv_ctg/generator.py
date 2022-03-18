@@ -923,7 +923,7 @@ class Generator():
                 else:
                     i+=1
 
-        if self.opnode['isa'] == 'IP':
+        if 'IP' in self.opnode['isa']:
             if 'p64_profile' in self.opnode:
                 gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
             elif 'bit_width' in self.opnode:
@@ -1167,11 +1167,10 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        mydict = instr_dict.copy()
-
-        if self.opnode['isa'] == 'IP':
-            if (xlen == 32 and 'p64_profile' in self.opnode) or 'bit_width' in self.opnode:
-                return mydict
+        if 'IP' in self.opnode['isa']:
+            # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
+            if 'bit_width' in self.opnode or (xlen == 32 and 'p64_profile' in self.opnode):
+                return instr_dict
 
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
@@ -1250,6 +1249,9 @@ class Generator():
             if self.opcode not in ['fsw','flw']:
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
+
+        if 'IP' in self.opnode['isa']:
+            code.append("RVTEST_VXSAT_ENABLE()")
 
         if xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
