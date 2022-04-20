@@ -552,14 +552,10 @@ rvtest_data_end:
  csrs mstatus, a0;                      \
  csrwi fcsr, 0
 
-#ifdef pext_check_vxsat_ov
 #define RVTEST_VXSAT_ENABLE()\
  li a0, MSTATUS_VS & (MSTATUS_VS >> 1); \
  csrs mstatus, a0;                      \
  clrov
-#else
-#define RVTEST_VXSAT_ENABLE()
-#endif
 
 #define RVTEST_SIGBASE(_R,_TAG) \
   LA(_R,_TAG);\
@@ -577,37 +573,37 @@ rvtest_data_end:
  /* RVTEST_SIGUPD(basereg, sigreg)        stores sigreg at offset(basereg) and updates offset by regwidth */
  /* RVTEST_SIGUPD(basereg, sigreg,newoff) stores sigreg at newoff(basereg) and updates offset to regwidth+newoff */
 #define RVTEST_SIGUPD(_BR,_R,...)		         \
+  .if NARG(__VA_ARGS__) == 1                            ;\
+	.set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
+  .endif                                                ;\
   .if offset+REGWIDTH>=2048                             ;\
      addi   _BR, _BR, offset                            ;\
      .set   offset,   0					;\
   .endif						;\
-  .if NARG(__VA_ARGS__) == 1                            ;\
-	.set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
-  .endif                                                ;\
    SREG _R,offset(_BR)                                  ;\
   .set offset,offset+REGWIDTH
 
 #define RVTEST_SIGUPD_F(_BR,_R,_F,...)			 \
+  .if NARG(__VA_ARGS__) == 1                            ;\
+     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
+  .endif                                                ;\
   .if offset+2*REGWIDTH>=2048                           ;\
      addi   _BR, _BR,offset                             ;\
      .set   offset, 0					;\
   .endif						;\
-  .if NARG(__VA_ARGS__) == 1                            ;\
-     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
-  .endif                                                ;\
    FSREG _R,offset(_BR)					;\
    SREG  _F,offset+REGWIDTH(_BR)			;\
    .set offset,offset+(2*REGWIDTH)
 
   
 #define RVTEST_SIGUPD_FID(_BR,_R,_F,...)		 \
+  .if NARG(__VA_ARGS__) == 1                            ;\
+     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
+  .endif                                                ;\
   .if offset+2*REGWIDTH>=2048                           ;\
      addi   _BR, _BR,offset                             ;\
      .set   offset, 0					;\
   .endif						;\
-  .if NARG(__VA_ARGS__) == 1                            ;\
-     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
-  .endif                                                ;\
     SREG _R,offset(_BR)					;\
     SREG _F,offset+REGWIDTH(_BR)			;\
     .set offset,offset+(2*REGWIDTH)
@@ -620,27 +616,18 @@ rvtest_data_end:
 	RVTEST_SIGUPD_FID(_BR,_R,_R_HI,_ARG1(__VA_OPT__(__VA_ARGS__,0)));\
  .endif
 
-// for reading vxsat.OV flag in P-ext; and only reads the flag when Zicsr extension is present
-#ifdef pext_check_vxsat_ov
-#define RDOV(_F)\
-   rdov _F
-#else
-#define RDOV(_F)\
-   nop
-#endif
-
 // for updating signatures that include flagreg when 'rd' is a paired register (64-bit) in Zpsfoperand extension in RV32.
 #define RVTEST_SIGUPD_PK64(_BR,_R,_R_HI,_F,...)\
+  .if NARG(__VA_ARGS__) == 1                            ;\
+     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
+  .endif                                                ;\
   .if offset+3*REGWIDTH>=2048                           ;\
      addi   _BR, _BR,offset                             ;\
      .set   offset, 0					;\
   .endif						;\
-  .if NARG(__VA_ARGS__) == 1                            ;\
-     .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
-  .endif                                                ;\
     SREG _R,offset(_BR)					;\
     SREG _R_HI,offset+REGWIDTH(_BR)			;\
-    RDOV(_F)                                            ;\
+    rdov _F                                             ;\
     SREG _F,offset+2*REGWIDTH(_BR)			;\
     .set offset,offset+(3*REGWIDTH)
 
@@ -998,6 +985,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     LI(reg1, MASK_XLEN(val1)); \
     LI(reg2, MASK_XLEN(val2)); \
     inst destreg, reg1, reg2; \
+    rdov flagreg; \
     RVTEST_SIGUPD_PK(swreg, destreg, flagreg, offset); \
     RVMODEL_IO_ASSERT_GPR_EQ(testreg, destreg, correctval)
 
