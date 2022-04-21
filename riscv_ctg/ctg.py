@@ -20,21 +20,26 @@ def create_test(usage_str, node,label,base_isa,max_inst):
     global xlen
 
     flen = 0
-    if 'opcode' not in node:
+    if 'mnemonics' not in node:
         return
     if 'ignore' in node:
         logger.info("Ignoring :" + str(label))
         if node['ignore']:
             return
-    for opcode in node['opcode']:
-        op_node=None
-        if opcode not in op_template:
-            for op,foo in op_template.items():
-                if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
-                    op_node = foo
-                    break
-        else:
-            op_node = op_template[opcode]
+    if 'base_op' in node:
+        base_op = node['base_op'] 
+        if base_op in op_template:
+            op_node = op_template[base_op]
+    else:
+        for opcode in node['mnemonics']:
+            op_node=None
+            if opcode not in op_template:
+                for op,foo in op_template.items():
+                    if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
+                        op_node = foo
+                        break
+            else:
+                op_node = op_template[opcode]
 
         if op_node is  None:
             logger.warning("Skipping :" + str(opcode))
