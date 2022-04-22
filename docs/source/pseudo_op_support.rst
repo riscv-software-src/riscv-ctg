@@ -11,7 +11,7 @@ Format
 The ``opcode`` field is renamed to ``mnemonics``. To support pseudo-instructions two new fields ``base_op`` and ``p_op_cond``
 are added to the covergroups. The ``base_op`` and ``p_op_cond`` are optional fields which specify the base operation and the
 condition over the different fields of the instruction which when satisfied results in the instruction being recognized as the
-pseudo-op mentioned in ``mnemonics``. As an example, ``zext.h`` is a pseudo-op of ``pack`` in RV32 and packw in RV64 with ``rs2``
+pseudo-op mentioned in ``mnemonics``. As an example, ``zext.h`` is a pseudo-op of ``pack`` in RV32 and ``packw`` in RV64 with ``rs2``
 equal to ``x0``. Covergroup for ``zext.h`` pseudo-op can be expressed as follows: ::
 
     zext.h_32:
