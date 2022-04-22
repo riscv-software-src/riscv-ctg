@@ -36,7 +36,8 @@ equal to ``x0``. Covergroup for ``zext.h`` pseudo-op can be expressed as follows
 
 During CTG runtime, the ``base_op`` field is checked for in every covergroup. The template corresponding to the instruction found 
 in ``base_op`` node is extracted to generate the test. If ``base_op`` node does not exist, the instruction found in ``mnemonics``
-is used to extract the required template.
+is used to extract the required template. ``p_op_cond`` fields are not used as additional constraints for the corresponding pseudo-op.
+This is due to the assumption that test generation for a base-op encompasses all pseudo-ops associated with the base-op.
 
 Note
 ####
