@@ -26,24 +26,9 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         logger.info("Ignoring :" + str(label))
         if node['ignore']:
             return
-    if 'base_op' in node:
-        base_op = node['base_op'] 
-        if base_op in op_template:
-            op_node = op_template[base_op]
-    else:
-        for opcode in node['mnemonics']:
-            op_node=None
-            if opcode not in op_template:
-                for op,foo in op_template.items():
-                    if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
-                        op_node = foo
-                        break
-            else:
-                op_node = op_template[opcode]
-
-        if op_node is  None:
-            logger.warning("Skipping :" + str(opcode))
-            return
+    
+    # Function to encompass checks and test generation
+    def gen_test(op_node, opcode):
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
@@ -66,6 +51,32 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         logger.info("Writing tests for :"+str(label))
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
+
+    # If base_op defined in covergroup, extract corresponding template
+    # else go through the instructions defined in mnemonics label
+    if 'base_op' in node:
+        base_op = node['base_op'] 
+        if base_op in op_template:
+            op_node = op_template[base_op]
+            # Generate tests
+            gen_test(op_node, base_op)
+    else:
+        for opcode in node['mnemonics']:
+            op_node=None
+            if opcode not in op_template:
+                for op,foo in op_template.items():
+                    if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
+                        op_node = foo
+                        break
+            else:
+                op_node = op_template[opcode]
+            # Generate tests
+            gen_test(op_node, opcode)
+    
+    # Return if there is no corresponding template 
+    if op_node is None:
+        logger.warning("Skipping :" + str(opcode))
+        return
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     global op_template
