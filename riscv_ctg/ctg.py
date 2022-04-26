@@ -54,12 +54,21 @@ def create_test(usage_str, node,label,base_isa,max_inst):
 
     # If base_op defined in covergroup, extract corresponding template
     # else go through the instructions defined in mnemonics label
-    if 'base_op' in node:
-        base_op = node['base_op'] 
-        if base_op in op_template:
+    if 'base_op' in node and 'mnemonics' in node:
+
+        base_op = node['base_op']
+        pseudop = node['mnemonics']
+
+        if base_op in op_template and pseudop in op_template:
             op_node = op_template[base_op]
+            pseudo_template = op_template[base_op]
+
+            # Ovewrite nodes from pseudoinstruction template in base instruction template
+            for key, val in pseudo_template.items():
+               op_node[key] = val
+
             # Generate tests
-            gen_test(op_node, base_op)
+            gen_test(op_node, pseudop)
     else:
         for opcode in node['mnemonics']:
             op_node=None
