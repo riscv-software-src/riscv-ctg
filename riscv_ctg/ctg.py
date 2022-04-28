@@ -1,5 +1,6 @@
 # See LICENSE.incore file for details
 
+import copy
 import os,re
 import multiprocessing as mp
 
@@ -21,6 +22,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
 
     flen = 0
     if 'mnemonics' not in node:
+        logger.warning("mnemonics node not found in covergroup: " + str(label))
         return
     if 'ignore' in node:
         logger.info("Ignoring :" + str(label))
@@ -56,13 +58,12 @@ def create_test(usage_str, node,label,base_isa,max_inst):
     # If base_op defined in covergroup, extract corresponding template
     # else go through the instructions defined in mnemonics label
     op_node = None
-    if 'base_op' in node and 'mnemonics' in node:
-        
+    if 'base_op' in node:
         # Extract pseudo and base instructions
         base_op = node['base_op']
         pseudop = list(node['mnemonics'].keys())[0]
         if base_op in op_template and pseudop in op_template:
-            op_node = op_template[base_op]
+            op_node = copy.deepcopy(op_template[base_op])
             pseudo_template = op_template[pseudop]
             
             # Ovewrite/add nodes from pseudoinstruction template in base instruction template
@@ -75,9 +76,11 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         for opcode in node['mnemonics']:
             if opcode in op_template:
                 op_node = op_template[opcode]
-                
                 # Generate tests
                 gen_test(op_node, opcode)
+            else:
+                logger.warning(str(opcode) + " not found in template file. Skipping")
+                return
     
     # Return if there is no corresponding template 
     if op_node is None:
