@@ -32,6 +32,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
+        flen = 0
         if 'flen' in op_node:
             if '.d' in opcode:
                 flen = 64
@@ -59,15 +60,14 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         
         # Extract pseudo and base instructions
         base_op = node['base_op']
-        pseudop = node['mnemonics']
-
+        pseudop = list(node['mnemonics'].keys())[0]
         if base_op in op_template and pseudop in op_template:
             op_node = op_template[base_op]
-            pseudo_template = op_template[base_op]
-
+            pseudo_template = op_template[pseudop]
+            
             # Ovewrite/add nodes from pseudoinstruction template in base instruction template
             for key, val in pseudo_template.items():
-               op_node[key] = val
+                op_node[key] = val
 
             # Generate tests
             gen_test(op_node, pseudop)
@@ -115,4 +115,3 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
     pool.close()
-
