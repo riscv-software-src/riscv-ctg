@@ -2,7 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.2] - 2022-15-04
+## [0.7.0] - 2022-2-05
+- Included support for pseudoinstructions
+
+## [0.6.2] - 2022-04-15
 - Added method to generate data patterns for bitmanip instructions.
 
 ## [0.6.1] - 2022-03-04
