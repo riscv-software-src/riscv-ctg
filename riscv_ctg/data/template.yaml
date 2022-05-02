@@ -3640,7 +3640,7 @@ add16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3665,7 +3665,7 @@ radd16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3690,7 +3690,7 @@ uradd16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3715,7 +3715,7 @@ kadd16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3740,7 +3740,7 @@ ukadd16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3765,7 +3765,7 @@ sub16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3791,7 +3791,7 @@ rsub16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3817,7 +3817,7 @@ ursub16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3842,7 +3842,7 @@ ksub16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3867,7 +3867,7 @@ uksub16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3892,7 +3892,7 @@ cras16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3917,7 +3917,7 @@ rcras16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3943,7 +3943,7 @@ urcras16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -3968,7 +3968,7 @@ kcras16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4113,7 +4113,7 @@ ukcras16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4156,7 +4156,7 @@ crsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4199,7 +4199,7 @@ rcrsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4242,7 +4242,7 @@ urcrsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4267,7 +4267,7 @@ kcrsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4331,7 +4331,7 @@ ukcrsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4356,7 +4356,7 @@ stas16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4381,7 +4381,7 @@ rstas16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4454,7 +4454,7 @@ urstas16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4479,7 +4479,7 @@ kstas16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4504,7 +4504,7 @@ ukstas16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4595,7 +4595,7 @@ stsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4620,7 +4620,7 @@ rstsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4645,7 +4645,7 @@ urstsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4726,7 +4726,7 @@ kstsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4751,7 +4751,7 @@ ukstsa16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -4818,7 +4818,7 @@ add8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -4874,7 +4874,7 @@ radd8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -4926,7 +4926,7 @@ uradd8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -4978,7 +4978,7 @@ kadd8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5011,7 +5011,7 @@ ukadd8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5079,7 +5079,7 @@ sub8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5112,7 +5112,7 @@ rsub8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5182,7 +5182,7 @@ ursub8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5216,7 +5216,7 @@ ksub8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5285,7 +5285,7 @@ uksub8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -5320,7 +5320,7 @@ sra16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5342,7 +5342,7 @@ srai16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5363,7 +5363,7 @@ sra16.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5385,7 +5385,7 @@ srai16.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5406,7 +5406,7 @@ srl16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5428,7 +5428,7 @@ srli16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5449,7 +5449,7 @@ srl16.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5471,7 +5471,7 @@ srli16.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5492,7 +5492,7 @@ sll16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5514,7 +5514,7 @@ slli16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5535,7 +5535,7 @@ ksll16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5557,7 +5557,7 @@ kslli16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -5578,7 +5578,7 @@ kslra16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16,xlen
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5600,7 +5600,7 @@ kslra16.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16,xlen
   formattype: 'pshrrformat'
   rs1_op_data: *all_regs
@@ -5624,7 +5624,7 @@ sra8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5650,7 +5650,7 @@ srai8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5675,7 +5675,7 @@ sra8.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5701,7 +5701,7 @@ srai8.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5726,7 +5726,7 @@ srl8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5752,7 +5752,7 @@ srli8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5777,7 +5777,7 @@ srl8.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5803,7 +5803,7 @@ srli8.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5828,7 +5828,7 @@ sll8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5854,7 +5854,7 @@ slli8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5879,7 +5879,7 @@ ksll8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5905,7 +5905,7 @@ kslli8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -5930,7 +5930,7 @@ kslra8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8,xlen
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5956,7 +5956,7 @@ kslra8.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8,xlen
   formattype: 'psbrrformat'
   rs1_op_data: *all_regs
@@ -5984,7 +5984,7 @@ cmpeq16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6009,7 +6009,7 @@ scmplt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6034,7 +6034,7 @@ scmple16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6059,7 +6059,7 @@ ucmplt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6084,7 +6084,7 @@ ucmple16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6111,7 +6111,7 @@ cmpeq8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6144,7 +6144,7 @@ scmplt8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6177,7 +6177,7 @@ scmple8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6210,7 +6210,7 @@ ucmplt8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6243,7 +6243,7 @@ ucmple8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6278,7 +6278,7 @@ smul16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -6304,7 +6304,7 @@ smulx16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -6330,7 +6330,7 @@ umul16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -6356,7 +6356,7 @@ umulx16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -6382,7 +6382,7 @@ khm16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6407,7 +6407,7 @@ khmx16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6434,7 +6434,7 @@ smul8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   p64_profile: 'pnn'
   formattype: 'pbrrformat'
@@ -6468,7 +6468,7 @@ smulx8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   p64_profile: 'pnn'
   formattype: 'pbrrformat'
@@ -6502,7 +6502,7 @@ umul8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   p64_profile: 'pnn'
   formattype: 'pbrrformat'
@@ -6536,7 +6536,7 @@ umulx8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   p64_profile: 'pnn'
   formattype: 'pbrrformat'
@@ -6570,7 +6570,7 @@ khm8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6603,7 +6603,7 @@ khmx8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6638,7 +6638,7 @@ smin16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6663,7 +6663,7 @@ umin16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6688,7 +6688,7 @@ smax16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6713,7 +6713,7 @@ umax16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -6738,7 +6738,7 @@ sclip16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -6759,7 +6759,7 @@ uclip16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phriformat'
   rs1_op_data: *all_regs
@@ -6780,7 +6780,7 @@ kabs16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrformat'
   rs1_op_data: *all_regs
@@ -6800,7 +6800,7 @@ clrs16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrformat'
   rs1_op_data: *all_regs
@@ -6820,7 +6820,7 @@ clz16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrformat'
   rs1_op_data: *all_regs
@@ -6840,7 +6840,7 @@ swap16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrformat'
   rs1_op_data: *all_regs
@@ -6862,7 +6862,7 @@ smin8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6895,7 +6895,7 @@ umin8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6928,7 +6928,7 @@ smax8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6961,7 +6961,7 @@ umax8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -6994,7 +6994,7 @@ kabs8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7018,7 +7018,7 @@ sclip8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -7043,7 +7043,7 @@ uclip8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbriformat'
   rs1_op_data: *all_regs
@@ -7068,7 +7068,7 @@ clrs8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7092,7 +7092,7 @@ clz8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7116,7 +7116,7 @@ swap8:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7142,7 +7142,7 @@ sunpkd810:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7166,7 +7166,7 @@ sunpkd820:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7190,7 +7190,7 @@ sunpkd830:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7214,7 +7214,7 @@ sunpkd831:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7238,7 +7238,7 @@ sunpkd832:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7262,7 +7262,7 @@ zunpkd810:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7286,7 +7286,7 @@ zunpkd820:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7310,7 +7310,7 @@ zunpkd830:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7334,7 +7334,7 @@ zunpkd831:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7358,7 +7358,7 @@ zunpkd832:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrformat'
   rs1_op_data: *all_regs
@@ -7384,7 +7384,7 @@ pkbb16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -7409,7 +7409,7 @@ pkbt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -7434,7 +7434,7 @@ pktb16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -7459,7 +7459,7 @@ pktt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -7484,7 +7484,7 @@ smmul:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7505,7 +7505,7 @@ smmul.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7526,7 +7526,7 @@ kmmac:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7547,7 +7547,7 @@ kmmac.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7568,7 +7568,7 @@ kmmsb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7589,7 +7589,7 @@ kmmsb.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7610,7 +7610,7 @@ kwmmul:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7631,7 +7631,7 @@ kwmmul.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -7654,7 +7654,7 @@ smmwb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7677,7 +7677,7 @@ smmwb.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7700,7 +7700,7 @@ smmwt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7723,7 +7723,7 @@ smmwt.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7746,7 +7746,7 @@ kmmawb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7769,7 +7769,7 @@ kmmawb.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7792,7 +7792,7 @@ kmmawt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7815,7 +7815,7 @@ kmmawt.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7838,7 +7838,7 @@ kmmwb2:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7862,7 +7862,7 @@ kmmwb2.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7885,7 +7885,7 @@ kmmwt2:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7908,7 +7908,7 @@ kmmwt2.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7932,7 +7932,7 @@ kmmawb2:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7955,7 +7955,7 @@ kmmawb2.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -7978,7 +7978,7 @@ kmmawt2:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -8001,7 +8001,7 @@ kmmawt2.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32, 16
   formattype: 'pwhrrformat'
   rs1_op_data: *all_regs
@@ -8027,7 +8027,7 @@ smbb16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8052,7 +8052,7 @@ smbt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8077,7 +8077,7 @@ smtt16:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8102,7 +8102,7 @@ kmda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8127,7 +8127,7 @@ kmxda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8152,7 +8152,7 @@ smds:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8177,7 +8177,7 @@ smdrs:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8202,7 +8202,7 @@ smxds:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8227,7 +8227,7 @@ kmabb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8252,7 +8252,7 @@ kmabt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8277,7 +8277,7 @@ kmatt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8302,7 +8302,7 @@ kmada:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8327,7 +8327,7 @@ kmaxda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8352,7 +8352,7 @@ kmads:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8377,7 +8377,7 @@ kmadrs:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8402,7 +8402,7 @@ kmaxds:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8427,7 +8427,7 @@ kmsda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8452,7 +8452,7 @@ kmsxda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -8479,7 +8479,7 @@ smal:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64,16
   p64_profile: 'ppn'
   formattype: 'pphrrformat'
@@ -8507,7 +8507,7 @@ sclip32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -8526,7 +8526,7 @@ uclip32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -8545,7 +8545,7 @@ clrs32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrformat'
   rs1_op_data: *all_regs
@@ -8563,7 +8563,7 @@ clz32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrformat'
   rs1_op_data: *all_regs
@@ -8581,7 +8581,7 @@ pbsad:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -8614,7 +8614,7 @@ pbsada:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -8649,7 +8649,7 @@ smaqa:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -8682,7 +8682,7 @@ umaqa:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -8715,7 +8715,7 @@ smaqa.su:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 8
   formattype: 'pbrrformat'
   rs1_op_data: *all_regs
@@ -8750,7 +8750,7 @@ add64:
   xlen: [32]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8771,7 +8771,7 @@ radd64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8792,7 +8792,7 @@ uradd64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8813,7 +8813,7 @@ kadd64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8834,7 +8834,7 @@ ukadd64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8855,7 +8855,7 @@ sub64:
   xlen: [32]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8876,7 +8876,7 @@ rsub64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8897,7 +8897,7 @@ ursub64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8918,7 +8918,7 @@ ksub64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8939,7 +8939,7 @@ uksub64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'ppp'
   formattype: 'prrformat'
@@ -8962,7 +8962,7 @@ smar64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -8985,7 +8985,7 @@ smsr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9008,7 +9008,7 @@ umar64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9031,7 +9031,7 @@ umsr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9054,7 +9054,7 @@ kmar64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9077,7 +9077,7 @@ kmsr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9100,7 +9100,7 @@ ukmar64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9123,7 +9123,7 @@ ukmsr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -9149,7 +9149,7 @@ smalbb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9176,7 +9176,7 @@ smalbt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9203,7 +9203,7 @@ smaltt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9230,7 +9230,7 @@ smalda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9257,7 +9257,7 @@ smalxda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9284,7 +9284,7 @@ smalds:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9311,7 +9311,7 @@ smaldrs:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9338,7 +9338,7 @@ smalxds:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9365,7 +9365,7 @@ smslda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9392,7 +9392,7 @@ smslxda:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   p64_profile: 'pnn'
   formattype: 'phrrformat'
@@ -9421,7 +9421,7 @@ kaddh:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9447,7 +9447,7 @@ ksubh:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9473,7 +9473,7 @@ khmbb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9499,7 +9499,7 @@ khmbt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9524,7 +9524,7 @@ khmtt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9549,7 +9549,7 @@ ukaddh:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9574,7 +9574,7 @@ uksubh:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9601,7 +9601,7 @@ kaddw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9622,7 +9622,7 @@ ukaddw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9643,7 +9643,7 @@ ksubw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9664,7 +9664,7 @@ uksubw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9685,7 +9685,7 @@ kdmbb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9710,7 +9710,7 @@ kdmbt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9735,7 +9735,7 @@ kdmtt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9760,7 +9760,7 @@ kslraw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9781,7 +9781,7 @@ kslraw.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9802,7 +9802,7 @@ ksllw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -9822,7 +9822,7 @@ kslliw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -9842,7 +9842,7 @@ kdmabb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9867,7 +9867,7 @@ kdmabt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9892,7 +9892,7 @@ kdmatt:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -9917,7 +9917,7 @@ kabsw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrformat'
   rs1_op_data: *all_regs
@@ -9937,7 +9937,7 @@ raddw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9958,7 +9958,7 @@ uraddw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -9979,7 +9979,7 @@ rsubw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10000,7 +10000,7 @@ ursubw:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10021,7 +10021,7 @@ mulr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -10044,7 +10044,7 @@ mulsr64:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   p64_profile: 'pnn'
   formattype: 'pwrrformat'
@@ -10067,7 +10067,7 @@ maddr32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10088,7 +10088,7 @@ msubr32:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10144,7 +10144,7 @@ ave:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10162,7 +10162,7 @@ sra.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10180,7 +10180,7 @@ srai.u:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -10198,7 +10198,7 @@ bitrev:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10216,7 +10216,7 @@ bitrevi:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -10233,7 +10233,7 @@ wext:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64, 8
   p64_profile: 'npn'
   formattype: 'ppbrrformat'
@@ -10261,7 +10261,7 @@ wexti:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 64
   p64_profile: 'npi'
   formattype: 'iformat'
@@ -10282,7 +10282,7 @@ insb:
   xlen: [32,64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -10302,7 +10302,7 @@ add32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10323,7 +10323,7 @@ radd32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10344,7 +10344,7 @@ uradd32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10365,7 +10365,7 @@ kadd32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10386,7 +10386,7 @@ ukadd32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10407,7 +10407,7 @@ sub32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10428,7 +10428,7 @@ rsub32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10449,7 +10449,7 @@ ursub32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10470,7 +10470,7 @@ ksub32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10491,7 +10491,7 @@ uksub32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10512,7 +10512,7 @@ cras32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10533,7 +10533,7 @@ rcras32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10554,7 +10554,7 @@ urcras32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10575,7 +10575,7 @@ kcras32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10596,7 +10596,7 @@ ukcras32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10617,7 +10617,7 @@ crsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10638,7 +10638,7 @@ rcrsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10659,7 +10659,7 @@ urcrsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10680,7 +10680,7 @@ kcrsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10701,7 +10701,7 @@ ukcrsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10722,7 +10722,7 @@ stas32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10743,7 +10743,7 @@ rstas32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10764,7 +10764,7 @@ urstas32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10785,7 +10785,7 @@ kstas32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10806,7 +10806,7 @@ ukstas32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10827,7 +10827,7 @@ stsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10848,7 +10848,7 @@ rstsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10869,7 +10869,7 @@ urstsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10890,7 +10890,7 @@ kstsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10911,7 +10911,7 @@ ukstsa32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -10934,7 +10934,7 @@ sra32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -10954,7 +10954,7 @@ srai32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -10973,7 +10973,7 @@ sra32.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -10993,7 +10993,7 @@ srai32.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11012,7 +11012,7 @@ srl32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11032,7 +11032,7 @@ srli32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11051,7 +11051,7 @@ srl32.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11071,7 +11071,7 @@ srli32.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11090,7 +11090,7 @@ sll32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11110,7 +11110,7 @@ slli32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11129,7 +11129,7 @@ ksll32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11149,7 +11149,7 @@ kslli32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11168,7 +11168,7 @@ kslra32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32,xlen
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11188,7 +11188,7 @@ kslra32.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32,xlen
   formattype: 'pswrrformat'
   rs1_op_data: *all_regs
@@ -11210,7 +11210,7 @@ smin32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11231,7 +11231,7 @@ umin32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11252,7 +11252,7 @@ smax32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11273,7 +11273,7 @@ umax32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11294,7 +11294,7 @@ kabs32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrformat'
   rs1_op_data: *all_regs
@@ -11314,7 +11314,7 @@ khmbb16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11339,7 +11339,7 @@ khmbt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11364,7 +11364,7 @@ khmtt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11389,7 +11389,7 @@ kdmbb16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11414,7 +11414,7 @@ kdmbt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11439,7 +11439,7 @@ kdmtt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11464,7 +11464,7 @@ kdmabb16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11489,7 +11489,7 @@ kdmabt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11514,7 +11514,7 @@ kdmatt16:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 16
   formattype: 'phrrformat'
   rs1_op_data: *all_regs
@@ -11541,7 +11541,7 @@ smbb32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11562,7 +11562,7 @@ smbt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11583,7 +11583,7 @@ smtt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11606,7 +11606,7 @@ kmabb32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11627,7 +11627,7 @@ kmabt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11648,7 +11648,7 @@ kmatt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11671,7 +11671,7 @@ kmda32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11692,7 +11692,7 @@ kmxda32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11713,7 +11713,7 @@ kmada32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11734,7 +11734,7 @@ kmaxda32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11755,7 +11755,7 @@ kmads32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11776,7 +11776,7 @@ kmadrs32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11797,7 +11797,7 @@ kmaxds32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11818,7 +11818,7 @@ kmsda32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11839,7 +11839,7 @@ kmsxda32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11860,7 +11860,7 @@ smds32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11881,7 +11881,7 @@ smdrs32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11902,7 +11902,7 @@ smxds32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11925,7 +11925,7 @@ sraiw.u:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwriformat'
   rs1_op_data: *all_regs
@@ -11946,7 +11946,7 @@ pkbb32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11967,7 +11967,7 @@ pkbt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -11988,7 +11988,7 @@ pktb32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
@@ -12009,7 +12009,7 @@ pktt32:
   xlen: [64]
   std_op:
   isa: 
-   - IP
+   - IPZicsr
   bit_width: 32
   formattype: 'pwrrformat'
   rs1_op_data: *all_regs
