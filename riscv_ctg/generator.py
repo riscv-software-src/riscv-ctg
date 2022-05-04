@@ -897,7 +897,7 @@ class Generator():
         for instr in instr_dict:
             unique = False
             skip_val = False
-            if instr['inst'] in cgf['opcode']:
+            if instr['inst'] in cgf['mnemonics']:
                 if 'rs1' in instr and 'rs2' in instr:
                     if instr['rs1'] == instr['rs2']:
                         skip_val = True

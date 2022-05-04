@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2022-2-05
+- Included support for pseudoinstructions
+
 ## [0.6.3] - 2022-03-14
 - Read the vxsat.OV flag before updating signatures in TEST_PKRR_OP() macro
 - Use RDOV() macro to read the vxsat.OV flag.
