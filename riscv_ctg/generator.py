@@ -3,8 +3,12 @@ import random
 from collections import defaultdict
 from constraint import *
 import re
+
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
+import riscv_ctg.utils as utils
+import riscv_ctg.constants as const
+
 import time
 from math import *
 import struct
@@ -164,9 +168,13 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-    
-    # Supporting datastructure for cross_comb
-    OPS_LST = [val + [key] for key, val in OPS.items()]
+
+    # Template dictionary
+    OP_TEMPLATE = utils.load_yaml(const.template_file)
+
+    # Supporting data-structure for cross_comb
+    FORMAT_DICT = utils.gen_format_data()
+    INSTR_LST = utils.get_instr_list()
     
     def __init__(self,fmt,opnode,opcode,randomization, xl, fl,base_isa_str):
         '''
@@ -473,8 +481,8 @@ class Generator():
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
         '''
-        logger.debug(self.opcode + ': Generating CrossComb')
-        solutions = []
+        #logger.debug(self.opcode + ': Generating CrossComb')
+        #solutions = []
 
         if 'cross_comb' in cgf:
             cross_comb = set(cgf['cross_comb'])
@@ -484,15 +492,15 @@ class Generator():
         for each in cross_comb:
             parts = each.split('::')
         
-            data = parts[0].replace(' ', '').split(':')
-            assgn_lst = parts[1].split(':')
-            cond_lst = parts[2].split(':')
+            data = parts[0].replace(' ', '')[1:-1].split(':')
+            assgn_lst = parts[1].replace(' ', '')[1:-1].split(':')
+            cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
 
             i = 0
+            isa = 'I'
+            
+            problem = Problem()
             for i in range(len(data)):
-                
-
-                isa = 'I'
                 if data[i] == '?':
                     # When instruction is not specified,
                     #   - Gather conditions if any
@@ -500,39 +508,66 @@ class Generator():
                     #   - Generate assignments
 
                     # Get corresponding conditions and accordingly chose instruction
-                    problem = Problem()
-                    for each in cond_lst[i]:
-                        if each == '?':
-                            pass                # Choose any set of operands
-                        else:
-                            cond = cond_lst[i]
-                            opr_lst = []
-                            
-                            if cond.find('rd') != -1:
-                                opr_lst.append('rd')
-                            if cond.find('rs1') != -1:
-                                opr_lst.append('rs1')
-                            if cond.find('rs2') != -1:
-                                opr_lst.append('rs2')
-                            if cond.find('rs3') != -1:
-                                opr_lst.append('rs3')
-
-                            # Get all possible formats based on operands in conditions
-                            problem.addVariable('f', Generator.OPS_LST)
-                            problem.addConstraint(lambda f: all(item in f for item in opr_lst), ('f'))
-                            
-                            # Get all possible formats
-                            opr_formats = [val[-1] for key, val in problem.getSolutions().items()]
+                    cond = cond_lst[i]
+                    if cond.find('?') != -1:
+                        
+                        # Get possible instructions from extension of last instruction defined in coverpoint
+                        problem.reset()
+                        problem.addVariable('i', Generator.INSTR_LST)
+                        problem.addConstraint(lambda i: isa in Generator.OP_TEMPLATE[i]['isa'])
+                        instrs_sol = problem.getSolutions()
+                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
+                        
+                    else:
+                        opr_lst = []
+                        
+                        if cond.find('rd') != -1:
+                            opr_lst.append('rd')
+                        if cond.find('rs1') != -1:
+                            opr_lst.append('rs1')
+                        if cond.find('rs2') != -1:
+                            opr_lst.append('rs2')
+                        if cond.find('rs3') != -1:
+                            opr_lst.append('rs3')
+                        
+                        # Get all possible formats based on operands in conditions
+                        problem.reset()
+                        problem.addVariable('f', OPS)
+                        problem.addConstraint(lambda f: all(item in OPS[f] for item in opr_lst))
+                        
+                        opr_formats = problem.getSolutions()
+                        opr_formats = [list(each.items())[0][1] for each in opr_formats]
+                        
+                        # Get possible instructions
+                        problem.reset()
+                        problem.addVariable('i', Generator.INSTR_LST)
+                        problem.addConstraint(lambda i: isa in Generator.OP_TEMPLATE[i]['isa'] and Generator.OP_TEMPLATE[i]['formattype'] in opr_formats)
+                        
+                        instrs_sol = problem.getSolutions()
+                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
                     # Choose instruction
+                    instr = instrs_sol[0]           # For now
+                    print(instrs_sol)
                     
-
+                    # Choose operand values
+                    formattype = Generator.OP_TEMPLATE[instr]['formattype']
+                    oprs = OPS[formattype]
+                    problem.reset()
+                    for var in oprs:
+                        problem.addVariable(var, list(self.datasets[var]))
+                    
                     # Get assignments if any and execute them
                     if assgn_lst[i] != '?':
                         assgns = assgn_lst[i].split(';')
+                        for each in assgns:
+                            exec(each)
+                        print(locals)
+
                     
                 else:
                     instr = data[i]         # Get the instruction
+                    isa = Generator.OP_TEMPLATE[instr]['isa'][0]
                 
                 
 
@@ -1399,5 +1434,6 @@ class Generator():
             fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa=op_node_isa,opcode=opcode,extension=extension,label=label))
 
 if __name__ == '__main__':
-    a = Generator('lol', 'lol', 'lol', False, 32, 32, 'kaka')
-    get_it = a.cross_comb('')
+
+    cross = {'cross_comb' : {'[add : ? : mul : ? : ? : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a]  ' : 0}}
+    get_it = Generator.cross_comb(cross)
