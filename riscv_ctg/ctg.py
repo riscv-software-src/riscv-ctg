@@ -1,8 +1,6 @@
 # See LICENSE.incore file for details
 
-from collections import defaultdict
 import os,re
-import pprint
 import multiprocessing as mp
 
 import time
@@ -14,29 +12,6 @@ from riscv_isac.cgf_normalize import expand_cgf
 from riscv_ctg.generator import Generator
 from math import *
 from riscv_ctg.__init__ import __version__
-
-def gen_format_data():
-    '''
-    Generate dictionary from template.yaml file with the structure:
-    Format:
-        - ISA
-            - Mnemonics
-    '''    
-    op_template = utils.load_yaml(const.template_file)
-
-    # Initialize nested dictionary
-    nested_dict = lambda: defaultdict(nested_dict)
-    format_dict = nested_dict()
-    
-    for mnemonic, data in op_template.items():
-        if mnemonic not in ['metadata']:
-            format_type = data['formattype']
-            isa = data['isa']
-
-            for each in isa:
-                format_dict[format_type][each][mnemonic] = None
-            
-    return format_dict
 
 def create_test(usage_str, node,label,base_isa,max_inst):
     global op_template
