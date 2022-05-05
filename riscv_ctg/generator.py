@@ -106,9 +106,6 @@ VALS = {
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
-
-
-
 def isInt(s):
     '''
     Utility function to check if the variable is an int type. Returns False if
@@ -167,6 +164,10 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
+    
+    # Supporting datastructure for cross_comb
+    OPS_LST = [val + [key] for key, val in OPS.items()]
+    
     def __init__(self,fmt,opnode,opcode,randomization, xl, fl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
@@ -467,6 +468,83 @@ class Generator():
             val_comb.append( tuple(val_tuple) )
         return val_comb
 
+    def cross_comb(self, cgf):
+        '''
+        This function finds solution for various cross-combinations defined by the coverpoints
+        in the CGF under the `cross_comb` node of the covergroup.
+        '''
+        logger.debug(self.opcode + ': Generating CrossComb')
+        solutions = []
+
+        if 'cross_comb' in cgf:
+            cross_comb = set(cgf['cross_comb'])
+        else:
+            return
+        
+        for each in cross_comb:
+            parts = each.split('::')
+        
+            data = parts[0].replace(' ', '').split(':')
+            assgn_lst = parts[1].split(':')
+            cond_lst = parts[2].split(':')
+
+            i = 0
+            for i in range(len(data)):
+                
+
+                isa = 'I'
+                if data[i] == '?':
+                    # When instruction is not specified,
+                    #   - Gather conditions if any
+                    #   - Choose instruction based on operands in condition list
+                    #   - Generate assignments
+
+                    # Get corresponding conditions and accordingly chose instruction
+                    problem = Problem()
+                    for each in cond_lst[i]:
+                        if each == '?':
+                            pass                # Choose any set of operands
+                        else:
+                            cond = cond_lst[i]
+                            opr_lst = []
+                            
+                            if cond.find('rd') != -1:
+                                opr_lst.append('rd')
+                            if cond.find('rs1') != -1:
+                                opr_lst.append('rs1')
+                            if cond.find('rs2') != -1:
+                                opr_lst.append('rs2')
+                            if cond.find('rs3') != -1:
+                                opr_lst.append('rs3')
+
+                            # Get all possible formats based on operands in conditions
+                            problem.addVariable('f', Generator.OPS_LST)
+                            problem.addConstraint(lambda f: all(item in f for item in opr_lst), ('f'))
+                            
+                            # Get all possible formats
+                            opr_formats = [val[-1] for key, val in problem.getSolutions().items()]
+
+                    # Choose instruction
+                    
+
+                    # Get assignments if any and execute them
+                    if assgn_lst[i] != '?':
+                        assgns = assgn_lst[i].split(';')
+                    
+                else:
+                    instr = data[i]         # Get the instruction
+                
+                
+
+
+
+            
+            
+            
+
+    
+    
+    
     def __jfmt_instr__(self,op=None,val=None):
         cond_str = ''
         if op:
@@ -1319,3 +1397,7 @@ class Generator():
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa=op_node_isa,opcode=opcode,extension=extension,label=label))
+
+if __name__ == '__main__':
+    a = Generator('lol', 'lol', 'lol', False, 32, 32, 'kaka')
+    get_it = a.cross_comb('')
