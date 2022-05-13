@@ -4,6 +4,7 @@ from collections import defaultdict
 from constraint import *
 import re
 
+import riscv_isac.utils as isac_utils
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
@@ -476,7 +477,7 @@ class Generator():
             val_comb.append( tuple(val_tuple) )
         return val_comb
 
-    def cross_comb(self, cgf):
+    def cross_comb(cgf, xlen):
         '''
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
@@ -489,6 +490,22 @@ class Generator():
         else:
             return
         
+        dntcare_instrs = isac_utils.import_instr_alias('rv' + str(xlen) + 'i_arith') + isac_utils.import_instr_alias('rv' + str(xlen) + 'i_shift')
+
+        # This function retrieves available operands in a string
+        def get_oprs(opr_str):
+            opr_lst = []
+            if opr_str.find('rd') != -1:
+                opr_lst.append('rd')
+            if opr_str.find('rs1') != -1:
+                opr_lst.append('rs1')
+            if opr_str.find('rs2') != -1:
+                opr_lst.append('rs2')
+            if opr_str.find('rs3') != -1:
+                opr_lst.append('rs3')
+            
+            return opr_lst
+            
         for each in cross_comb:
             parts = each.split('::')
         
@@ -496,9 +513,7 @@ class Generator():
             assgn_lst = parts[1].replace(' ', '')[1:-1].split(':')
             cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
 
-            i = 0
-            isa = 'I'
-            
+            i = 0            
             problem = Problem()
             for i in range(len(data)):
                 if data[i] == '?':
@@ -511,63 +526,101 @@ class Generator():
                     cond = cond_lst[i]
                     if cond.find('?') != -1:
                         
-                        # Get possible instructions from extension of last instruction defined in coverpoint
+                        # Check variables in assignment list and generate required operand list
+                        assgn = assgn_lst[i]
+                        opr_lst = get_oprs(assgn)
+
+                        # Get possible instructions based on the operand list
                         problem.reset()
-                        problem.addVariable('i', Generator.INSTR_LST)
-                        problem.addConstraint(lambda i: isa in Generator.OP_TEMPLATE[i]['isa'])
+                        problem.addVariable('i', dntcare_instrs)
+                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
-                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
                         
+                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
+                    
                     else:
+                        
                         opr_lst = []
                         
-                        if cond.find('rd') != -1:
-                            opr_lst.append('rd')
-                        if cond.find('rs1') != -1:
-                            opr_lst.append('rs1')
-                        if cond.find('rs2') != -1:
-                            opr_lst.append('rs2')
-                        if cond.find('rs3') != -1:
-                            opr_lst.append('rs3')
-                        
-                        # Get all possible formats based on operands in conditions
-                        problem.reset()
-                        problem.addVariable('f', OPS)
-                        problem.addConstraint(lambda f: all(item in OPS[f] for item in opr_lst))
-                        
-                        opr_formats = problem.getSolutions()
-                        opr_formats = [list(each.items())[0][1] for each in opr_formats]
-                        
+                        # Extract required operands from condition list
+                        opr_lst = get_oprs(cond)
+
+                        # Extract required operands from assignment list
+                        assgn = assgn_lst[i]
+                        opr_lst += get_oprs(assgn)
+
+                        # Remove redundant operands
+                        opr_lst = list(set(opr_lst))
+
                         # Get possible instructions
                         problem.reset()
-                        problem.addVariable('i', Generator.INSTR_LST)
-                        problem.addConstraint(lambda i: isa in Generator.OP_TEMPLATE[i]['isa'] and Generator.OP_TEMPLATE[i]['formattype'] in opr_formats)
-                        
+                        problem.addVariable('i', dntcare_instrs)
+                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
+                        
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
                     # Choose instruction
-                    instr = instrs_sol[0]           # For now
                     print(instrs_sol)
+                    
+                    instr = instrs_sol[0]           # For now
                     
                     # Choose operand values
                     formattype = Generator.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]
-                    problem.reset()
-                    for var in oprs:
-                        problem.addVariable(var, list(self.datasets[var]))
                     
+                    problem.reset()
+                    problem.addVariables(oprs, list(range(32)))
+
+                    # Add contraint if any
+                   
+                    '''
                     # Get assignments if any and execute them
                     if assgn_lst[i] != '?':
                         assgns = assgn_lst[i].split(';')
                         for each in assgns:
                             exec(each)
                         print(locals)
-
+'''
                     
                 else:
-                    instr = data[i]         # Get the instruction
-                    isa = Generator.OP_TEMPLATE[instr]['isa'][0]
+                    instr = data[i]         # Get the instruction/alias
+                    cond = cond_lst[i]
+                    assgn = assgn_lst[i]
+                    
+                    if instr in Generator.OP_TEMPLATE:
+                        formattype = Generator.OP_TEMPLATE[instr]['formattype']
+                        oprs = OPS[formattype]
+                    else:
+                        alias_instrs = isac_utils.import_instr_alias(instr)
+                        if alias_instrs:
+                            problem.reset()
+                            problem.addVariable('i', alias_instrs)
+                            problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                            instrs_sol = problem.getSolutions()
+
+                            instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
+
+                            print(instrs_sol)
+
+                            # Select and instruction
+
+                    # Assign values to operands
+                    if cond.find('?') != -1:
+                        problem.reset()
+                        problem.addVariables(oprs, list(range(32)))
+                    
+                    else:
+                        problem.reset()
+                        problem.addVariables(oprs, list(range(32)))
+
+                        # Add constraint
+
+                        # Get operand values
+
+                        # Execute assignments
+
+                    
                 
                 
 
@@ -1435,5 +1488,5 @@ class Generator():
 
 if __name__ == '__main__':
 
-    cross = {'cross_comb' : {'[add : ? : mul : ? : ? : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a]  ' : 0}}
-    get_it = Generator.cross_comb(cross)
+    cross = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
+    get_it = Generator.cross_comb(cross, 32)
