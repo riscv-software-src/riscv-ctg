@@ -3,13 +3,8 @@ import random
 from collections import defaultdict
 from constraint import *
 import re
-
-import riscv_isac.utils as isac_utils
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
-import riscv_ctg.utils as utils
-import riscv_ctg.constants as const
-
 import time
 from math import *
 import struct
@@ -111,6 +106,9 @@ VALS = {
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
+
+
+
 def isInt(s):
     '''
     Utility function to check if the variable is an int type. Returns False if
@@ -169,14 +167,6 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-
-    # Template dictionary
-    OP_TEMPLATE = utils.load_yaml(const.template_file)
-
-    # Supporting data-structure for cross_comb
-    FORMAT_DICT = utils.gen_format_data()
-    INSTR_LST = utils.get_instr_list()
-    
     def __init__(self,fmt,opnode,opcode,randomization, xl, fl,base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
@@ -477,162 +467,6 @@ class Generator():
             val_comb.append( tuple(val_tuple) )
         return val_comb
 
-    def cross_comb(cgf, xlen):
-        '''
-        This function finds solution for various cross-combinations defined by the coverpoints
-        in the CGF under the `cross_comb` node of the covergroup.
-        '''
-        #logger.debug(self.opcode + ': Generating CrossComb')
-        #solutions = []
-
-        if 'cross_comb' in cgf:
-            cross_comb = set(cgf['cross_comb'])
-        else:
-            return
-        
-        dntcare_instrs = isac_utils.import_instr_alias('rv' + str(xlen) + 'i_arith') + isac_utils.import_instr_alias('rv' + str(xlen) + 'i_shift')
-
-        # This function retrieves available operands in a string
-        def get_oprs(opr_str):
-            opr_lst = []
-            if opr_str.find('rd') != -1:
-                opr_lst.append('rd')
-            if opr_str.find('rs1') != -1:
-                opr_lst.append('rs1')
-            if opr_str.find('rs2') != -1:
-                opr_lst.append('rs2')
-            if opr_str.find('rs3') != -1:
-                opr_lst.append('rs3')
-            
-            return opr_lst
-            
-        for each in cross_comb:
-            parts = each.split('::')
-        
-            data = parts[0].replace(' ', '')[1:-1].split(':')
-            assgn_lst = parts[1].replace(' ', '')[1:-1].split(':')
-            cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
-
-            i = 0            
-            problem = Problem()
-            for i in range(len(data)):
-                if data[i] == '?':
-                    # When instruction is not specified,
-                    #   - Gather conditions if any
-                    #   - Choose instruction based on operands in condition list
-                    #   - Generate assignments
-
-                    # Get corresponding conditions and accordingly chose instruction
-                    cond = cond_lst[i]
-                    if cond.find('?') != -1:
-                        
-                        # Check variables in assignment list and generate required operand list
-                        assgn = assgn_lst[i]
-                        opr_lst = get_oprs(assgn)
-
-                        # Get possible instructions based on the operand list
-                        problem.reset()
-                        problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
-                        instrs_sol = problem.getSolutions()
-                        
-                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
-                    
-                    else:
-                        
-                        opr_lst = []
-                        
-                        # Extract required operands from condition list
-                        opr_lst = get_oprs(cond)
-
-                        # Extract required operands from assignment list
-                        assgn = assgn_lst[i]
-                        opr_lst += get_oprs(assgn)
-
-                        # Remove redundant operands
-                        opr_lst = list(set(opr_lst))
-
-                        # Get possible instructions
-                        problem.reset()
-                        problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
-                        instrs_sol = problem.getSolutions()
-                        
-                        instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
-
-                    # Choose instruction
-                    print(instrs_sol)
-                    
-                    instr = instrs_sol[0]           # For now
-                    
-                    # Choose operand values
-                    formattype = Generator.OP_TEMPLATE[instr]['formattype']
-                    oprs = OPS[formattype]
-                    
-                    problem.reset()
-                    problem.addVariables(oprs, list(range(32)))
-
-                    # Add contraint if any
-                   
-                    '''
-                    # Get assignments if any and execute them
-                    if assgn_lst[i] != '?':
-                        assgns = assgn_lst[i].split(';')
-                        for each in assgns:
-                            exec(each)
-                        print(locals)
-'''
-                    
-                else:
-                    instr = data[i]         # Get the instruction/alias
-                    cond = cond_lst[i]
-                    assgn = assgn_lst[i]
-                    
-                    if instr in Generator.OP_TEMPLATE:
-                        formattype = Generator.OP_TEMPLATE[instr]['formattype']
-                        oprs = OPS[formattype]
-                    else:
-                        alias_instrs = isac_utils.import_instr_alias(instr)
-                        if alias_instrs:
-                            problem.reset()
-                            problem.addVariable('i', alias_instrs)
-                            problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
-                            instrs_sol = problem.getSolutions()
-
-                            instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
-
-                            print(instrs_sol)
-
-                            # Select and instruction
-
-                    # Assign values to operands
-                    if cond.find('?') != -1:
-                        problem.reset()
-                        problem.addVariables(oprs, list(range(32)))
-                    
-                    else:
-                        problem.reset()
-                        problem.addVariables(oprs, list(range(32)))
-
-                        # Add constraint
-
-                        # Get operand values
-
-                        # Execute assignments
-
-                    
-                
-                
-
-
-
-            
-            
-            
-
-    
-    
-    
     def __jfmt_instr__(self,op=None,val=None):
         cond_str = ''
         if op:
@@ -1063,7 +897,7 @@ class Generator():
         for instr in instr_dict:
             unique = False
             skip_val = False
-            if instr['inst'] in cgf['opcode']:
+            if instr['inst'] in cgf['mnemonics']:
                 if 'rs1' in instr and 'rs2' in instr:
                     if instr['rs1'] == instr['rs2']:
                         skip_val = True
@@ -1089,7 +923,7 @@ class Generator():
                 else:
                     i+=1
 
-        if 'IP' in self.opnode['isa']:
+        if any('IP' in isa for isa in self.opnode['isa']):
             if 'p64_profile' in self.opnode:
                 gen_pair_reg_data(final_instr, xlen, self.opnode['bit_width'], self.opnode['p64_profile'])
             elif 'bit_width' in self.opnode:
@@ -1330,7 +1164,7 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if 'IP' in self.opnode['isa']:
+        if any('IP' in isa for isa in self.opnode['isa']):
             # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
             if 'bit_width' in self.opnode or (xlen == 32 and 'p64_profile' in self.opnode):
                 return instr_dict
@@ -1413,7 +1247,7 @@ class Generator():
                 data.append("test_fp:")
             code.append("RVTEST_FP_ENABLE()")
 
-        if 'IP' in self.opnode['isa']:
+        if any('IP' in isa for isa in self.opnode['isa']):
             code.append("RVTEST_VXSAT_ENABLE()")
 
         if xlen == 32 and 'p64_profile' in self.opnode:
@@ -1485,8 +1319,3 @@ class Generator():
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa=op_node_isa,opcode=opcode,extension=extension,label=label))
-
-if __name__ == '__main__':
-
-    cross = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
-    get_it = Generator.cross_comb(cross, 32)
