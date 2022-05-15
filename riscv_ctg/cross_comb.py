@@ -16,13 +16,6 @@ import struct
 import sys
 import itertools
 
-one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
-two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
-three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
-
-one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu"]
-two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
-three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
 from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
@@ -150,7 +143,7 @@ def get_default_registers(ops, datasets):
     else:
         return solution
 
-class Generator():
+class cross():
     '''
     A generator class to generate RISC-V assembly tests for a given instruction
     format, opcode and a set of coverpoints.
@@ -288,7 +281,7 @@ class Generator():
                         # Get possible instructions based on the operand list
                         problem.reset()
                         problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                        problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
@@ -310,7 +303,7 @@ class Generator():
                         # Get possible instructions
                         problem.reset()
                         problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                        problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
@@ -321,7 +314,7 @@ class Generator():
                     instr = instrs_sol[0]           # For now
                     
                     # Choose operand values
-                    formattype = Generator.OP_TEMPLATE[instr]['formattype']
+                    formattype = cross.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]
                     
                     problem.reset()
@@ -343,15 +336,15 @@ class Generator():
                     cond = cond_lst[i]
                     assgn = assgn_lst[i]
                     
-                    if instr in Generator.OP_TEMPLATE:
-                        formattype = Generator.OP_TEMPLATE[instr]['formattype']
+                    if instr in cross.OP_TEMPLATE:
+                        formattype = cross.OP_TEMPLATE[instr]['formattype']
                         oprs = OPS[formattype]
                     else:
                         alias_instrs = isac_utils.import_instr_alias(instr)
                         if alias_instrs:
                             problem.reset()
                             problem.addVariable('i', alias_instrs)
-                            problem.addConstraint(lambda i: all(item in OPS[Generator.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                            problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                             instrs_sol = problem.getSolutions()
 
                             instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
@@ -377,5 +370,5 @@ class Generator():
 
 if __name__ == '__main__':
 
-    cross = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
-    get_it = Generator.cross_comb(cross, 32)
+    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
+    get_it = cross.cross_comb(cross_cov, 32)
