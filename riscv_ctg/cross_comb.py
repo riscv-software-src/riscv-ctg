@@ -170,7 +170,7 @@ class cross():
     FORMAT_DICT = utils.gen_format_data()
     INSTR_LST = utils.get_instr_list()
     
-    def __init__(self,fmt,opnode,opcode,randomization, xl, fl,base_isa_str):
+    def __init__(self, base_isa_str):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -187,45 +187,10 @@ class cross():
         global xlen
         global flen
         global base_isa
-        xlen = xl
-        flen = fl
+
         base_isa = base_isa_str
-        self.fmt = fmt
-        self.opcode = opcode
-
-        self.op_vars = OPS[fmt]
-
-        self.val_vars = eval(VALS[fmt])
-
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
-            self.val_vars = self.val_vars + ['ea_align']
-        self.template = opnode['template']
-        self.opnode = opnode
-        self.stride = opnode['stride']
-        if 'operation' in opnode:
-            self.operation = opnode['operation']
-        else:
-            self.operation = None
-        datasets = {}
-        i=10
-        for entry in self.op_vars:
-            key = entry+"_op_data"
-            if key in opnode:
-                datasets[entry] = eval(opnode[key])
-            else:
-                datasets[entry] = ['x'+str(i)]
-                i+=1
-        for entry in self.val_vars:
-            key = entry+"_data"
-            if key in opnode:
-                datasets[entry] = eval(opnode[key])
-            else:
-                datasets[entry] = [0]
-        self.datasets = datasets
-        self.random=randomization
-        self.default_regs = get_default_registers(self.op_vars, self.datasets)
-
-    def cross_comb(cgf, xlen):
+       
+    def cross_comb(cgf):
         '''
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
@@ -238,7 +203,7 @@ class cross():
         else:
             return
         
-        dntcare_instrs = isac_utils.import_instr_alias('rv' + str(xlen) + 'i_arith') + isac_utils.import_instr_alias('rv' + str(xlen) + 'i_shift')
+        dntcare_instrs = isac_utils.import_instr_alias(base_isa + '_arith') + isac_utils.import_instr_alias(base_isa + '_shift')
 
         # This function retrieves available operands in a string
         def get_oprs(opr_str):
@@ -272,7 +237,7 @@ class cross():
 
                     # Get corresponding conditions and accordingly chose instruction
                     cond = cond_lst[i]
-                    if cond.find('?') != -1:
+                    if cond.find('?') != -1:                    # Don't care condition
                         
                         # Check variables in assignment list and generate required operand list
                         assgn = assgn_lst[i]
@@ -308,28 +273,57 @@ class cross():
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
-                    # Choose instruction
-                    print(instrs_sol)
-                    
-                    instr = instrs_sol[0]           # For now
+                    # Randomly choose an instruction
+                    instr = random.choice(instrs_sol)
+                    print(instr)
                     
                     # Choose operand values
                     formattype = cross.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]
+                    instr_template = cross.OP_TEMPLATE[instr]
                     
                     problem.reset()
-                    problem.addVariables(oprs, list(range(32)))
+                    for opr in oprs:
+                        opr_dom = instr_template[opr + '_op_data']
+                        problem.addVariable(opr, eval(opr_dom))
+                    
+                    # Since rd = x0 is a trivial operation, it has to be excluded
+                    if 'rd' in oprs:
+                        # exclude zeros
+                        def exc_rd_zero(*oprs_lst):
+                            pos = oprs.index('rd')
+                            if oprs_lst[pos] == 'x0':
+                                return False
+                            return True
+                        
+                        problem.addConstraint(exc_rd_zero, oprs)
 
-                    # Add contraint if any
-                   
-                    '''
+                    # Add additional contraints if any
+                    if cond.find('?') != -1:
+                        opr_sols = problem.getSolutions()
+                    else:
+                        def add_cond(*oprs_lst):
+                            i = 0
+                            for opr in oprs:
+                                exec(opr + "='" +  oprs_lst[i] + "'")
+                            return eval(cond)
+
+                        problem.addConstraint(add_cond, oprs)
+                        opr_sols = problem.getSolutions()
+                        print('Got em')
+
+                    opr_vals = random.choice(opr_sols)
+                    print(opr_vals)
+                    
+                    # Assign operand values to operands
+                    for opr, val in opr_vals.items():
+                        exec(opr + "='" + val + "'")
+
                     # Get assignments if any and execute them
                     if assgn_lst[i] != '?':
                         assgns = assgn_lst[i].split(';')
                         for each in assgns:
                             exec(each)
-                        print(locals)
-'''
                     
                 else:
                     instr = data[i]         # Get the instruction/alias
@@ -349,9 +343,9 @@ class cross():
 
                             instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
-                            print(instrs_sol)
+                            instr = random.choice(instrs_sol)
 
-                            # Select and instruction
+                            # Randomly select an instruction
 
                     # Assign values to operands
                     if cond.find('?') != -1:
@@ -370,5 +364,6 @@ class cross():
 
 if __name__ == '__main__':
 
-    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [? : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : ? : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
-    get_it = cross.cross_comb(cross_cov, 32)
+    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [a = rd; c = rs1 : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : rs1 != c and rd == a : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
+    cross_test = cross('rv32i')
+    get_it = cross.cross_comb(cross_cov)
