@@ -1,9 +1,6 @@
 # See LICENSE.incore for details
-from multiprocessing.sharedctypes import Value
 import random
-from collections import defaultdict
 from constraint import *
-import re
 
 import riscv_isac.utils as isac_utils
 from riscv_ctg.constants import *
@@ -11,15 +8,9 @@ from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 
-import time
 from math import *
-import struct
-import sys
-import itertools
 
 from riscv_ctg.dsp_function import *
-
-twos_xlen = lambda x: twos(x,xlen)
 
 OPS = {
     'rformat': ['rs1', 'rs2', 'rd'],
@@ -105,45 +96,6 @@ VALS = {
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
-def isInt(s):
-    '''
-    Utility function to check if the variable is an int type. Returns False if
-    not.
-    '''
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-
-def get_default_registers(ops, datasets):
-    problem = Problem()
-    not_x0 = lambda x: x not in ['x0']
-
-    for op in ops:
-        dataset = datasets[op]
-        # problem.addVariable(op,list(random.sample(dataset, len(dataset))))
-        problem.addVariable(op,dataset)
-        problem.addConstraint(not_x0,tuple([op]))
-    if len(ops) > 1:
-        cond = " and ".join(["!=".join(x) for x in itertools.combinations(ops,2) if x[0]!=x[1]])
-    else:
-        cond = 'True'
-    def unique_constraint(*args):
-        for var,val in zip(ops,args):
-            locals()[var] = val
-        return eval(cond)
-    problem.addConstraint(unique_constraint,tuple(ops))
-    solution = None
-    count = 0
-    while solution is None and count < 5:
-        solution = problem.getSolution()
-        count += 1
-    if count == 5:
-        return []
-    else:
-        return solution
-
 class cross():
     '''
     A generator class to generate RISC-V assembly tests for a given instruction
@@ -193,9 +145,8 @@ class cross():
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
         '''
-        #logger.debug(self.opcode + ': Generating CrossComb')
-        #solutions = []
-
+        logger.debug('Generating CrossComb')
+        
         if 'cross_comb' in cgf:
             cross_comb = set(cgf['cross_comb'])
         else:
@@ -222,6 +173,7 @@ class cross():
             
             return opr_lst
 
+        # Add conditions mentioned in the condition list in the cross-comb coverpoint
         def add_cond(local_var):
             def eval_conds(*oprs_lst):
                 i = 0
@@ -231,25 +183,27 @@ class cross():
                 return eval(cond, locals(), local_var)
             return eval_conds
 
-
         for each in cross_comb:
             print('')
             print(each)
 
+            # Parse cross-comb coverpoint
             parts = each.split('::')
-        
+
             data = parts[0].replace(' ', '')[1:-1].split(':')
             assgn_lst = parts[1].replace(' ', '')[1:-1].split(':')
             cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
-
-            i = 0            
+            
+            # Initialize CSP
             problem = Problem()
+            
             for i in range(len(data)):
                 if data[i] == '?':
                     # When instruction is not specified,
-                    #   - Gather conditions if any
-                    #   - Choose instruction based on operands in condition list
-                    #   - Generate assignments
+                    #   - Gather conditions and assigngments if any and list requisite operands
+                    #   - Choose instruction from base instruction set based on operands
+                    #   - Based on conditions, choose operand values. Choose immediate value if required  
+                    #   - Evaluate assignments
 
                     # Get corresponding conditions and accordingly chose instruction
                     cond = cond_lst[i]
@@ -268,7 +222,7 @@ class cross():
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
                     
-                    else:
+                    else:                                       # If condition is specified
                         
                         opr_lst = []
                         
@@ -328,8 +282,9 @@ class cross():
                     for opr, val in opr_vals.items():
                         exec(opr + "='" + val + "'")
 
-                    if 'imm_val_data' in cross.OP_TEMPLATE[instr]:
-                        imm_val = eval(cross.OP_TEMPLATE[instr]['imm_val_data'])
+                    # Generate immediate value if required
+                    if 'imm_val_data' in instr_template:
+                        imm_val = eval(instr_template['imm_val_data'])
                         opr_vals['imm_val'] = random.choice(imm_val)
 
                     # Get assignments if any and execute them
@@ -338,10 +293,15 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
-                    print(instr)
-                    print(opr_vals)
+                    print([instr, opr_vals])
 
                 else:
+                    # When instruction(s)/alias is specified,
+                    #   - If an instruction is specified, operands are directly extracted and assigned values according to conditions 
+                    #   - If a tuple of instructions is specified, one of the instruction is chosen at random
+                    #   - If an alias is specified, the instruction is chosen according to assignment and condition list
+                    #   - Immediate values are generated if required  
+                    #   - Assignments are evaluated
                     cond = cond_lst[i]
                     assgn = assgn_lst[i]
                     
@@ -366,12 +326,13 @@ class cross():
                             # Randomly select an instruction
                             instr = random.choice(instrs_sol)
                         
-                        elif data[i].find('(') != -1:
+                        elif data[i].find('(') != -1:                                   # If data is a tuple of instructions
                             instrs_sol = data[i][1:-1].split(',')
                             instr = random.choice(instrs_sol)
                         else:
                             logger.error('Invalid instruction/alias in cross_comb: ' + each)
                     
+                    # Gather operands
                     formattype = cross.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]        
                     instr_template = cross.OP_TEMPLATE[instr]
@@ -407,8 +368,9 @@ class cross():
                     for opr, val in opr_vals.items():
                         exec(opr + "='" + val + "'")
 
-                    if 'imm_val_data' in cross.OP_TEMPLATE[instr]:
-                        imm_val = eval(cross.OP_TEMPLATE[instr]['imm_val_data'])
+                    # Generate immediate value if required
+                    if 'imm_val_data' in instr_template:
+                        imm_val = eval(instr_template['imm_val_data'])
                         opr_vals['imm_val'] = random.choice(imm_val)
 
                     # Execute assignments
@@ -418,17 +380,15 @@ class cross():
                         for each in assgns:
                             exec(each)
 
-                    print(instr)
-                    print(opr_vals)
-
+                    print([instr, opr_vals])
 
 if __name__ == '__main__':
 
-    cross_cov = {'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,
-                                '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,
-                                '[add : ? : ? : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,
-                                '[(add,sub) : ? : ? : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0,
-                                '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0
+    cross_cov = {'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                   # RAW
+                                '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                        # RAW
+                                '[add : ? : ? : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                          # WAW
+                                '[(add,sub) : ? : ? : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
+                                '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                # WAR
                                 }
                 }
     cross_test = cross('rv32i', 32)
