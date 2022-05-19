@@ -1,4 +1,5 @@
 # See LICENSE.incore for details
+from multiprocessing.sharedctypes import Value
 import random
 from collections import defaultdict
 from constraint import *
@@ -183,7 +184,7 @@ class cross():
         global xlen
         global flen
         global base_isa
-
+        
         xlen = xlen_in
         base_isa = base_isa_str
        
@@ -200,6 +201,11 @@ class cross():
         else:
             return
         
+        # Generate register file and variables
+        reg_file = ['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]
+        for each in reg_file:
+            exec(f"{each} = '{each}'")
+
         dntcare_instrs = isac_utils.import_instr_alias(base_isa + '_arith') + isac_utils.import_instr_alias(base_isa + '_shift')
 
         # This function retrieves available operands in a string
@@ -215,8 +221,21 @@ class cross():
                 opr_lst.append('rs3')
             
             return opr_lst
-            
+
+        def add_cond(local_var):
+            def eval_conds(*oprs_lst):
+                i = 0
+                for opr in oprs:
+                    exec(opr + "='" +  oprs_lst[i] + "'", local_var)
+                    i = i + 1
+                return eval(cond, locals(), local_var)
+            return eval_conds
+
+
         for each in cross_comb:
+            print('')
+            print(each)
+
             parts = each.split('::')
         
             data = parts[0].replace(' ', '')[1:-1].split(':')
@@ -299,15 +318,6 @@ class cross():
                     if cond.find('?') != -1:
                         opr_sols = problem.getSolutions()
                     else:
-                        def add_cond(local_var):
-                            def eval_conds(*oprs_lst):
-                                i = 0
-                                for opr in oprs:
-                                    exec(opr + "='" +  oprs_lst[i] + "'", local_var)
-                                    i = i + 1
-                                return eval(cond, locals(), local_var)
-                            return eval_conds
-
                         local_vars = locals()
                         problem.addConstraint(add_cond(local_vars), oprs)
                         opr_sols = problem.getSolutions()
@@ -340,11 +350,11 @@ class cross():
                     opr_lst += get_oprs(assgn)
 
                     opr_lst = list(set(opr_lst))                  
-                    
-                    if data[i] in cross.OP_TEMPLATE:
+
+                    if data[i] in cross.OP_TEMPLATE:                                    # If single instruction
                         instr = data[i]
                     else:
-                        alias_instrs = isac_utils.import_instr_alias(data[i])
+                        alias_instrs = isac_utils.import_instr_alias(data[i])           # If data is an alias
                         if alias_instrs:
                             problem.reset()
                             problem.addVariable('i', alias_instrs)
@@ -355,7 +365,10 @@ class cross():
 
                             # Randomly select an instruction
                             instr = random.choice(instrs_sol)
-                            
+                        
+                        elif data[i].find('(') != -1:
+                            instrs_sol = data[i][1:-1].split(',')
+                            instr = random.choice(instrs_sol)
                         else:
                             logger.error('Invalid instruction/alias in cross_comb: ' + each)
                     
@@ -383,15 +396,6 @@ class cross():
                     if cond.find('?') != -1:
                         opr_sols = problem.getSolutions()
                     else:
-                        def add_cond(local_var):
-                            def eval_conds(*oprs_lst):
-                                i = 0
-                                for opr in oprs:
-                                    exec(opr + "='" +  oprs_lst[i] + "'", local_var)
-                                    i = i + 1
-                                return eval(cond, locals(), local_var)
-                            return eval_conds
-
                         local_vars = locals()
                         problem.addConstraint(add_cond(local_vars), oprs)
                         opr_sols = problem.getSolutions()
@@ -420,6 +424,12 @@ class cross():
 
 if __name__ == '__main__':
 
-    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [a = rd; a = rs1 : a=rd;a=rs1 : ? : ? : ?: ?] :: [? : rs1 != a and rd == a : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
+    cross_cov = {'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,
+                                '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,
+                                '[add : ? : ? : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,
+                                '[(add,sub) : ? : ? : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0,
+                                '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0
+                                }
+                }
     cross_test = cross('rv32i', 32)
     get_it = cross.cross_comb(cross_cov)
