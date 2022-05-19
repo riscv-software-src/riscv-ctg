@@ -166,7 +166,7 @@ class cross():
     # Template dictionary
     OP_TEMPLATE = utils.load_yaml(const.template_file)
     
-    def __init__(self, base_isa_str):
+    def __init__(self, base_isa_str, xlen_in):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -184,6 +184,7 @@ class cross():
         global flen
         global base_isa
 
+        xlen = xlen_in
         base_isa = base_isa_str
        
     def cross_comb(cgf):
@@ -277,6 +278,7 @@ class cross():
                     oprs = OPS[formattype]
                     instr_template = cross.OP_TEMPLATE[instr]
                     
+                    # Choose register values
                     problem.reset()
                     for opr in oprs:
                         opr_dom = instr_template[opr + '_op_data']
@@ -311,10 +313,14 @@ class cross():
                         opr_sols = problem.getSolutions()
 
                     opr_vals = random.choice(opr_sols)
-                    
+
                     # Assign operand values to operands
                     for opr, val in opr_vals.items():
                         exec(opr + "='" + val + "'")
+
+                    if 'imm_val_data' in cross.OP_TEMPLATE[instr]:
+                        imm_val = eval(cross.OP_TEMPLATE[instr]['imm_val_data'])
+                        opr_vals['imm_val'] = random.choice(imm_val)
 
                     # Get assignments if any and execute them
                     if assgn_lst[i] != '?':
@@ -387,7 +393,7 @@ class cross():
                             return eval_conds
 
                         local_vars = locals()
-                        #problem.addConstraint(add_cond(local_vars), oprs)
+                        problem.addConstraint(add_cond(local_vars), oprs)
                         opr_sols = problem.getSolutions()
 
                     # Get operand values
@@ -396,6 +402,10 @@ class cross():
                     # Assign operand values to operands
                     for opr, val in opr_vals.items():
                         exec(opr + "='" + val + "'")
+
+                    if 'imm_val_data' in cross.OP_TEMPLATE[instr]:
+                        imm_val = eval(cross.OP_TEMPLATE[instr]['imm_val_data'])
+                        opr_vals['imm_val'] = random.choice(imm_val)
 
                     # Execute assignments
                     # Get assignments if any and execute them
@@ -411,5 +421,5 @@ class cross():
 if __name__ == '__main__':
 
     cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [a = rd; a = rs1 : a=rd;a=rs1 : ? : ? : ?: ?] :: [? : rs1 != a and rd == a : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
-    cross_test = cross('rv32i')
+    cross_test = cross('rv32i', 32)
     get_it = cross.cross_comb(cross_cov)
