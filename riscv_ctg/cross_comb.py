@@ -8,8 +8,6 @@ from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 
-from math import *
-
 from riscv_ctg.dsp_function import *
 
 OPS = {
@@ -98,41 +96,13 @@ VALS = {
 
 class cross():
     '''
-    A generator class to generate RISC-V assembly tests for a given instruction
-    format, opcode and a set of coverpoints.
-
-    :param fmt: the RISC-V instruction format type to be used for the test generation.
-    :param opnode: dictionary node from the attributes YAML that is to be used in the test generation.
-    :param opcode: name of the instruction opcode.
-    :param randomization: a boolean variable indicating if the random constraint solvers must be employed.
-    :param xl: an integer indicating the XLEN value to be used.
-    :param base_isa_str: The base isa to be used for the tests. One of [rv32e,rv32i,rv64i]
-
-    :type fmt: str
-    :type opnode: dict
-    :type opcode: str
-    :type randomization: bool
-    :type xl: int
-    :type base_isa_str: str
+    A cross class to genereate RISC-V assembly tests for cross-combination coverpoints.
     '''
 
     # Template dictionary
     OP_TEMPLATE = utils.load_yaml(const.template_file)
     
     def __init__(self, base_isa_str, xlen_in):
-        '''
-        This is a Constructor function which initializes various class variables
-        depending on the arguments.
-
-        The function also creates a dictionary of datasets for each operand. The
-        dictionary basically indicates what registers from the register file are to be used
-        when generating solutions for coverpoints. The datasets are limited to
-        to reduce the time taken by solvers to arrive at a solution.
-
-        A similar dictionary is created for the values to be used by the operand
-        registers.
-
-        '''
         global xlen
         global flen
         global base_isa
@@ -146,6 +116,7 @@ class cross():
         in the CGF under the `cross_comb` node of the covergroup.
         '''
         logger.debug('Generating CrossComb')
+        full_solution = []
         
         if 'cross_comb' in cgf:
             cross_comb = set(cgf['cross_comb'])
@@ -183,9 +154,12 @@ class cross():
                 return eval(cond, locals(), local_var)
             return eval_conds
 
+        solution = []
         for each in cross_comb:
             print('')
             print(each)
+
+            solution = []
 
             # Parse cross-comb coverpoint
             parts = each.split('::')
@@ -293,6 +267,7 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
+                    solution += [instr, opr_vals]
                     print([instr, opr_vals])
 
                 else:
@@ -380,16 +355,22 @@ class cross():
                         for each in assgns:
                             exec(each)
 
+                    solution += [instr, opr_vals]
                     print([instr, opr_vals])
+        
+            full_solution += [solution]
+        
+        return full_solution
 
 if __name__ == '__main__':
 
     cross_cov = {'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                   # RAW
                                 '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                        # RAW
                                 '[add : ? : ? : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                          # WAW
-                                '[(add,sub) : ? : ? : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
+                                '[(add,sub) : ? : mul : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
                                 '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                # WAR
                                 }
                 }
     cross_test = cross('rv32i', 32)
     get_it = cross.cross_comb(cross_cov)
+    print(get_it)
