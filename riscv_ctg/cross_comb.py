@@ -165,10 +165,6 @@ class cross():
 
     # Template dictionary
     OP_TEMPLATE = utils.load_yaml(const.template_file)
-
-    # Supporting data-structure for cross_comb
-    FORMAT_DICT = utils.gen_format_data()
-    INSTR_LST = utils.get_instr_list()
     
     def __init__(self, base_isa_str):
         '''
@@ -237,10 +233,11 @@ class cross():
 
                     # Get corresponding conditions and accordingly chose instruction
                     cond = cond_lst[i]
+                    assgn = assgn_lst[i]
+                    
                     if cond.find('?') != -1:                    # Don't care condition
                         
                         # Check variables in assignment list and generate required operand list
-                        assgn = assgn_lst[i]
                         opr_lst = get_oprs(assgn)
 
                         # Get possible instructions based on the operand list
@@ -256,10 +253,9 @@ class cross():
                         opr_lst = []
                         
                         # Extract required operands from condition list
-                        opr_lst = get_oprs(cond)
+                        opr_lst += get_oprs(cond)
 
                         # Extract required operands from assignment list
-                        assgn = assgn_lst[i]
                         opr_lst += get_oprs(assgn)
 
                         # Remove redundant operands
@@ -275,7 +271,6 @@ class cross():
 
                     # Randomly choose an instruction
                     instr = random.choice(instrs_sol)
-                    print(instr)
                     
                     # Choose operand values
                     formattype = cross.OP_TEMPLATE[instr]['formattype']
@@ -302,18 +297,20 @@ class cross():
                     if cond.find('?') != -1:
                         opr_sols = problem.getSolutions()
                     else:
-                        def add_cond(*oprs_lst):
-                            i = 0
-                            for opr in oprs:
-                                exec(opr + "='" +  oprs_lst[i] + "'")
-                            return eval(cond)
+                        def add_cond(local_var):
+                            def eval_conds(*oprs_lst):
+                                i = 0
+                                for opr in oprs:
+                                    exec(opr + "='" +  oprs_lst[i] + "'", local_var)
+                                    i = i + 1
+                                return eval(cond, locals(), local_var)
+                            return eval_conds
 
-                        problem.addConstraint(add_cond, oprs)
+                        local_vars = locals()
+                        problem.addConstraint(add_cond(local_vars), oprs)
                         opr_sols = problem.getSolutions()
-                        print('Got em')
 
                     opr_vals = random.choice(opr_sols)
-                    print(opr_vals)
                     
                     # Assign operand values to operands
                     for opr, val in opr_vals.items():
@@ -325,16 +322,23 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
+                    print(instr)
+                    print(opr_vals)
+
                 else:
-                    instr = data[i]         # Get the instruction/alias
                     cond = cond_lst[i]
                     assgn = assgn_lst[i]
                     
-                    if instr in cross.OP_TEMPLATE:
-                        formattype = cross.OP_TEMPLATE[instr]['formattype']
-                        oprs = OPS[formattype]
+                    # Gather required operands
+                    opr_lst = get_oprs(cond)
+                    opr_lst += get_oprs(assgn)
+
+                    opr_lst = list(set(opr_lst))                  
+                    
+                    if data[i] in cross.OP_TEMPLATE:
+                        instr = data[i]
                     else:
-                        alias_instrs = isac_utils.import_instr_alias(instr)
+                        alias_instrs = isac_utils.import_instr_alias(data[i])
                         if alias_instrs:
                             problem.reset()
                             problem.addVariable('i', alias_instrs)
@@ -343,27 +347,69 @@ class cross():
 
                             instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
-                            instr = random.choice(instrs_sol)
-
                             # Randomly select an instruction
+                            instr = random.choice(instrs_sol)
+                            
+                        else:
+                            logger.error('Invalid instruction/alias in cross_comb: ' + each)
+                    
+                    formattype = cross.OP_TEMPLATE[instr]['formattype']
+                    oprs = OPS[formattype]        
+                    instr_template = cross.OP_TEMPLATE[instr]
+                    
+                    problem.reset()
+                    for opr in oprs:
+                        opr_dom = instr_template[opr + '_op_data']
+                        problem.addVariable(opr, eval(opr_dom))
+                    
+                    # Since rd = x0 is a trivial operation, it has to be excluded
+                    if 'rd' in oprs:
+                        # exclude zeros
+                        def exc_rd_zero(*oprs_lst):
+                            pos = oprs.index('rd')
+                            if oprs_lst[pos] == 'x0':
+                                return False
+                            return True
+                        
+                        problem.addConstraint(exc_rd_zero, oprs)
 
                     # Assign values to operands
                     if cond.find('?') != -1:
-                        problem.reset()
-                        problem.addVariables(oprs, list(range(32)))
-                    
+                        opr_sols = problem.getSolutions()
                     else:
-                        problem.reset()
-                        problem.addVariables(oprs, list(range(32)))
+                        def add_cond(local_var):
+                            def eval_conds(*oprs_lst):
+                                i = 0
+                                for opr in oprs:
+                                    exec(opr + "='" +  oprs_lst[i] + "'", local_var)
+                                    i = i + 1
+                                return eval(cond, locals(), local_var)
+                            return eval_conds
 
-                        # Add constraint
+                        local_vars = locals()
+                        #problem.addConstraint(add_cond(local_vars), oprs)
+                        opr_sols = problem.getSolutions()
 
-                        # Get operand values
+                    # Get operand values
+                    opr_vals = random.choice(opr_sols)
 
-                        # Execute assignments
+                    # Assign operand values to operands
+                    for opr, val in opr_vals.items():
+                        exec(opr + "='" + val + "'")
+
+                    # Execute assignments
+                    # Get assignments if any and execute them
+                    if assgn_lst[i] != '?':
+                        assgns = assgn_lst[i].split(';')
+                        for each in assgns:
+                            exec(each)
+
+                    print(instr)
+                    print(opr_vals)
+
 
 if __name__ == '__main__':
 
-    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [a = rd; c = rs1 : a=rd;b=rs1 : ? : ? : ?: ?] :: [? : rs1 != c and rd == a : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
+    cross_cov = {'cross_comb' : {'[add : ? : mul : ? : rv32i_shift : sub ] :: [a = rd; a = rs1 : a=rd;a=rs1 : ? : ? : ?: ?] :: [? : rs1 != a and rd == a : rs1==a or rs2==a : ? : rs1==a or rs2==a: ?]  ' : 0}}
     cross_test = cross('rv32i')
     get_it = cross.cross_comb(cross_cov)
