@@ -2,7 +2,7 @@
 
 add16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       add16: 0
     rs1:
@@ -21,7 +21,7 @@ add16:
 
 radd16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       radd16: 0
     rs1:
@@ -40,7 +40,7 @@ radd16:
 
 uradd16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uradd16: 0
     rs1:
@@ -59,8 +59,7 @@ uradd16:
 
 kadd16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kadd16: 0
     rs1:
@@ -79,8 +78,7 @@ kadd16:
 
 ukadd16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukadd16: 0
     rs1:
@@ -99,7 +97,7 @@ ukadd16:
 
 sub16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sub16: 0
     rs1:
@@ -118,7 +116,7 @@ sub16:
 
 rsub16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rsub16: 0
     rs1:
@@ -138,7 +136,7 @@ rsub16:
 
 ursub16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ursub16: 0
     rs1:
@@ -157,8 +155,7 @@ ursub16:
 
 ksub16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksub16: 0
     rs1:
@@ -177,8 +174,7 @@ ksub16:
 
 uksub16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uksub16: 0
     rs1:
@@ -197,7 +193,7 @@ uksub16:
 
 cras16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       cras16: 0
     rs1:
@@ -216,7 +212,7 @@ cras16:
 
 rcras16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rcras16: 0
     rs1:
@@ -235,7 +231,7 @@ rcras16:
 
 urcras16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       urcras16: 0
     rs1:
@@ -254,8 +250,7 @@ urcras16:
 
 kcras16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kcras16: 0
     rs1:
@@ -274,8 +269,7 @@ kcras16:
 
 ukcras16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukcras16: 0
     rs1:
@@ -294,7 +288,7 @@ ukcras16:
 
 crsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       crsa16: 0
     rs1:
@@ -313,7 +307,7 @@ crsa16:
 
 rcrsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rcrsa16: 0
     rs1:
@@ -332,7 +326,7 @@ rcrsa16:
 
 urcrsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       urcrsa16: 0
     rs1:
@@ -351,8 +345,7 @@ urcrsa16:
 
 kcrsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kcrsa16: 0
     rs1:
@@ -371,8 +364,7 @@ kcrsa16:
 
 ukcrsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukcrsa16: 0
     rs1:
@@ -391,7 +383,7 @@ ukcrsa16:
 
 stas16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       stas16: 0
     rs1:
@@ -410,7 +402,7 @@ stas16:
 
 rstas16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rstas16: 0
     rs1:
@@ -429,7 +421,7 @@ rstas16:
 
 urstas16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       urstas16: 0
     rs1:
@@ -448,8 +440,7 @@ urstas16:
 
 kstas16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kstas16: 0
     rs1:
@@ -468,8 +459,7 @@ kstas16:
 
 ukstas16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukstas16: 0
     rs1:
@@ -488,7 +478,7 @@ ukstas16:
 
 stsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       stsa16: 0
     rs1:
@@ -507,7 +497,7 @@ stsa16:
 
 rstsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rstsa16: 0
     rs1:
@@ -526,7 +516,7 @@ rstsa16:
 
 urstsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       urstsa16: 0
     rs1:
@@ -545,8 +535,7 @@ urstsa16:
 
 kstsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kstsa16: 0
     rs1:
@@ -565,8 +554,7 @@ kstsa16:
 
 ukstsa16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukstsa16: 0
     rs1:
@@ -585,7 +573,7 @@ ukstsa16:
 
 add8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       add8: 0
     rs1:
@@ -604,7 +592,7 @@ add8:
 
 radd8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       radd8: 0
     rs1:
@@ -623,7 +611,7 @@ radd8:
 
 uradd8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uradd8: 0
     rs1:
@@ -642,8 +630,7 @@ uradd8:
 
 kadd8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kadd8: 0
     rs1:
@@ -662,8 +649,7 @@ kadd8:
 
 ukadd8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode: 
       ukadd8: 0
     rs1: 
@@ -682,7 +668,7 @@ ukadd8:
 
 sub8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sub8: 0
     rs1:
@@ -701,7 +687,7 @@ sub8:
 
 rsub8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rsub8: 0
     rs1:
@@ -720,7 +706,7 @@ rsub8:
 
 ursub8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ursub8: 0
     rs1:
@@ -739,8 +725,7 @@ ursub8:
 
 ksub8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksub8: 0
     rs1:
@@ -759,8 +744,7 @@ ksub8:
 
 uksub8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uksub8: 0
     rs1:
@@ -779,7 +763,7 @@ uksub8:
 
 sra16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sra16: 0
     rs1:
@@ -799,7 +783,7 @@ sra16:
 
 srai16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srai16: 0
     rs1:
@@ -815,7 +799,7 @@ srai16:
 
 sra16.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sra16.u: 0
     rs1:
@@ -835,7 +819,7 @@ sra16.u:
 
 srai16.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srai16.u: 0
     rs1:
@@ -851,7 +835,7 @@ srai16.u:
 
 srl16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srl16: 0
     rs1:
@@ -871,7 +855,7 @@ srl16:
 
 srli16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srli16: 0
     rs1:
@@ -887,7 +871,7 @@ srli16:
 
 srl16.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srl16.u: 0
     rs1:
@@ -907,7 +891,7 @@ srl16.u:
 
 srli16.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srli16.u: 0
     rs1:
@@ -923,7 +907,7 @@ srli16.u:
 
 sll16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sll16: 0
     rs1:
@@ -943,7 +927,7 @@ sll16:
 
 slli16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       slli16: 0
     rs1:
@@ -959,8 +943,7 @@ slli16:
 
 ksll16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksll16: 0
     rs1:
@@ -980,8 +963,7 @@ ksll16:
 
 kslli16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslli16: 0
     rs1:
@@ -997,8 +979,7 @@ kslli16:
 
 kslra16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslra16: 0
     rs1:
@@ -1018,8 +999,7 @@ kslra16:
 
 kslra16.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslra16.u: 0
     rs1:
@@ -1039,7 +1019,7 @@ kslra16.u:
 
 sra8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sra8: 0
     rs1:
@@ -1059,7 +1039,7 @@ sra8:
 
 srai8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srai8: 0
     rs1:
@@ -1075,7 +1055,7 @@ srai8:
 
 sra8.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sra8.u: 0
     rs1:
@@ -1095,7 +1075,7 @@ sra8.u:
 
 srai8.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srai8.u: 0
     rs1:
@@ -1111,7 +1091,7 @@ srai8.u:
 
 srl8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srl8: 0
     rs1:
@@ -1131,7 +1111,7 @@ srl8:
 
 srli8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srli8: 0
     rs1:
@@ -1147,7 +1127,7 @@ srli8:
 
 srl8.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srl8.u: 0
     rs1:
@@ -1167,7 +1147,7 @@ srl8.u:
 
 srli8.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srli8.u: 0
     rs1:
@@ -1183,7 +1163,7 @@ srli8.u:
 
 sll8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sll8: 0
     rs1:
@@ -1203,7 +1183,7 @@ sll8:
 
 slli8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       slli8: 0
     rs1:
@@ -1219,8 +1199,7 @@ slli8:
 
 ksll8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksll8: 0
     rs1:
@@ -1240,8 +1219,7 @@ ksll8:
 
 kslli8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslli8: 0
     rs1:
@@ -1257,8 +1235,7 @@ kslli8:
 
 kslra8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslra8: 0
     rs1:
@@ -1278,8 +1255,7 @@ kslra8:
 
 kslra8.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslra8.u: 0
     rs1:
@@ -1299,7 +1275,7 @@ kslra8.u:
 
 cmpeq16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       cmpeq16: 0
     rs1:
@@ -1318,7 +1294,7 @@ cmpeq16:
 
 scmplt16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       scmplt16: 0
     rs1:
@@ -1337,7 +1313,7 @@ scmplt16:
 
 scmple16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       scmple16: 0
     rs1:
@@ -1356,7 +1332,7 @@ scmple16:
 
 ucmplt16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ucmplt16: 0
     rs1:
@@ -1375,7 +1351,7 @@ ucmplt16:
 
 ucmple16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ucmple16: 0
     rs1:
@@ -1394,7 +1370,7 @@ ucmple16:
 
 cmpeq8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       cmpeq8: 0
     rs1:
@@ -1413,7 +1389,7 @@ cmpeq8:
 
 scmplt8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       scmplt8: 0
     rs1:
@@ -1432,7 +1408,7 @@ scmplt8:
 
 scmple8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       scmple8: 0
     rs1:
@@ -1451,7 +1427,7 @@ scmple8:
 
 ucmplt8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ucmplt8: 0
     rs1:
@@ -1470,7 +1446,7 @@ ucmplt8:
 
 ucmple8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ucmple8: 0
     rs1:
@@ -1489,7 +1465,7 @@ ucmple8:
 
 smul16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smul16: 0
     rs1:
@@ -1508,7 +1484,7 @@ smul16:
 
 smulx16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smulx16: 0
     rs1:
@@ -1527,7 +1503,7 @@ smulx16:
 
 umul16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umul16: 0
     rs1:
@@ -1546,7 +1522,7 @@ umul16:
 
 umulx16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umulx16: 0
     rs1:
@@ -1565,8 +1541,7 @@ umulx16:
 
 khm16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khm16: 0
     rs1:
@@ -1585,8 +1560,7 @@ khm16:
 
 khmx16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khmx16: 0
     rs1:
@@ -1605,7 +1579,7 @@ khmx16:
 
 smul8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smul8: 0
     rs1:
@@ -1624,7 +1598,7 @@ smul8:
 
 smulx8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smulx8: 0
     rs1:
@@ -1643,7 +1617,7 @@ smulx8:
 
 umul8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umul8: 0
     rs1:
@@ -1662,7 +1636,7 @@ umul8:
 
 umulx8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umulx8: 0
     rs1:
@@ -1681,8 +1655,7 @@ umulx8:
 
 khm8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khm8: 0
     rs1:
@@ -1701,8 +1674,7 @@ khm8:
 
 khmx8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khmx8: 0
     rs1:
@@ -1721,7 +1693,7 @@ khmx8:
 
 smin16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smin16: 0
     rs1:
@@ -1740,7 +1712,7 @@ smin16:
 
 umin16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umin16: 0
     rs1:
@@ -1759,7 +1731,7 @@ umin16:
 
 smax16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smax16: 0
     rs1:
@@ -1778,7 +1750,7 @@ smax16:
 
 umax16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umax16: 0
     rs1:
@@ -1797,8 +1769,7 @@ umax16:
 
 sclip16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sclip16: 0
     rs1:
@@ -1814,8 +1785,7 @@ sclip16:
 
 uclip16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uclip16: 0
     rs1:
@@ -1831,8 +1801,7 @@ uclip16:
 
 kabs16:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kabs16: 0
     rs1:
@@ -1845,7 +1814,7 @@ kabs16:
 
 clrs16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       clrs16: 0
     rs1:
@@ -1858,7 +1827,7 @@ clrs16:
 
 clz16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       clz16: 0
     rs1:
@@ -1872,7 +1841,7 @@ clz16:
 # alias of pkbt16
 # swap16:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       swap16: 0
 #     rs1:
@@ -1885,7 +1854,7 @@ clz16:
 
 smin8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smin8: 0
     rs1:
@@ -1904,7 +1873,7 @@ smin8:
 
 umin8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umin8: 0
     rs1:
@@ -1923,7 +1892,7 @@ umin8:
 
 smax8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smax8: 0
     rs1:
@@ -1942,7 +1911,7 @@ smax8:
 
 umax8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umax8: 0
     rs1:
@@ -1961,8 +1930,7 @@ umax8:
 
 kabs8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kabs8: 0
     rs1:
@@ -1975,8 +1943,7 @@ kabs8:
 
 sclip8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sclip8: 0
     rs1:
@@ -1992,8 +1959,7 @@ sclip8:
 
 uclip8:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uclip8: 0
     rs1:
@@ -2009,7 +1975,7 @@ uclip8:
 
 clrs8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       clrs8: 0
     rs1:
@@ -2022,7 +1988,7 @@ clrs8:
 
 clz8:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       clz8: 0
     rs1:
@@ -2036,7 +2002,7 @@ clz8:
 # instructions overlapping with those in the B extension in RV32/RV64 configuration (Zbpbo)
 # swap8:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       swap8: 0
 #     rs1:
@@ -2049,7 +2015,7 @@ clz8:
 
 sunpkd810:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sunpkd810: 0
     rs1:
@@ -2062,7 +2028,7 @@ sunpkd810:
 
 sunpkd820:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sunpkd820: 0
     rs1:
@@ -2075,7 +2041,7 @@ sunpkd820:
 
 sunpkd830:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sunpkd830: 0
     rs1:
@@ -2088,7 +2054,7 @@ sunpkd830:
 
 sunpkd831:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sunpkd831: 0
     rs1:
@@ -2101,7 +2067,7 @@ sunpkd831:
 
 sunpkd832:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sunpkd832: 0
     rs1:
@@ -2114,7 +2080,7 @@ sunpkd832:
 
 zunpkd810:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       zunpkd810: 0
     rs1:
@@ -2127,7 +2093,7 @@ zunpkd810:
 
 zunpkd820:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       zunpkd820: 0
     rs1:
@@ -2140,7 +2106,7 @@ zunpkd820:
 
 zunpkd830:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       zunpkd830: 0
     rs1:
@@ -2153,7 +2119,7 @@ zunpkd830:
 
 zunpkd831:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       zunpkd831: 0
     rs1:
@@ -2166,7 +2132,7 @@ zunpkd831:
 
 zunpkd832:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       zunpkd832: 0
     rs1:
@@ -2180,7 +2146,7 @@ zunpkd832:
 # instructions overlapping with those in the B extension in RV32 configuration (Zbpbo)
 # pkbb16:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       pkbb16: 0
 #     rs1:
@@ -2199,7 +2165,7 @@ zunpkd832:
 
 pkbt16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       pkbt16: 0
     rs1:
@@ -2218,7 +2184,7 @@ pkbt16:
 
 pktb16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       pktb16: 0
     rs1:
@@ -2238,7 +2204,7 @@ pktb16:
 # instructions overlapping with those in the B extension in RV32 configuration (Zbpbo)
 # pktt16:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       pktt16: 0
 #     rs1:
@@ -2258,7 +2224,7 @@ pktb16:
 # 2.3.2.
 smmul:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmul: 0
     rs1:
@@ -2276,7 +2242,7 @@ smmul:
 
 smmul.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmul.u: 0
     rs1:
@@ -2294,8 +2260,7 @@ smmul.u:
 
 kmmac:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmac: 0
     rs1:
@@ -2313,8 +2278,7 @@ kmmac:
 
 kmmac.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmac.u: 0
     rs1:
@@ -2332,8 +2296,7 @@ kmmac.u:
 
 kmmsb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmsb: 0
     rs1:
@@ -2351,8 +2314,7 @@ kmmsb:
 
 kmmsb.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmsb.u: 0
     rs1:
@@ -2370,8 +2332,7 @@ kmmsb.u:
 
 kwmmul:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kwmmul: 0
     rs1:
@@ -2389,8 +2350,7 @@ kwmmul:
 
 kwmmul.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kwmmul.u: 0
     rs1:
@@ -2411,7 +2371,7 @@ kwmmul.u:
 
 smmwb:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmwb: 0
     rs1:
@@ -2429,7 +2389,7 @@ smmwb:
 
 smmwb.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmwb.u: 0
     rs1:
@@ -2447,7 +2407,7 @@ smmwb.u:
 
 smmwt:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmwt: 0
     rs1:
@@ -2465,7 +2425,7 @@ smmwt:
 
 smmwt.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smmwt.u: 0
     rs1:
@@ -2484,8 +2444,7 @@ smmwt.u:
 
 kmmawb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawb: 0
     rs1:
@@ -2503,8 +2462,7 @@ kmmawb:
 
 kmmawb.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawb.u: 0
     rs1:
@@ -2522,8 +2480,7 @@ kmmawb.u:
 
 kmmawt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawt: 0
     rs1:
@@ -2541,8 +2498,7 @@ kmmawt:
 
 kmmawt.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawt.u: 0
     rs1:
@@ -2561,8 +2517,7 @@ kmmawt.u:
 
 kmmwb2:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmwb2: 0
     rs1:
@@ -2580,8 +2535,7 @@ kmmwb2:
 
 kmmwb2.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmwb2.u: 0
     rs1:
@@ -2599,8 +2553,7 @@ kmmwb2.u:
 
 kmmwt2:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmwt2: 0
     rs1:
@@ -2618,8 +2571,7 @@ kmmwt2:
 
 kmmwt2.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmwt2.u: 0
     rs1:
@@ -2638,8 +2590,7 @@ kmmwt2.u:
 
 kmmawb2:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawb2: 0
     rs1:
@@ -2657,8 +2608,7 @@ kmmawb2:
 
 kmmawb2.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawb2.u: 0
     rs1:
@@ -2676,8 +2626,7 @@ kmmawb2.u:
 
 kmmawt2:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawt2: 0
     rs1:
@@ -2695,8 +2644,7 @@ kmmawt2:
 
 kmmawt2.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmmawt2.u: 0
     rs1:
@@ -2716,7 +2664,7 @@ kmmawt2.u:
 
 smbb16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smbb16: 0
     rs1:
@@ -2735,7 +2683,7 @@ smbb16:
 
 smbt16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smbt16: 0
     rs1:
@@ -2754,7 +2702,7 @@ smbt16:
 
 smtt16:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smtt16: 0
     rs1:
@@ -2773,8 +2721,7 @@ smtt16:
 
 kmda:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmda: 0
     rs1:
@@ -2793,8 +2740,7 @@ kmda:
 
 kmxda:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmxda: 0
     rs1:
@@ -2812,7 +2758,7 @@ kmxda:
         'simd_val_comb(xlen, 16, signed=True)': 0
 smds:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smds: 0
     rs1:
@@ -2831,7 +2777,7 @@ smds:
 
 smdrs:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smdrs: 0
     rs1:
@@ -2850,7 +2796,7 @@ smdrs:
 
 smxds:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smxds: 0
     rs1:
@@ -2869,8 +2815,7 @@ smxds:
 
 kmabb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmabb: 0
     rs1:
@@ -2889,8 +2834,7 @@ kmabb:
 
 kmabt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmabt: 0
     rs1:
@@ -2909,8 +2853,7 @@ kmabt:
 
 kmatt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmatt: 0
     rs1:
@@ -2929,8 +2872,7 @@ kmatt:
 
 kmada:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmada: 0
     rs1:
@@ -2949,8 +2891,7 @@ kmada:
 
 kmaxda:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmaxda: 0
     rs1:
@@ -2969,8 +2910,7 @@ kmaxda:
 
 kmads:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmads: 0
     rs1:
@@ -2989,8 +2929,7 @@ kmads:
 
 kmadrs:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmadrs: 0
     rs1:
@@ -3009,8 +2948,7 @@ kmadrs:
 
 kmaxds:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmaxds: 0
     rs1:
@@ -3029,8 +2967,7 @@ kmaxds:
 
 kmsda:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmsda: 0
     rs1:
@@ -3049,8 +2986,7 @@ kmsda:
 
 kmsxda:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmsxda: 0
     rs1:
@@ -3070,7 +3006,7 @@ kmsxda:
 # 2.3.5
 smal:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smal: 0
     rs1:
@@ -3090,8 +3026,7 @@ smal:
 
 sclip32:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sclip32: 0
     rs1:
@@ -3107,8 +3042,7 @@ sclip32:
 
 uclip32:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uclip32: 0
     rs1:
@@ -3124,7 +3058,7 @@ uclip32:
 
 clrs32:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       clrs32: 0
     rs1:
@@ -3138,7 +3072,7 @@ clrs32:
 # instructions overlapping with those in the B extension in RV32 configuration (Zbpbo)
 # clz32:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       clz32: 0
 #     rs1:
@@ -3151,7 +3085,7 @@ clrs32:
 
 pbsad:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       pbsad: 0
     rs1:
@@ -3170,7 +3104,7 @@ pbsad:
 
 pbsada:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       pbsada: 0
     rs1:
@@ -3189,7 +3123,7 @@ pbsada:
 
 smaqa:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smaqa: 0
     rs1:
@@ -3208,7 +3142,7 @@ smaqa:
 
 umaqa:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umaqa: 0
     rs1:
@@ -3227,7 +3161,7 @@ umaqa:
 
 smaqa.su:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smaqa.su: 0
     rs1:
@@ -3247,7 +3181,7 @@ smaqa.su:
 # 2.4.1
 add64:
     config:
-      - check ISA:=regex(.*32.*I.*P.*)
+      - check ISA:=regex(.*32.*I.*P.*Zicsr.*)
     opcode:
       add64: 0
     rs1:
@@ -3265,7 +3199,7 @@ add64:
 
 radd64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       radd64: 0
     rs1:
@@ -3283,7 +3217,7 @@ radd64:
 
 uradd64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uradd64: 0
     rs1:
@@ -3301,8 +3235,7 @@ uradd64:
 
 kadd64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kadd64: 0
     rs1:
@@ -3320,8 +3253,7 @@ kadd64:
 
 ukadd64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukadd64: 0
     rs1:
@@ -3339,7 +3271,7 @@ ukadd64:
 
 sub64:
     config:
-      - check ISA:=regex(.*32.*I.*P.*)
+      - check ISA:=regex(.*32.*I.*P.*Zicsr.*)
     opcode:
       sub64: 0
     rs1:
@@ -3357,7 +3289,7 @@ sub64:
 
 rsub64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rsub64: 0
     rs1:
@@ -3375,7 +3307,7 @@ rsub64:
 
 ursub64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ursub64: 0
     rs1:
@@ -3393,8 +3325,7 @@ ursub64:
 
 ksub64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksub64: 0
     rs1:
@@ -3412,8 +3343,7 @@ ksub64:
 
 uksub64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uksub64: 0
     rs1:
@@ -3432,7 +3362,7 @@ uksub64:
 # 2.4.2
 smar64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smar64: 0
     rs1:
@@ -3451,7 +3381,7 @@ smar64:
 
 smsr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smsr64: 0
     rs1:
@@ -3470,7 +3400,7 @@ smsr64:
 
 umar64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umar64: 0
     rs1:
@@ -3489,7 +3419,7 @@ umar64:
 
 umsr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       umsr64: 0
     rs1:
@@ -3508,8 +3438,7 @@ umsr64:
 
 kmar64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmar64: 0
     rs1:
@@ -3528,8 +3457,7 @@ kmar64:
 
 kmsr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kmsr64: 0
     rs1:
@@ -3548,8 +3476,7 @@ kmsr64:
 
 ukmar64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukmar64: 0
     rs1:
@@ -3568,8 +3495,7 @@ ukmar64:
 
 ukmsr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukmsr64: 0
     rs1:
@@ -3589,7 +3515,7 @@ ukmsr64:
 # 2.4.3
 smalbb:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalbb: 0
     rs1:
@@ -3608,7 +3534,7 @@ smalbb:
 
 smalbt:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalbt: 0
     rs1:
@@ -3627,7 +3553,7 @@ smalbt:
 
 smaltt:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smaltt: 0
     rs1:
@@ -3646,7 +3572,7 @@ smaltt:
 
 smalda:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalda: 0
     rs1:
@@ -3665,7 +3591,7 @@ smalda:
 
 smalxda:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalxda: 0
     rs1:
@@ -3684,7 +3610,7 @@ smalxda:
 
 smalds:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalds: 0
     rs1:
@@ -3703,7 +3629,7 @@ smalds:
 
 smaldrs:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smaldrs: 0
     rs1:
@@ -3722,7 +3648,7 @@ smaldrs:
 
 smalxds:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smalxds: 0
     rs1:
@@ -3741,7 +3667,7 @@ smalxds:
 
 smslda:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smslda: 0
     rs1:
@@ -3760,7 +3686,7 @@ smslda:
 
 smslxda:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       smslxda: 0
     rs1:
@@ -3781,8 +3707,7 @@ smslxda:
 
 kaddh:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kaddh: 0
     rs1:
@@ -3801,8 +3726,7 @@ kaddh:
 
 ksubh:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksubh: 0
     rs1:
@@ -3821,8 +3745,7 @@ ksubh:
 
 khmbb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khmbb: 0
     rs1:
@@ -3841,8 +3764,7 @@ khmbb:
 
 khmbt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khmbt: 0
     rs1:
@@ -3861,8 +3783,7 @@ khmbt:
 
 khmtt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       khmtt: 0
     rs1:
@@ -3881,8 +3802,7 @@ khmtt:
 
 ukaddh:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukaddh: 0
     rs1:
@@ -3901,8 +3821,7 @@ ukaddh:
 
 uksubh:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uksubh: 0
     rs1:
@@ -3921,8 +3840,7 @@ uksubh:
 
 kaddw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kaddw: 0
     rs1:
@@ -3941,8 +3859,7 @@ kaddw:
 
 ukaddw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ukaddw: 0
     rs1:
@@ -3961,8 +3878,7 @@ ukaddw:
 
 ksubw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksubw: 0
     rs1:
@@ -3981,8 +3897,7 @@ ksubw:
 
 uksubw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uksubw: 0
     rs1:
@@ -4001,8 +3916,7 @@ uksubw:
 
 kdmbb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmbb: 0
     rs1:
@@ -4021,8 +3935,7 @@ kdmbb:
 
 kdmbt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmbt: 0
     rs1:
@@ -4041,8 +3954,7 @@ kdmbt:
 
 kdmtt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmtt: 0
     rs1:
@@ -4061,8 +3973,7 @@ kdmtt:
 
 kslraw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslraw: 0
     rs1:
@@ -4081,8 +3992,7 @@ kslraw:
 
 kslraw.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslraw.u: 0
     rs1:
@@ -4102,8 +4012,7 @@ kslraw.u:
 
 ksllw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ksllw: 0
     rs1:
@@ -4123,8 +4032,7 @@ ksllw:
 
 kslliw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kslliw: 0
     rs1:
@@ -4140,8 +4048,7 @@ kslliw:
 
 kdmabb:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmabb: 0
     rs1:
@@ -4160,8 +4067,7 @@ kdmabb:
 
 kdmabt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmabt: 0
     rs1:
@@ -4180,8 +4086,7 @@ kdmabt:
 
 kdmatt:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kdmatt: 0
     rs1:
@@ -4200,8 +4105,7 @@ kdmatt:
 
 kabsw:
     config:
-      - check ISA:=regex(.*I.*P.*)
-      - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       kabsw: 0
     rs1:
@@ -4215,7 +4119,7 @@ kabsw:
 # 2.5.3.
 raddw:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       raddw: 0
     rs1:
@@ -4233,7 +4137,7 @@ raddw:
 
 uraddw:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       uraddw: 0
     rs1:
@@ -4251,7 +4155,7 @@ uraddw:
 
 rsubw:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       rsubw: 0
     rs1:
@@ -4269,7 +4173,7 @@ rsubw:
 
 ursubw:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ursubw: 0
     rs1:
@@ -4287,7 +4191,7 @@ ursubw:
 
 mulr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       mulr64: 0
     rs1:
@@ -4304,7 +4208,7 @@ mulr64:
         'simd_base_val("rs2", xlen, 32, signed=False)': 0
 mulsr64:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       mulsr64: 0
     rs1:
@@ -4322,7 +4226,7 @@ mulsr64:
 
 maddr32:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       maddr32: 0
     rs1:
@@ -4340,7 +4244,7 @@ maddr32:
 
 msubr32:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       msubr32: 0
     rs1:
@@ -4360,8 +4264,7 @@ msubr32:
 # alias of csr operations 
 # rdov:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
-#       - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       rdov: 0
 #     rd:
@@ -4370,8 +4273,7 @@ msubr32:
 # 
 # clrov:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
-#       - check ISA:=regex(.*Zicsr.*); def pext_check_vxsat_ov=True
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       clrov: 0
 #     rd:
@@ -4380,7 +4282,7 @@ msubr32:
 # 2.5.5.
 ave:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       ave: 0
     rs1:
@@ -4398,7 +4300,7 @@ ave:
 
 sra.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       sra.u: 0
     rs1:
@@ -4416,7 +4318,7 @@ sra.u:
 
 srai.u:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       srai.u: 0
     rs1:
@@ -4433,7 +4335,7 @@ srai.u:
 # instructions overlapping with those in the B extension in RV32/RV64 configuration (Zbpbo)
 # bitrev:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       bitrev: 0
 #     rs1:
@@ -4452,7 +4354,7 @@ srai.u:
 # 
 # bitrevi:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       bitrevi: 0
 #     rs1:
@@ -4468,7 +4370,7 @@ srai.u:
 # instructions overlapping with those in the B extension in RV32/RV64 configuration (Zbpbo)
 # wext:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       wext: 0
 #     rs1:
@@ -4486,7 +4388,7 @@ srai.u:
 # 
 # wexti:
 #     config:
-#       - check ISA:=regex(.*I.*P.*)
+#       - check ISA:=regex(.*I.*P.*Zicsr.*)
 #     opcode:
 #       wexti: 0
 #     rs1:
@@ -4502,7 +4404,7 @@ srai.u:
 
 insb:
     config:
-      - check ISA:=regex(.*I.*P.*)
+      - check ISA:=regex(.*I.*P.*Zicsr.*)
     opcode:
       insb: 0
     rs1:

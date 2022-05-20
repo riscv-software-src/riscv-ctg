@@ -1,5 +1,6 @@
 # See LICENSE.incore file for details
 
+import copy
 import os,re
 import multiprocessing as mp
 
@@ -20,28 +21,20 @@ def create_test(usage_str, node,label,base_isa,max_inst):
     global xlen
 
     flen = 0
-    if 'opcode' not in node:
+    if 'mnemonics' not in node:
+        logger.warning("mnemonics node not found in covergroup: " + str(label))
         return
     if 'ignore' in node:
         logger.info("Ignoring :" + str(label))
         if node['ignore']:
             return
-    for opcode in node['opcode']:
-        op_node=None
-        if opcode not in op_template:
-            for op,foo in op_template.items():
-                if op!='metadata' and foo['std_op'] is not None and opcode==foo['std_op']:
-                    op_node = foo
-                    break
-        else:
-            op_node = op_template[opcode]
-
-        if op_node is  None:
-            logger.warning("Skipping :" + str(opcode))
-            return
+    
+    # Function to encompass checks and test generation
+    def gen_test(op_node, opcode):
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
+        flen = 0
         if 'flen' in op_node:
             if '.d' in opcode:
                 flen = 64
@@ -61,6 +54,38 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         logger.info("Writing tests for :"+str(label))
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
+
+    # If base_op defined in covergroup, extract corresponding template
+    # else go through the instructions defined in mnemonics label
+    op_node = None
+    if 'base_op' in node:
+        # Extract pseudo and base instructions
+        base_op = node['base_op']
+        pseudop = list(node['mnemonics'].keys())[0]
+        if base_op in op_template and pseudop in op_template:
+            op_node = copy.deepcopy(op_template[base_op])
+            pseudo_template = op_template[pseudop]
+            
+            # Ovewrite/add nodes from pseudoinstruction template in base instruction template
+            for key, val in pseudo_template.items():
+                op_node[key] = val
+
+            # Generate tests
+            gen_test(op_node, pseudop)
+    else:
+        for opcode in node['mnemonics']:
+            if opcode in op_template:
+                op_node = op_template[opcode]
+                # Generate tests
+                gen_test(op_node, opcode)
+            else:
+                logger.warning(str(opcode) + " not found in template file. Skipping")
+                return
+    
+    # Return if there is no corresponding template 
+    if op_node is None:
+        logger.warning("Skipping :" + str(opcode))
+        return
 
 def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     global op_template
@@ -93,4 +118,3 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
     pool.close()
-
