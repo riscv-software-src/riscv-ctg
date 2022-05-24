@@ -4385,7 +4385,7 @@ kcrsa16:
 orc.b:
   stride: 1
   xlen: [32,64]
-  std_op:
+  std_op: orc.b
   isa: 
     - IB
     - IZbb
@@ -12209,3 +12209,73 @@ brev8:
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
+# place holder for gorci instruction until it is rattified
+gorci:
+  stride: 1
+  xlen: [32,64]
+  std_op: gorci
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    gorci $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+# place holder for grevi instruction until it is rattified
+grevi:
+  stride: 1
+  xlen: [32,64]
+  std_op: grevi
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    grevi $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+shfli:
+  stride: 1
+  xlen: [32]
+  std_op: shfli
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    shfli $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+unshfli:
+  stride: 1
+  xlen: [32]
+  std_op: unshfli
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    unshfli $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
