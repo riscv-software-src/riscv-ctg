@@ -11,6 +11,7 @@ import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 from riscv_isac.cgf_normalize import expand_cgf
 from riscv_ctg.generator import Generator
+from riscv_ctg.cross_comb import cross
 from math import *
 from riscv_ctg.__init__ import __version__
 
@@ -81,6 +82,12 @@ def create_test(usage_str, node,label,base_isa,max_inst):
             else:
                 logger.warning(str(opcode) + " not found in template file. Skipping")
                 return
+    
+    if 'cross_comb' in node:
+        fprefix = os.path.join(out_dir,str(label))
+        cross_obj = cross(base_isa, xlen, randomize, label)
+        cross_instr_dict = cross_obj.cross_comb(node)
+        cross_obj.write_test(fprefix, usage_str, label, cross_instr_dict)
     
     # Return if there is no corresponding template 
     if op_node is None:
