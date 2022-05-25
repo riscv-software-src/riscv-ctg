@@ -1,101 +1,17 @@
 # See LICENSE.incore for details
 import time
-import pprint
 import random
 from constraint import *
 
 import riscv_isac.utils as isac_utils
-from riscv_ctg.constants import *
-from riscv_ctg.log import logger
+
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
+from riscv_ctg.constants import *
+from riscv_ctg.log import logger
 from riscv_ctg.__init__ import __version__
-
+from riscv_ctg.generator import OPS
 from riscv_ctg.dsp_function import *
-
-OPS = {
-    'rformat': ['rs1', 'rs2', 'rd'],
-    'iformat': ['rs1', 'rd'],
-    'sformat': ['rs1', 'rs2'],
-    'bsformat': ['rs1', 'rs2', 'rd'],
-    'bformat': ['rs1', 'rs2'],
-    'uformat': ['rd'],
-    'jformat': ['rd'],
-    'crformat': ['rs1', 'rs2'],
-    'cmvformat': ['rd', 'rs2'],
-    'ciformat': ['rd'],
-    'cssformat': ['rs2'],
-    'ciwformat': ['rd'],
-    'clformat': ['rd', 'rs1'],
-    'csformat': ['rs1', 'rs2'],
-    'caformat': ['rs1', 'rs2'],
-    'cbformat': ['rs1'],
-    'cjformat': [],
-    'kformat': ['rs1','rd'],
-    'frformat': ['rs1', 'rs2', 'rd'],
-    'fsrformat': ['rs1', 'rd'],
-    'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
-    'pbrrformat': ['rs1', 'rs2', 'rd'],
-    'phrrformat': ['rs1', 'rs2', 'rd'],
-    'pbrformat': ['rs1', 'rd'],
-    'phrformat': ['rs1', 'rd'],
-    'pbriformat': ['rs1', 'rd'],
-    'phriformat': ['rs1', 'rd'],
-    'psbrrformat': ['rs1', 'rs2', 'rd'],
-    'pshrrformat': ['rs1', 'rs2', 'rd'],
-    'pwrrformat': ['rs1', 'rs2', 'rd'],
-    'pwriformat': ['rs1', 'rd'],
-    'pwrformat': ['rs1', 'rd'],
-    'pswrrformat': ['rs1', 'rs2', 'rd'],
-    'pwhrrformat': ['rs1', 'rs2', 'rd'],
-    'pphrrformat': ['rs1', 'rs2', 'rd'],
-    'ppbrrformat': ['rs1', 'rs2', 'rd'],
-    'prrformat': ['rs1', 'rs2', 'rd'],
-    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
-}
-''' Dictionary mapping instruction formats to operands used by those formats '''
-
-VALS = {
-    'rformat': "['rs1_val', 'rs2_val']",
-    'iformat': "['rs1_val', 'imm_val']",
-    'sformat': "['rs1_val', 'rs2_val', 'imm_val']",
-    'bsformat': "['rs1_val', 'rs2_val', 'imm_val']",
-    'bformat': "['rs1_val', 'rs2_val', 'imm_val']",
-    'uformat': "['imm_val']",
-    'jformat': "['imm_val']",
-    'crformat': "['rs1_val', 'rs2_val']",
-    'cmvformat': "['rs2_val']",
-    'ciformat': "['rs1_val', 'imm_val']",
-    'cssformat': "['rs2_val', 'imm_val']",
-    'ciwformat': "['imm_val']",
-    'clformat': "['rs1_val', 'imm_val']",
-    'csformat': "['rs1_val', 'rs2_val', 'imm_val']",
-    'caformat': "['rs1_val', 'rs2_val']",
-    'cbformat': "['rs1_val', 'imm_val']",
-    'cjformat': "['imm_val']",
-    'kformat': "['rs1_val']",
-    'frformat': "['rs1_val', 'rs2_val', 'rm_val']",
-    'fsrformat': "['rs1_val', 'rm_val']",
-    'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']",
-    'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
-    'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
-    'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
-    'phrformat': 'simd_val_vars("rs1", xlen, 16)',
-    'pbriformat': 'simd_val_vars("rs1", xlen, 8) + ["imm_val"]',
-    'phriformat': 'simd_val_vars("rs1", xlen, 16) + ["imm_val"]',
-    'psbrrformat': 'simd_val_vars("rs1", xlen, 8) + ["rs2_val"]',
-    'pshrrformat': 'simd_val_vars("rs1", xlen, 16) + ["rs2_val"]',
-    'pwrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 32)',
-    'pwriformat': 'simd_val_vars("rs1", xlen, 32) + ["imm_val"]',
-    'pwrformat': 'simd_val_vars("rs1", xlen, 32)',
-    'pswrrformat': 'simd_val_vars("rs1", xlen, 32) + ["rs2_val"]',
-    'pwhrrformat': 'simd_val_vars("rs1", xlen, 32) + simd_val_vars("rs2", xlen, 16)',
-    'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
-    'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
-    'prrformat': '["rs1_val", "rs2_val"]',
-    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
-}
-''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
 INSTR_FORMAT = {
     'rformat': '$instr $rd, $rs1, $rs2',
@@ -146,15 +62,18 @@ class cross():
     # Template dictionary
     OP_TEMPLATE = utils.load_yaml(const.template_file)
     
-    def __init__(self, base_isa_str, xlen_in):
+    def __init__(self, base_isa_str, xlen_in, randomize, label):
         global xlen
         global flen
         global base_isa
         
         xlen = xlen_in
         base_isa = base_isa_str
+
+        self.randomize = randomize
+        self.label = label
        
-    def cross_comb(cgf_node):
+    def cross_comb(self, cgf_node):
         '''
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
@@ -167,8 +86,10 @@ class cross():
         else:
             return
         
+        isa_set = []
+
         # Generate register file and variables
-        reg_file = ['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]
+        reg_file = const.default_regset
         for each in reg_file:
             exec(f"{each} = '{each}'")
 
@@ -211,7 +132,10 @@ class cross():
             cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
             
             # Initialize CSP
-            problem = Problem()
+            if self.randomize:
+                problem = Problem(MinConflictsSolver)
+            else:
+                problem = Problem()
             
             for i in range(len(data)):
                 if data[i] == '?':
@@ -261,7 +185,8 @@ class cross():
 
                     # Randomly choose an instruction
                     instr = random.choice(instrs_sol)
-                    
+                    isa_set += (cross.OP_TEMPLATE[instr]['isa'])
+
                     # Choose operand values
                     formattype = cross.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]
@@ -396,12 +321,14 @@ class cross():
                         assgns = assgn_lst[i].split(';')
                         for each in assgns:
                             exec(each)
-
+                    
+                    isa_set += (cross.OP_TEMPLATE[instr]['isa'])
                     opr_vals['instr'] = instr
                     solution += [opr_vals]
         
             full_solution += [solution]
         
+        self.isa = list(set(isa_set))
         return full_solution
 
     def swreg(cross_comb_instrs):
@@ -429,13 +356,21 @@ class cross():
 
         return sreg
 
-    def write_test(cov_label, isa, xlen, full_solution):
+    def write_test(self, fprefix, usage_str, cov_label, full_solution):
         
         code = '\n'
         data = [".align 4","rvtest_data:",".word 0xbabecafe", \
                 ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
         sig = ['']
         sreg_dict = dict()
+
+        # Generate ISA and extension string
+        extension = ""
+        rvxlen = "RV"+str(xlen)
+        op_node_isa = ",".join([rvxlen + isa for isa in self.isa])
+        op_node_isa = op_node_isa.replace("I","E") if 'e' in base_isa else op_node_isa
+        extension = op_node_isa.replace('I',"").replace('E',"")
+
         # Handle solutions related to each cross combination coverpoint
         for cross_sol in full_solution:
             
@@ -479,23 +414,19 @@ class cross():
             # Initialize registers for next cross-comb coverpoint
             code = code + REG_INIT
 
-        case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=cov_label) for i,cond in enumerate(node['config'])])
-        test = part_template.safe_substitute(case_str=case_str,code=code)
+        case_str = ''.join([case_template.safe_substitute(xlen = xlen,num = i, cond = cond, cov_label = cov_label) for i, cond in enumerate(node['config'])])
+        test = part_template.safe_substitute(case_str = case_str, code = code)
         
         # Write test to file
-        with open('test.S', 'w') as fp:
+        with open(fprefix + f'/{cov_label}_cross-comb.S', 'w') as fp:
             mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
-            fp.write(const.usage.safe_substitute(base_isa = isa, 
-                                                version = __version__, 
-                                                time = mytime,
-                                                xlen = xlen
-                                                )
-                    )
-            fp.write(const.test_template.safe_substitute(opcode = cov_label, 
-                                                        isa = isa, 
+            fp.write(usage_str + const.cross_test_template.safe_substitute(opcode = cov_label,
+                                                        isa = op_node_isa, 
                                                         test = test, 
                                                         data = '\n'.join(data), 
-                                                        sig = '\n'.join(sig)
+                                                        sig = '\n'.join(sig),
+                                                        label = cov_label,
+                                                        extension = extension
                                                         )
                     )
                 
@@ -503,6 +434,10 @@ if __name__ == '__main__':
 
     cov_node = 'add'
     isa = 'RV32I'
+    cgf_arg = '/path/to/cgf/'
+    rand_arg = True
+    xlen = 32
+    fprefix = '.'
     node = {'config': {'check ISA:=regex(.*I.*)'},
             'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                     # RAW
                             '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                          # RAW
@@ -511,6 +446,15 @@ if __name__ == '__main__':
                             '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                  # WAR
                             }
             }
-    cross_test = cross('rv32i', 32)
-    full_solution = cross.cross_comb(node)
-    print_instr = cross.write_test(cov_node, isa, 32, full_solution)
+    
+    mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
+    usage_str = const.usage.safe_substitute(version = __version__, 
+                                                time = mytime,
+                                                xlen = xlen,
+                                                cgf = cgf_arg,
+                                                randomize = rand_arg
+                                                )
+    
+    cross_test = cross('rv32i', 32, False, cov_node)
+    full_solution = cross_test.cross_comb(node)
+    cross_test.write_test(fprefix, usage_str, cov_node, full_solution)
