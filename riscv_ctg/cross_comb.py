@@ -356,7 +356,7 @@ class cross():
 
         return sreg
 
-    def write_test(self, fprefix, usage_str, cov_label, full_solution):
+    def write_test(self, fprefix, cgf_node, usage_str, cov_label, full_solution):
         
         code = '\n'
         data = [".align 4","rvtest_data:",".word 0xbabecafe", \
@@ -414,12 +414,11 @@ class cross():
             # Initialize registers for next cross-comb coverpoint
             code = code + REG_INIT
 
-        case_str = ''.join([case_template.safe_substitute(xlen = xlen,num = i, cond = cond, cov_label = cov_label) for i, cond in enumerate(node['config'])])
+        case_str = ''.join([case_template.safe_substitute(xlen = xlen,num = i, cond = cond, cov_label = cov_label) for i, cond in enumerate(cgf_node['config'])])
         test = part_template.safe_substitute(case_str = case_str, code = code)
         
         # Write test to file
         with open(fprefix + f'/{cov_label}_cross-comb.S', 'w') as fp:
-            mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
             fp.write(usage_str + const.cross_test_template.safe_substitute(opcode = cov_label,
                                                         isa = op_node_isa, 
                                                         test = test, 
@@ -457,4 +456,4 @@ if __name__ == '__main__':
     
     cross_test = cross('rv32i', 32, False, cov_node)
     full_solution = cross_test.cross_comb(node)
-    cross_test.write_test(fprefix, usage_str, cov_node, full_solution)
+    cross_test.write_test(fprefix, node, usage_str, cov_node, full_solution)
