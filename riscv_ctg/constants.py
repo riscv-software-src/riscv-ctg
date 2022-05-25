@@ -215,6 +215,10 @@ comment_template = '''
 // This assembly file tests the $opcode instruction of the RISC-V $extension extension for the $label covergroup.
 // '''
 
+cross_comment_template = '''
+// This assembly file is used for the test of cross-combination coverpoint described in $label covergroup.
+'''
+
 test_template = Template(copyright_string + comment_template+'''
 #include "model_test.h"
 #include "arch_test.h"
@@ -238,6 +242,31 @@ RVMODEL_DATA_BEGIN
 $sig
 RVMODEL_DATA_END
 ''')
+
+cross_test_template = Template(copyright_string + cross_comment_template+'''
+#include "model_test.h"
+#include "arch_test.h"
+RVTEST_ISA("$isa")
+
+.section .text.init
+.globl rvtest_entry_point
+rvtest_entry_point:
+RVMODEL_BOOT
+RVTEST_CODE_BEGIN
+$test
+
+RVTEST_CODE_END
+RVMODEL_HALT
+
+RVTEST_DATA_BEGIN
+$data
+RVTEST_DATA_END
+
+RVMODEL_DATA_BEGIN
+$sig
+RVMODEL_DATA_END
+''')
+
 case_template = Template('''
 RVTEST_CASE($num,"//check ISA:=regex(.*$xlen.*);$cond;def TEST_CASE_1=True;",$cov_label)
 ''')
