@@ -1,4 +1,6 @@
 # See LICENSE.incore for details
+import time
+import pprint
 import random
 from constraint import *
 
@@ -7,6 +9,7 @@ from riscv_ctg.constants import *
 from riscv_ctg.log import logger
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
+from riscv_ctg.__init__ import __version__
 
 from riscv_ctg.dsp_function import *
 
@@ -94,6 +97,47 @@ VALS = {
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
+INSTR_FORMAT = {
+    'rformat': '$instr $rd, $rs1, $rs2',
+    'iformat': '$instr $rd, $rs1, $imm_val'
+}
+
+REG_INIT = '''
+LI (x1,  (0xFEEDBEADFEEDBEAD & MASK));
+LI (x2,  (0xFF76DF56FF76DF56 & MASK));
+LI (x3,  (0x7FBB6FAB7FBB6FAB & MASK));
+LI (x4,  (0xBFDDB7D5BFDDB7D5 & MASK));
+LA (x5,  (0xAB7FFB6FAB7FBB6F & MASK));
+LA (x6,  (0x6FAB71BB6F7B7FBB & MASK));
+LI (x7,  (0xB7FBB6FAB7FBB6FA & MASK));
+LI (x8,  (0x5BFDDB7D5BFDDB7D & MASK));
+LI (x9,  (0xADFEEDBEADFEEDBE & MASK));
+LI (x10, (0x56FF76DF56FF76DF & MASK));
+LI (x11, (0xAB7FBB6FAB7FBB6F & MASK));
+LI (x12, (0xD5BFDDB7D5BFDDB7 & MASK));
+LI (x13, (0xEADFEEDBEADFEEDB & MASK));
+LI (x14, (0xF56FF76DF56FF76D & MASK));
+LI (x15, (0xFAB7FBB6FAB7FBB6 & MASK));
+#ifndef RVTEST_E
+LI (x16, (0x7D5BFDDB7D5BFDDB & MASK));
+LI (x17, (0xBEADFEEDBEADFEED & MASK));
+LI (x18, (0xDF56FF76DF56FF76 & MASK));
+LI (x19, (0x6FAB7FBB6FAB7FBB & MASK));
+LI (x20, (0xB7D5BFDDB7D5BFDD & MASK));
+LI (x21, (0xDBEADFEEDBEADFEE & MASK));
+LI (x22, (0x6DF56FF76DF56FF7 & MASK));
+LI (x23, (0xB6FAB7FBB6FAB7FB & MASK));
+LI (x24, (0xDB7D5BFDDB7D5BFD & MASK));
+LI (x25, (0xEDBEADFEEDBEADFE & MASK));
+LI (x26, (0x76DF56FF76DF56FF & MASK));
+LI (x27, (0xBB6FAB7FBB6FAB7F & MASK));
+LI (x28, (0xDDB7D5BFDDB7D5BF & MASK));
+LI (x29, (0xEEDBEADFEEDBEADF & MASK));
+LI (x30, (0xF76DF56FF76DF56F & MASK));
+LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK));
+#endif
+'''
+
 class cross():
     '''
     A cross class to genereate RISC-V assembly tests for cross-combination coverpoints.
@@ -110,7 +154,7 @@ class cross():
         xlen = xlen_in
         base_isa = base_isa_str
        
-    def cross_comb(cgf):
+    def cross_comb(cgf_node):
         '''
         This function finds solution for various cross-combinations defined by the coverpoints
         in the CGF under the `cross_comb` node of the covergroup.
@@ -118,8 +162,8 @@ class cross():
         logger.debug('Generating CrossComb')
         full_solution = []
         
-        if 'cross_comb' in cgf:
-            cross_comb = set(cgf['cross_comb'])
+        if 'cross_comb' in cgf_node:
+            cross_comb = set(cgf_node['cross_comb'])
         else:
             return
         
@@ -156,8 +200,6 @@ class cross():
 
         solution = []
         for each in cross_comb:
-            print('')
-            print(each)
 
             solution = []
 
@@ -267,8 +309,8 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
-                    solution += [instr, opr_vals]
-                    print([instr, opr_vals])
+                    opr_vals['instr'] = instr
+                    solution += [opr_vals]
 
                 else:
                     # When instruction(s)/alias is specified,
@@ -355,22 +397,120 @@ class cross():
                         for each in assgns:
                             exec(each)
 
-                    solution += [instr, opr_vals]
-                    print([instr, opr_vals])
+                    opr_vals['instr'] = instr
+                    solution += [opr_vals]
         
             full_solution += [solution]
         
         return full_solution
 
+    def swreg(cross_comb_instrs):
+        '''
+        This function generates the register which can be used as a signature pointer for each instruction
+        '''
+
+        global base_isa
+        
+        op_vals = ['x0']
+        
+        for instr_dict in cross_comb_instrs:
+            for key, val in instr_dict.items():
+                if key != 'instr' and key != 'imm_val':
+                    op_vals += val
+
+        problem = Problem()
+        problem.addVariable('o', ['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)])
+        problem.addConstraint(lambda op: op not in op_vals)
+
+        swreg_sol = problem.getSolutions()
+        swreg_sol = [list(each.items())[0][1] for each in swreg_sol]
+
+        sreg = random.choice(swreg_sol)
+
+        return sreg
+
+    def write_test(cov_label, isa, xlen, full_solution):
+        
+        code = '\n'
+        data = [".align 4","rvtest_data:",".word 0xbabecafe", \
+                ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
+        sig = ['']
+        sreg_dict = dict()
+        # Handle solutions related to each cross combination coverpoint
+        for cross_sol in full_solution:
+            
+            # Designate signature update register
+            sreg = cross.swreg(cross_sol)
+            
+            # Designate count of sreg for signature label generation
+            if sreg not in sreg_dict:
+                sreg_dict[sreg] = 0
+            else:
+                count = sreg_dict[sreg] + 1
+                sreg_dict[sreg] = count
+            
+            sig_label = "signature_" + sreg + "_" + str(sreg_dict[sreg])
+            code = code + "\nRVTEST_SIGBASE(" + sreg + ", "+ sig_label + ")\n\n"
+            
+            rd_lst = set()
+            # Generate instruction corresponding to each instruction dictionary
+            # Append signature update statements to store rd value after each instruction
+            code += '// Cross-combination test sequence\n'
+            for each in cross_sol:
+                
+                if 'rd' in each:
+                    rd_lst.add(each['rd'])
+
+                instr_str_format = Template(INSTR_FORMAT[cross.OP_TEMPLATE[each['instr']]['formattype']])
+                instr_str = instr_str_format.substitute(each)
+                code = code + instr_str + '\n'
+            
+            # Append .fill assembly directives to initialize signature regions
+            sig.append(sig_label + ':\n\t.fill ' + str(len(rd_lst)) + ', 4, 0xdeadbeef\n')
+
+            offset = 0
+            code += '\n// Store destination register values in the test signature region\n'    
+            # Add signature update statement(s) for unique number of rds
+            for rd in rd_lst:        
+                sig_upd = f'RVTEST_SIGUPD({sreg}, {rd}, {offset})'
+                offset = offset + int(xlen/8)
+                code = code + sig_upd + '\n'
+            
+            # Initialize registers for next cross-comb coverpoint
+            code = code + REG_INIT
+
+        case_str = ''.join([case_template.safe_substitute(xlen=xlen,num=i,cond=cond,cov_label=cov_label) for i,cond in enumerate(node['config'])])
+        test = part_template.safe_substitute(case_str=case_str,code=code)
+        
+        # Write test to file
+        with open('test.S', 'w') as fp:
+            mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
+            fp.write(const.usage.safe_substitute(base_isa = isa, 
+                                                version = __version__, 
+                                                time = mytime,
+                                                xlen = xlen
+                                                )
+                    )
+            fp.write(const.test_template.safe_substitute(opcode = cov_label, 
+                                                        isa = isa, 
+                                                        test = test, 
+                                                        data = '\n'.join(data), 
+                                                        sig = '\n'.join(sig)
+                                                        )
+                    )
+                
 if __name__ == '__main__':
 
-    cross_cov = {'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                   # RAW
-                                '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                        # RAW
-                                '[add : ? : ? : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                          # WAW
-                                '[(add,sub) : ? : mul : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
-                                '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                # WAR
-                                }
-                }
+    cov_node = 'add'
+    isa = 'RV32I'
+    node = {'config': {'check ISA:=regex(.*I.*)'},
+            'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                     # RAW
+                            '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                          # RAW
+                            '[add : ? : rv32i_shift : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                  # WAW
+                            '[(add,sub) : ? : mul : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
+                            '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                  # WAR
+                            }
+            }
     cross_test = cross('rv32i', 32)
-    get_it = cross.cross_comb(cross_cov)
-    print(get_it)
+    full_solution = cross.cross_comb(node)
+    print_instr = cross.write_test(cov_node, isa, 32, full_solution)
