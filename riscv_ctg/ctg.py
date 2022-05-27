@@ -22,7 +22,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
     global xlen
 
     flen = 0
-    if 'mnemonics' not in node:
+    if 'mnemonics' not in node and label != 'datasets':
         logger.warning("mnemonics node not found in covergroup: " + str(label))
         return
     if 'ignore' in node:
@@ -87,7 +87,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         fprefix = os.path.join(out_dir,str(label))
         cross_obj = cross(base_isa, xlen, randomize, label)
         cross_instr_dict = cross_obj.cross_comb(node)
-        cross_obj.write_test(fprefix, usage_str, label, cross_instr_dict)
+        cross_obj.write_test(fprefix, node, usage_str, label, cross_instr_dict)
     
     # Return if there is no corresponding template 
     if op_node is None:
@@ -122,6 +122,8 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
             randomize=randomize_argument,xlen=str(xlen_arg))
     op_template = utils.load_yaml(const.template_file)
     cgf = expand_cgf(cgf_file,xlen)
+    if 'datasets' in cgf:
+        del cgf['datasets']
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
     pool.close()
