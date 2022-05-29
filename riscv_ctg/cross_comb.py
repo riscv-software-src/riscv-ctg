@@ -1,5 +1,8 @@
 # See LICENSE.incore for details
+
+# For debug
 import time
+
 import random
 from constraint import *
 
@@ -14,8 +17,44 @@ from riscv_ctg.generator import OPS
 from riscv_ctg.dsp_function import *
 
 INSTR_FORMAT = {
-    'rformat': '$instr $rd, $rs1, $rs2',
-    'iformat': '$instr $rd, $rs1, $imm_val'
+    'rformat'     : '$instr $rd, $rs1, $rs2',
+    'iformat'     : '$instr $rd, $rs1, $imm_val',
+    'sformat'     : '$instr $rs2, $imm_val($rs1)',
+    'bsformat'    : '$instr $rd, $rs2, $imm_val',
+    'bformat'     : '$instr $',###
+    'uformat'     : '$instr $rd, $imm_val',
+    'jformat'     : '$instr ', ###
+    'crformat'    : '$instr $rd, ',
+    'cmvformat'   : '$instr',
+    'ciformat'    : '$instr',
+    'cssformat'   : '$instr',
+    'ciwformat'   : '$instr',
+    'clformat'    : '$instr',
+    'csformat'    : '$instr',
+    'caformat'    : '$instr',
+    'cbformat'    : '$instr',
+    'cjformat'    : '$instr',
+    'kformat'     : '$instr',
+    'frformat'    : '$instr',
+    'fsrformat'   : '$instr',
+    'fr4format'   : '$instr',
+    'pbrrformat'  : '$instr',
+    'phrrformat'  : '$instr',
+    'pbrformat'   : '$instr',
+    'phrformat'   : '$instr',
+    'pbriformat'  : '$instr',
+    'phriformat'  : '$instr',
+    'psbrrformat' : '$instr',
+    'pshrrformat' : '$instr',
+    'pwrrformat'  : '$instr',
+    'pwriformat'  : '$instr',
+    'pwrformat'   : '$instr',
+    'pswrrformat' : '$instr',
+    'pwhrrformat' : '$instr',
+    'pphrrformat' : '$instr',
+    'ppbrrformat' : '$instr',
+    'prrformat'   : '$instr',
+    'prrrformat'  : '$instr'
 }
 
 REG_INIT = '''
@@ -53,6 +92,8 @@ LI (x30, (0xF76DF56FF76DF56F & MASK));
 LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK));
 #endif
 '''
+
+REG_INIT_TEMP = 'LI ($reg, ($val & MASK))'
 
 class cross():
     '''
@@ -356,6 +397,14 @@ class cross():
 
         return sreg
 
+    def get_reginit_str(cross_comb_instrs):
+
+        for instr_dict in cross_comb_instrs:
+            for key, val in instr_dict.items():
+                if key != 'instr' and key != 'imm_val':
+                    pass
+
+    
     def write_test(self, fprefix, cgf_node, usage_str, cov_label, full_solution):
         
         code = '\n'
