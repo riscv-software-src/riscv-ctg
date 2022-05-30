@@ -7,6 +7,7 @@ import random
 from constraint import *
 
 import riscv_isac.utils as isac_utils
+from riscv_ctg import constants
 
 import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
@@ -57,41 +58,39 @@ INSTR_FORMAT = {
     'prrrformat'  : '$instr'
 }
 
-REG_INIT = '''
-LI (x1,  (0xFEEDBEADFEEDBEAD & MASK));
-LI (x2,  (0xFF76DF56FF76DF56 & MASK));
-LI (x3,  (0x7FBB6FAB7FBB6FAB & MASK));
-LI (x4,  (0xBFDDB7D5BFDDB7D5 & MASK));
-LA (x5,  (0xAB7FFB6FAB7FBB6F & MASK));
-LA (x6,  (0x6FAB71BB6F7B7FBB & MASK));
-LI (x7,  (0xB7FBB6FAB7FBB6FA & MASK));
-LI (x8,  (0x5BFDDB7D5BFDDB7D & MASK));
-LI (x9,  (0xADFEEDBEADFEEDBE & MASK));
-LI (x10, (0x56FF76DF56FF76DF & MASK));
-LI (x11, (0xAB7FBB6FAB7FBB6F & MASK));
-LI (x12, (0xD5BFDDB7D5BFDDB7 & MASK));
-LI (x13, (0xEADFEEDBEADFEEDB & MASK));
-LI (x14, (0xF56FF76DF56FF76D & MASK));
-LI (x15, (0xFAB7FBB6FAB7FBB6 & MASK));
-#ifndef RVTEST_E
-LI (x16, (0x7D5BFDDB7D5BFDDB & MASK));
-LI (x17, (0xBEADFEEDBEADFEED & MASK));
-LI (x18, (0xDF56FF76DF56FF76 & MASK));
-LI (x19, (0x6FAB7FBB6FAB7FBB & MASK));
-LI (x20, (0xB7D5BFDDB7D5BFDD & MASK));
-LI (x21, (0xDBEADFEEDBEADFEE & MASK));
-LI (x22, (0x6DF56FF76DF56FF7 & MASK));
-LI (x23, (0xB6FAB7FBB6FAB7FB & MASK));
-LI (x24, (0xDB7D5BFDDB7D5BFD & MASK));
-LI (x25, (0xEDBEADFEEDBEADFE & MASK));
-LI (x26, (0x76DF56FF76DF56FF & MASK));
-LI (x27, (0xBB6FAB7FBB6FAB7F & MASK));
-LI (x28, (0xDDB7D5BFDDB7D5BF & MASK));
-LI (x29, (0xEEDBEADFEEDBEADF & MASK));
-LI (x30, (0xF76DF56FF76DF56F & MASK));
-LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK));
-#endif
-'''
+REG_INIT = {
+'x1' : 'LI (x1,  (0xFEEDBEADFEEDBEAD & MASK))',
+'x2' : 'LI (x2,  (0xFF76DF56FF76DF56 & MASK))',
+'x3' : 'LI (x3,  (0x7FBB6FAB7FBB6FAB & MASK))',
+'x4' : 'LI (x4,  (0xBFDDB7D5BFDDB7D5 & MASK))',
+'x5' : 'LI (x5,  (0xAB7FFB6FAB7FBB6F & MASK))',
+'x6' : 'LI (x6,  (0x6FAB71BB6F7B7FBB & MASK))',
+'x7' : 'LI (x7,  (0xB7FBB6FAB7FBB6FA & MASK))',
+'x8' : 'LI (x8,  (0x5BFDDB7D5BFDDB7D & MASK))',
+'x9' : 'LI (x9,  (0xADFEEDBEADFEEDBE & MASK))',
+'x10' : 'LI (x10, (0x56FF76DF56FF76DF & MASK))',
+'x11' : 'LI (x11, (0xAB7FBB6FAB7FBB6F & MASK))',
+'x12' : 'LI (x12, (0xD5BFDDB7D5BFDDB7 & MASK))',
+'x13' : 'LI (x13, (0xEADFEEDBEADFEEDB & MASK))',
+'x14' : 'LI (x14, (0xF56FF76DF56FF76D & MASK))',
+'x15' : 'LI (x15, (0xFAB7FBB6FAB7FBB6 & MASK))',
+'x16' : 'LI (x16, (0x7D5BFDDB7D5BFDDB & MASK))',
+'x17' : 'LI (x17, (0xBEADFEEDBEADFEED & MASK))',
+'x18' : 'LI (x18, (0xDF56FF76DF56FF76 & MASK))',
+'x19' : 'LI (x19, (0x6FAB7FBB6FAB7FBB & MASK))',
+'x20' : 'LI (x20, (0xB7D5BFDDB7D5BFDD & MASK))',
+'x21' : 'LI (x21, (0xDBEADFEEDBEADFEE & MASK))',
+'x22' : 'LI (x22, (0x6DF56FF76DF56FF7 & MASK))',
+'x23' : 'LI (x23, (0xB6FAB7FBB6FAB7FB & MASK))',
+'x24' : 'LI (x24, (0xDB7D5BFDDB7D5BFD & MASK))',
+'x25' : 'LI (x25, (0xEDBEADFEEDBEADFE & MASK))',
+'x26' : 'LI (x26, (0x76DF56FF76DF56FF & MASK))',
+'x27' : 'LI (x27, (0xBB6FAB7FBB6FAB7F & MASK))',
+'x28' : 'LI (x28, (0xDDB7D5BFDDB7D5BF & MASK))',
+'x29' : 'LI (x29, (0xEEDBEADFEEDBEADF & MASK))',
+'x30' : 'LI (x30, (0xF76DF56FF76DF56F & MASK))',
+'x31' : 'LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK))'
+}
 
 REG_INIT_TEMP = 'LI ($reg, ($val & MASK))'
 
@@ -113,6 +112,9 @@ class cross():
 
         self.randomize = randomize
         self.label = label
+
+        # Flag if floating point instructions are chosen
+        self.if_fp = False
        
     def cross_comb(self, cgf_node):
         '''
@@ -275,6 +277,10 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
+                    # Set floating point flag if instruction belongs to F or D extension
+                    if instr[0] == 'f' and instr != 'fence':
+                        self.if_fp = True
+
                     opr_vals['instr'] = instr
                     solution += [opr_vals]
 
@@ -364,9 +370,14 @@ class cross():
                             exec(each)
                     
                     isa_set += (cross.OP_TEMPLATE[instr]['isa'])
+                    
+                    # Set floating point flag if instruction belongs to F or D extension
+                    if instr[0] == 'f' and instr != 'fence':
+                        self.if_fp = True
+                    
                     opr_vals['instr'] = instr
                     solution += [opr_vals]
-        
+
             full_solution += [solution]
         
         self.isa = list(set(isa_set))
@@ -398,13 +409,17 @@ class cross():
         return sreg
 
     def get_reginit_str(cross_comb_instrs):
+        
+        reg_init_lst = set()
 
         for instr_dict in cross_comb_instrs:
             for key, val in instr_dict.items():
-                if key != 'instr' and key != 'imm_val':
-                    pass
+                if key != 'rd':
+                    if key != 'instr' and key != 'imm_val' and val != 'x0':
+                        reg_init_lst.add(REG_INIT[val])
 
-    
+        return list(reg_init_lst)
+
     def write_test(self, fprefix, cgf_node, usage_str, cov_label, full_solution):
         
         code = '\n'
@@ -412,6 +427,10 @@ class cross():
                 ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
         sig = ['']
         sreg_dict = dict()
+
+        # If floating point instructions are available
+        if self.if_fp:
+            code += "RVTEST_FP_ENABLE()"
 
         # Generate ISA and extension string
         extension = ""
@@ -450,18 +469,21 @@ class cross():
                 code = code + instr_str + '\n'
             
             # Append .fill assembly directives to initialize signature regions
-            sig.append(sig_label + ':\n\t.fill ' + str(len(rd_lst)) + ', 4, 0xdeadbeef\n')
+            sig.append(signode_template.safe_substitute(label = sig_label, n = len(rd_lst)))
 
             offset = 0
             code += '\n// Store destination register values in the test signature region\n'    
             # Add signature update statement(s) for unique number of rds
             for rd in rd_lst:        
-                sig_upd = f'RVTEST_SIGUPD({sreg}, {rd}, {offset})'
+                if rd[0] == 'f':
+                    sig_upd = f'RVTEST_SIGUPD_F({sreg}, {rd}, {offset})'
+                else:
+                    sig_upd = f'RVTEST_SIGUPD({sreg}, {rd}, {offset})'
                 offset = offset + int(xlen/8)
                 code = code + sig_upd + '\n'
             
             # Initialize registers for next cross-comb coverpoint
-            code = code + REG_INIT
+            code = code + '\n// Initialize used registers\n' + '\n'.join(cross.get_reginit_str(cross_sol)) + '\n'
 
         case_str = ''.join([case_template.safe_substitute(xlen = xlen,num = i, cond = cond, cov_label = cov_label) for i, cond in enumerate(cgf_node['config'])])
         test = part_template.safe_substitute(case_str = case_str, code = code)
@@ -489,7 +511,7 @@ if __name__ == '__main__':
     node = {'config': {'check ISA:=regex(.*I.*)'},
             'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                     # RAW
                             '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                          # RAW
-                            '[add : ? : rv32i_shift : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                  # WAW
+                            '[fadd.s : ? : rv32i_shift : ? : fsub.d] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                  # WAW
                             '[(add,sub) : ? : mul : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
                             '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                  # WAR
                             }
