@@ -83,9 +83,10 @@ VALS = {
     'cbformat': "['rs1_val', 'imm_val']",
     'cjformat': "['imm_val']",
     'kformat': "['rs1_val']",
-    'frformat': "['rs1_val', 'rs2_val', 'rm_val']",
-    'fsrformat': "['rs1_val', 'rm_val']",
-    'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val']",
+    'frformat': "['rs1_val', 'rs2_val', 'rm_val', 'fcsr', 'nan_prefix_rs1', 'nan_prefix_rs2']",
+    'fsrformat': "['rs1_val', 'rm_val', 'fcsr', 'nan_prefix_rs1']",
+    'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val', 'fcsr','nan_prefix_rs3' \
+            , 'nan_prefix_rs1', 'nan_prefix_rs2']",
     'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
     'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
     'pbrformat': 'simd_val_vars("rs1", xlen, 8)',
@@ -349,7 +350,7 @@ class Generator():
                 req_val_comb_minus_comm = req_val_comb.split("#")[0]
                 x = req_val_comb_minus_comm.split(" and ")
 
-                if self.opcode[0] == 'f' and 'fence' not in self.opcode:
+                if any(['F' in self.opnode['isa'] or 'D' in self.opnode['isa']]):
 	                # fs + fe + fm -> Combiner Script
                     if (flen == 32):
                         e_sz = 8

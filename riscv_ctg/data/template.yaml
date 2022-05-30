@@ -1697,7 +1697,8 @@ fadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1731,7 +1732,8 @@ fsub.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1765,7 +1767,8 @@ fmul.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1799,7 +1802,8 @@ fdiv.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'frformat'
   rs1_op_data: *all_fregs
@@ -1833,7 +1837,8 @@ fsqrt.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -1865,7 +1870,8 @@ fmadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1901,7 +1907,8 @@ fmsub.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1937,7 +1944,8 @@ fnmadd.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fr4format'
   rs1_op_data: *all_fregs
@@ -1973,6 +1981,7 @@ fnmsub.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'fr4format'
@@ -2009,6 +2018,7 @@ fsgnj.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2043,6 +2053,7 @@ fsgnjn.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2077,6 +2088,7 @@ fsgnjx.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2111,6 +2123,7 @@ fmin.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2145,6 +2158,7 @@ fmax.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2179,6 +2193,7 @@ feq.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2211,6 +2226,7 @@ flt.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2243,6 +2259,7 @@ fle.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'frformat'
@@ -2275,7 +2292,8 @@ fmv.w.x:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
@@ -2290,6 +2308,7 @@ fmv.x.w:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2305,7 +2324,8 @@ fcvt.w.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -2335,7 +2355,8 @@ fcvt.wu.s:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -2442,7 +2463,8 @@ fcvt.s.w:
   xlen: [32,64]
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   std_op:
   formattype: 'fsrformat'
   rs1_op_data: *all_regs
@@ -2457,6 +2479,7 @@ fcvt.s.wu:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2547,8 +2570,9 @@ fclass.s:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
+  flen: [32,64]
   std_op:
-  flen: [32]
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
   rd_op_data: *all_regs
@@ -2579,8 +2603,9 @@ fsw:
   xlen: [32,64]
   isa: 
     - IF
+    - IFD
+  flen: [32,64]
   std_op:
-  flen: [32]
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
@@ -2598,7 +2623,8 @@ flw:
   std_op:
   isa: 
     - IF
-  flen: [32]
+    - IFD
+  flen: [32,64]
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
@@ -2648,6 +2674,7 @@ fcvt.l.s:
   std_op:
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -2662,6 +2689,7 @@ fcvt.lu.s:
   xlen: [64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2677,6 +2705,7 @@ fcvt.s.l:
   xlen: [64]
   isa: 
     - IF
+    - IFD
   std_op:
   flen: [32,64]
   formattype: 'fsrformat'
@@ -2692,6 +2721,7 @@ fcvt.s.lu:
   xlen: [64]
   isa: 
     - IF
+    - IFD
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
