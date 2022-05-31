@@ -1,5 +1,8 @@
 import re
 
+class ExtractException(Exception):
+    pass
+
 num_dict = {
         'rs1_val': '1',
         'rs2_val': '2',
@@ -7,7 +10,7 @@ num_dict = {
 }
 fsub_vars = ['fe','fm','fs']
 
-val_regex = "{0}\s*==\s*(?P<{0}>[0-9abcdefx+\-\*/\|\&]*)\s*"
+val_regex = "{0}\s*==\s*(?P<{1}>[0-9abcdefx+\-\*/\|\&]*)\s*"
 
 def extract_frs_fields(reg,cvp,iflen):
     if (iflen == 32):
@@ -19,19 +22,19 @@ def extract_frs_fields(reg,cvp,iflen):
     s_sz_string = '{:01b}'
     e_sz_string = '{:0'+str(e_sz)+'b}'
     m_sz_string = '{:0'+str(m_sz)+'b}'
-    size_string = '{:0'+str(int(flen/4))+'x}'
+    size_string = '{:0'+str(int(iflen/4))+'x}'
     fvals = {}
     for var in fsub_vars:
-        regex = val_regex.format(var+reg)
+        regex = val_regex.format(var+reg,var+reg)
         match_obj = re.search(regex,cvp)
         if match_obj is not None:
             fvals[var+reg] = eval(match_obj.group(var+reg))
         else:
-            raise Exception
-    bin_val1 = s_sz_string.format(fvals['fs'+reg]) + e_sz_string.format(int(fvals['fe'+reg],16)) \
-            + m_sz_string.format(int(fvals['fm'+reg],16))
+            raise ExtractError("{0} not defined in coverpoint:{1}".format(var+reg,cvp))
+    bin_val1 = s_sz_string.format(fvals['fs'+reg]) + e_sz_string.format(fvals['fe'+reg]) \
+            + m_sz_string.format(fvals['fm'+reg])
     hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
-    return hex_val1
+    return int(hex_val1,16)
 
 def merge_fields_f(val_vars,cvp,flen,iflen):
     nan_box = False
@@ -40,22 +43,22 @@ def merge_fields_f(val_vars,cvp,flen,iflen):
     fdict = {}
     for var in val_vars:
         if var in num_dict:
-            fdict[var] = extract_frs_fields(num_dict['var'],cvp,iflen)
+            fdict[var] = extract_frs_fields(num_dict[var],cvp,iflen)
             if nan_box:
-                nan_var = 'nan_box_rs'+num_dict['var']
-                regex = val_regex.format(nan_var.replace("_","\\_"))
+                nan_var = 'rs{0}_nan_prefix'.format(num_dict[var])
+                regex = val_regex.format(nan_var.replace("_","\\_"),nan_var)
                 match_obj = re.search(regex,cvp)
                 if match_obj is not None:
-                    fdict[nan_var] = hex(eval(match_obj.group(nan_var)))
+                    fdict[nan_var] = eval(match_obj.group(nan_var))
                 else:
-                    fdict[nan_var] = '0x'+'f'*int((flen-iflen)/4)
-
+                    fdict[nan_var] = (2**(flen-iflen))-1
         else:
-            regex = val_regex.format(var.replace("_","\\_"))
+            regex = val_regex.format(var.replace("_","\\_"),var)
             match_obj = re.search(regex,cvp)
             if match_obj is not None:
-                fdict[var] = hex(eval(match_obj.group(var)))
-            else:
-                raise Exception
+                fdict[var] = eval(match_obj.group(var))
+            elif 'nan_prefix' not in var:
+                raise ExtractError("{0} not defined in coverpoint:{1}".format(var,cvp))
+    return fdict
 
 
