@@ -439,10 +439,7 @@ class cross():
         reg_init_lst = set()
 
         for instr_dict in cross_comb_instrs:
-            for key, val in instr_dict.items():
-                if key != 'rd':
-                    if key != 'instr' and key != 'imm_val' and val != 'x0':
-                        reg_init_lst.add(REG_INIT[val])
+            reg_init_lst.add(REG_INIT[instr_dict['rd']])
 
         return list(reg_init_lst)
 
