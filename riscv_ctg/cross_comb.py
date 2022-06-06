@@ -19,12 +19,12 @@ from riscv_ctg.dsp_function import *
 
 INSTR_FORMAT = {
     'rformat'     : '$instr $rd, $rs1, $rs2',
-    'iformat'     : '$instr $rd, $rs1, $imm_val',
+    'iformat'     : '$instr $rd, $rs1, SEXT_IMM($imm_val)',
     'sformat'     : '$instr $rs2, $imm_val($rs1)',
     'bsformat'    : '$instr $rd, $rs2, $imm_val',
-    'bformat'     : '$instr $',###
+    'bformat'     : '$instr $rs1, $rs2, $label',
     'uformat'     : '$instr $rd, $imm_val',
-    'jformat'     : '$instr ', ###
+    'jformat'     : '$instr ',
     'crformat'    : '$instr $rd, ',
     'cmvformat'   : '$instr',
     'ciformat'    : '$instr',
@@ -123,8 +123,6 @@ REG_INIT = {
 'f30' : 'FLREG f30, 0xF76DF56FF76DF56F >> FREGWIDTH',
 'f31' : 'FLREG f31, 0xFBB6FAB7FBB6FAB7 >> FREGWIDTH'
 }
-
-FREG_INIT_TEMP = Template('FLREG $freg, $val >> FREGWIDTH')
 
 class cross():
     '''
@@ -320,7 +318,8 @@ class cross():
                     # When instruction(s)/alias is specified,
                     #   - If an instruction is specified, operands are directly extracted and assigned values according to conditions 
                     #   - If a tuple of instructions is specified, one of the instruction is chosen at random
-                    #   - If an alias is specified, the instruction is chosen according to assignment and condition list
+                    #   - If an alias is specified, the alias is already substituted by its equivalent tuple of instructions at this point
+                    #     through expand_cgf method.
                     #   - Immediate values are generated if required  
                     #   - Assignments are evaluated
                     cond = cond_lst[i]
@@ -334,20 +333,8 @@ class cross():
 
                     if data[i] in cross.OP_TEMPLATE:                                    # If single instruction
                         instr = data[i]
-                    else:
-                        alias_instrs = isac_utils.import_instr_alias(data[i])           # If data is an alias
-                        if alias_instrs:
-                            problem.reset()
-                            problem.addVariable('i', alias_instrs)
-                            problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
-                            instrs_sol = problem.getSolutions()
-
-                            instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
-
-                            # Randomly select an instruction
-                            instr = random.choice(instrs_sol)
-                        
-                        elif data[i].find('(') != -1:                                   # If data is a tuple of instructions
+                    else:                        
+                        if data[i].find('(') != -1:                                     # If data is a tuple of instructions
                             instrs_sol = data[i][1:-1].split(',')
                             instr = random.choice(instrs_sol)
                         else:
@@ -435,6 +422,17 @@ class cross():
         return sreg
 
     def get_reginit_str(cross_comb_instrs):
+        '''
+        This function fetches the register initlialization macro to initialize
+        used destination instructions after the cross-coverpoint instruction sequence
+        generation
+
+        Input argument:
+            - cross_comb_instrs type: list(dict()) Holds info of various instructions in the sequence
+        
+        Return:
+            - List of initialization strings
+        '''
         
         reg_init_lst = set()
 
@@ -479,7 +477,7 @@ class cross():
             
             sig_label = "signature_" + sreg + "_" + str(sreg_dict[sreg])
             code = code + "\nRVTEST_SIGBASE(" + sreg + ", "+ sig_label + ")\n\n"
-            
+
             rd_lst = set()
             # Generate instruction corresponding to each instruction dictionary
             # Append signature update statements to store rd value after each instruction
@@ -537,7 +535,7 @@ if __name__ == '__main__':
             'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                     # RAW
                             '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                          # RAW
                             '[fadd.s : ? : rv32i_shift : ? : fsub.d] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                  # WAW
-                            '[(add,sub) : ? : mul : ? : (add,sub)] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]': 0, # WAW
+                            '[(add,sub) : ? : mul : ? : rv32i_shift : (add,sub)] :: [a=rd : ? : b = rs2 : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==b : rd==a]': 0, # WAW
                             '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                  # WAR
                             }
             }
