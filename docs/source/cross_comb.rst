@@ -17,7 +17,7 @@ Consider a cross combination coverpoint defined as:
 Coverpoint Definition
 #####################
 
-::
+.. code-block::
     add:
         cross_comb:
             "[add : ? : rv32i_arith : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]"
@@ -25,7 +25,7 @@ Coverpoint Definition
 Possible assembly sequence generated
 ####################################
 
-::
+.. code-block::
     add x3, x3, x4;
     addi x5, x3, 1;
     sub x6, x4, x3;
