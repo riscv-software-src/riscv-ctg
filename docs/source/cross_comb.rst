@@ -31,3 +31,5 @@ Example
         sub x3, x5, x6
 
 The test generator also embeds appropriate macros for initialization of registers and signature region pointing registers.
+
+Note: The cross-combination test generator as of now, does not support load, store and branch instructions
