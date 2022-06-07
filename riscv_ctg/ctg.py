@@ -87,6 +87,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         fprefix = os.path.join(out_dir,str(label))
         cross_obj = cross(base_isa, xlen, randomize, label)
         cross_instr_dict = cross_obj.cross_comb(node)
+        logger.info('Writing cross-comb test')
         cross_obj.write_test(fprefix, node, usage_str, label, cross_instr_dict)
     
     # Return if there is no corresponding template 
