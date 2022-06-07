@@ -13,19 +13,17 @@ Example
 -------
 
     **Coverpoint Definition**
-    
-    An example cross combination coverpoint is given below:
-    
-    .. code-block::
+
+    An example cross combination coverpoint is given below: ::
+
         add:
             cross_comb:
                 "[add : ? : rv32i_arith : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]"
-        
+
     **Possible assembly sequence generated**
+
+    A possible sequence of instructions CTG would generate is: ::
     
-    A possible sequence of instructions CTG would generate is:
-    
-    .. code-block::
         add x3, x3, x4;
         addi x5, x3, 1;
         sub x6, x4, x3;
