@@ -12,26 +12,22 @@ The test generator employs a constraint solver to generate relevant instruction 
 Example
 -------
 
-Consider a cross combination coverpoint defined as:
-
-Coverpoint Definition
----------------------
-
-An example cross combination coverpoint is given below:
-
-.. code-block::
-    add:
-        cross_comb:
-            "[add : ? : rv32i_arith : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]"
+    **Coverpoint Definition**
     
-Possible assembly sequence generated
-####################################
-
-A possible sequence of instructions CTG would generate is:
-
-.. code-block::
-    add x3, x3, x4;
-    addi x5, x3, 1;
-    sub x6, x4, x3;
-    addi x4, x3, -3;
-    sub x3, x5, x6;
+    An example cross combination coverpoint is given below:
+    
+    .. code-block::
+        add:
+            cross_comb:
+                "[add : ? : rv32i_arith : ? : sub] :: [a=rd : ? : ? : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==a]"
+        
+    **Possible assembly sequence generated**
+    
+    A possible sequence of instructions CTG would generate is:
+    
+    .. code-block::
+        add x3, x3, x4;
+        addi x5, x3, 1;
+        sub x6, x4, x3;
+        addi x4, x3, -3;
+        sub x3, x5, x6;
