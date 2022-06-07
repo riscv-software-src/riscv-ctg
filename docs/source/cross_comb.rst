@@ -29,3 +29,5 @@ Example
         sub x6, x4, x3
         addi x4, x3, -3
         sub x3, x5, x6
+
+The test generator also embeds appropriate macros for initialization of registers and signature region pointing registers.
