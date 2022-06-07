@@ -12,6 +12,18 @@ fsub_vars = ['fe','fm','fs']
 
 val_regex = "{0}\s*==\s*(?P<{1}>[0-9abcdefx+\-\*/\|\&]*)\s*"
 
+def to_int(x):
+    if '0x' in x:
+        return int(x,16)
+    else:
+        return int(x)
+
+def nan_box(prefix,rs,flen,iflen):
+    if prefix == 2**(flen-iflen)-1:
+        return (rs,iflen)
+    else:
+        return (str(to_int(rs)|(to_int(prefix)<<iflen)),flen)
+
 def extract_frs_fields(reg,cvp,iflen):
     if (iflen == 32):
         e_sz = 8

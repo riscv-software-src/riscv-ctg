@@ -436,7 +436,6 @@ class Generator():
                 val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
                 problem.reset()
             val_comb.append( tuple(val_tuple) )
-        print(val_comb)
         return val_comb
 
     def __jfmt_instr__(self,op=None,val=None):
@@ -651,7 +650,7 @@ class Generator():
             cond_str += op[-1]+','
         if val:
             cond_str += val[-1]
-        instr = {'instr':self.opcode,'comment':cond_str,'index':'0'}
+        instr = {'inst':self.opcode,'comment':cond_str,'index':'0'}
         if op:
             for var,reg in zip(self.op_vars,op):
                 instr[var] = str(reg)
@@ -720,9 +719,9 @@ class Generator():
                         if op[y] == op[x]:
                             val[ind_dict[y]] = val[ind_dict[x]]
             if self.is_fext:
-                # instr_dict.append(self.__fext_instr(op,val))
-                print(self.__fext_instr__(op,val))
-                sys.exit(1)
+                instr_dict.append(self.__fext_instr__(op,val))
+                # print(self.__fext_instr__(op,val))
+                # sys.exit(1)
             elif self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
             elif self.opcode in ['c.beqz', 'c.bnez']:
@@ -741,7 +740,9 @@ class Generator():
                 instr_dict.append(self.__instr__(op,val))
         op = None
         for val in cont:
-            if self.opcode == 'c.lui':
+            if self.is_fext:
+                instr_dict.append(self.__fext_instr__(op,val))
+            elif self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
             elif self.opcode in ['c.beqz', 'c.bnez']:
                 instr_dict.append(self.__cb_instr__(op,val))
@@ -759,179 +760,114 @@ class Generator():
         hits = defaultdict(lambda:set([]))
         final_instr = []
         def eval_inst_coverage(coverpoints,instr):
+            rm_dict = {
+                'RNE':0,
+                'RTZ':1,
+                'RDN':2,
+                'RUP':3,
+                'RMM':4,
+                'DYN':7 }
             cover_hits = {}
-            if 'ea_align' in instr:
-                ea_align = int(instr['ea_align'])
-            if 'rs1_val' in instr:
-                rs1_val = int(instr['rs1_val'])
-            if 'rs2_val' in instr:
-                rs2_val = int(instr['rs2_val'])
-            if 'rs3_val' in instr:
-                rs3_val = int(instr['rs3_val'])
-            if 'rm_val' in instr:
-                rm_val = int(instr['rm_val'])
-            if 'rs1_b0_val' in instr:
-                rs1_b0_val = int(instr['rs1_b0_val'])
-            if 'rs1_b1_val' in instr:
-                rs1_b1_val = int(instr['rs1_b1_val'])
-            if 'rs1_b2_val' in instr:
-                rs1_b2_val = int(instr['rs1_b2_val'])
-            if 'rs1_b3_val' in instr:
-                rs1_b3_val = int(instr['rs1_b3_val'])
-            if 'rs1_b4_val' in instr:
-                rs1_b4_val = int(instr['rs1_b4_val'])
-            if 'rs1_b5_val' in instr:
-                rs1_b5_val = int(instr['rs1_b5_val'])
-            if 'rs1_b6_val' in instr:
-                rs1_b6_val = int(instr['rs1_b6_val'])
-            if 'rs1_b7_val' in instr:
-                rs1_b7_val = int(instr['rs1_b7_val'])
-            if 'rs2_b0_val' in instr:
-                rs2_b0_val = int(instr['rs2_b0_val'])
-            if 'rs2_b1_val' in instr:
-                rs2_b1_val = int(instr['rs2_b1_val'])
-            if 'rs2_b2_val' in instr:
-                rs2_b2_val = int(instr['rs2_b2_val'])
-            if 'rs2_b3_val' in instr:
-                rs2_b3_val = int(instr['rs2_b3_val'])
-            if 'rs2_b4_val' in instr:
-                rs2_b4_val = int(instr['rs2_b4_val'])
-            if 'rs2_b5_val' in instr:
-                rs2_b5_val = int(instr['rs2_b5_val'])
-            if 'rs2_b6_val' in instr:
-                rs2_b6_val = int(instr['rs2_b6_val'])
-            if 'rs2_b7_val' in instr:
-                rs2_b7_val = int(instr['rs2_b7_val'])
-            if 'rs1_h0_val' in instr:
-                rs1_h0_val = int(instr['rs1_h0_val'])
-            if 'rs1_h1_val' in instr:
-                rs1_h1_val = int(instr['rs1_h1_val'])
-            if 'rs1_h2_val' in instr:
-                rs1_h2_val = int(instr['rs1_h2_val'])
-            if 'rs1_h3_val' in instr:
-                rs1_h3_val = int(instr['rs1_h3_val'])
-            if 'rs2_h0_val' in instr:
-                rs2_h0_val = int(instr['rs2_h0_val'])
-            if 'rs2_h1_val' in instr:
-                rs2_h1_val = int(instr['rs2_h1_val'])
-            if 'rs2_h2_val' in instr:
-                rs2_h2_val = int(instr['rs2_h2_val'])
-            if 'rs2_h3_val' in instr:
-                rs2_h3_val = int(instr['rs2_h3_val'])
-            if 'rs1_w0_val' in instr:
-                rs1_w0_val = int(instr['rs1_w0_val'])
-            if 'rs1_w1_val' in instr:
-                rs1_w1_val = int(instr['rs1_w1_val'])
-            if 'rs2_w0_val' in instr:
-                rs2_w0_val = int(instr['rs2_w0_val'])
-            if 'rs2_w1_val' in instr:
-                rs2_w1_val = int(instr['rs2_w1_val'])
-            if 'imm_val' in instr:
-                if self.fmt in ['jformat','bformat'] or instr['inst'] in \
+            var_dict = {}
+            for key in self.val_vars:
+                if 'imm_val' in instr:
+                    if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
-                    imm_val = (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
+                        var_dict['imm_val'] = \
+                            (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
+                    else:
+                        var_dict['imm_val'] = int(instr['imm_val'])
+                elif key == 'rm_val':
+                    var_dict['rm_val'] = int(rm_dict[instr['rm_val']])
                 else:
-                    imm_val = int(instr['imm_val'])
-            if 'rs2' in instr:
-                rs2 = instr['rs2']
-            if 'rd' in instr:
-                rd = instr['rd']
-            if 'rs1' in instr:
-                rs1 = instr['rs1']
-            if 'rs3' in instr:
-                rs3 = instr['rs3']
+                    var_dict[key] = int(instr[key])
+            for key in self.op_vars:
+                var_dict[key] = instr[key]
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
-	                fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-	                bin_val = ''
-	                e_sz = 0
-	                m_sz = 0
-	                if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode:
-	                    if (self.flen == 32):
-	                        e_sz = 8
-	                    else:
-	                        e_sz = 11
-	                    if (self.flen == 32):
-	                        m_sz = 23
-	                    else:
-	                        m_sz = 52
-	                    if 'rs1_val' in instr:
-	                        if (self.flen == 32):
-	                            bin_val = '{:032b}'.format(rs1_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs1_val)
-	                        fs1 = int(bin_val[0],2)
-	                        fe1 = int(bin_val[1:e_sz+1],2)
-	                        fm1 = int(bin_val[e_sz+1:],2)
-	                    if 'rs2_val' in instr:
-	                        if (self.flen == 32):
-	                            bin_val = '{:032b}'.format(rs2_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs2_val)
-	                        fs2 = int(bin_val[0],2)
-	                        fe2 = int(bin_val[1:e_sz+1],2)
-	                        fm2 = int(bin_val[e_sz+1:],2)
-	                    if 'rs3_val' in instr:
-	                        if (self.flen == 32):
-	                            bin_val = '{:032b}'.format(rs3_val)
-	                        else:
-	                            bin_val = '{:064b}'.format(rs3_val)
-	                        fs3 = int(bin_val[0],2)
-	                        fe3 = int(bin_val[1:e_sz+1],2)
-	                        fm3 = int(bin_val[e_sz+1:],2)
-	                if eval(coverpoint):
-	                	valcomb_hits.add(coverpoint)
+                    fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
+                    bin_val = ''
+                    e_sz = 0
+                    m_sz = 0
+                    if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode:
+                        if (self.flen == 32):
+                            e_sz = 8
+                        else:
+                            e_sz = 11
+                        if (self.flen == 32):
+                            m_sz = 23
+                        else:
+                            m_sz = 52
+                        if 'rs1_val' in instr:
+                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs1_val'])
+                            var_dict['fs1'] = int(bin_val[0],2)
+                            var_dict['fe1'] = int(bin_val[1:e_sz+1],2)
+                            var_dict['fm1'] = int(bin_val[e_sz+1:],2)
+                        if 'rs2_val' in instr:
+                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs2_val'])
+                            var_dict['fs2'] = int(bin_val[0],2)
+                            var_dict['fe2'] = int(bin_val[1:e_sz+1],2)
+                            var_dict['fm2'] = int(bin_val[e_sz+1:],2)
+                        if 'rs3_val' in instr:
+                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs3_val'])
+                            var_dict['fs3'] = int(bin_val[0],2)
+                            var_dict['fe3'] = int(bin_val[1:e_sz+1],2)
+                            var_dict['fm3'] = int(bin_val[e_sz+1:],2)
+                    if eval(coverpoint,globals(),var_dict):
+                        valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
             if 'op_comb' in coverpoints:
                 opcomb_hits = set([])
                 for coverpoint in coverpoints['op_comb']:
-                    if eval(coverpoint):
+                    if eval(coverpoint,globals(),var_dict):
                         opcomb_hits.add(coverpoint)
                 cover_hits['op_comb']=opcomb_hits
             if 'rs1' in coverpoints:
-                if rs1 in coverpoints['rs1']:
-                    cover_hits['rs1'] = set([rs1])
+                if var_dict['rs1'] in coverpoints['rs1']:
+                    cover_hits['rs1'] = set([var_dict['rs1']])
             if 'rs2' in coverpoints:
-                if rs2 in coverpoints['rs2']:
-                    cover_hits['rs2'] = set([rs2])
+                if var_dict['rs2'] in coverpoints['rs2']:
+                    cover_hits['rs2'] = set([var_dict['rs2']])
             if 'rs3' in coverpoints:
-                if rs3 in coverpoints['rs3']:
-                    cover_hits['rs3'] = set([rs3])
-
+                if var_dict['rs3'] in coverpoints['rs3']:
+                    cover_hits['rs3'] = set([var_dict['rs3']])
             if 'rd' in coverpoints:
-                if rd in coverpoints['rd']:
-                    cover_hits['rd'] = set([rd])
+                if var_dict['rd'] in coverpoints['rd']:
+                    cover_hits['rd'] = set([var_dict['rd']])
             return cover_hits
         i = 0
-        for instr in instr_dict:
-            unique = False
-            skip_val = False
-            if instr['inst'] in cgf['mnemonics']:
-                if 'rs1' in instr and 'rs2' in instr:
-                    if instr['rs1'] == instr['rs2']:
-                        skip_val = True
-                if 'rs1' in instr:
-                    if instr['rs1'] == 'x0' or instr['rs1'] == 'f0':
-                        skip_val = True
-                if 'rs2' in instr:
-                    if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
-                        skip_val = True
-                if 'rd' in instr:
-                    if instr['rd'] == 'x0' or instr['rd'] == 'f0':
-                        skip_val = True
-                cover_hits = eval_inst_coverage(cgf,instr)
-                for entry in cover_hits:
-                    if entry=='val_comb' and skip_val:
-                        continue
-                    over = hits[entry] & cover_hits[entry]
-                    if over != cover_hits[entry]:
-                        unique = unique or True
-                    hits[entry] |= cover_hits[entry]
-                if unique:
-                    final_instr.append(instr)
-                else:
-                    i+=1
+        if not self.is_fext:
+            for instr in instr_dict:
+                unique = False
+                skip_val = False
+                if instr['inst'] in cgf['mnemonics']:
+                    if 'rs1' in instr and 'rs2' in instr:
+                        if instr['rs1'] == instr['rs2']:
+                            skip_val = True
+                    if 'rs1' in instr:
+                        if instr['rs1'] == 'x0' or instr['rs1'] == 'f0':
+                            skip_val = True
+                    if 'rs2' in instr:
+                        if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
+                            skip_val = True
+                    if 'rd' in instr:
+                        if instr['rd'] == 'x0' or instr['rd'] == 'f0':
+                            skip_val = True
+                    cover_hits = eval_inst_coverage(cgf,instr)
+                    for entry in cover_hits:
+                        if entry=='val_comb' and skip_val:
+                            continue
+                        over = hits[entry] & cover_hits[entry]
+                        if over != cover_hits[entry]:
+                            unique = unique or True
+                        hits[entry] |= cover_hits[entry]
+                    if unique:
+                        final_instr.append(instr)
+                    else:
+                        i+=1
+        else:
+            final_instr = instr_dict
 
         if any('IP' in isa for isa in self.opnode['isa']):
             if 'p64_profile' in self.opnode:
@@ -960,54 +896,52 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-           offset = 0
-           val_offset = 0
-           hardcoded_regs = ['x15','x16','x17']
-           flag = True
-           for i in range(len(instr_dict)):
-                if 'swreg' not in instr_dict[i]:
-                    instr_dict[i]['swreg'] = 'x15'
-                    instr_dict[i]['valaddr_reg'] = 'x16'
-                    instr_dict[i]['flagreg'] = 'x17'
-                    if self.opcode in ['fsw','fsd']:
-                        if instr_dict[i]['rs1'] in hardcoded_regs:
-                            instr_dict[i]['swreg'] = 'x19'
-                            instr_dict[i]['valaddr_reg'] = 'x20'
-                            instr_dict[i]['flagreg'] = 'x21'
-                            if not flag:
-                                offset = 0
-                                flag = True
-                        elif flag:
-                            offset = 0
-                            flag = False
-                    elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
-                        instr_dict[i]['swreg'] = 'x19'
-                        instr_dict[i]['valaddr_reg'] = 'x20'
-                        instr_dict[i]['flagreg'] = 'x21'
-                        if not flag:
-                            flag = True
-                            offset = 0
-                    elif flag:
-                        offset = 0
-                        flag = False
-                    instr_dict[i]['offset'] = str(offset)
-                    instr_dict[i]['val_offset'] = str(val_offset)
-############################################
-#This is modified to handle the offset values for floating points, and this formula is still returns an expected offsets for all floating extenstions
-############################################
-                    offset += int(max(self.flen,self.xlen)/4)
-                    if self.fmt == 'frformat' or self.fmt == 'rformat':
-                        val_offset += 2*(int(self.flen/8))
-                    elif self.fmt == 'fsrformat':
-                        val_offset += (int(self.flen/8))
-                    elif self.fmt == 'fr4format':
-                        val_offset += 3*(int(self.flen/8))
-                    if offset >= 2030:
-                        offset = 0
-                    if val_offset >= 2030:
-                        val_offset = 0
-           return instr_dict
+        if self.is_fext:
+            max_flen = max(self.opnode['flen'])
+            offset = 0
+            val_offset = 0
+            hardcoded_regs = ['x15','x16','x17']
+            flag = True
+            for i in range(len(instr_dict)):
+                 if 'swreg' not in instr_dict[i]:
+                     instr_dict[i]['swreg'] = 'x15'
+                     instr_dict[i]['valaddr_reg'] = 'x16'
+                     instr_dict[i]['flagreg'] = 'x17'
+                     if self.opcode in ['fsw','fsd']:
+                         if instr_dict[i]['rs1'] in hardcoded_regs:
+                             instr_dict[i]['swreg'] = 'x19'
+                             instr_dict[i]['valaddr_reg'] = 'x20'
+                             instr_dict[i]['flagreg'] = 'x21'
+                             if not flag:
+                                 offset = 0
+                                 flag = True
+                         elif flag:
+                             offset = 0
+                             flag = False
+                     elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
+                         instr_dict[i]['swreg'] = 'x19'
+                         instr_dict[i]['valaddr_reg'] = 'x20'
+                         instr_dict[i]['flagreg'] = 'x21'
+                         if not flag:
+                             flag = True
+                             offset = 0
+                     elif flag:
+                         offset = 0
+                         flag = False
+                     instr_dict[i]['offset'] = str(offset)+'*SIGALIGN'
+                     instr_dict[i]['val_offset'] = str(val_offset)+'*FLEN'
+                     offset += 2
+                     if self.fmt == 'frformat' or self.fmt == 'rformat':
+                         val_offset += 2
+                     elif self.fmt == 'fsrformat':
+                         val_offset += 1
+                     elif self.fmt == 'fr4format':
+                         val_offset += 3
+                     if offset * 128 >= 2030:
+                         offset = 0
+                     if val_offset * 128 >= 2030:
+                         val_offset = 0
+            return instr_dict
 
         paired_regs=0
         if self.xlen == 32 and 'p64_profile' in self.opnode:
@@ -1194,7 +1128,8 @@ class Generator():
                 #         size = '>Q'
                 #     else:
                 #         size = '>q'
-                if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and field != 'val_offset':
+                if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and \
+                        field != 'val_offset' and field != 'rm_val':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(self.xlen/4))
@@ -1247,17 +1182,13 @@ class Generator():
         '''
         regs = defaultdict(lambda: 0)
         sreg = instr_dict[0]['swreg']
-        vreg = 0
+        vreg = None
         code = []
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe", \
                 ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
         stride = self.stride
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-            vreg = instr_dict[0]['valaddr_reg']
-            k = 0
-            if self.opcode not in ['fsw','flw']:
-                data.append("test_fp:")
+        if self.is_fext:
             code.append("RVTEST_FP_ENABLE()")
 
         if any('IP' in isa for isa in self.opnode['isa']):
@@ -1276,45 +1207,29 @@ class Generator():
         extension = op_node_isa.replace('I',"").replace('E',"")
         count = 0
         neg_offset = 0
+        width = self.iflen if not self.is_nan_box else self.flen
+        num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(op_vars)
+        dset_n = 0
         for instr in instr_dict:
+            switch = False
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
-            if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-                if self.fmt == 'frformat' or self.fmt == 'rformat':
-                    if self.flen == 32:
-                        data.append(".word "+instr["rs1_val"])
-                        data.append(".word "+instr["rs2_val"])
-                    elif self.flen == 64:
-                        data.append(".dword "+instr["rs1_val"])
-                        data.append(".dword "+instr["rs2_val"])
-                elif self.fmt == 'fsrformat':
-                    if self.flen == 32:
-                        data.append(".word "+instr["rs1_val"])
-                    elif self.flen == 64:
-                        data.append(".dword "+instr["rs1_val"])
-                elif self.fmt == 'fr4format':
-                    if self.flen == 32:
-                        data.append(".word "+instr["rs1_val"])
-                        data.append(".word "+instr["rs2_val"])
-                        data.append(".word "+instr["rs3_val"])
-                    elif self.flen == 64:
-                        data.append(".dword "+instr["rs1_val"])
-                        data.append(".dword "+instr["rs2_val"])
-                        data.append(".dword "+instr["rs3_val"])
+            if self.is_fext:
                 if self.opcode not in ['fsw','flw']:
-                    if instr['val_offset'] == '0' and k == 0:
-                        code.append("RVTEST_VALBASEUPD("+vreg+",test_fp)")
-                        k = 1;
-                    elif instr['val_offset'] == '0' and k!= 0:
-                        if instr['inst'] in three_operand_dinstructions + three_operand_finstructions:
-                            code.append("addi "+vreg+","+vreg+","+str(2040))
-                        elif instr['inst'] in one_operand_dinstructions + two_operand_dinstructions + one_operand_finstructions + two_operand_finstructions:
-                            code.append("addi "+vreg+","+vreg+","+str(2032))
-                        else:
-                            code.append("RVTEST_VALBASEUPD("+vreg+")")
-                    if instr['valaddr_reg'] != vreg:
-                        code.append("RVTEST_VALBASEMOV("+instr['valaddr_reg']+", "+vreg+")")
+                    if eval(instr['val_offset'],{},{'FLEN':width}) == 0 or instr['valaddr_reg'] != vreg:
+                        label = 'test_dataset_'+str(dset_n)
+                        dset_n += 1
+                        data.append(label+":")
                         vreg = instr['valaddr_reg']
+                        code.append("RVTEST_VALBASEUPD("+vreg+","+label+")")
+                for i in range(1,num_vars+1):
+                    dval = ()
+                    if self.is_nan_box:
+                        dval = nan_box(instr['rs{0}_nan_prefix'.format(i)],
+                                instr['rs{0}_val'.format(i)],self.flen,self.iflen)
+                    else:
+                        dval = (instr['rs{0}_val'.format(i)],self.iflen)
+                    data.append('NAN_BOXED({0},{1})'.format(dval[0],dval[1]))
             if instr['swreg'] != sreg or instr['offset'] == '0':
                 sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
                 n = stride
