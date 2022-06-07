@@ -333,7 +333,7 @@ class cross():
                             instrs_sol = data[i][1:-1].split(',')
                             instr = random.choice(instrs_sol)
                         else:
-                            logger.error('Invalid instruction/alias in cross_comb: ' + each)
+                            logger.error('Invalid instruction/alias in cross_comb: ' + data[i])
                     
                     # Gather operands
                     formattype = cross.OP_TEMPLATE[instr]['formattype']
