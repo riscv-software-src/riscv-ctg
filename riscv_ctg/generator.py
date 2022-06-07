@@ -639,12 +639,12 @@ class Generator():
 
     def __fext_instr__(self,op=None,val=None):
         rm_dict = {
-                0: 'RNE',
-                1: 'RTZ',
-                2: 'RDN',
-                3: 'RUP',
-                4: 'RMM',
-                7: 'DYN'}
+                0: 'rne',
+                1: 'rtz',
+                2: 'rdn',
+                3: 'rup',
+                4: 'rmm',
+                7: 'dyn'}
         cond_str = ''
         if op:
             cond_str += op[-1]+','
@@ -666,7 +666,7 @@ class Generator():
         else:
             for var in self.val_vars:
                 if var == 'rm_val':
-                    instr[var] = 'DYN'
+                    instr[var] = 'dyn'
                 else:
                     instr[var] = str(self.datasets[var][0])
         return instr
@@ -761,12 +761,12 @@ class Generator():
         final_instr = []
         def eval_inst_coverage(coverpoints,instr):
             rm_dict = {
-                'RNE':0,
-                'RTZ':1,
-                'RDN':2,
-                'RUP':3,
-                'RMM':4,
-                'DYN':7 }
+                'rne':0,
+                'rtz':1,
+                'rdn':2,
+                'rup':3,
+                'rmm':4,
+                'dyn':7 }
             cover_hits = {}
             var_dict = {}
             for key in self.val_vars:
@@ -929,7 +929,7 @@ class Generator():
                          offset = 0
                          flag = False
                      instr_dict[i]['offset'] = str(offset)+'*SIGALIGN'
-                     instr_dict[i]['val_offset'] = str(val_offset)+'*FLEN'
+                     instr_dict[i]['val_offset'] = str(val_offset)+'*FLEN/8'
                      offset += 2
                      if self.fmt == 'frformat' or self.fmt == 'rformat':
                          val_offset += 2
@@ -1210,18 +1210,21 @@ class Generator():
         width = self.iflen if not self.is_nan_box else self.flen
         num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(op_vars)
         dset_n = 0
+        sig_sz = 'SIGALIGN/4' if self.is_fext else 'XLEN/32'
         for instr in instr_dict:
             switch = False
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
             if self.is_fext:
                 if self.opcode not in ['fsw','flw']:
-                    if eval(instr['val_offset'],{},{'FLEN':width}) == 0 or instr['valaddr_reg'] != vreg:
-                        label = 'test_dataset_'+str(dset_n)
+                    if eval(instr['val_offset'],{},
+                            {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}
+                            ) == 0 or instr['valaddr_reg'] != vreg:
+                        dlabel = 'test_dataset_'+str(dset_n)
                         dset_n += 1
-                        data.append(label+":")
+                        data.append(dlabel+":")
                         vreg = instr['valaddr_reg']
-                        code.append("RVTEST_VALBASEUPD("+vreg+","+label+")")
+                        code.append("RVTEST_VALBASEUPD("+vreg+","+dlabel+")")
                 for i in range(1,num_vars+1):
                     dval = ()
                     if self.is_nan_box:
@@ -1230,8 +1233,10 @@ class Generator():
                     else:
                         dval = (instr['rs{0}_val'.format(i)],self.iflen)
                     data.append('NAN_BOXED({0},{1})'.format(dval[0],dval[1]))
-            if instr['swreg'] != sreg or instr['offset'] == '0':
-                sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
+            if instr['swreg'] != sreg or eval(instr['offset'],{},
+                        {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}) == 0:
+                sign.append(signode_template.substitute(
+                    {'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg]),'sz':sig_sz}))
                 n = stride
                 regs[sreg]+=1
                 sreg = instr['swreg']
@@ -1241,9 +1246,12 @@ class Generator():
             code.append(res)
             count = count + 1
         case_str = ''.join([case_template.safe_substitute(xlen=self.xlen,num=i,cond=cond,cov_label=label) for i,cond in enumerate(node['config'])])
-        sign.append(signode_template.substitute({'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg])}))
+        sign.append(signode_template.substitute({'n':n,
+                'label':"signature_"+sreg+"_"+str(regs[sreg]),'sz':sig_sz}))
         test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
-        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute({'n':64,'label':"mtrap_sigptr"})+"\n#endif\n")
-        sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute({'n':32,'label':"gpr_save"})+"\n#endif\n")
+        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute(
+            {'n':64,'label':"mtrap_sigptr",'sz':'XLEN/32'})+"\n#endif\n")
+        sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute(
+            {'n':32,'label':"gpr_save",'sz':'XLEN/32'})+"\n#endif\n")
         with open(file_name,"w") as fd:
             fd.write(usage_str + test_template.safe_substitute(data='\n'.join(data),test=test,sig='\n'.join(sign),isa=op_node_isa,opcode=opcode,extension=extension,label=label))

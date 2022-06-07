@@ -1696,8 +1696,8 @@ fadd.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -1717,7 +1717,7 @@ fadd.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -1737,8 +1737,8 @@ fsub.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -1758,7 +1758,7 @@ fsub.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -1778,8 +1778,8 @@ fmul.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -1799,7 +1799,7 @@ fmul.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -1819,8 +1819,8 @@ fdiv.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -1840,7 +1840,7 @@ fdiv.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -1860,8 +1860,8 @@ fsqrt.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -1879,7 +1879,7 @@ fsqrt.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -1897,8 +1897,8 @@ fmadd.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'r4format'
@@ -1918,7 +1918,7 @@ fmadd.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'r4format'
@@ -1938,8 +1938,8 @@ fmsub.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'r4format'
@@ -1959,7 +1959,7 @@ fmsub.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'r4format'
@@ -1979,8 +1979,8 @@ fnmadd.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'r4format'
@@ -2000,7 +2000,7 @@ fnmadd.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'r4format'
@@ -2020,8 +2020,8 @@ fnmsub.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'r4format'
@@ -2041,7 +2041,7 @@ fnmsub.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'r4format'
@@ -2061,8 +2061,8 @@ fsgnj.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2082,7 +2082,7 @@ fsgnj.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2102,8 +2102,8 @@ fsgnjn.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2123,7 +2123,7 @@ fsgnjn.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2143,8 +2143,8 @@ fsgnjx.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2164,7 +2164,7 @@ fsgnjx.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2184,8 +2184,8 @@ fmin.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2205,7 +2205,7 @@ fmin.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2225,8 +2225,8 @@ fmax.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2246,7 +2246,7 @@ fmax.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2266,8 +2266,8 @@ feq.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2285,7 +2285,7 @@ feq.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2303,8 +2303,8 @@ flt.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2322,7 +2322,7 @@ flt.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2340,8 +2340,8 @@ fle.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'rformat'
@@ -2359,7 +2359,7 @@ fle.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'rformat'
@@ -2377,8 +2377,8 @@ fmv.w.x:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2395,8 +2395,8 @@ fmv.x.w:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2413,8 +2413,8 @@ fcvt.w.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2431,7 +2431,7 @@ fcvt.w.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2448,8 +2448,8 @@ fcvt.wu.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2466,7 +2466,7 @@ fcvt.wu.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2483,7 +2483,7 @@ fcvt.l.d:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2500,7 +2500,7 @@ fcvt.lu.d:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2517,7 +2517,7 @@ fmv.x.d:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2534,7 +2534,7 @@ fcvt.s.d:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2552,7 +2552,7 @@ fcvt.d.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2568,8 +2568,8 @@ fcvt.s.w:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2586,8 +2586,8 @@ fcvt.s.wu:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2604,7 +2604,7 @@ fcvt.d.w:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2621,7 +2621,7 @@ fcvt.d.wu:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2638,7 +2638,7 @@ fcvt.d.l:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2655,7 +2655,7 @@ fcvt.d.lu:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2672,7 +2672,7 @@ fmv.d.x:
   stride: 2
   xlen: [64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2689,8 +2689,8 @@ fclass.s:
   stride: 2
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2707,7 +2707,7 @@ fclass.d:
   stride: 2
   xlen: [32, 64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   std_op:
   formattype: 'fsrformat'
@@ -2726,8 +2726,8 @@ fsw:
   rs2_op_data: *all_fregs
   xlen: [32,64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'sformat'
@@ -2746,8 +2746,8 @@ flw:
   xlen: [32,64]
   std_op:
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
@@ -2764,7 +2764,7 @@ fsd:
   std_op:
   xlen: [32,64]
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
@@ -2782,7 +2782,7 @@ fld:
   xlen: [32,64]
   std_op:
   isa: 
-    - IFD
+    - IFD_Zicsr
   flen: [64]
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
@@ -2797,8 +2797,8 @@ fcvt.l.s:
   xlen: [64]
   std_op:
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   formattype: 'fsrformat'
   rs1_op_data: *all_fregs
@@ -2814,8 +2814,8 @@ fcvt.lu.s:
   stride: 2
   xlen: [64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
@@ -2832,8 +2832,8 @@ fcvt.s.l:
   stride: 2
   xlen: [64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   std_op:
   flen: [32,64]
   formattype: 'fsrformat'
@@ -2850,8 +2850,8 @@ fcvt.s.lu:
   stride: 2
   xlen: [64]
   isa: 
-    - IF
-    - IFD
+    - IF_Zicsr
+    - IFD_Zicsr
   flen: [32,64]
   std_op:
   formattype: 'fsrformat'
