@@ -87,38 +87,6 @@ REG_INIT = {
 'x29' : 'LI (x29, (0xEEDBEADFEEDBEADF & MASK))',
 'x30' : 'LI (x30, (0xF76DF56FF76DF56F & MASK))',
 'x31' : 'LI (x31, (0xFBB6FAB7FBB6FAB7 & MASK))',
-'f0'  : 'FLREG f0,  0xFEDDB7ADFEEDBE2D >> FREGWIDTH',
-'f1'  : 'FLREG f1,  0xFEEDBEADFEEDBEAD >> FREGWIDTH',
-'f2'  : 'FLREG f2,  0xFF76DF56FF76DF56 >> FREGWIDTH',
-'f3'  : 'FLREG f3,  0x7FBB6FAB7FBB6FAB >> FREGWIDTH',
-'f4'  : 'FLREG f4,  0xBFDDB7D5BFDDB7D5 >> FREGWIDTH',
-'f5'  : 'FLREG f5,  0xAB7FFB6FAB7FBB6F >> FREGWIDTH',
-'f6'  : 'FLREG f6,  0x6FAB71BB6F7B7FBB >> FREGWIDTH',
-'f7'  : 'FLREG f7,  0xB7FBB6FAB7FBB6FA >> FREGWIDTH',
-'f8'  : 'FLREG f8,  0x5BFDDB7D5BFDDB7D >> FREGWIDTH',
-'f9'  : 'FLREG f9,  0xADFEEDBEADFEEDBE >> FREGWIDTH',
-'f10' : 'FLREG f10, 0x56FF76DF56FF76DF >> FREGWIDTH',
-'f11' : 'FLREG f11, 0xAB7FBB6FAB7FBB6F >> FREGWIDTH',
-'f12' : 'FLREG f12, 0xD5BFDDB7D5BFDDB7 >> FREGWIDTH',
-'f13' : 'FLREG f13, 0xEADFEEDBEADFEEDB >> FREGWIDTH',
-'f14' : 'FLREG f14, 0xF56FF76DF56FF76D >> FREGWIDTH',
-'f15' : 'FLREG f15, 0xFAB7FBB6FAB7FBB6 >> FREGWIDTH',
-'f16' : 'FLREG f16, 0x7D5BFDDB7D5BFDDB >> FREGWIDTH',
-'f17' : 'FLREG f17, 0xBEADFEEDBEADFEED >> FREGWIDTH',
-'f18' : 'FLREG f18, 0xDF56FF76DF56FF76 >> FREGWIDTH',
-'f19' : 'FLREG f19, 0x6FAB7FBB6FAB7FBB >> FREGWIDTH',
-'f20' : 'FLREG f20, 0xB7D5BFDDB7D5BFDD >> FREGWIDTH',
-'f21' : 'FLREG f21, 0xDBEADFEEDBEADFEE >> FREGWIDTH',
-'f22' : 'FLREG f22, 0x6DF56FF76DF56FF7 >> FREGWIDTH',
-'f23' : 'FLREG f23, 0xB6FAB7FBB6FAB7FB >> FREGWIDTH',
-'f24' : 'FLREG f24, 0xDB7D5BFDDB7D5BFD >> FREGWIDTH',
-'f25' : 'FLREG f25, 0xEDBEADFEEDBEADFE >> FREGWIDTH',
-'f26' : 'FLREG f26, 0x76DF56FF76DF56FF >> FREGWIDTH',
-'f27' : 'FLREG f27, 0xBB6FAB7FBB6FAB7F >> FREGWIDTH',
-'f28' : 'FLREG f28, 0xDDB7D5BFDDB7D5BF >> FREGWIDTH',
-'f29' : 'FLREG f29, 0xEEDBEADFEEDBEADF >> FREGWIDTH',
-'f30' : 'FLREG f30, 0xF76DF56FF76DF56F >> FREGWIDTH',
-'f31' : 'FLREG f31, 0xFBB6FAB7FBB6FAB7 >> FREGWIDTH'
 }
 ''' Initial values for general purpose and floating point registers'''
 
@@ -399,7 +367,8 @@ class cross():
 
     def swreg(cross_comb_instrs):
         '''
-        This function generates the register which can be used as a signature pointer for each instruction
+        This function generates the register which can be used as a signature pointer for each instruction.
+        It also generates the register which stores the value used by floating point registers
         '''
 
         global base_isa
@@ -414,9 +383,11 @@ class cross():
         swreg_sol = set(['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]) - op_vals
 
         sreg = random.choice(list(swreg_sol))
-        return sreg
+        freg_Sol = swreg_sol - set(sreg)
+        freg = random.choice(list(freg_Sol))
+        return (sreg, freg)
 
-    def get_reginit_str(cross_comb_instrs):
+    def get_reginit_str(cross_comb_instrs, freg):
         '''
         This function fetches the register initlialization macro to initialize
         used destination instructions after the cross-coverpoint instruction sequence
@@ -432,8 +403,13 @@ class cross():
         reg_init_lst = set()
 
         for instr_dict in cross_comb_instrs:
-            reg_init_lst.add(REG_INIT[instr_dict['rd']])
-
+            if 'rd' in instr_dict:
+                rd_val = instr_dict['rd']
+                if rd_val[0] == 'f':
+                    freg_init = REG_INIT[freg].replace('& MASK', '>> FREGWIDTH')
+                    reg_init_lst.add(freg_init + '\n' + 'FLREG ' + rd_val + ', 0(' + freg + ')')
+                else:
+                    reg_init_lst.add(REG_INIT[instr_dict['rd']])
         return list(reg_init_lst)
 
     def write_test(self, fprefix, cgf_node, usage_str, cov_label, full_solution):
@@ -461,7 +437,7 @@ class cross():
         for cross_sol in full_solution:
             
             # Designate signature update register
-            sreg = cross.swreg(cross_sol)
+            (sreg, freg) = cross.swreg(cross_sol)
             
             # Designate count of sreg for signature label generation
             if sreg not in sreg_dict:
@@ -501,7 +477,7 @@ class cross():
                 code = code + sig_upd + '\n'
             
             # Initialize registers for next cross-comb coverpoint
-            code = code + '\n// Initialize used registers\n' + '\n'.join(cross.get_reginit_str(cross_sol)) + '\n'
+            code = code + '\n// Initialize used registers\n' + '\n'.join(cross.get_reginit_str(cross_sol, freg)) + '\n'
 
         case_str = ''.join([case_template.safe_substitute(xlen = xlen,num = i, cond = cond, cov_label = cov_label) for i, cond in enumerate(cgf_node['config'])])
         test = part_template.safe_substitute(case_str = case_str, code = code)
