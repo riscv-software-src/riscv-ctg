@@ -10,12 +10,14 @@ The test generator employs a constraint solver to generate relevant instruction 
 ``cross_comb`` coverpoint.
 
 Example
-#######
+-------
 
 Consider a cross combination coverpoint defined as:
 
 Coverpoint Definition
-#####################
+---------------------
+
+An example cross combination coverpoint is given below:
 
 .. code-block::
     add:
@@ -24,6 +26,8 @@ Coverpoint Definition
     
 Possible assembly sequence generated
 ####################################
+
+A possible sequence of instructions CTG would generate is:
 
 .. code-block::
     add x3, x3, x4;
