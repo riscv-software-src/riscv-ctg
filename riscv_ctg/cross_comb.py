@@ -413,7 +413,12 @@ class cross():
         return list(reg_init_lst)
 
     def write_test(self, fprefix, cgf_node, usage_str, cov_label, full_solution):
-        
+        '''
+        Generate instruction sequence and write them into an assembly file
+
+        #TODO Initialization of floating point registers
+        #TODO Handling loads/stores and branches in the sequence
+        '''
         global base_isa
         
         code = '\n'
