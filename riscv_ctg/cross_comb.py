@@ -483,7 +483,7 @@ class cross():
         test = part_template.safe_substitute(case_str = case_str, code = code)
         
         # Write test to file
-        with open(fprefix + f'/{cov_label}_cross-comb.S', 'w') as fp:
+        with open(fprefix + '_cross-comb.S', 'w') as fp:
             fp.write(usage_str + const.cross_test_template.safe_substitute(opcode = cov_label,
                                                         isa = op_node_isa, 
                                                         test = test, 
