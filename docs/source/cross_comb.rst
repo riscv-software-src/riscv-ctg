@@ -4,7 +4,7 @@ Test Generation using Cross Coverage Coverpoints
 
 Coverpoints constituting multiple instructions can help identify interesting instruction
 sequences which have architectural significance such as structural hazards and data hazards.
-The coverpoint node associated with the test generation is ``cross_comb`` defined here.
+The coverpoint node associated with the test generation is ``cross_comb`` defined `here <https://riscv-isac.readthedocs.io/en/stable/cgf.html>`_.
 
 The test generator employs a constraint solver to generate relevant instruction sequence for a
 ``cross_comb`` coverpoint.
