@@ -1,8 +1,4 @@
 # See LICENSE.incore for details
-
-# For debug
-import time
-
 import random
 from constraint import *
 
@@ -24,39 +20,40 @@ INSTR_FORMAT = {
     'bsformat'    : '$instr $rd, $rs2, $imm_val',
     'bformat'     : '$instr $rs1, $rs2, $label',
     'uformat'     : '$instr $rd, $imm_val',
-    'jformat'     : '$instr ',
-    'crformat'    : '$instr $rd, ',
-    'cmvformat'   : '$instr',
-    'ciformat'    : '$instr',
-    'cssformat'   : '$instr',
-    'ciwformat'   : '$instr',
-    'clformat'    : '$instr',
-    'csformat'    : '$instr',
+    'jformat'     : '$instr $rd, $imm',
+    'crformat'    : '$instr $rs1 $rs2',
+    'cmvformat'   : '$instr $rd, $rs2',
+    'ciformat'    : '$instr $rd, $imm_val',
+    'cssformat'   : '$instr $rs2, $imm_val($rs1)',
+    'ciwformat'   : '$instr $rd, x2, $imm_val',
+    'clformat'    : '$instr $rd, $imm_val($rs1)',
+    'csformat'    : '$instr $rs2, $imm_val($rs2)',
     'caformat'    : '$instr',
     'cbformat'    : '$instr',
     'cjformat'    : '$instr',
     'kformat'     : '$instr',
     'frformat'    : '$instr $rd, $rs1, $rs2',
-    'fsrformat'   : '$instr',
-    'fr4format'   : '$instr',
-    'pbrrformat'  : '$instr',
-    'phrrformat'  : '$instr',
-    'pbrformat'   : '$instr',
-    'phrformat'   : '$instr',
-    'pbriformat'  : '$instr',
-    'phriformat'  : '$instr',
-    'psbrrformat' : '$instr',
-    'pshrrformat' : '$instr',
-    'pwrrformat'  : '$instr',
-    'pwriformat'  : '$instr',
-    'pwrformat'   : '$instr',
-    'pswrrformat' : '$instr',
-    'pwhrrformat' : '$instr',
-    'pphrrformat' : '$instr',
-    'ppbrrformat' : '$instr',
-    'prrformat'   : '$instr',
+    'fsrformat'   : '$instr $rd, $rs1',
+    'fr4format'   : '$instr $rd, $rs1, $rs2, $rs3',
+    'pbrrformat'  : '$instr $rd, $rs1, $rs2',
+    'phrrformat'  : '$instr $rd, $rs1, $rs2',
+    'pbrformat'   : '$instr $rd, $rs1',
+    'phrformat'   : '$instr $rd, $rs1',
+    'pbriformat'  : '$instr $rd, $rs1, SEXT_IMM($imm_val)' ,
+    'phriformat'  : '$instr $rd, $rs1, SEXT_IMM($imm_val)',
+    'psbrrformat' : '$instr $rd, $rs1, $rs2',
+    'pshrrformat' : '$instr $rd, $rs1, $rs2',
+    'pwrrformat'  : '$instr $rd, $rs1, $rs2',
+    'pwriformat'  : '$instr $rd, $rs1, SEXT_IMM($imm_val)' ,
+    'pwrformat'   : '$instr $rd, $rs1',
+    'pswrrformat' : '$instr $rd, $rs1, $rs2',
+    'pwhrrformat' : '$instr $rd, $rs1, $rs2',
+    'pphrrformat' : '$instr $rd, $rs1, $rs2',
+    'ppbrrformat' : '$instr $rd, $rs1, $rs2',
+    'prrformat'   : '$instr ',
     'prrrformat'  : '$instr'
 }
+'''Dictionary to store instruction formats'''
 
 REG_INIT = {
 'x1'  : 'LI (x1,  (0xFEEDBEADFEEDBEAD & MASK))',
@@ -123,6 +120,7 @@ REG_INIT = {
 'f30' : 'FLREG f30, 0xF76DF56FF76DF56F >> FREGWIDTH',
 'f31' : 'FLREG f31, 0xFBB6FAB7FBB6FAB7 >> FREGWIDTH'
 }
+''' Initial values for general purpose and floating point registers'''
 
 class cross():
     '''
@@ -205,10 +203,7 @@ class cross():
             cond_lst = parts[2].lstrip().rstrip()[1:-1].split(':')
             
             # Initialize CSP
-            if self.randomize:
-                problem = Problem(MinConflictsSolver)
-            else:
-                problem = Problem()
+            problem = Problem()
             
             for i in range(len(data)):
                 if data[i] == '?':
@@ -522,32 +517,3 @@ class cross():
                                                         extension = extension
                                                         )
                     )
-                
-if __name__ == '__main__':
-
-    cov_node = 'add'
-    isa = 'RV32I'
-    cgf_arg = '/path/to/cgf/'
-    rand_arg = True
-    xlen = 32
-    fprefix = '.'
-    node = {'config': {'check ISA:=regex(.*I.*)'},
-            'cross_comb' : {'[(add,sub) : (add,sub) ] :: [a=rd : ? ] :: [? : rs1==a or rs2==a]' : 0,                                                                     # RAW
-                            '[(add,sub) : ? : (add,sub) ] :: [a=rd : ? : ? ] :: [rd==x10 : rd!=a and rs1!=a and rs2!=a : rs1==a or rs2==a ]': 0,                          # RAW
-                            '[fadd.s : ? : rv32i_shift : ? : fsub.d] :: [a=rd : ? : ? : ? : ?] :: [? : ? : ? : ? : rd==a]': 0,                                                  # WAW
-                            '[(add,sub) : ? : mul : ? : rv32i_shift : (add,sub)] :: [a=rd : ? : b = rs2 : ? : ?] :: [? : rs1==a or rs2==a : rs1==a or rs2==a : rs1==a or rs2==a : rd==b : rd==a]': 0, # WAW
-                            '[(add,sub) : (add,sub) ] :: [a=rs1; b=rs2 : ? ] :: [? : rd==a or rd==b]': 0                                                                  # WAR
-                            }
-            }
-    
-    mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
-    usage_str = const.usage.safe_substitute(version = __version__, 
-                                                time = mytime,
-                                                xlen = xlen,
-                                                cgf = cgf_arg,
-                                                randomize = rand_arg
-                                                )
-    
-    cross_test = cross('rv32i', 32, False, cov_node)
-    full_solution = cross_test.cross_comb(node)
-    cross_test.write_test(fprefix, node, usage_str, cov_node, full_solution)
