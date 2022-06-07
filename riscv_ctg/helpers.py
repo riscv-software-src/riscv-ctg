@@ -48,13 +48,13 @@ def extract_frs_fields(reg,cvp,iflen):
     hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
     return int(hex_val1,16)
 
-def merge_fields_f(val_vars,cvp,flen,iflen):
+def merge_fields_f(val_vars,cvp,flen,iflen,merge):
     nan_box = False
     if flen > iflen:
         nan_box = True
     fdict = {}
     for var in val_vars:
-        if var in num_dict:
+        if var in num_dict and merge:
             fdict[var] = extract_frs_fields(num_dict[var],cvp,iflen)
             if nan_box:
                 nan_var = 'rs{0}_nan_prefix'.format(num_dict[var])

@@ -360,6 +360,10 @@ class Generator():
 
         conds = list(cgf['val_comb'].keys())
         inds = set(range(len(conds)))
+        merge = True
+        if 'fcvt' in self.opcode or 'fmv' in self.opcode:
+            if self.opcode.split(".")[-1] in ['x','w','wu','l','lu']:
+                merge = False
         while inds:
             req_val_comb = conds[inds.pop()]
             if("#nosat" in req_val_comb):
@@ -371,11 +375,11 @@ class Generator():
                 if self.is_fext:
 	                # fs + fe + fm -> Combiner Script
                     try:
-                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen)
+
+                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge)
                     except ExtractError as e:
                         logger.warning("Valcomb skip: "+str(e))
                         continue
-
                 else:
                     for i in self.val_vars:
                         for j in x:
