@@ -23,6 +23,13 @@ from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
 
+def get_rm(opcode):
+    if any([x in opcode for x in
+        ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax']]):
+        return []
+    else:
+        return ['rm_val']
+
 OPS = {
     'rformat': ['rs1', 'rs2', 'rd'],
     'r4format': ['rs1', 'rs2', 'rs3', 'rd'],
@@ -67,7 +74,7 @@ OPS = {
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
 VALS = {
-    'rformat': "['rs1_val', 'rs2_val'] + (['rm_val','fcsr'] if is_fext else []) + \
+    'rformat': "['rs1_val', 'rs2_val'] + ((get_rm(opcode)+[fcsr']) if is_fext else []) + \
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,3)])",
     'r4format': "['rs1_val', 'rs2_val', 'rs3_val'] + (['rm_val','fcsr'] if is_fext else []) + \
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,4)])",
@@ -89,7 +96,7 @@ VALS = {
     'cjformat': "['imm_val']",
     'kformat': "['rs1_val']",
     # 'frformat': "['rs1_val', 'rs2_val', 'rm_val', 'fcsr']",
-    'fsrformat': "['rs1_val', 'rm_val', 'fcsr'] + \
+    'fsrformat': "['rs1_val', 'fcsr'] + get_rm(opcode) + \
         ([] if not is_nan_box else ['rs1_nan_prefix'])",
     # 'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val', 'fcsr']",
     'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
@@ -236,6 +243,7 @@ class Generator():
             if key in opnode:
                 datasets[entry] = eval(opnode[key])
             else:
+                logger.warning("{0} not defined for {1}. Defaulting to [0].".format(key,self.opcode))
                 datasets[entry] = [0]
         self.datasets = datasets
         self.random=randomization
@@ -941,9 +949,9 @@ class Generator():
                          val_offset += 1
                      elif self.fmt == 'fr4format':
                          val_offset += 3
-                     if offset * 128 >= 2030:
+                     if offset * 16 >= 2030:
                          offset = 0
-                     if val_offset * 128 >= 2030:
+                     if val_offset * 16 >= 2030:
                          val_offset = 0
             return instr_dict
 
@@ -1216,6 +1224,8 @@ class Generator():
         dset_n = 0
         sig_sz = 'SIGALIGN/4' if self.is_fext else 'XLEN/32'
         for instr in instr_dict:
+            print(count)
+            print(instr)
             switch = False
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)

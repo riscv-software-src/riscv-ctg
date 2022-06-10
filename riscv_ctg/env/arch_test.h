@@ -114,7 +114,7 @@
 
 #define NAN_BOXED(__val__,__width__)         \
     .if FLEN > __width__                    ;\
-        .set pref_bytes,(FLEN-__width__)/8  ;\
+        .set pref_bytes,(FLEN-__width__)/32 ;\
     .else                                   ;\
         .set pref_bytes, 0                  ;\
     .endif                                  ;\
@@ -962,6 +962,26 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       csrr flagreg, fcsr; \
     )
 
+//Tests for floating-point instructions with a single register operand and integer destination register
+//This variant does not take the rm field and set it while writing the instruction
+#define TEST_FPID_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+    TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
+      LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
+      csrwi fcsr, fcsr_val; \
+      inst destreg, freg; \
+      csrr flagreg, fcsr      ; \
+      )
+    
+//Tests for floating-point instructions with a single register operand and integer operand register
+//This variant does not take the rm field and set it while writing the instruction
+#define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
+      LOAD_MEM_VAL(LREG, valaddr_reg, freg, val_offset, testreg); \
+      csrwi fcsr, fcsr_val; \
+      inst destreg, freg; \
+      csrr flagreg, fcsr; \
+    )
+
 //Tests for instructions with register-register-immediate operands
 #define TEST_RRI_OP(inst, destreg, reg1, reg2, imm, correctval, val1, val2, swreg, offset, testreg) \
     TEST_CASE(testreg, destreg, correctval, swreg, offset, \
@@ -985,6 +1005,17 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       LI(reg2, MASK_XLEN(val2)); \
       inst destreg, reg1, reg2; \
     )
+//Tests for floating-point instructions with register-register operand
+//This variant does not take the rm field and set it while writing the instruction
+#define TEST_FPRR_OP_NRM(inst, destreg, freg1, freg2, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
+      LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
+      LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
+      csrwi fcsr, fcsr_val; \
+      inst destreg, freg1, freg2; \
+      csrr flagreg, fcsr; \
+    )
+
 //Tests for floating-point instructions with register-register operand
 #define TEST_FPRR_OP(inst, destreg, freg1, freg2, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \

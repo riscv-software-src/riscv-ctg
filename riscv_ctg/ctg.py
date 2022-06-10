@@ -112,7 +112,7 @@ def ctg(verbose, out, random ,xlen_arg, flen_arg, cgf_file,num_procs,base_isa, m
     usage_str = const.usage.safe_substitute(base_isa=base_isa, \
             cgf=cgf_argument, version = __version__, time=mytime, \
             randomize=randomize_argument,xlen=str(xlen_arg))
-    op_template = utils.load_yaml(const.template_file)
+    op_template = utils.load_yamls(const.template_files)
     cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])

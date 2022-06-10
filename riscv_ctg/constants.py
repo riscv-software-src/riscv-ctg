@@ -191,7 +191,9 @@ def gen_bitmanip_dataset(bit_width,sign=True):
 # increment each value in dataset, increment each value in dataset, add them to the dataset
     return dataset + [x - 1 for x in dataset] + [x+1 for x in dataset] + dataset0
 
-template_file = os.path.join(root,"data/template.yaml")
+template_fnames = ["template.yaml","imc.yaml","fd.yaml"]
+
+template_files = [os.path.join(root,"data/"+f) for f in template_fnames]
 
 usage = Template('''
 // -----------
