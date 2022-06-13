@@ -112,21 +112,35 @@
   #define CODE_REL_TVAL_MSK 0xD008 << (REGWIDTH*8-16)
 #endif
 
-#define NAN_BOXED(__val__,__width__)         \
-    .if FLEN > __width__                    ;\
-        .set pref_bytes,(FLEN-__width__)/32 ;\
-    .else                                   ;\
-        .set pref_bytes, 0                  ;\
-    .endif                                  ;\
-    .rept pref_bytes                        ;\
-        .word 0xffffffff                    ;\
-    .endr                                   ;\
-    .if __width__ == 32                     ;\
-        .word __val__                       ;\
-    .else                                   ;\
-        .dword __val__                      ;\
+#define NAN_BOXED(__val__,__width__,__max__)    \
+    .if __max__ > __width__                    ;\
+        .set pref_bytes,(__max__-__width__)/32 ;\
+    .else                                      ;\
+        .set pref_bytes, 0                     ;\
+    .endif                                     ;\
+    .rept pref_bytes                           ;\
+        .word 0xffffffff                       ;\
+    .endr                                      ;\
+    .if __width__ == 32                        ;\
+        .word __val__                          ;\
+    .else                                      ;\
+        .dword __val__                         ;\
     .endif;
 
+#define ZERO_EXTEND(__val__,__width__,__max__)  \
+    .if __max__ > __width__                    ;\
+        .set pref_bytes,(__max__-__width__)/32 ;\
+    .else                                      ;\
+        .set pref_bytes, 0                     ;\
+    .endif                                     ;\
+    .rept pref_bytes                           ;\
+        .word 0                                ;\
+    .endr                                      ;\
+    .if __width__ == 32                        ;\
+        .word __val__                          ;\
+    .else                                      ;\
+        .dword __val__                         ;\
+    .endif;
 
 // ----------------------------------- CODE BEGIN w/ TRAP HANDLER START ------------------------ //
 
@@ -954,9 +968,9 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       )
     
 //Tests for floating-point instructions with a single register operand and integer operand register
-#define TEST_FPIO_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+#define TEST_FPIO_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
-      LOAD_MEM_VAL(LREG, valaddr_reg, freg, val_offset, testreg); \
+      LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
       csrwi fcsr, fcsr_val; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr; \
@@ -974,9 +988,9 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     
 //Tests for floating-point instructions with a single register operand and integer operand register
 //This variant does not take the rm field and set it while writing the instruction
-#define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+#define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
-      LOAD_MEM_VAL(LREG, valaddr_reg, freg, val_offset, testreg); \
+      LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
       csrwi fcsr, fcsr_val; \
       inst destreg, freg; \
       csrr flagreg, fcsr; \

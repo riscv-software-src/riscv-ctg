@@ -241,7 +241,7 @@ $sig
 RVMODEL_DATA_END
 ''')
 case_template = Template('''
-RVTEST_CASE($num,"//check ISA:=regex(.*$xlen.*);$cond;def TEST_CASE_1=True;",$cov_label)
+RVTEST_CASE($num,"//$cond;def TEST_CASE_1=True;",$cov_label)
 ''')
 
 part_template = Template('''

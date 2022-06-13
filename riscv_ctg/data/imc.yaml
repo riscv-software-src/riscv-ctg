@@ -1,6 +1,8 @@
 # See LICENSE.incore for details
 add:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -19,7 +21,9 @@ add:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sub:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   rs1_op_data: *all_regs
@@ -39,7 +43,9 @@ sub:
 
 
 addw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -58,7 +64,9 @@ addw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 subw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -77,7 +85,9 @@ subw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 and:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -96,7 +106,9 @@ and:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 or:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -116,7 +128,9 @@ or:
 
 slt:
   rs1_op_data: *all_regs
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -134,7 +148,9 @@ slt:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sltu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -153,7 +169,9 @@ sltu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 xor:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -172,7 +190,9 @@ xor:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sllw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -191,7 +211,9 @@ sllw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srlw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -211,7 +233,9 @@ srlw:
 
 sraw:
   rs1_op_data: *all_regs
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -229,7 +253,9 @@ sraw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sll:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -248,7 +274,9 @@ sll:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 srl:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -267,7 +295,9 @@ srl:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sra:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -286,7 +316,9 @@ sra:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 addi:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -304,7 +336,9 @@ addi:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 addiw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -322,7 +356,9 @@ addiw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slti:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -340,7 +376,9 @@ slti:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sltiu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -358,7 +396,9 @@ sltiu:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 andi:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -376,7 +416,9 @@ andi:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 ori:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -394,7 +436,9 @@ ori:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 xori:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -412,7 +456,9 @@ xori:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slli:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -430,7 +476,9 @@ slli:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srli:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -448,7 +496,9 @@ srli:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srai:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -466,7 +516,9 @@ srai:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 slliw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -484,7 +536,9 @@ slliw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 srliw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -502,7 +556,9 @@ srliw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 sraiw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   xlen: [64]
@@ -520,7 +576,9 @@ sraiw:
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 lui:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -536,7 +594,9 @@ lui:
     TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd,$imm_val)
 
 auipc:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -552,7 +612,9 @@ auipc:
     TEST_AUIPC($inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 beq:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -571,7 +633,9 @@ beq:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bge:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -590,7 +654,9 @@ bge:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bgeu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -609,7 +675,9 @@ bgeu:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 blt:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -628,7 +696,9 @@ blt:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bltu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -647,7 +717,9 @@ bltu:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 bne:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -666,7 +738,9 @@ bne:
     TEST_BRANCH_OP($inst, $testreg, $rs1, $rs2, $rs1_val, $rs2_val, $imm_val, $label, $swreg, $offset,$ea_align)
 
 sd:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -685,7 +759,9 @@ sd:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -703,7 +779,9 @@ sw:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sh:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -721,7 +799,9 @@ sh:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 sb:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rs2_op_data: *all_regs
   xlen: [32,64]
@@ -739,7 +819,9 @@ sb:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,$ea_align)
 
 ld:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   isa: 
@@ -756,7 +838,9 @@ ld:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lwu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   isa: 
@@ -773,7 +857,9 @@ lwu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0 
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -790,7 +876,9 @@ lw:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lhu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -807,7 +895,9 @@ lhu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lh:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -824,7 +914,9 @@ lh:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lbu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -841,7 +933,9 @@ lbu:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 lb:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -858,7 +952,9 @@ lb:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$ea_align)
 
 jal:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -874,7 +970,9 @@ jal:
     TEST_JAL_OP($testreg, $rd, $imm_val, $label, $swreg, $offset,$ea_align)
 
 jalr:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -891,7 +989,9 @@ jalr:
     TEST_JALR_OP($testreg, $rd, $rs1, $imm_val, $swreg, $offset,$ea_align)
 
 mul:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -910,7 +1010,9 @@ mul:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulh:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -929,7 +1031,9 @@ mulh:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -948,7 +1052,9 @@ mulhu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulhsu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -967,7 +1073,9 @@ mulhsu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 div:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -986,7 +1094,9 @@ div:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1005,7 +1115,9 @@ divu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 rem:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1025,7 +1137,9 @@ rem:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remu:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1044,7 +1158,9 @@ remu:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 mulw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1063,7 +1179,9 @@ mulw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1083,7 +1201,9 @@ divw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 divuw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1102,7 +1222,9 @@ divuw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1122,7 +1244,9 @@ remw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 remuw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1141,7 +1265,9 @@ remuw:
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.mv:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs2_op_data: *all_regs_mx0
   rd_op_data: *all_regs
   xlen: [32,64]
@@ -1158,7 +1284,9 @@ c.mv:
     TEST_CMV_OP( $inst, $rd, $rs2, $correctval, $rs2_val, $swreg, $offset, $testreg)
 
 c.add:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs_mx0
   xlen: [32,64]
@@ -1176,7 +1304,9 @@ c.add:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.addw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1194,7 +1324,9 @@ c.addw:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.and:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1212,7 +1344,9 @@ c.and:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.or:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1230,7 +1364,9 @@ c.or:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.xor:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1248,7 +1384,9 @@ c.xor:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.sub:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1266,7 +1404,9 @@ c.sub:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.subw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1284,7 +1424,9 @@ c.subw:
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 c.andi:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1301,7 +1443,9 @@ c.andi:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.nop:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -1315,7 +1459,9 @@ c.nop:
     TEST_CNOP_OP($inst, $testreg, $imm_val, $swreg, $offset)
 
 c.addi:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1332,7 +1478,9 @@ c.addi:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addiw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs_mx0
   xlen: [64]
   std_op:
@@ -1349,7 +1497,9 @@ c.addiw:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi16sp:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: "['x2']"
   xlen: [32,64]
   std_op:
@@ -1366,7 +1516,9 @@ c.addi16sp:
     TEST_CI_OP( $inst, x2, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.addi4spn:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1382,7 +1534,9 @@ c.addi4spn:
     TEST_CADDI4SPN_OP( $inst, $rd, $correctval, $imm_val, $swreg, $offset, $testreg)
 
 c.slli:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1399,7 +1553,9 @@ c.slli:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srli:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1416,7 +1572,9 @@ c.srli:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.srai:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1433,7 +1591,9 @@ c.srai:
     TEST_CI_OP( $inst, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.li:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1449,7 +1609,9 @@ c.li:
     TEST_CASE($testreg, $rd, $correctval, $swreg, $offset, $inst $rd, $imm_val;)
 
 c.lui:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1466,7 +1628,9 @@ c.lui:
     TEST_CI_OP( $inst, $rd, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
 
 c.sw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [32,64]
@@ -1484,7 +1648,9 @@ c.sw:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sd:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rs2_op_data: *c_regs
   xlen: [64]
@@ -1502,7 +1668,9 @@ c.sd:
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.ld:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rd_op_data: *c_regs 
   xlen: [64]
@@ -1519,7 +1687,9 @@ c.ld:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,$rs1_val)
 
 c.lw:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   rd_op_data: *c_regs
   xlen: [32,64]
@@ -1536,7 +1706,9 @@ c.lw:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.lwsp:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1551,7 +1723,9 @@ c.lwsp:
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
 
 c.ldsp:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rd_op_data: *all_regs_mx0
   xlen: [64]
   std_op:
@@ -1566,7 +1740,9 @@ c.ldsp:
     TEST_LOAD($swreg,$testreg,$index,x2,$rd,$imm_val,$offset,$inst,0)
 
 c.swsp:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs2_op_data: *all_regs
   xlen: [32,64]
   std_op:
@@ -1582,7 +1758,9 @@ c.swsp:
     TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sdsp:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs2_op_data: *all_regs
   xlen: [64]
   std_op:
@@ -1598,7 +1776,9 @@ c.sdsp:
     TEST_STORE($swreg,$testreg,$index,x2,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.beqz:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1614,7 +1794,9 @@ c.beqz:
     TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.bnez:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *c_regs
   xlen: [32,64]
   std_op:
@@ -1630,7 +1812,9 @@ c.bnez:
     TEST_CBRANCH_OP($inst, $testreg, $rs1, $rs1_val, $imm_val, $label, $swreg, $offset)
 
 c.j:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -1644,7 +1828,9 @@ c.j:
     TEST_CJ_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jal:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -1658,7 +1844,9 @@ c.jal:
     TEST_CJAL_OP($inst, $testreg, $imm_val, $label, $swreg, $offset)
 
 c.jr:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:
@@ -1672,7 +1860,9 @@ c.jr:
     TEST_CJR_OP($testreg, $rs1, $swreg, $offset)
 
 c.jalr:
-  stride: 1
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
   rs1_op_data: *all_regs_mx0
   xlen: [32,64]
   std_op:

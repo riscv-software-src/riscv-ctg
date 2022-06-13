@@ -48,7 +48,11 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,iflen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
-        instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
+        instr_dict = gen.correct_val(
+            gen.valreg(
+                gen.testreg(
+                    gen.swreg(
+                        gen.gen_inst(op_comb, val_comb, node)))))
         logger.info("Writing tests for :"+str(label))
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)

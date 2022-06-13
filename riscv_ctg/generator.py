@@ -74,7 +74,7 @@ OPS = {
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
 VALS = {
-    'rformat': "['rs1_val', 'rs2_val'] + ((get_rm(opcode)+[fcsr']) if is_fext else []) + \
+    'rformat': "['rs1_val', 'rs2_val'] + ((get_rm(opcode)+['fcsr']) if is_fext else []) + \
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,3)])",
     'r4format': "['rs1_val', 'rs2_val', 'rs3_val'] + (['rm_val','fcsr'] if is_fext else []) + \
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,4)])",
@@ -207,8 +207,8 @@ class Generator():
         is_fext = any(['F' in x or 'D' in x for x in opnode['isa']])
         if is_fext:
             if fl>ifl:
-                is_nan_box = True
-
+                is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
+                is_nan_box = not is_int_src
         self.xlen = xl
         self.flen = fl
         self.iflen = ifl
@@ -224,7 +224,7 @@ class Generator():
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
-        self.stride = opnode['stride']
+        # self.stride = opnode['stride']
         if 'operation' in opnode:
             self.operation = opnode['operation']
         else:
@@ -889,6 +889,124 @@ class Generator():
 
         return final_instr
 
+    def valreg(self,instr_dict):
+        '''
+        This function is responsible for identifying which register can be used to store addresses
+        to load values from memory.
+
+        This register is calculated by traversing the dictionary of solutions
+        created so far and removing all the registers which are used as either
+        operands or destination. When 3 or less registers are pending, one of
+        those registers is used as signature pointer for all the solutions
+        traversed so far.
+
+        Along with the register the offset is also assigned in this function.
+        The offset is incremented by the amount specified in the template node bytes always.
+
+        Care is taken to never use 'x0' as signature pointer.
+        :param instr_dict: list of dictionaries containing the various values necessary for the macro
+        :type instr_dict: list
+        :return: list of dictionaries containing the various values necessary for the macro
+        '''
+        if 'val' in self.opnode:
+            paired_regs=0
+            if self.xlen == 32 and 'p64_profile' in self.opnode:
+                p64_profile = self.opnode['p64_profile']
+                paired_regs = self.opnode['p64_profile'].count('p')
+
+            regset = e_regset if 'e' in self.base_isa else default_regset
+            total_instr = len(instr_dict)
+            available_reg = regset.copy()
+            available_reg.remove('x0')
+            count = 0
+            assigned = 0
+            offset = 0
+            stride = self.opnode['val']['stride']
+            num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(op_vars)
+            suffix = self.opnode['val']['sz']
+            if flen in self.opnode:
+                FLEN = max(self.opnode['flen'])
+            else:
+                FLEN = 0
+            XLEN = max(self.opnode['xlen'])
+            SIGALIGN = max(XLEN,FLEN)/8
+            stride_sz = eval(suffix)
+            template = Template(eval(self.opnode['val']['val_template']))
+            width = self.iflen if self.is_fext else self.xlen
+            for instr in instr_dict:
+                if 'rs1' in instr and instr['rs1'] in available_reg:
+                    available_reg.remove(instr['rs1'])
+                if 'rs2' in instr and instr['rs2'] in available_reg:
+                    available_reg.remove(instr['rs2'])
+                if 'rd' in instr and instr['rd'] in available_reg:
+                    available_reg.remove(instr['rd'])
+                if 'rs1_hi' in instr and instr['rs1_hi'] in available_reg:
+                    available_reg.remove(instr['rs1_hi'])
+                if 'rs2_hi' in instr and instr['rs2_hi'] in available_reg:
+                    available_reg.remove(instr['rs2_hi'])
+                if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
+                    available_reg.remove(instr['rd_hi'])
+                if 'swreg' in instr and instr['swreg'] in available_reg:
+                    available_reg.remove(instr['swreg'])
+                if 'testreg' in instr and instr['testreg'] in available_reg:
+                    available_reg.remove(instr['testreg'])
+                if len(available_reg) <= 3+len(self.op_vars)+paired_regs:
+                    curr_reg = available_reg[0]
+                    offset = 0
+                    for i in range(assigned, count+1):
+                        if 'valaddr_reg' not in instr_dict[i]:
+                            instr_dict[i]['valaddr_reg'] = curr_reg
+                            instr_dict[i]['val_offset'] = str(offset) + '*' + suffix
+                            offset += stride
+                            if offset*stride_sz > 2047:
+                                offset = 0
+                            assigned += 1
+                            instr_dict[i]['val_section'] = []
+                            for j in range(1,num_vars+1):
+                                dval = ()
+                                if self.is_nan_box:
+                                    dval = nan_box(instr_dict[i]['rs{0}_nan_prefix'.format(j)],
+                                            instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
+                                else:
+                                    dval = (instr_dict[i]['rs{0}_val'.format(j)],width)
+                                if self.is_fext:
+                                    instr_dict[i]['flagreg'] = available_reg[1]
+                                instr_dict[i]['val_section'].append(
+                                        template.substitute(val=dval[0],width=dval[1]))
+                                instr_dict[i]['load_instr'] = self.opnode['val']['load_instr']
+                    available_reg = regset.copy()
+                    available_reg.remove('x0')
+                count += 1
+            if assigned != total_instr and len(available_reg) != 0:
+                curr_reg = available_reg[0]
+                offset = 0
+                for i in range(len(instr_dict)):
+                    if 'valaddr_reg' not in instr_dict[i]:
+                        instr_dict[i]['valaddr_reg'] = curr_reg
+                        instr_dict[i]['val_offset'] = str(offset) + '*' + suffix
+                        offset += stride
+                        if offset*stride_sz > 2047:
+                            offset = 0
+                        assigned += 1
+                        instr_dict[i]['val_section'] = []
+                        for j in range(1,num_vars+1):
+                            dval = ()
+                            if self.is_nan_box:
+                                dval = nan_box(instr_dict[i]['rs{0}_nan_prefix'.format(j)],
+                                        instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
+                            else:
+                                dval = (instr_dict[i]['rs{0}_val'.format(j)],width)
+                            if self.is_fext:
+                                instr_dict[i]['flagreg'] = available_reg[1]
+                            instr_dict[i]['val_section'].append(
+                                    template.substitute(val=dval[0],width=dval[1]))
+                            instr_dict[i]['load_instr'] = self.opnode['val']['load_instr']
+            return instr_dict
+        else:
+            return instr_dict
+
+
+
     def swreg(self, instr_dict):
         '''
         This function is responsible for identifying which register can be used
@@ -901,59 +1019,15 @@ class Generator():
         traversed so far.
 
         Along with the register the offset is also assigned in this function.
-        The offset is incremented by xlen/8 bytes always.
+        The offset is incremented by the amount specified in the template node bytes always.
 
         Care is taken to never use 'x0' as signature pointer.
         :param instr_dict: list of dictionaries containing the various values necessary for the macro
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if self.is_fext:
-            max_flen = max(self.opnode['flen'])
-            offset = 0
-            val_offset = 0
-            hardcoded_regs = ['x15','x16','x17']
-            flag = True
-            for i in range(len(instr_dict)):
-                 if 'swreg' not in instr_dict[i]:
-                     instr_dict[i]['swreg'] = 'x15'
-                     instr_dict[i]['valaddr_reg'] = 'x16'
-                     instr_dict[i]['flagreg'] = 'x17'
-                     if self.opcode in ['fsw','fsd']:
-                         if instr_dict[i]['rs1'] in hardcoded_regs:
-                             instr_dict[i]['swreg'] = 'x19'
-                             instr_dict[i]['valaddr_reg'] = 'x20'
-                             instr_dict[i]['flagreg'] = 'x21'
-                             if not flag:
-                                 offset = 0
-                                 flag = True
-                         elif flag:
-                             offset = 0
-                             flag = False
-                     elif instr_dict[i]['rs1'] in hardcoded_regs or instr_dict[i]['rd'] in hardcoded_regs:
-                         instr_dict[i]['swreg'] = 'x19'
-                         instr_dict[i]['valaddr_reg'] = 'x20'
-                         instr_dict[i]['flagreg'] = 'x21'
-                         if not flag:
-                             flag = True
-                             offset = 0
-                     elif flag:
-                         offset = 0
-                         flag = False
-                     instr_dict[i]['offset'] = str(offset)+'*SIGALIGN'
-                     instr_dict[i]['val_offset'] = str(val_offset)+'*FLEN/8'
-                     offset += 2
-                     if self.fmt == 'frformat' or self.fmt == 'rformat':
-                         val_offset += 2
-                     elif self.fmt == 'fsrformat':
-                         val_offset += 1
-                     elif self.fmt == 'fr4format':
-                         val_offset += 3
-                     if offset * 16 >= 2030:
-                         offset = 0
-                     if val_offset * 16 >= 2030:
-                         val_offset = 0
-            return instr_dict
+        # TODO: Clean this up and merge it with the code below to generalise adding val bases to
+        # generic macro templates.
 
         paired_regs=0
         if self.xlen == 32 and 'p64_profile' in self.opnode:
@@ -967,6 +1041,15 @@ class Generator():
         count = 0
         assigned = 0
         offset = 0
+        stride = self.opnode['sig']['stride']
+        suffix = self.opnode['sig']['sz']
+        if flen in self.opnode:
+            FLEN = max(self.opnode['flen'])
+        else:
+            FLEN = 0
+        XLEN = max(self.opnode['xlen'])
+        SIGALIGN = max(XLEN,FLEN)/8
+        stride_sz = eval(suffix)
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
                 available_reg.remove(instr['rs1'])
@@ -986,13 +1069,11 @@ class Generator():
                 offset = 0
                 for i in range(assigned, count+1):
                     if 'swreg' not in instr_dict[i]:
-                        next_offset = offset + int(self.xlen/8)*self.stride
-                        if next_offset > 2048:
+                        instr_dict[i]['offset'] = str(offset) + '*' + suffix
+                        offset += stride
+                        if offset*stride_sz > 2047:
                             offset = 0
-                            next_offset = 0
                         instr_dict[i]['swreg'] = curr_swreg
-                        instr_dict[i]['offset'] = str(offset)
-                        offset = next_offset
                         assigned += 1
                 available_reg = regset.copy()
                 available_reg.remove('x0')
@@ -1002,13 +1083,11 @@ class Generator():
             offset = 0
             for i in range(len(instr_dict)):
                 if 'swreg' not in instr_dict[i]:
-                    next_offset = offset + int(self.xlen/8)*self.stride
-                    if next_offset > 2048:
+                    instr_dict[i]['offset'] = str(offset) + '*' + suffix
+                    offset += stride
+                    if offset*stride_sz > 2047:
                         offset = 0
-                        next_offset = 0
                     instr_dict[i]['swreg'] = curr_swreg
-                    instr_dict[i]['offset'] = str(offset)
-                    offset = next_offset
         return instr_dict
 
     def testreg(self, instr_dict):
@@ -1065,7 +1144,7 @@ class Generator():
             if 'swreg' in instr and instr['swreg'] in available_reg:
                 available_reg.remove(instr['swreg'])
 
-            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
+            if len(available_reg) <= 2+len(self.op_vars)+paired_regs:
                 curr_testreg = available_reg[0]
                 for i in range(assigned, count+1):
                     if 'testreg' not in instr_dict[i]:
@@ -1141,7 +1220,7 @@ class Generator():
                 #     else:
                 #         size = '>q'
                 if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and \
-                        field != 'val_offset' and field != 'rm_val':
+                    field != 'val_section' and field != 'val_offset' and field != 'rm_val':
                     value = instr_dict[i][field]
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(self.xlen/4))
@@ -1199,7 +1278,7 @@ class Generator():
         sign = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe", \
                 ".word 0xabecafeb", ".word 0xbecafeba", ".word 0xecafebab"]
-        stride = self.stride
+        stride = self.opnode['sig']['stride']
         if self.is_fext:
             code.append("RVTEST_FP_ENABLE()")
 
@@ -1210,43 +1289,47 @@ class Generator():
             p64_profile = self.opnode['p64_profile']
 
         n = 0
+        is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
+        src_len = xlen if self.opcode.endswith('.x') else (32 if 'w' in self.opcode else 64)
+        sz = 'word' if src_len == 32 else 'dword'
         opcode = instr_dict[0]['inst']
         op_node_isa = ""
         extension = ""
-        rvxlen = "RV"+str(self.xlen)
-        op_node_isa = ",".join([rvxlen + isa for isa in op_node['isa']])
+        xlens = [self.xlen] + \
+            (list(filter(lambda x: x>self.xlen,self.opnode['xlen'])) if self.is_fext else [])
+        for val in xlens:
+            rvxlen = "RV"+str(val)
+            op_node_isa += ((","  if op_node_isa else "") \
+                    + ",".join([rvxlen + isa for isa in op_node['isa']]))
         op_node_isa = op_node_isa.replace("I","E") if 'e' in self.base_isa else op_node_isa
         extension = op_node_isa.replace('I',"").replace('E',"")
         count = 0
         neg_offset = 0
         width = self.iflen if not self.is_nan_box else self.flen
-        num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(op_vars)
         dset_n = 0
-        sig_sz = 'SIGALIGN/4' if self.is_fext else 'XLEN/32'
+        sig_sz = '(({0})/4)'.format(self.opnode['sig']['sz'])
+        cond_prefix = '' if self.is_fext else 'check ISA:=regex(.*{0}.*);'.format(self.xlen)
         for instr in instr_dict:
-            print(count)
-            print(instr)
             switch = False
             res = '\ninst_{0}:'.format(str(count))
             res += Template(op_node['template']).safe_substitute(instr)
-            if self.is_fext:
-                if self.opcode not in ['fsw','flw']:
-                    if eval(instr['val_offset'],{},
-                            {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}
-                            ) == 0 or instr['valaddr_reg'] != vreg:
-                        dlabel = 'test_dataset_'+str(dset_n)
-                        dset_n += 1
-                        data.append(dlabel+":")
-                        vreg = instr['valaddr_reg']
-                        code.append("RVTEST_VALBASEUPD("+vreg+","+dlabel+")")
-                for i in range(1,num_vars+1):
-                    dval = ()
-                    if self.is_nan_box:
-                        dval = nan_box(instr['rs{0}_nan_prefix'.format(i)],
-                                instr['rs{0}_val'.format(i)],self.flen,self.iflen)
-                    else:
-                        dval = (instr['rs{0}_val'.format(i)],self.iflen)
-                    data.append('NAN_BOXED({0},{1})'.format(dval[0],dval[1]))
+            if 'val' in self.opnode:
+                if eval(instr['val_offset'],{},
+                        {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}
+                        ) == 0 or instr['valaddr_reg'] != vreg:
+                    dlabel = 'test_dataset_'+str(dset_n)
+                    dset_n += 1
+                    data.append(dlabel+":")
+                    vreg = instr['valaddr_reg']
+                    code.append("RVTEST_VALBASEUPD("+vreg+","+dlabel+")")
+                # for i in range(1,num_vars+1):
+                #     dval = ()
+                #     if self.is_nan_box:
+                #         dval = nan_box(instr['rs{0}_nan_prefix'.format(i)],
+                #                 instr['rs{0}_val'.format(i)],self.flen,self.iflen)
+                #     else:
+                #         dval = (instr['rs{0}_val'.format(i)],self.iflen)
+                data.extend(instr['val_section'])
             if instr['swreg'] != sreg or eval(instr['offset'],{},
                         {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}) == 0:
                 sign.append(signode_template.substitute(
