@@ -385,7 +385,7 @@ class Generator():
                     try:
 
                         d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge)
-                    except ExtractError as e:
+                    except ExtractException as e:
                         logger.warning("Valcomb skip: "+str(e))
                         continue
                 else:
@@ -732,8 +732,6 @@ class Generator():
                             val[ind_dict[y]] = val[ind_dict[x]]
             if self.is_fext:
                 instr_dict.append(self.__fext_instr__(op,val))
-                # print(self.__fext_instr__(op,val))
-                # sys.exit(1)
             elif self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
             elif self.opcode in ['c.beqz', 'c.bnez']:

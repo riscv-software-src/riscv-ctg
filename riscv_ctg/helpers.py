@@ -42,7 +42,7 @@ def extract_frs_fields(reg,cvp,iflen):
         if match_obj is not None:
             fvals[var+reg] = eval(match_obj.group(var+reg))
         else:
-            raise ExtractError("{0} not defined in coverpoint:{1}".format(var+reg,cvp))
+            raise ExtractException("{0} not defined in coverpoint:{1}".format(var+reg,cvp))
     bin_val1 = s_sz_string.format(fvals['fs'+reg]) + e_sz_string.format(fvals['fe'+reg]) \
             + m_sz_string.format(fvals['fm'+reg])
     hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
@@ -70,7 +70,7 @@ def merge_fields_f(val_vars,cvp,flen,iflen,merge):
             if match_obj is not None:
                 fdict[var] = eval(match_obj.group(var))
             elif 'nan_prefix' not in var:
-                raise ExtractError("{0} not defined in coverpoint:{1}".format(var,cvp))
+                raise ExtractException("{0} not defined in coverpoint:{1}".format(var,cvp))
     return fdict
 
 
