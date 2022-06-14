@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fmsub_b1:
+fmsub.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -19,7 +19,7 @@ fmsub_b1:
       abstract_comb:
         'ibm_b1(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b2:
+fmsub.d_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -38,7 +38,7 @@ fmsub_b2:
       abstract_comb:
         'ibm_b2(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b3:
+fmsub.d_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -57,7 +57,7 @@ fmsub_b3:
       abstract_comb:
         'ibm_b3(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b4:
+fmsub.d_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -76,7 +76,7 @@ fmsub_b4:
       abstract_comb:
         'ibm_b4(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b5:
+fmsub.d_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -95,7 +95,7 @@ fmsub_b5:
       abstract_comb:
         'ibm_b5(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b6:
+fmsub.d_b6:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -114,7 +114,7 @@ fmsub_b6:
       abstract_comb:
         'ibm_b6(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b7:
+fmsub.d_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -133,7 +133,7 @@ fmsub_b7:
       abstract_comb:
         'ibm_b7(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b8:
+fmsub.d_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -152,7 +152,7 @@ fmsub_b8:
       abstract_comb:
         'ibm_b8(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b14:
+fmsub.d_b14:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -171,7 +171,7 @@ fmsub_b14:
       abstract_comb:
         'ibm_b14(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b15:
+fmsub.d_b15:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -190,7 +190,7 @@ fmsub_b15:
       abstract_comb:
         'ibm_b15(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b16:
+fmsub.d_b16:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -209,7 +209,7 @@ fmsub_b16:
       abstract_comb:
         'ibm_b16(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b17:
+fmsub.d_b17:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -228,7 +228,7 @@ fmsub_b17:
       abstract_comb:
         'ibm_b17(flen,64, "fmsub.d", 3)': 0
         
-fmsub_b18:
+fmsub.d_b18:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 

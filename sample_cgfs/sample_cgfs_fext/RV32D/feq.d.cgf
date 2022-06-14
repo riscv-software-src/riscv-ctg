@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-feq_b1:
+feq.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -17,7 +17,7 @@ feq_b1:
       abstract_comb:
         'ibm_b1(flen,64, "feq.d", 2)': 0
         
-feq_b19:
+feq.d_b19:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 

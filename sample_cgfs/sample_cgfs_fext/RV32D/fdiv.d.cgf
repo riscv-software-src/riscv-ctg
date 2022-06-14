@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fdiv_b1:
+fdiv.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -17,7 +17,7 @@ fdiv_b1:
       abstract_comb:
         'ibm_b1(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b2:
+fdiv.d_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -34,7 +34,7 @@ fdiv_b2:
       abstract_comb:
         'ibm_b2(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b3:
+fdiv.d_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -51,7 +51,7 @@ fdiv_b3:
       abstract_comb:
         'ibm_b3(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b4:
+fdiv.d_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -68,7 +68,7 @@ fdiv_b4:
       abstract_comb:
         'ibm_b4(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b5:
+fdiv.d_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -85,7 +85,7 @@ fdiv_b5:
       abstract_comb:
         'ibm_b5(flen,64, "fdiv.d", 2)': 0
 
-fdiv_b6:
+fdiv.d_b6:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -102,7 +102,7 @@ fdiv_b6:
       abstract_comb:
         'ibm_b6(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b7:
+fdiv.d_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -119,7 +119,7 @@ fdiv_b7:
       abstract_comb:
         'ibm_b7(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b8:
+fdiv.d_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -136,7 +136,7 @@ fdiv_b8:
       abstract_comb:
         'ibm_b8(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b9:
+fdiv.d_b9:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -153,7 +153,7 @@ fdiv_b9:
       abstract_comb:
         'ibm_b9(flen,64, "fdiv.d", 2)': 0
 
-fdiv_b20:
+fdiv.d_b20:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -170,7 +170,7 @@ fdiv_b20:
       abstract_comb:
         'ibm_b20(flen,64, "fdiv.d", 2)': 0
         
-fdiv_b21:
+fdiv.d_b21:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 

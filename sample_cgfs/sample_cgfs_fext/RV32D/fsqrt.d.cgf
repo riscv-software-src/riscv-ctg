@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fsqrt_b1:
+fsqrt.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -15,7 +15,7 @@ fsqrt_b1:
       abstract_comb:
         'ibm_b1(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b2:
+fsqrt.d_b2:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -30,7 +30,7 @@ fsqrt_b2:
       abstract_comb:
         'ibm_b2(flen,64, "fsqrt.d", 1)': 0
         
-fsqrt_b3:
+fsqrt.d_b3:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -45,7 +45,7 @@ fsqrt_b3:
       abstract_comb:
         'ibm_b3(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b4:
+fsqrt.d_b4:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -60,7 +60,7 @@ fsqrt_b4:
       abstract_comb:
         'ibm_b4(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b5:
+fsqrt.d_b5:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -75,7 +75,7 @@ fsqrt_b5:
       abstract_comb:
         'ibm_b5(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b7:
+fsqrt.d_b7:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -90,7 +90,7 @@ fsqrt_b7:
       abstract_comb:
         'ibm_b7(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b8:
+fsqrt.d_b8:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -105,7 +105,7 @@ fsqrt_b8:
       abstract_comb:
         'ibm_b8(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b9:
+fsqrt.d_b9:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
@@ -120,7 +120,7 @@ fsqrt_b9:
       abstract_comb:
         'ibm_b9(flen,64, "fsqrt.d", 1)': 0
 
-fsqrt_b20:
+fsqrt.d_b20:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 

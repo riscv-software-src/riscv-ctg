@@ -1,6 +1,6 @@
 # For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
 
-fsgnjn_b1:
+fsghjn.d_b1:
     config: 
       - check ISA:=regex(.*I.*D.*)
     mnemonics: 
