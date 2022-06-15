@@ -1284,7 +1284,7 @@ fcvt.s.w:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fcvt.s.wu:
   sig:
@@ -1311,7 +1311,7 @@ fcvt.s.wu:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
 fcvt.d.w:
   sig:
@@ -1337,7 +1337,7 @@ fcvt.d.w:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fcvt.d.wu:
   sig:
@@ -1363,7 +1363,7 @@ fcvt.d.wu:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
 fcvt.d.l:
   sig:
@@ -1389,7 +1389,7 @@ fcvt.d.l:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fcvt.d.lu:
   sig:
@@ -1415,7 +1415,7 @@ fcvt.d.lu:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fmv.d.x:
   sig:
@@ -1659,7 +1659,7 @@ fcvt.s.l:
     stride: 1
     sz: '8'
     val_template: "'.dword $val;'"
-    load_instr: "LREG"
+    load_instr: "ld"
   xlen: [64]
   isa: 
     - IF_Zicsr
@@ -1676,7 +1676,7 @@ fcvt.s.l:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
 fcvt.s.lu:
   sig:
@@ -1686,7 +1686,7 @@ fcvt.s.lu:
     stride: 1
     sz: '8'
     val_template: "'.dword $val;'"
-    load_instr: "LREG"
+    load_instr: "ld"
   xlen: [64]
   isa: 
     - IF_Zicsr
@@ -1703,5 +1703,5 @@ fcvt.s.lu:
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
