@@ -953,7 +953,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPSR_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr      ; \
     )
@@ -962,7 +962,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPID_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr      ; \
       )
@@ -971,7 +971,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPIO_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr; \
     )
@@ -981,7 +981,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPID_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr      ; \
       )
@@ -991,7 +991,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr; \
     )
@@ -1025,7 +1025,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg1, freg2; \
       csrr flagreg, fcsr; \
     )
@@ -1035,7 +1035,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg1, freg2, rm; \
       csrr flagreg, fcsr; \
     )
@@ -1045,7 +1045,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      csrwi fcsr, fcsr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg1, freg2; \
       csrr flagreg, fcsr      ; \
     )
@@ -1056,7 +1056,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg3, (val_offset+2*FREGWIDTH), testreg); \
-      csrwi fcsr, fscr_val; \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
       inst destreg, freg1, freg2, freg3, rm; \
       csrr flagreg, fcsr      ; \
     )
