@@ -957,6 +957,16 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       inst destreg, freg, rm; \
       csrr flagreg, fcsr      ; \
     )
+
+//Tests for floating-point instructions with a single register operand
+//This variant does not take the rm field and set it while writing the instruction
+#define TEST_FPSR_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
+      LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
+      li testreg, fcsr_val; csrw fcsr, testreg; \
+      inst destreg, freg; \
+      csrr flagreg, fcsr      ; \
+    )
     
 //Tests for floating-point instructions with a single register operand and integer destination register
 #define TEST_FPID_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
