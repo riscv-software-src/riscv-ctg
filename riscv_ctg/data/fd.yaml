@@ -1254,8 +1254,10 @@ fcvt.d.s:
   template: |-
 
     // $comment
-    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg
-    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $offset, $testreg)  
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)  
     
 fcvt.s.w:
   sig:
