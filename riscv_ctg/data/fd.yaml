@@ -1335,9 +1335,9 @@ fcvt.d.w:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+    TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fcvt.d.wu:
   sig:
@@ -1361,9 +1361,9 @@ fcvt.d.wu:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
     fcsr_val: $fcsr*/
-    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+    TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
 fcvt.d.l:
   sig:

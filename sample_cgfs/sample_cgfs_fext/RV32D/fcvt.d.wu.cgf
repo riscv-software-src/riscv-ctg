@@ -11,7 +11,7 @@ fcvt.d.wu_b25:
       <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b25(flen,64, "fcvt.d.wu", 1)': 0
+        'ibm_b25(flen,32, "fcvt.d.wu", 1)': 0
         
 fcvt.d.wu_b26:
     config: 

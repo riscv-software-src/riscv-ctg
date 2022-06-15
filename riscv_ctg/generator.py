@@ -25,7 +25,8 @@ twos_xlen = lambda x: twos(x,xlen)
 
 def get_rm(opcode):
     if any([x in opcode for x in
-        ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax','fcvt.d.s']]):
+        ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax',
+            'fcvt.d.s', 'fcvt.d.w','fcvt.d.wu']]):
         return []
     else:
         return ['rm_val']

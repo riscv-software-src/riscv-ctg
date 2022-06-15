@@ -11,7 +11,7 @@ fcvt.s.lu_b25:
       <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b25(flen,32, "fcvt.s.lu", 1)': 0
+        'ibm_b25(flen,64, "fcvt.s.lu", 1)': 0
         
 fcvt.s.lu_b26:
     config: 
@@ -24,5 +24,5 @@ fcvt.s.lu_b26:
       <<: *all_fregs
     val_comb:
       abstract_comb:
-        'ibm_b26(32, "fcvt.s.lu", 1)': 0
+        'ibm_b26(64, "fcvt.s.lu", 1)': 0
 

@@ -13,7 +13,7 @@ fcvt.s.d_b1:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b1(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b1(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b22:
     config: 
@@ -28,7 +28,7 @@ fcvt.s.d_b22:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b22(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b22(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b23:
     config: 
@@ -43,7 +43,7 @@ fcvt.s.d_b23:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b23(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b23(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b24:
     config: 
@@ -58,7 +58,7 @@ fcvt.s.d_b24:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b24(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b24(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b27:
     config: 
@@ -73,7 +73,7 @@ fcvt.s.d_b27:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b27(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b27(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b28:
     config: 
@@ -88,7 +88,7 @@ fcvt.s.d_b28:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b28(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b28(flen,64, "fcvt.s.d", 1)': 0
         
 fcvt.s.d_b29:
     config: 
@@ -103,4 +103,4 @@ fcvt.s.d_b29:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
-        'ibm_b29(flen,32, "fcvt.s.d", 1)': 0
+        'ibm_b29(flen,64, "fcvt.s.d", 1)': 0
