@@ -1062,8 +1062,10 @@ class Generator():
                 available_reg.remove(instr['rs2_hi'])
             if 'rd_hi' in instr and instr['rd_hi'] in available_reg:
                 available_reg.remove(instr['rd_hi'])
+            if 'testreg' in instr and instr['testreg'] in available_reg:
+                available_reg.remove(instr['testreg'])
 
-            if len(available_reg) <= 1+len(self.op_vars)+paired_regs:
+            if len(available_reg) <= 2+len(self.op_vars)+paired_regs:
                 curr_swreg = available_reg[0]
                 offset = 0
                 for i in range(assigned, count+1):
@@ -1105,16 +1107,6 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
-        if self.opcode[0] == 'f' and 'fence' not in self.opcode:
-            for i in range(len(instr_dict)):
-                instr_dict[i]['testreg'] = 'x18'
-                if self.opcode in ['fsw','fsd']:
-                    if instr_dict[i]['rs1'] == 'x18':
-                        instr_dict[i]['testreg'] = 'x22'
-                elif instr_dict[i]['rs1'] == 'x18' or instr_dict[i]['rd'] == 'x18':
-                    instr_dict[i]['testreg'] = 'x22'
-            return instr_dict
-
         regset = e_regset if 'e' in self.base_isa else default_regset
         total_instr = len(instr_dict)
         available_reg = regset.copy()

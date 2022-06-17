@@ -1294,7 +1294,7 @@ fcvt.s.wu:
     stride: 1
     sz: '4'
     val_template: "'.word $val;'"
-    load_instr: "lw"
+    load_instr: "lwu"
   xlen: [32,64]
   isa: 
     - IF_Zicsr
@@ -1347,7 +1347,7 @@ fcvt.d.wu:
     stride: 1
     sz: '4'
     val_template: "'.word $val;'"
-    load_instr: "lw"
+    load_instr: "lwu"
   xlen: [32,64]
   isa: 
     - IFD_Zicsr
