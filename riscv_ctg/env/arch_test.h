@@ -113,6 +113,11 @@
 #endif
 
 #define NAN_BOXED(__val__,__width__,__max__)    \
+    .if __width__ == 32                        ;\
+        .word __val__                          ;\
+    .else                                      ;\
+        .dword __val__                         ;\
+    .endif                                     ;\
     .if __max__ > __width__                    ;\
         .set pref_bytes,(__max__-__width__)/32 ;\
     .else                                      ;\
@@ -120,12 +125,8 @@
     .endif                                     ;\
     .rept pref_bytes                           ;\
         .word 0xffffffff                       ;\
-    .endr                                      ;\
-    .if __width__ == 32                        ;\
-        .word __val__                          ;\
-    .else                                      ;\
-        .dword __val__                         ;\
-    .endif;
+    .endr                                      ;
+
 
 #define ZERO_EXTEND(__val__,__width__,__max__)  \
     .if __max__ > __width__                    ;\
