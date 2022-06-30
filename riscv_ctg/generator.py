@@ -372,7 +372,7 @@ class Generator():
         merge = True
         if 'fcvt' in self.opcode or 'fmv' in self.opcode:
             if self.opcode.split(".")[-1] in ['x','w','wu','l','lu']:
-                merge = self.opcode == 'fmv.x.w'
+                merge = "fmv.x.w" in self.opcode
         while inds:
             req_val_comb = conds[inds.pop()]
             if("#nosat" in req_val_comb):
