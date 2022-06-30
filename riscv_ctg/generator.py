@@ -372,7 +372,7 @@ class Generator():
         merge = True
         if 'fcvt' in self.opcode or 'fmv' in self.opcode:
             if self.opcode.split(".")[-1] in ['x','w','wu','l','lu']:
-                merge = False
+                merge = self.opcode == 'fmv.x.w'
         while inds:
             req_val_comb = conds[inds.pop()]
             if("#nosat" in req_val_comb):
@@ -384,7 +384,6 @@ class Generator():
                 if self.is_fext:
 	                # fs + fe + fm -> Combiner Script
                     try:
-
                         d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge)
                     except ExtractException as e:
                         logger.warning("Valcomb skip: "+str(e))
