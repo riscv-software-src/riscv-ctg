@@ -9,8 +9,6 @@ fclass.d_b1:
       <<: *all_fregs
     rd: 
       <<: *all_regs
-    op_comb: 
-      <<: *ifmt_op_comb
     val_comb:
       abstract_comb:
         'ibm_b1(flen,64, "fclass.d", 1)': 0
