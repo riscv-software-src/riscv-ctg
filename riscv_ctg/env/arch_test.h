@@ -11,7 +11,6 @@
 //   #define rvtest_gpr_save
 // #endif
 
-
 //-----------------------------------------------------------------------
 // RV Arch Test Macros
 //-----------------------------------------------------------------------
@@ -287,10 +286,10 @@
   /**** to a return for anything above that (which causes a mismatch)****/
   /**********************************************************************/
   mtrampoline:		// 64 or 32 entry table
-  value = 0
+  .set value, 0
   .rept NUM_SPECD_INTCAUSES     	  // located at each possible int vectors
      j	mtrap_handler + 12*(value)  //offset < +/- 1MB
-     value = value + 1
+     .set value, value + 1
   .endr
   .rept RLENG-NUM_SPECD_INTCAUSES   // fill at each impossible entry
   	mret
@@ -587,10 +586,14 @@ rvtest_data_end:
  csrs mstatus, a0;                      \
  csrwi fcsr, 0
 
+#ifdef pext_check_vxsat_ov
 #define RVTEST_VXSAT_ENABLE()\
  li a0, MSTATUS_VS & (MSTATUS_VS >> 1); \
  csrs mstatus, a0;                      \
  clrov
+#else
+#define RVTEST_VXSAT_ENABLE()
+#endif
 
 #define RVTEST_SIGBASE(_R,_TAG) \
   LA(_R,_TAG);\
@@ -679,18 +682,26 @@ rvtest_data_end:
 	RVTEST_SIGUPD_FID(_BR,_R,_R_HI,_ARG1(__VA_OPT__(__VA_ARGS__,0)));\
  .endif
 
+// for reading vxsat.OV flag in P-ext; and only reads the flag when Zicsr extension is present
+#ifdef pext_check_vxsat_ov
+#define RDOV(_F)\
+   rdov _F
+#else
+#define RDOV(_F)\
+   nop
+#endif
+
 // for updating signatures that include flagreg when 'rd' is a paired register (64-bit) in Zpsfoperand extension in RV32.
 #define RVTEST_SIGUPD_PK64(_BR,_R,_R_HI,_F,...)\
   .if NARG(__VA_ARGS__) == 1                            ;\
      .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
   .endif                                                ;\
-  .if offset+3*REGWIDTH>=2048                           ;\
-     addi   _BR, _BR,offset                             ;\
-     .set   offset, 0					;\
-  .endif						;\
+  CHK_OFFSET(_BR,REGWIDTH,0);\
     SREG _R,offset(_BR)					;\
+  CHK_OFFSET(_BR,REGWIDTH,1);\
     SREG _R_HI,offset+REGWIDTH(_BR)			;\
-    rdov _F                                             ;\
+    RDOV(_F)                                            ;\
+  CHK_OFFSET(_BR,REGWIDTH,1);\
     SREG _F,offset+2*REGWIDTH(_BR)			;\
     .set offset,offset+(3*REGWIDTH)
 
@@ -766,12 +777,12 @@ rvtest_data_end:
     jalr x0,0(tempreg)                       ;\
 6:  LA(tempreg, 4f                          ) ;\
     jalr x0,0(tempreg)                        ;\
-1:  .if adj & 2 == 2                         ;\
+1:  .if (adj & 2 == 2) && (label == 1b)      ;\
     .fill 2,1,0x00                          ;\
     .endif                                    ;\
     xori rd,rd, 0x1                           ;\
     beq x0,x0,6b                               ;\
-    .if adj & 2 == 2                              ;\
+    .if (adj & 2 == 2) && (label == 1b)     ;\
     .fill 2,1,0x00                          ;\
     .endif                                    ;\
     .if (imm/2) - 2 >= 0                      ;\
@@ -779,7 +790,7 @@ rvtest_data_end:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 3f                          ;\
+     .ifc label, 3f                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -798,19 +809,19 @@ rvtest_data_end:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-    .if label == 1b                          ;\
+    .ifc label, 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
     nop                                       ;\
     .endr                                     ;\
-3:  .if adj & 2 == 2                              ;\
+3:  .if (adj & 2 == 2) && (label == 3f)      ;\
     .fill 2,1,0x00                          ;\
     .endif                                    ;\
     xori rd,rd, 0x3                           ;\
     LA(tempreg, 4f                          ) ;\
     jalr x0,0(tempreg)                        ;\
-    .if adj&2 == 2                              ;\
+    .if (adj&2 == 2) && (label == 3f)       ;\
     .fill 2,1,0x00                     ;\
     .endif                                    ;\
 4: LA(tempreg, 5b                            ) ;\
@@ -838,7 +849,7 @@ rvtest_data_end:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 3f                          ;\
+     .ifc label, 3f                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -853,7 +864,7 @@ rvtest_data_end:
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 1b                          ;\
+     .ifc label, 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1251,7 +1262,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-    .if label == 3f                           ;\
+    .ifc label, 3f                           ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1268,7 +1279,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 1b                          ;\
+     .ifc label, 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1294,7 +1305,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-    .if label == 3f                           ;\
+    .ifc label, 3f                           ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1311,7 +1322,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 1b                          ;\
+     .ifc label, 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1337,7 +1348,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-    .if label == 3f                           ;\
+    .ifc label, 3f                           ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
@@ -1354,7 +1365,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     .else                                     ;\
         .set num,0                            ;\
     .endif                                    ;\
-     .if label == 1b                          ;\
+     .ifc label, 1b                          ;\
         .set num,0                            ;\
     .endif                                    ;\
     .rept num                                 ;\
