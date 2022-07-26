@@ -54,4 +54,5 @@ jobs:
               echo "No changelog update."
               exit 1
           else
-              echo 
+              echo "Changelog updated."
+          fi
