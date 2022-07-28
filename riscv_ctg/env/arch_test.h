@@ -902,9 +902,9 @@ nop                                                                         ;\
 RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
-#define TEST_STORE_F(swreg,testreg,index,rs1,rs2,rs2_val,imm_val,offset,inst,adj,flagreg)   ;\
+#define TEST_STORE_F(swreg,testreg,fcsr_val,rs1,rs2,rs2_val,imm_val,offset,inst,adj,flagreg, linst);\
 LI(flagreg,rs2_val)                                                           ;\
-fmv.w.x rs2, flagreg                                                          ;\
+linst rs2, flagreg                                                          ;\
 addi rs1,swreg,offset+adj                                                     ;\
 LI(testreg,imm_val)                                                         ;\
 sub rs1,rs1,testreg                                                          ;\
@@ -912,15 +912,16 @@ inst rs2, imm_val(rs1)                                                      ;\
 nop                                                                         ;\
 nop                                                                         ;\
 csrr flagreg, fcsr                                                         ;\
-RVTEST_SIGUPD(swreg,flagreg,offset)
+RVTEST_SIGUPD(swreg,flagreg,offset+SIGALIGN)
 
-#define TEST_LOAD_F(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj,flagreg)   ;\
-LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                      ;\
-inst destreg, imm_val(rs1)                                                   ;\
-nop                                                                         ;\
-nop                                                                         ;\
-csrr flagreg, fcsr                                                         ;\
-RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset) 
+#define TEST_LOAD_F(swreg,testreg,fcsr_val,rs1,destreg,imm_val,inst,adj,flagreg)    ;\
+LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                               ;\
+LI(testreg, fcsr_val); csrw fcsr, testreg                                                ;\
+inst destreg, imm_val(rs1)                                                              ;\
+nop                                                                                     ;\
+nop                                                                                     ;\
+csrr flagreg, fcsr                                                                      ;\
+RVTEST_SIGUPD_F(swreg,destreg,flagreg) 
 
 #define TEST_CSR_FIELD(ADDRESS,TEMP_REG,MASK_REG,NEG_MASK_REG,VAL,DEST_REG,OFFSET,BASE_REG) \
     LI(TEMP_REG,VAL);\
@@ -967,7 +968,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPSR_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr      ; \
     )
@@ -977,7 +978,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPSR_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr      ; \
     )
@@ -986,7 +987,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPID_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg,load_instr) \
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr      ; \
       )
@@ -995,7 +996,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPIO_OP( inst, destreg, freg, rm, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg, rm; \
       csrr flagreg, fcsr; \
     )
@@ -1005,7 +1006,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPID_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg) \
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr      ; \
       )
@@ -1015,7 +1016,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
 #define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr; \
     )
@@ -1049,7 +1050,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg1, freg2; \
       csrr flagreg, fcsr; \
     )
@@ -1059,7 +1060,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg1, freg2, rm; \
       csrr flagreg, fcsr; \
     )
@@ -1069,7 +1070,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
     TEST_CASE_FID(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg1, freg2; \
       csrr flagreg, fcsr      ; \
     )
@@ -1080,7 +1081,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg,offset)
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg3, (val_offset+2*FREGWIDTH), testreg); \
-      li testreg, fcsr_val; csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg1, freg2, freg3, rm; \
       csrr flagreg, fcsr      ; \
     )

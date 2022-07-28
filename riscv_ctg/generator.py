@@ -79,8 +79,8 @@ VALS = {
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,3)])",
     'r4format': "['rs1_val', 'rs2_val', 'rs3_val'] + (['rm_val','fcsr'] if is_fext else []) + \
         ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,4)])",
-    'iformat': "['rs1_val', 'imm_val']",
-    'sformat': "['rs1_val', 'rs2_val', 'imm_val']",
+    'iformat': "['rs1_val', 'imm_val'] + ([] if not is_fext else ['fcsr'])",
+    'sformat': "['rs1_val', 'rs2_val', 'imm_val'] + ([] if not is_fext else ['fcsr'])",
     'bsformat': "['rs1_val', 'rs2_val', 'imm_val']",
     'bformat': "['rs1_val', 'rs2_val', 'imm_val']",
     'uformat': "['imm_val']",
@@ -906,6 +906,8 @@ class Generator():
         :type instr_dict: list
         :return: list of dictionaries containing the various values necessary for the macro
         '''
+        # TODO: Move flagreg allocation to separate function. Preferable to club all anxilliary
+        # register allocations to a generalised function and club both swreg and valreg to it too.
         if 'val' in self.opnode:
             paired_regs=0
             if self.xlen == 32 and 'p64_profile' in self.opnode:
@@ -920,7 +922,7 @@ class Generator():
             assigned = 0
             offset = 0
             stride = self.opnode['val']['stride']
-            num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(op_vars)
+            num_vars = len(self.op_vars)-1 if 'rd' in self.op_vars else len(self.op_vars)
             suffix = self.opnode['val']['sz']
             if flen in self.opnode:
                 FLEN = max(self.opnode['flen'])
