@@ -2710,7 +2710,6 @@ aes32dsi:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknd
@@ -2729,7 +2728,6 @@ aes32dsmi:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknd
@@ -2748,7 +2746,6 @@ aes32esi:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZkne
@@ -2767,7 +2764,6 @@ aes32esmi:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZkne
@@ -2786,8 +2782,6 @@ sm4ed:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZk
     - IZks
     - IZksed
   formattype: 'bsformat'
@@ -2805,8 +2799,6 @@ sm4ks:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZk
     - IZks
     - IZksed
   formattype: 'bsformat'
@@ -2821,7 +2813,6 @@ sha256sig0:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2843,7 +2834,6 @@ sha256sig1:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2865,7 +2855,6 @@ sha256sum0:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2887,7 +2876,6 @@ sha256sum1:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2909,7 +2897,6 @@ sm3p0:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZks
     - IZksh
   formattype: 'kformat'
@@ -2930,7 +2917,6 @@ sm3p1:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZks
     - IZksh
   formattype: 'kformat'
@@ -2951,7 +2937,6 @@ sha512sig0h:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2972,7 +2957,6 @@ sha512sig0l:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -2993,7 +2977,6 @@ sha512sig1h:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3014,7 +2997,6 @@ sha512sig1l:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3035,7 +3017,6 @@ sha512sum0r:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3056,7 +3037,6 @@ sha512sum1r:
   xlen: [32]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3078,10 +3058,9 @@ rol:
   std_op:
   operation: 'hex((rs1_val << (rs2_val%xlen)) & (2**(xlen)-1))'
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -3120,7 +3099,6 @@ zip:
   xlen: [32]
   std_op: zip
   isa: 
-    - IK
     - IZk
     - IZbkb
     - IZkn
@@ -3142,9 +3120,7 @@ unzip:
   xlen: [32]
   std_op: unzip
   isa: 
-    - IK
     - IZk
-    - IZbk
     - IZbkb
     - IZkn
     - IZks
@@ -3165,8 +3141,6 @@ pack:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -3202,8 +3176,6 @@ packh:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -3255,7 +3227,6 @@ aes64ds:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknd
@@ -3274,7 +3245,6 @@ aes64dsm:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknd
@@ -3293,7 +3263,6 @@ aes64es:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZkne
@@ -3312,7 +3281,6 @@ aes64esm:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZkne
@@ -3331,11 +3299,10 @@ aes64ks1i:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
+    - IZknd
     - IZkne
-#    - IZknd
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -3350,11 +3317,10 @@ aes64ks2:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
-#    - IZkne
     - IZknd
+    - IZkne
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -3372,7 +3338,6 @@ sha512sig0:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3394,7 +3359,6 @@ sha512sig1:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3416,7 +3380,6 @@ sha512sum0:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3438,7 +3401,6 @@ sha512sum1:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknh
@@ -3460,7 +3422,6 @@ aes64im:
   xlen: [64]
   std_op:
   isa: 
-    - IK
     - IZk
     - IZkn
     - IZknd
@@ -3482,10 +3443,9 @@ rolw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -3521,8 +3481,6 @@ packw:
   xlen: [64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -3558,7 +3516,6 @@ add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3577,7 +3534,6 @@ sh1add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3596,7 +3552,6 @@ sh1add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3615,7 +3570,6 @@ sh2add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3634,7 +3588,6 @@ sh2add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3653,7 +3606,6 @@ sh3add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3672,7 +3624,6 @@ sh3add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -3691,7 +3642,6 @@ slli.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -3710,10 +3660,9 @@ andn:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4088,7 +4037,6 @@ clz:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4105,7 +4053,6 @@ clzw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4122,7 +4069,6 @@ cpop:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4139,7 +4085,6 @@ cpopw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4156,7 +4101,6 @@ ctz:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4173,7 +4117,6 @@ ctzw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4190,7 +4133,6 @@ max:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -4233,7 +4175,6 @@ maxu:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -4276,7 +4217,6 @@ min:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -4319,7 +4259,6 @@ minu:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -4387,7 +4326,6 @@ orc.b:
   xlen: [32,64]
   std_op: orc.b
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4404,10 +4342,9 @@ orn:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4501,11 +4438,9 @@ rev8:
   xlen: [32,64]
   std_op: grevi
   isa: 
-    - IB
-    - IK
     - IZbb
-    - IZk
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'kformat'
@@ -4527,10 +4462,9 @@ ror:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4624,10 +4558,9 @@ rori:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'iformat'
@@ -4646,10 +4579,9 @@ roriw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'iformat'
@@ -4668,10 +4600,9 @@ rorw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4765,7 +4696,6 @@ sext.b:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4782,7 +4712,6 @@ sext.h:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4799,10 +4728,9 @@ xnor:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4871,7 +4799,6 @@ zext.h:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -4888,10 +4815,9 @@ clmul:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbc
     - IZbkc
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -4946,10 +4872,9 @@ clmulh:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbc
     - IZbkc
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -5003,7 +4928,6 @@ clmulr:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbc
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -5054,7 +4978,6 @@ bclr:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -5139,7 +5062,6 @@ bclri:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -5156,7 +5078,6 @@ bext:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -5241,7 +5162,6 @@ bexti:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -5258,7 +5178,6 @@ binv:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -5345,7 +5264,6 @@ binvi:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -5362,7 +5280,6 @@ bset:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -12126,7 +12043,6 @@ bseti:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -12143,9 +12059,7 @@ xperm4:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
-    - IZbk
     - IZbkx
     - IZkn
     - IZks
@@ -12166,9 +12080,7 @@ xperm8:
   xlen: [32,64]
   std_op:
   isa:
-    - IK
     - IZk
-    - IZbk
     - IZbkx
     - IZkn
     - IZks
@@ -12189,11 +12101,8 @@ brev8:
   xlen: [32,64]
   std_op: brev8
   isa:
-    - IB
-    - IK
-    - IZbb
-    - IZk
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'kformat'
