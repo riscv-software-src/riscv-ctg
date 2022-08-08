@@ -902,9 +902,8 @@ nop                                                                         ;\
 RVTEST_SIGUPD(swreg,destreg,offset) 
 //SREG destreg, offset(swreg);
 
-#define TEST_STORE_F(swreg,testreg,fcsr_val,rs1,rs2,rs2_val,imm_val,offset,inst,adj,flagreg, linst);\
-LI(flagreg,rs2_val)                                                           ;\
-linst rs2, flagreg                                                          ;\
+#define TEST_STORE_F(swreg,testreg,fcsr_val,rs1,rs2,imm_val,offset,inst,adj,flagreg,valaddr_reg, val_offset);\
+LOAD_MEM_VAL(FLREG, valaddr_reg, rs2, val_offset, testreg); \
 addi rs1,swreg,offset+adj                                                     ;\
 LI(testreg,imm_val)                                                         ;\
 sub rs1,rs1,testreg                                                          ;\
@@ -915,7 +914,7 @@ csrr flagreg, fcsr                                                         ;\
 RVTEST_SIGUPD(swreg,flagreg,offset+SIGALIGN)
 
 #define TEST_LOAD_F(swreg,testreg,fcsr_val,rs1,destreg,imm_val,inst,adj,flagreg)    ;\
-LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                               ;\
+LA(rs1,rvtest_data+adj-imm_val)                                               ;\
 LI(testreg, fcsr_val); csrw fcsr, testreg                                                ;\
 inst destreg, imm_val(rs1)                                                              ;\
 nop                                                                                     ;\
