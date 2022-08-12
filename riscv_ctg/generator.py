@@ -204,6 +204,7 @@ class Generator():
         iflen = ifl
         base_isa = base_isa_str
 
+
         is_nan_box = False
         is_fext = any(['F' in x or 'D' in x for x in opnode['isa']])
 
@@ -247,6 +248,7 @@ class Generator():
             else:
                 logger.warning("{0} not defined for {1}. Defaulting to [0].".format(key,self.opcode))
                 datasets[entry] = [0]
+
         self.datasets = datasets
         self.random=randomization
         self.default_regs = get_default_registers(self.op_vars, self.datasets)
@@ -771,17 +773,10 @@ class Generator():
         hits = defaultdict(lambda:set([]))
         final_instr = []
         def eval_inst_coverage(coverpoints,instr):
-            rm_dict = {
-                'rne':0,
-                'rtz':1,
-                'rdn':2,
-                'rup':3,
-                'rmm':4,
-                'dyn':7 }
             cover_hits = {}
             var_dict = {}
             for key in self.val_vars:
-                if 'imm_val' in instr:
+                if key == 'imm_val':
                     if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                         var_dict['imm_val'] = \
@@ -797,34 +792,6 @@ class Generator():
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
-                    fs1=fe1=fm1=fs2=fe2=fm2=fs3=fe3=fm3=None
-                    bin_val = ''
-                    e_sz = 0
-                    m_sz = 0
-                    if self.opcode[0] == 'f' and 'fence' not in self.opcode and 'fcvt.s.w' not in self.opcode and 'fcvt.s.wu' not in self.opcode and 'fmv.w.x' not in self.opcode and "fsw" not in self.opcode and "fcvt.s.l" not in self.opcode and 'fcvt.s.lu' not in self.opcode and 'fcvt.d.w' not in self.opcode and 'fcvt.d.wu' not in self.opcode and 'fcvt.d.l' not in self.opcode and 'fcvt.d.lu' not in self.opcode and 'fmv.d.x' not in self.opcode and "fld" not in self.opcode and "fsd" not in self.opcode:
-                        if (self.flen == 32):
-                            e_sz = 8
-                        else:
-                            e_sz = 11
-                        if (self.flen == 32):
-                            m_sz = 23
-                        else:
-                            m_sz = 52
-                        if 'rs1_val' in instr:
-                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs1_val'])
-                            var_dict['fs1'] = int(bin_val[0],2)
-                            var_dict['fe1'] = int(bin_val[1:e_sz+1],2)
-                            var_dict['fm1'] = int(bin_val[e_sz+1:],2)
-                        if 'rs2_val' in instr:
-                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs2_val'])
-                            var_dict['fs2'] = int(bin_val[0],2)
-                            var_dict['fe2'] = int(bin_val[1:e_sz+1],2)
-                            var_dict['fm2'] = int(bin_val[e_sz+1:],2)
-                        if 'rs3_val' in instr:
-                            bin_val = ('{:0'+str(self.iflen)+'b}').format(var_dict['rs3_val'])
-                            var_dict['fs3'] = int(bin_val[0],2)
-                            var_dict['fe3'] = int(bin_val[1:e_sz+1],2)
-                            var_dict['fm3'] = int(bin_val[e_sz+1:],2)
                     if eval(coverpoint,globals(),var_dict):
                         valcomb_hits.add(coverpoint)
                 cover_hits['val_comb']=valcomb_hits
