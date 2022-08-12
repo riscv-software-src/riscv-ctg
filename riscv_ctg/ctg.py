@@ -14,13 +14,7 @@ from riscv_ctg.generator import Generator
 from math import *
 from riscv_ctg.__init__ import __version__
 
-def create_test(usage_str, node,label,base_isa,max_inst):
-    global op_template
-    global ramdomize
-    global out_dir
-    global xlen
-    global flen
-
+def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize, out_dir, xlen, flen):
     iflen = 0
     if 'mnemonics' not in node:
         logger.warning("mnemonics node not found in covergroup: " + str(label))
@@ -88,12 +82,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         logger.warning("Skipping :" + str(opcode))
         return
 
-def ctg(verbose, out, random ,xlen_arg, flen_arg, cgf_file,num_procs,base_isa, max_inst):
-    global op_template
-    global randomize
-    global out_dir
-    global xlen
-    global flen
+def ctg(verbose, out, random ,xlen_arg,flen_arg, cgf_file,num_procs,base_isa, max_inst):
     logger.level(verbose)
     logger.info('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
     logger.info('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
@@ -119,5 +108,11 @@ def ctg(verbose, out, random ,xlen_arg, flen_arg, cgf_file,num_procs,base_isa, m
     op_template = utils.load_yamls(const.template_files)
     cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
-    results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
+# <<<<<<< HEAD
+    # results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
+    # pool.close()
+# =======
+    results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst, op_template,
+        randomize, out_dir, xlen, flen) for label,node in cgf.items()])
     pool.close()
+# >>>>>>> master
