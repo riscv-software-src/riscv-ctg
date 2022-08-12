@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.2]
+- Fix errors related to global variables across processes.
+
 ## [0.7.1] - 2022-02-07
 - Fixed mistune version for doc build.
 
