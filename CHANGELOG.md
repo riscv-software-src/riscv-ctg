@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2022-08-08
+- Added support for a distributed template database.
+- Added generic mechanisms to generate data sections based on test instances.
+- Update templates for floating point tests.
+- Fix test generation and macros for floating point tests.
+
 ## [0.7.2]
 - Fix errors related to global variables across processes.
 

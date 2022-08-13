@@ -180,18 +180,20 @@ def gen_bitmanip_dataset(bit_width,sign=True):
 # dataset for 0x5, 0xa, 0x3, 0xc, 0x6, 0x9 patterns
 
     dataset = ["0x"+"".join(["5"]*int(bit_width/4)), "0x"+"".join(["a"]*int(bit_width/4)), "0x"+"".join(["3"]*int(bit_width/4)), "0x"+"".join(["6"]*int(bit_width/4)),"0x"+"".join(["9"]*int(bit_width/4)),"0x"+"".join(["c"]*int(bit_width/4))]
-    dataset = list(map(conv_func,dataset)) 
+    dataset = list(map(conv_func,dataset))
 
 # dataset0 is  for 0,1 and 0xf pattern. 0xf pattern is added instead of -1 so that code for checking coverpoints in coverage.py
 # is kept simple.
 
     dataset0 = [0,1,"0x"+"".join(["f"]*int(bit_width/4))]
-    dataset0 = list(map(conv_func,dataset0)) 
+    dataset0 = list(map(conv_func,dataset0))
 
 # increment each value in dataset, increment each value in dataset, add them to the dataset
     return dataset + [x - 1 for x in dataset] + [x+1 for x in dataset] + dataset0
 
-template_file = os.path.join(root,"data/template.yaml")
+template_fnames = ["template.yaml","imc.yaml","fd.yaml"]
+
+template_files = [os.path.join(root,"data/"+f) for f in template_fnames]
 
 usage = Template('''
 // -----------
@@ -239,7 +241,7 @@ $sig
 RVMODEL_DATA_END
 ''')
 case_template = Template('''
-RVTEST_CASE($num,"//check ISA:=regex(.*$xlen.*);$cond;def TEST_CASE_1=True;",$cov_label)
+RVTEST_CASE($num,"//$cond;def TEST_CASE_1=True;",$cov_label)
 ''')
 
 part_template = Template('''
@@ -251,6 +253,6 @@ $code
 
 signode_template = Template('''
 $label:
-    .fill $n*(XLEN/32),4,0xdeadbeef
+    .fill $n*$sz,4,0xdeadbeef
 ''')
 

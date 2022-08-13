@@ -40,23 +40,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+      
       - name: version check
         run: |
           export CHNGVER=$(grep -P -o '(?<=## \[).*(?=\])' -m1 CHANGELOG.md); 
           echo "CHANGELOG VERSION: $CHNGVER"
-          export INITVER=$(grep -P "__version__ = '.*?'" riscv_ctg/__init__.py | awk '{print $3}'|sed "s/'//g"); 
-          echo "INIT VERSION: $INITVER"
-          export TAGVER=$(git describe --tags --abbrev=0);
-          echo "TAGVER: $TAGVER"
-          if [ "$CHNGVER" = "$INITVER" ]; then
-              echo "Versions are equal in Changelog and init.py."
-          else
-              echo "Versions are not equal in Changelog and init.py."
-              exit 1
-          fi
+          export TAGVER=${{ steps.get-latest-tag.outputs.tag }}; 
+          echo "TAG VERSION: $TAGVER"
           if [ "$CHNGVER" = "$TAGVER" ]; then
-              echo "Versions are equal in Changelog and current tag."
+              echo "No changelog update."
               exit 1
           else
-              echo "Versions are not equal in Changelog and current tag. Good."
+              echo "Changelog updated."
           fi
