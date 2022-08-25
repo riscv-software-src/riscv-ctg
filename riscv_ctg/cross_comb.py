@@ -193,7 +193,7 @@ class cross():
                         # Get possible instructions based on the operand list
                         problem.reset()
                         problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                        problem.addConstraint(lambda i: all(item in OPS[self.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
@@ -214,19 +214,19 @@ class cross():
                         # Get possible instructions
                         problem.reset()
                         problem.addVariable('i', dntcare_instrs)
-                        problem.addConstraint(lambda i: all(item in OPS[cross.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
+                        problem.addConstraint(lambda i: all(item in OPS[self.OP_TEMPLATE[i]['formattype']] for item in opr_lst))
                         instrs_sol = problem.getSolutions()
                         
                         instrs_sol = [list(each.items())[0][1] for each in instrs_sol]
 
                     # Randomly choose an instruction
                     instr = random.choice(instrs_sol)
-                    isa_set += (cross.OP_TEMPLATE[instr]['isa'])
+                    isa_set += (self.OP_TEMPLATE[instr]['isa'])
 
                     # Choose operand values
-                    formattype = cross.OP_TEMPLATE[instr]['formattype']
+                    formattype = self.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]
-                    instr_template = cross.OP_TEMPLATE[instr]
+                    instr_template = self.OP_TEMPLATE[instr]
                     
                     # Choose register values
                     problem.reset()
@@ -294,7 +294,7 @@ class cross():
 
                     opr_lst = list(set(opr_lst))                  
 
-                    if data[i] in cross.OP_TEMPLATE:                                    # If single instruction
+                    if data[i] in self.OP_TEMPLATE:                                    # If single instruction
                         instr = data[i]
                     else:                        
                         if data[i].find('(') != -1:                                     # If data is a tuple of instructions
@@ -304,9 +304,9 @@ class cross():
                             logger.error('Invalid instruction/alias in cross_comb: ' + data[i])
                     
                     # Gather operands
-                    formattype = cross.OP_TEMPLATE[instr]['formattype']
+                    formattype = self.OP_TEMPLATE[instr]['formattype']
                     oprs = OPS[formattype]        
-                    instr_template = cross.OP_TEMPLATE[instr]
+                    instr_template = self.OP_TEMPLATE[instr]
                     
                     problem.reset()
                     for opr in oprs:
@@ -351,7 +351,7 @@ class cross():
                         for each in assgns:
                             exec(each)
                     
-                    isa_set += (cross.OP_TEMPLATE[instr]['isa'])
+                    isa_set += (self.OP_TEMPLATE[instr]['isa'])
                     
                     # Set floating point flag if instruction belongs to F or D extension
                     if instr[0] == 'f' and instr != 'fence':
@@ -463,7 +463,7 @@ class cross():
                 if 'rd' in each:
                     rd_lst.add(each['rd'])
 
-                instr_str_format = Template(INSTR_FORMAT[cross.OP_TEMPLATE[each['instr']]['formattype']])
+                instr_str_format = Template(INSTR_FORMAT[self.OP_TEMPLATE[each['instr']]['formattype']])
                 instr_str = instr_str_format.substitute(each)
                 code = code + instr_str + '\n'
             
