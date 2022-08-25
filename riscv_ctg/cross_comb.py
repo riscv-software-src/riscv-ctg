@@ -101,7 +101,7 @@ class cross():
         global base_isa
         
         # Template dictionary
-        OP_TEMPLATE = utils.load_yamls(const.template_files)
+        self.OP_TEMPLATE = utils.load_yamls(const.template_files)
 
         xlen = xlen_in
         base_isa = base_isa_str
