@@ -815,6 +815,7 @@ class Generator():
                     cover_hits['rd'] = set([var_dict['rd']])
             return cover_hits
         i = 0
+
         if not self.is_fext:
             for instr in instr_dict:
                 unique = False
