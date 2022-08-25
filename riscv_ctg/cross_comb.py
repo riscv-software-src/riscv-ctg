@@ -94,15 +94,15 @@ class cross():
     '''
     A cross class to genereate RISC-V assembly tests for cross-combination coverpoints.
     '''
-
-    # Template dictionary
-    OP_TEMPLATE = utils.load_yaml(const.template_file)
     
     def __init__(self, base_isa_str, xlen_in, randomize, label):
         global xlen
         global flen
         global base_isa
         
+        # Template dictionary
+        OP_TEMPLATE = utils.load_yamls(const.template_files)
+
         xlen = xlen_in
         base_isa = base_isa_str
 
