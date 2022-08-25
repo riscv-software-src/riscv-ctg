@@ -10,6 +10,7 @@ import ruamel
 from ruamel.yaml import YAML
 from collections import defaultdict
 import riscv_ctg.constants as const
+from riscv_isac.utils import combineReader
 
 yaml = YAML(typ="rt")
 yaml.default_flow_style = False
@@ -58,6 +59,10 @@ def get_instr_list():
     instr_lst.remove('metadata')
 
     return instr_lst
+
+def load_yamls(foo):
+    with combineReader(foo) as fp:
+        return dict(yaml.load(fp))
 
 class makeUtil():
     """
@@ -345,7 +350,7 @@ def sys_command(command):
 def sys_command_file(command, filename):
     cmd = command.split(' ')
     cmd = [x.strip(' ') for x in cmd]
-    cmd = [i for i in cmd if i] 
+    cmd = [i for i in cmd if i]
     logger.debug('{0} > {1}'.format(' '.join(cmd), filename))
     fp = open(filename, 'w')
     out = subprocess.Popen(cmd, stdout=fp, stderr=fp)

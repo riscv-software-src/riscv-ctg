@@ -15,43 +15,40 @@ from riscv_ctg.cross_comb import cross
 from math import *
 from riscv_ctg.__init__ import __version__
 
-def create_test(usage_str, node,label,base_isa,max_inst):
-    global op_template
-    global ramdomize
-    global out_dir
-    global xlen
-
-    flen = 0
-    if 'mnemonics' not in node and label != 'datasets':
+def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize, out_dir, xlen, flen):
+    iflen = 0
+    if 'mnemonics' not in node:
         logger.warning("mnemonics node not found in covergroup: " + str(label))
         return
     if 'ignore' in node:
         logger.info("Ignoring :" + str(label))
         if node['ignore']:
             return
-    
+
     # Function to encompass checks and test generation
     def gen_test(op_node, opcode):
+        iflen = 0
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
         flen = 0
         if 'flen' in op_node:
-            if '.d' in opcode:
-                flen = 64
-            elif '.s' in opcode:
-                flen = 32
-            else:
-                flen = op_node['flen'][0]
-            #if flen not in op_node['flen']:
-            #    return
+            if flen not in op_node['flen']:
+                logger.warning("Skipping {0} since its not supported in current FLEN({1}):".format(\
+                        opcode, flen))
+                return
+            iflen = min(op_node['flen'])
         fprefix = os.path.join(out_dir,str(label))
         logger.info('Generating Test for :' + str(label) +"-" + opcode)
         formattype  = op_node['formattype']
-        gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,base_isa)
+        gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,iflen,base_isa)
         op_comb = gen.opcomb(node)
         val_comb = gen.valcomb(node)
-        instr_dict = gen.correct_val(gen.testreg(gen.swreg(gen.gen_inst(op_comb, val_comb, node))))
+        instr_dict = gen.correct_val(
+            gen.valreg(
+                gen.testreg(
+                    gen.swreg(
+                        gen.gen_inst(op_comb, val_comb, node)))))
         logger.info("Writing tests for :"+str(label))
         my_dict = gen.reformat_instr(instr_dict)
         gen.write_test(fprefix,node,label,my_dict, op_node, usage_str, max_inst)
@@ -66,7 +63,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         if base_op in op_template and pseudop in op_template:
             op_node = copy.deepcopy(op_template[base_op])
             pseudo_template = op_template[pseudop]
-            
+
             # Ovewrite/add nodes from pseudoinstruction template in base instruction template
             for key, val in pseudo_template.items():
                 op_node[key] = val
@@ -82,7 +79,7 @@ def create_test(usage_str, node,label,base_isa,max_inst):
             else:
                 logger.warning(str(opcode) + " not found in template file. Skipping")
                 return
-    
+                
     if 'cross_comb' in node:
         fprefix = os.path.join(out_dir,str(label))
         cross_obj = cross(base_isa, xlen, randomize, label)
@@ -91,15 +88,12 @@ def create_test(usage_str, node,label,base_isa,max_inst):
         cross_obj.write_test(fprefix, node, usage_str, label, cross_instr_dict)
     
     # Return if there is no corresponding template 
+
     if op_node is None:
         logger.warning("Skipping :" + str(opcode))
         return
 
-def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
-    global op_template
-    global randomize
-    global out_dir
-    global xlen
+def ctg(verbose, out, random ,xlen_arg,flen_arg, cgf_file,num_procs,base_isa, max_inst):
     logger.level(verbose)
     logger.info('****** RISC-V Compliance Test Generator {0} *******'.format(__version__ ))
     logger.info('Copyright (c) 2020, InCore Semiconductors Pvt. Ltd.')
@@ -109,6 +103,7 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     if not os.path.exists(env_dir):
         shutil.copytree(const.env,env_dir)
     xlen = int(xlen_arg)
+    flen = int(flen_arg)
     out_dir = out
     randomize = random
     mytime = time.asctime(time.gmtime(time.time()) ) + ' GMT'
@@ -121,10 +116,14 @@ def ctg(verbose, out, random ,xlen_arg, cgf_file,num_procs,base_isa, max_inst):
     usage_str = const.usage.safe_substitute(base_isa=base_isa, \
             cgf=cgf_argument, version = __version__, time=mytime, \
             randomize=randomize_argument,xlen=str(xlen_arg))
-    op_template = utils.load_yaml(const.template_file)
-    cgf = expand_cgf(cgf_file,xlen)
-    if 'datasets' in cgf:
-        del cgf['datasets']
+    op_template = utils.load_yamls(const.template_files)
+    cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
-    results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
+# <<<<<<< HEAD
+    # results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
+    # pool.close()
+# =======
+    results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst, op_template,
+        randomize, out_dir, xlen, flen) for label,node in cgf.items()])
     pool.close()
+# >>>>>>> master
