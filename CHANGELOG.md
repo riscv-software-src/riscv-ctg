@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] - 2022-08-25
+- Added support for cross_comb coverpoint test generation
+
 ## [0.8.0] - 2022-08-08
 - Added support for a distributed template database.
 - Added generic mechanisms to generate data sections based on test instances.
