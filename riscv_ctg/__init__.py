@@ -4,5 +4,5 @@
 
 __author__ = """InCore Semiconductors Pvt Ltd"""
 __email__ = 'incorebot@gmail.com'
-__version__ = '0.8.0'
+__version__ = '0.9.0'
 

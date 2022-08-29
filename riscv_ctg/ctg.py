@@ -11,6 +11,7 @@ import riscv_ctg.utils as utils
 import riscv_ctg.constants as const
 from riscv_isac.cgf_normalize import expand_cgf
 from riscv_ctg.generator import Generator
+from riscv_ctg.cross_comb import cross
 from math import *
 from riscv_ctg.__init__ import __version__
 
@@ -61,6 +62,7 @@ def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize,
         if base_op in op_template and pseudop in op_template:
             op_node = copy.deepcopy(op_template[base_op])
             pseudo_template = op_template[pseudop]
+
             # Ovewrite/add nodes from pseudoinstruction template in base instruction template
             for key, val in pseudo_template.items():
                 op_node[key] = val
@@ -77,7 +79,15 @@ def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize,
                 logger.warning(str(opcode) + " not found in template file. Skipping")
                 return
 
+    if 'cross_comb' in node:
+        fprefix = os.path.join(out_dir,str(label))
+        cross_obj = cross(base_isa, xlen, randomize, label)
+        cross_instr_dict = cross_obj.cross_comb(node)
+        logger.info('Writing cross-comb test')
+        cross_obj.write_test(fprefix, node, usage_str, label, cross_instr_dict)
+
     # Return if there is no corresponding template
+
     if op_node is None:
         logger.warning("Skipping :" + str(opcode))
         return
@@ -108,11 +118,6 @@ def ctg(verbose, out, random ,xlen_arg,flen_arg, cgf_file,num_procs,base_isa, ma
     op_template = utils.load_yamls(const.template_files)
     cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
-# <<<<<<< HEAD
-    # results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
-    # pool.close()
-# =======
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst, op_template,
         randomize, out_dir, xlen, flen) for label,node in cgf.items()])
     pool.close()
-# >>>>>>> master
