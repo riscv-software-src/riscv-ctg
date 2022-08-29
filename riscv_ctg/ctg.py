@@ -31,7 +31,6 @@ def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize,
         if xlen not in op_node['xlen']:
             logger.warning("Skipping {0} since its not supported in current XLEN:".format(opcode))
             return
-        flen = 0
         if 'flen' in op_node:
             if flen not in op_node['flen']:
                 logger.warning("Skipping {0} since its not supported in current FLEN({1}):".format(\
@@ -79,15 +78,15 @@ def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize,
             else:
                 logger.warning(str(opcode) + " not found in template file. Skipping")
                 return
-                
+
     if 'cross_comb' in node:
         fprefix = os.path.join(out_dir,str(label))
         cross_obj = cross(base_isa, xlen, randomize, label)
         cross_instr_dict = cross_obj.cross_comb(node)
         logger.info('Writing cross-comb test')
         cross_obj.write_test(fprefix, node, usage_str, label, cross_instr_dict)
-    
-    # Return if there is no corresponding template 
+
+    # Return if there is no corresponding template
 
     if op_node is None:
         logger.warning("Skipping :" + str(opcode))
@@ -119,11 +118,6 @@ def ctg(verbose, out, random ,xlen_arg,flen_arg, cgf_file,num_procs,base_isa, ma
     op_template = utils.load_yamls(const.template_files)
     cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
-# <<<<<<< HEAD
-    # results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst) for label,node in cgf.items()])
-    # pool.close()
-# =======
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst, op_template,
         randomize, out_dir, xlen, flen) for label,node in cgf.items()])
     pool.close()
-# >>>>>>> master
