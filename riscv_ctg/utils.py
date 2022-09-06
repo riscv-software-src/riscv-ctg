@@ -8,6 +8,9 @@ import shlex
 from riscv_ctg.log import logger
 import ruamel
 from ruamel.yaml import YAML
+from collections import defaultdict
+import riscv_ctg.constants as const
+from riscv_isac.utils import combineReader
 
 yaml = YAML(typ="rt")
 yaml.default_flow_style = False
@@ -22,6 +25,44 @@ def load_yaml(foo):
         error = "\n".join(str(msg).split("\n")[2:-7])
         logger.error(error)
         raise SystemExit
+
+def gen_format_data():
+    '''
+    Generate dictionary from template.yaml file with the structure:
+    Format:
+        - ISA
+            - Mnemonics
+    '''    
+    op_template = load_yaml(const.template_file)
+
+    # Initialize nested dictionary
+    nested_dict = lambda: defaultdict(nested_dict)
+    format_dict = nested_dict()
+    
+    for mnemonic, data in op_template.items():
+        if mnemonic not in ['metadata']:
+            format_type = data['formattype']
+            isa = data['isa']
+
+            for each in isa:
+                format_dict[format_type][each][mnemonic] = None
+            
+    return format_dict
+
+def get_instr_list():
+    '''
+    Get list of all instructions defined in template file
+    '''
+    op_template = load_yaml(const.template_file)
+
+    instr_lst = list(op_template.keys())
+    instr_lst.remove('metadata')
+
+    return instr_lst
+
+def load_yamls(foo):
+    with combineReader(foo) as fp:
+        return dict(yaml.load(fp))
 
 class makeUtil():
     """
@@ -309,7 +350,7 @@ def sys_command(command):
 def sys_command_file(command, filename):
     cmd = command.split(' ')
     cmd = [x.strip(' ') for x in cmd]
-    cmd = [i for i in cmd if i] 
+    cmd = [i for i in cmd if i]
     logger.debug('{0} > {1}'.format(' '.join(cmd), filename))
     fp = open(filename, 'w')
     out = subprocess.Popen(cmd, stdout=fp, stderr=fp)
