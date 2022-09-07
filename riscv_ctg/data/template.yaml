@@ -14,16 +14,18 @@ aes32dsi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32dsmi:
   sig:
@@ -32,16 +34,18 @@ aes32dsmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32esi:
   sig:
@@ -50,16 +54,18 @@ aes32esi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZkne
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 aes32esmi:
   sig:
@@ -68,16 +74,18 @@ aes32esmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZkne
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sm4ed:
   sig:
@@ -89,13 +97,14 @@ sm4ed:
   xlen: [32,64]
   std_op:
   isa: 
-    - I_Zks
+    - IZks
+    - IZksed
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
     
 sm4ks:
   sig:
@@ -107,13 +116,14 @@ sm4ks:
   xlen: [32,64]
   std_op:
   isa: 
-    - I_Zks
+    - IZks
+    - IZksed
   formattype: 'bsformat'
   template: |-
 
     // $comment
     // opcode: $inst; rd:$rd; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; immval:$imm_val
-    TEST_RI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RRI_OP($inst, $rd, $rs1, $rs2, $imm_val, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sha256sig0:
   sig:
@@ -122,7 +132,9 @@ sha256sig0:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -143,7 +155,9 @@ sha256sig1:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -164,7 +178,9 @@ sha256sum0:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -185,7 +201,9 @@ sha256sum1:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -206,7 +224,8 @@ sm3p0:
   xlen: [32,64]
   std_op:
   isa: 
-    - I_Zks
+    - IZks
+    - IZksh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -227,7 +246,8 @@ sm3p1:
   xlen: [32,64]
   std_op:
   isa: 
-    - I_Zks
+    - IZks
+    - IZksh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -245,10 +265,12 @@ sha512sig0h:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -265,10 +287,12 @@ sha512sig0l:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -285,10 +309,12 @@ sha512sig1h:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -305,10 +331,12 @@ sha512sig1l:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -325,10 +353,12 @@ sha512sum0r:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -345,10 +375,12 @@ sha512sum1r:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32,64]
+  xlen: [32]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -369,10 +401,9 @@ rol:
   std_op:
   operation: 'hex((rs1_val << (rs2_val%xlen)) & (2**(xlen)-1))'
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -412,10 +443,13 @@ zip:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32, 64]
+  xlen: [32]
   std_op: shfli
   isa: 
-    - I
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -424,7 +458,7 @@ zip:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
-    shfli $rd, $rs1, 15
+    zip $rd, $rs1
     sw $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
@@ -432,10 +466,13 @@ unzip:
   sig:
     stride: 1
     sz: 'XLEN/8'
-  xlen: [32, 64]
+  xlen: [32]
   std_op: unshfli
   isa: 
-    - I
+    - IZk
+    - IZbkb
+    - IZkn
+    - IZks
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -444,7 +481,7 @@ unzip:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     li $rs1, $rs1_val
-    unshfli $rd, $rs1, 15
+    unzip $rd, $rs1
     sw $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
@@ -455,8 +492,6 @@ pack:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -496,8 +531,6 @@ packh:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -555,7 +588,9 @@ aes64ds:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -573,7 +608,9 @@ aes64dsm:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -591,7 +628,9 @@ aes64es:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZkne
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -609,7 +648,9 @@ aes64esm:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZkne
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -627,7 +668,10 @@ aes64ks1i:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
+    - IZkne
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -644,7 +688,10 @@ aes64ks2:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
+    - IZkne
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -664,7 +711,9 @@ sha512sig0:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -685,7 +734,9 @@ sha512sig1:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -706,7 +757,9 @@ sha512sum0:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -727,7 +780,9 @@ sha512sum1:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknh
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -748,7 +803,9 @@ aes64im:
   xlen: [64]
   std_op:
   isa: 
-    - IK
+    - IZk
+    - IZkn
+    - IZknd
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -769,10 +826,9 @@ rolw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -812,8 +868,6 @@ packw:
   xlen: [64]
   std_op:
   isa: 
-    - IK
-    - IZbb
     - IZk
     - IZbkb
     - IZkn
@@ -853,7 +907,6 @@ add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -874,7 +927,6 @@ sh1add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -895,7 +947,6 @@ sh1add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -916,7 +967,6 @@ sh2add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -937,7 +987,6 @@ sh2add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -958,7 +1007,6 @@ sh3add:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -979,7 +1027,6 @@ sh3add.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -1000,7 +1047,6 @@ slli.uw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZba
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -1021,10 +1067,9 @@ andn:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -1429,7 +1474,6 @@ clz:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1448,7 +1492,6 @@ clzw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1467,7 +1510,6 @@ cpop:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1486,7 +1528,6 @@ cpopw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1505,7 +1546,6 @@ ctz:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1524,7 +1564,6 @@ ctzw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1543,7 +1582,6 @@ max:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -1555,7 +1593,7 @@ max:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 ukcras16:
   sig:
@@ -1590,7 +1628,6 @@ maxu:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -1602,7 +1639,7 @@ maxu:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 crsa16:
   sig:
@@ -1637,7 +1674,6 @@ min:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -1684,7 +1720,6 @@ minu:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -1756,9 +1791,8 @@ orc.b:
     stride: 1
     sz: 'XLEN/8'
   xlen: [32,64]
-  std_op:
+  std_op: orc.b
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -1777,10 +1811,9 @@ orn:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -1793,7 +1826,7 @@ orn:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 ukcrsa16:
   sig:
@@ -1882,11 +1915,9 @@ rev8:
   xlen: [32,64]
   std_op: grevi
   isa: 
-    - IB
-    - IK
     - IZbb
-    - IZk
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'kformat'
@@ -1910,10 +1941,9 @@ ror:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -2015,10 +2045,9 @@ rori:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'iformat'
@@ -2039,10 +2068,9 @@ roriw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'iformat'
@@ -2063,10 +2091,9 @@ rorw:
   xlen: [64]
   std_op:
   isa: 
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -2079,7 +2106,7 @@ rorw:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 stsa16:
   sig:
@@ -2168,7 +2195,6 @@ sext.b:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -2187,7 +2213,6 @@ sext.h:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -2206,10 +2231,9 @@ xnor:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbb
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -2284,7 +2308,6 @@ zext.h:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbb
   formattype: 'kformat'
   rs1_op_data: *all_regs
@@ -2303,10 +2326,9 @@ clmul:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbc
-    - IZbkb
+    - IZbkc
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -2319,7 +2341,7 @@ clmul:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 
 # 3.1.2. 8-bit Addition & Subtraction Instructions
@@ -2365,10 +2387,9 @@ clmulh:
   xlen: [32,64]
   std_op:
   isa:
-    - IB
-    - IK
     - IZbc
-    - IZbkb
+    - IZbkc
+    - IZk
     - IZkn
     - IZks
   formattype: 'rformat'
@@ -2426,7 +2447,6 @@ clmulr:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbc
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -2481,7 +2501,6 @@ bclr:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -2572,7 +2591,6 @@ bclri:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -2591,7 +2609,6 @@ bext:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -2603,7 +2620,7 @@ bext:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 sub8:
   sig:
@@ -2682,7 +2699,6 @@ bexti:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -2701,7 +2717,6 @@ binv:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -2794,7 +2809,6 @@ binvi:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -2813,7 +2827,6 @@ bset:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -2825,7 +2838,7 @@ bset:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_PKRR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 uksub8:
   sig:
@@ -10135,7 +10148,6 @@ bseti:
   xlen: [32,64]
   std_op:
   isa: 
-    - IB
     - IZbs
   formattype: 'iformat'
   rs1_op_data: *all_regs
@@ -10154,15 +10166,16 @@ xperm4:
   xlen: [32,64]
   std_op:
   isa: 
-    - IK
     - IZk
-    - IZbk
+    - IZbkx
     - IZkn
     - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -10176,15 +10189,16 @@ xperm8:
   xlen: [32,64]
   std_op:
   isa:
-    - IK
     - IZk
-    - IZbk
+    - IZbkx
     - IZkn
     - IZks
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen)+gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_usign_dataset(xlen) + gen_sp_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -10198,17 +10212,14 @@ brev8:
   xlen: [32,64]
   std_op: brev8
   isa:
-    - IB
-    - IK
-    - IZbb
-    - IZk
     - IZbkb
+    - IZk
     - IZkn
     - IZks
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
-  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+gen_bitmanip_dataset(xlen,False)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
   template: |-
 
     // $comment
@@ -10218,3 +10229,73 @@ brev8:
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
+# place holder for gorci instruction until it is rattified
+gorci:
+  stride: 1
+  xlen: [32,64]
+  std_op: gorci
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    gorci $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+# place holder for grevi instruction until it is rattified
+grevi:
+  stride: 1
+  xlen: [32,64]
+  std_op: grevi
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    grevi $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+shfli:
+  stride: 1
+  xlen: [32]
+  std_op: shfli
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    shfli $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+unshfli:
+  stride: 1
+  xlen: [32]
+  std_op: unshfli
+  isa:
+    - IB
+  formattype: 'iformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_regs
+  template: |-
+
+    // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
+    li $rs1, $rs1_val
+    unshfli $rd, $rs1, $imm_val
+    sw $rd, $offset($swreg)
+    RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
