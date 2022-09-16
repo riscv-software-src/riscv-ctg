@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.10.1] - 2022-09-16
 - Fixed use of lowercase LI.
 - Fixed correctval to ?? in comments. 
+- Fixed sw to SREG for K tests.
 
 ## [0.10.0] - 2022-09-05
 - Added support for bitmanip and crypto scalar coverpoint test generation
