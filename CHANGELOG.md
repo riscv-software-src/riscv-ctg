@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.1] - 2022-09-30
+- Added support for evaluating derived fields for evaluating coverpoints using the instruction object class
+
 ## [0.10.0] - 2022-09-05
 - Added support for bitmanip and crypto scalar coverpoint test generation
 
