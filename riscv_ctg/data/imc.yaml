@@ -1450,8 +1450,10 @@ c.nop:
   std_op:
   isa: 
     - IC
-  formattype: 'cjformat'
+  formattype: 'ciformat'
   imm_val_data: 'gen_sign_dataset(6)'
+  rs1_data: "['x0']"
+  rs1_val_data: "[0]"
   template: |-
   
     // $comment
