@@ -209,6 +209,11 @@ class Generator():
         is_nan_box = False
         is_fext = any(['F' in x or 'D' in x for x in opnode['isa']])
 
+        if is_fext:
+            if fl>ifl:
+                is_int_src = any([opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
+                is_nan_box = not is_int_src
+
         self.xlen = xl
         self.flen = fl
         self.iflen = ifl
@@ -219,10 +224,6 @@ class Generator():
         self.val_vars = eval(VALS[fmt])
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
-        if is_fext:
-            if fl>ifl:
-                is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
-                is_nan_box = not is_int_src
 
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
@@ -1320,8 +1321,8 @@ class Generator():
         sign.append(signode_template.substitute({'n':n,
                 'label':"signature_"+sreg+"_"+str(regs[sreg]),'sz':sig_sz}))
         test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
-        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute(
-            {'n':64,'label':"mtrap_sigptr",'sz':'XLEN/32'})+"\n#endif\n")
+        sign.append("#ifdef rvtest_mtrap_routine\ntsig_begin_canary:\nCANARY;\n"+signode_template.substitute(
+            {'n':64,'label':"mtrap_sigptr",'sz':'XLEN/32'})+"\ntsig_end_canary:\nCANARY;\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute(
             {'n':32,'label':"gpr_save",'sz':'XLEN/32'})+"\n#endif\n")
         with open(file_name,"w") as fd:

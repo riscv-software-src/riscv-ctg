@@ -19,7 +19,7 @@ def to_int(x):
         return int(x)
 
 def nan_box(prefix,rs,flen,iflen):
-    if prefix == 2**(flen-iflen)-1:
+    if int(prefix) == ((2**(flen-iflen))-1):
         return (rs,iflen)
     else:
         return (str(to_int(rs)|(to_int(prefix)<<iflen)),flen)

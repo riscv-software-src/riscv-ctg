@@ -143,9 +143,9 @@ sha256sig0:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha256sig0 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha256sig1:
@@ -166,9 +166,9 @@ sha256sig1:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha256sig1 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha256sum0:
@@ -189,9 +189,9 @@ sha256sum0:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha256sum0 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha256sum1:
@@ -212,9 +212,9 @@ sha256sum1:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha256sum1 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sm3p0:
@@ -234,9 +234,9 @@ sm3p0:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sm3p0 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sm3p1:
@@ -256,9 +256,9 @@ sm3p1:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sm3p1 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha512sig0h:
@@ -434,9 +434,9 @@ rev.b:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     grevi $rd, $rs1, 7
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 zip:
@@ -457,9 +457,9 @@ zip:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     zip $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 unzip:
@@ -480,9 +480,9 @@ unzip:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     unzip $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 pack:
@@ -722,9 +722,9 @@ sha512sig0:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha512sig0 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 sha512sig1:
@@ -745,9 +745,9 @@ sha512sig1:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha512sig1 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha512sum0:
@@ -768,9 +768,9 @@ sha512sum0:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha512sum0 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 sha512sum1:
@@ -791,9 +791,9 @@ sha512sum1:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     sha512sum1 $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 aes64im:
@@ -814,9 +814,9 @@ aes64im:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     aes64im $rd, $rs1
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
     
 rolw:
@@ -856,9 +856,9 @@ rev8.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     grevi  $rd, $rs1, 24
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 packw:
@@ -1928,7 +1928,7 @@ rev8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     rev8 $rd, $rs1
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
@@ -10224,7 +10224,7 @@ brev8:
 
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     brev8 $rd, $rs1
     RVTEST_SIGUPD($swreg,$rd,$offset)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
@@ -10243,9 +10243,9 @@ gorci:
   template: |-
 
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     gorci $rd, $rs1, $imm_val
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 # place holder for grevi instruction until it is rattified
@@ -10261,9 +10261,9 @@ grevi:
   template: |-
 
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     grevi $rd, $rs1, $imm_val
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 shfli:
@@ -10278,9 +10278,9 @@ shfli:
   template: |-
 
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     shfli $rd, $rs1, $imm_val
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
 
 unshfli:
@@ -10295,7 +10295,7 @@ unshfli:
   template: |-
 
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; immval:$imm_val;
-    li $rs1, $rs1_val
+    LI($rs1,$rs1_val)
     unshfli $rd, $rs1, $imm_val
-    sw $rd, $offset($swreg)
+    SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)

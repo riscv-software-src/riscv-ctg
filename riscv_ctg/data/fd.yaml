@@ -25,7 +25,7 @@ fadd.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; 
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg 
+       correctval:??; testreg:$testreg 
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -54,7 +54,7 @@ fadd.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; 
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg 
+       correctval:??; testreg:$testreg 
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
 
@@ -84,7 +84,7 @@ fsub.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -113,7 +113,7 @@ fsub.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -143,7 +143,7 @@ fmul.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -172,7 +172,7 @@ fmul.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -202,7 +202,7 @@ fdiv.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -231,7 +231,7 @@ fdiv.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -259,7 +259,7 @@ fsqrt.s:
 
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -286,7 +286,7 @@ fsqrt.d:
 
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -551,7 +551,7 @@ fsgnj.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -579,7 +579,7 @@ fsgnj.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2,  $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -608,7 +608,7 @@ fsgnjn.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset;  fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -636,7 +636,7 @@ fsgnjn.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -665,7 +665,7 @@ fsgnjx.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -693,7 +693,7 @@ fsgnjx.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -722,7 +722,7 @@ fmin.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -750,7 +750,7 @@ fmin.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -779,7 +779,7 @@ fmax.s:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -807,7 +807,7 @@ fmax.d:
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset;  fcsr: $fcsr;
-       correctval:$correctval; testreg:$testreg
+       correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -834,7 +834,7 @@ feq.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -860,7 +860,7 @@ feq.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -887,7 +887,7 @@ flt.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -913,7 +913,7 @@ flt.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -940,7 +940,7 @@ fle.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -966,7 +966,7 @@ fle.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
-    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -992,7 +992,7 @@ fmv.w.x:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1018,7 +1018,7 @@ fmv.x.w:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -1045,7 +1045,7 @@ fcvt.w.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1071,7 +1071,7 @@ fcvt.w.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1098,7 +1098,7 @@ fcvt.wu.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1124,7 +1124,7 @@ fcvt.wu.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1150,7 +1150,7 @@ fcvt.l.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1176,7 +1176,7 @@ fcvt.lu.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1201,7 +1201,7 @@ fmv.x.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1,  $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -1228,7 +1228,7 @@ fcvt.s.d:
 
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
     
@@ -1255,7 +1255,7 @@ fcvt.d.s:
 
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)  
     
@@ -1282,7 +1282,7 @@ fcvt.s.w:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1309,7 +1309,7 @@ fcvt.s.wu:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
@@ -1335,7 +1335,7 @@ fcvt.d.w:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1361,7 +1361,7 @@ fcvt.d.wu:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1387,7 +1387,7 @@ fcvt.d.l:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1413,7 +1413,7 @@ fcvt.d.lu:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
@@ -1438,7 +1438,7 @@ fmv.d.x:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1464,7 +1464,7 @@ fclass.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
    
@@ -1489,7 +1489,7 @@ fclass.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
 
@@ -1624,7 +1624,7 @@ fcvt.l.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1651,7 +1651,7 @@ fcvt.lu.s:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
     
@@ -1678,7 +1678,7 @@ fcvt.s.l:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
@@ -1705,7 +1705,7 @@ fcvt.s.lu:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:$correctval; testreg:$testreg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
  
