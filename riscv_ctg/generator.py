@@ -6,6 +6,7 @@ import re
 from riscv_ctg.constants import *
 from riscv_ctg.log import logger
 from riscv_ctg.helpers import *
+from riscv_isac.InstructionObject import instructionObject
 import time
 from math import *
 import struct
@@ -773,6 +774,15 @@ class Generator():
 
         hits = defaultdict(lambda:set([]))
         final_instr = []
+
+        rm_dict = {
+                'rne': 0,
+                'rtz': 1,
+                'rdn': 2,
+                'rup': 3,
+                'rmm': 4,
+                'dyn': 7}
+
         def eval_inst_coverage(coverpoints,instr):
             cover_hits = {}
             var_dict = {}
@@ -790,6 +800,12 @@ class Generator():
                     var_dict[key] = int(instr[key])
             for key in self.op_vars:
                 var_dict[key] = instr[key]
+
+            instr_obj = instructionObject(None, instr['inst'], None)
+            ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
+            if ext_specific_vars is not None:
+                var_dict.update(ext_specific_vars)
+
             if 'val_comb' in coverpoints:
                 valcomb_hits = set([])
                 for coverpoint in coverpoints['val_comb']:
@@ -817,37 +833,34 @@ class Generator():
             return cover_hits
         i = 0
 
-        if not self.is_fext:
-            for instr in instr_dict:
-                unique = False
-                skip_val = False
-                if instr['inst'] in cgf['mnemonics']:
-                    if 'rs1' in instr and 'rs2' in instr:
-                        if instr['rs1'] == instr['rs2']:
-                            skip_val = True
-                    if 'rs1' in instr:
-                        if instr['rs1'] == 'x0' or instr['rs1'] == 'f0':
-                            skip_val = True
-                    if 'rs2' in instr:
-                        if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
-                            skip_val = True
-                    if 'rd' in instr:
-                        if instr['rd'] == 'x0' or instr['rd'] == 'f0':
-                            skip_val = True
-                    cover_hits = eval_inst_coverage(cgf,instr)
-                    for entry in cover_hits:
-                        if entry=='val_comb' and skip_val:
-                            continue
-                        over = hits[entry] & cover_hits[entry]
-                        if over != cover_hits[entry]:
-                            unique = unique or True
-                        hits[entry] |= cover_hits[entry]
-                    if unique:
-                        final_instr.append(instr)
-                    else:
-                        i+=1
-        else:
-            final_instr = instr_dict
+        for instr in instr_dict:
+            unique = False
+            skip_val = False
+            if instr['inst'] in cgf['mnemonics']:
+                if 'rs1' in instr and 'rs2' in instr:
+                    if instr['rs1'] == instr['rs2']:
+                        skip_val = True
+                if 'rs1' in instr:
+                    if instr['rs1'] == 'x0' or instr['rs1'] == 'f0':
+                        skip_val = True
+                if 'rs2' in instr:
+                    if instr['rs2'] == 'x0' or instr['rs2'] == 'f0':
+                        skip_val = True
+                if 'rd' in instr:
+                    if instr['rd'] == 'x0' or instr['rd'] == 'f0':
+                        skip_val = True
+                cover_hits = eval_inst_coverage(cgf,instr)
+                for entry in cover_hits:
+                    if entry=='val_comb' and skip_val:
+                        continue
+                    over = hits[entry] & cover_hits[entry]
+                    if over != cover_hits[entry]:
+                        unique = unique or True
+                    hits[entry] |= cover_hits[entry]
+                if unique:
+                    final_instr.append(instr)
+                else:
+                    i+=1
 
         if any('IP' in isa for isa in self.opnode['isa']):
             if 'p64_profile' in self.opnode:
