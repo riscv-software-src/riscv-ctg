@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Fixed use of lowercase LI.
 - Fixed correctval to ?? in comments. 
 - Fixed sw to SREG for K tests.
+- Added canaries and signature boundary labels.
 
 ## [0.10.1] - 2022-09-30
 - Added support for evaluating derived fields for evaluating coverpoints using the instruction object class
