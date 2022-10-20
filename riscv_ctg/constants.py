@@ -241,7 +241,15 @@ $data
 RVTEST_DATA_END
 
 RVMODEL_DATA_BEGIN
+rvtest_sig_begin:
+sig_begin_canary:
+CANARY;
+
 $sig
+
+sig_end_canary:
+CANARY;
+rvtest_sig_end:
 RVMODEL_DATA_END
 ''')
 

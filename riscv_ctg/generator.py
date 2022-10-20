@@ -1308,8 +1308,8 @@ class Generator():
         sign.append(signode_template.substitute({'n':n,
                 'label':"signature_"+sreg+"_"+str(regs[sreg]),'sz':sig_sz}))
         test = part_template.safe_substitute(case_str=case_str,code='\n'.join(code))
-        sign.append("#ifdef rvtest_mtrap_routine\n"+signode_template.substitute(
-            {'n':64,'label':"mtrap_sigptr",'sz':'XLEN/32'})+"\n#endif\n")
+        sign.append("#ifdef rvtest_mtrap_routine\ntsig_begin_canary:\nCANARY;\n"+signode_template.substitute(
+            {'n':64,'label':"mtrap_sigptr",'sz':'XLEN/32'})+"\ntsig_end_canary:\nCANARY;\n#endif\n")
         sign.append("#ifdef rvtest_gpr_save\n"+signode_template.substitute(
             {'n':32,'label':"gpr_save",'sz':'XLEN/32'})+"\n#endif\n")
         with open(file_name,"w") as fd:
