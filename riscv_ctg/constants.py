@@ -221,6 +221,10 @@ cross_comment_template = '''
 // This assembly file is used for the test of cross-combination coverpoint described in $label covergroup.
 '''
 
+csr_comb_comment_template = '''
+// This assembly file is used for the test of CSR-combination coverpoint described in $label covergroup.
+'''
+
 test_template = Template(copyright_string + comment_template+'''
 #include "model_test.h"
 #include "arch_test.h"
@@ -277,6 +281,30 @@ $sig
 RVMODEL_DATA_END
 ''')
 
+csr_comb_test_template = Template(copyright_string + csr_comb_comment_template + '''
+#include "model_test.h"
+#include "arch_test.h"
+RVTEST_ISA("$isa")
+
+.section .text.init
+.globl rvtest_entry_point
+rvtest_entry_point:
+RVMODEL_BOOT
+RVTEST_CODE_BEGIN
+$test
+
+RVTEST_CODE_END
+RVMODEL_HALT
+
+RVTEST_DATA_BEGIN
+$data
+RVTEST_DATA_END
+
+RVMODEL_DATA_BEGIN
+$sig
+RVMODEL_DATA_END
+''')
+
 case_template = Template('''
 RVTEST_CASE($num,"//$cond;def TEST_CASE_1=True;",$cov_label)
 ''')
@@ -293,3 +321,7 @@ $label:
     .fill $n*$sz,4,0xdeadbeef
 ''')
 
+csr_reg_write_test_template = Template('''
+// $csr_reg & $mask == $val
+TEST_CSR_FIELD_W_MASK($csr_reg, $temp_reg1, $temp_reg2, $mask, $val, $dest_reg, $offset, $base_reg)
+''')
