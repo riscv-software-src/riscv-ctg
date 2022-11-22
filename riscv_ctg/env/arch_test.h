@@ -100,6 +100,14 @@
   #endif
 #endif
 
+#if SIGALIGN==8
+  #define CANARY \
+      .dword 0x6F5CA309E7D4B281
+#else
+  #define CANARY \
+      .word 0x6F5CA309 
+#endif
+
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
 
