@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.3] - 2022-11-22
+- Fixed canary definition
+
 ## [0.10.2] - 2022-10-20
 - Fixed use of lowercase LI.
 - Fixed correctval to ?? in comments. 
