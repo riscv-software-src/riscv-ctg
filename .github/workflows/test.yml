@@ -45,7 +45,7 @@ jobs:
         run: |
           export CHNGVER=$(grep -P -o '(?<=## \[).*(?=\])' -m1 CHANGELOG.md); 
           echo "CHANGELOG VERSION: $CHNGVER"
-          export INITVER=$(grep -P "__version__ = '.*?'" riscof/__init__.py | awk '{print $3}'|sed "s/'//g"); 
+          export INITVER=$(grep -P "__version__ = '.*?'" riscv_ctg/__init__.py | awk '{print $3}'|sed "s/'//g"); 
           echo "INIT VERSION: $INITVER"
           if [ "$CHNGVER" = "$INITVER" ]; then
               echo "Versions are equal in Changelog and init.py."
