@@ -18,7 +18,9 @@ OP_PRIORITY = {
 CSR_REGS = ['mvendorid', 'marchid', 'mimpid', 'mhartid', 'mstatus', 'misa', 'medeleg', 'mideleg', 'mie', 'mtvec', 'mcounteren', 'mscratch', 'mepc', 'mcause', 'mtval', 'mip', 'pmpcfg0', 'pmpcfg1', 'pmpcfg2', 'pmpcfg3', 'mcycle', 'minstret', 'mcycleh', 'minstreth', 'mcountinhibit', 'tselect', 'tdata1', 'tdata2', 'tdata3', 'dcsr', 'dpc', 'dscratch0', 'dscratch1', 'sstatus', 'sedeleg', 'sideleg', 'sie', 'stvec', 'scounteren', 'sscratch', 'sepc', 'scause', 'stval', 'sip', 'satp', 'vxsat', 'fflags', 'frm', 'fcsr']
 
 csr_comb_covpt_regex_string = f'({"|".join(CSR_REGS)})' + r' *& *([^ ].*)== *([^ ].*)'
+csr_comb_covpt_regex_w_bitshift_string = r'\( *' + f'({"|".join(CSR_REGS)})' + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)'
 csr_comb_covpt_regex = re.compile(csr_comb_covpt_regex_string)
+csr_comb_covpt_regex_w_bitshift = re.compile(csr_comb_covpt_regex_w_bitshift_string)
 
 def tokenize(s):
     result = []
@@ -100,7 +102,7 @@ class LiteralExpression(BooleanExpression):
 
 # This function parses coverpoints for the CSR-combination node
 # The coverpoints are assumed of the form: multiple condition clauses combined with and's and or's
-# A coverpoint condition clause is assumed of the form: 'csr_reg & mask == val'
+# A coverpoint condition clause is assumed of the form: 'csr_reg & mask == val' or '(csr_reg >> shift) & mask == val'
 def parse_csr_covpt(covpt):
     toks = tokenize(covpt)
 
@@ -202,16 +204,31 @@ def parse_csr_covpt(covpt):
     return bool_expr
 
 # This function extracts the csr register, the field mask and the field value from the coverpoint clause
-# The coverpoint clause is assumed of the format: 'csr_reg & mask == val'
+# The coverpoint clause is assumed of the format: 'csr_reg & mask == val' or '(csr_reg >> shift) & mask == val'
 # csr_reg must be a valid csr register; mask and val are allowed to be valid python expressions
-def get_csr_reg_field_mask_and_val(clause):
-    regex_match = csr_comb_covpt_regex.match(clause.strip())
-    if regex_match is None:
-        return None, None, None
-    csr_reg, mask_expr, val_expr = regex_match.groups()
-    mask = eval(mask_expr)
-    val = eval(val_expr)
-    return csr_reg, mask, val
+def get_csr_reg_field_mask_and_val(clause, instr_dict={}):
+    clause = clause.strip()
+    regex_w_shift_match = csr_comb_covpt_regex_w_bitshift.match(clause)
+    if regex_w_shift_match is None:
+        regex_match = csr_comb_covpt_regex.match(clause)
+        if regex_match is None:
+            return None, None, None
+        csr_reg, mask_expr, val_expr = regex_match.groups()
+        mask = eval(mask_expr, {}, instr_dict)
+        val = eval(val_expr, {}, instr_dict)
+        return csr_reg, mask, val
+    else:
+        csr_reg, shift_op, shift_expr, mask_expr, val_expr = regex_w_shift_match.groups()
+        shift = eval(shift_expr, {}, instr_dict)
+        mask = eval(mask_expr, {}, instr_dict)
+        val = eval(val_expr, {}, instr_dict)
+        if shift_op == '>>':
+            mask = mask << shift
+            val = val << shift
+        else:
+            mask = mask >> shift
+            val = val >> shift
+        return csr_reg, mask, val
 
 class GeneratorCSRComb():
     '''
@@ -247,7 +264,7 @@ class GeneratorCSRComb():
             for sol, _ in sols:
                 reg_mask_val_arr = []
                 for clause in sol:
-                    csr_reg, mask, val = get_csr_reg_field_mask_and_val(clause)
+                    csr_reg, mask, val = get_csr_reg_field_mask_and_val(clause, {'xlen': self.xlen})
                     if csr_reg is None:
                         logger.error(f'Skipping invalid csr_comb coverpoint condition clause: {clause}')
                         continue
