@@ -1,5 +1,6 @@
 # See LICENSE.incore for details
 import re
+import functools
 
 from riscv_ctg.log import logger
 from riscv_ctg.constants import *
@@ -97,6 +98,9 @@ class LiteralExpression(BooleanExpression):
     def __str__(self):
         return str(self.val)
 
+# This function parses coverpoints for the CSR-combination node
+# The coverpoints are assumed of the form: multiple condition clauses combined with and's and or's
+# A coverpoint condition clause is assumed of the form: 'csr_reg & mask == val'
 def parse_csr_covpt(covpt):
     toks = tokenize(covpt)
 
@@ -197,6 +201,18 @@ def parse_csr_covpt(covpt):
     bool_expr = clause_stack.pop()
     return bool_expr
 
+# This function extracts the csr register, the field mask and the field value from the coverpoint clause
+# The coverpoint clause is assumed of the format: 'csr_reg & mask == val'
+# csr_reg must be a valid csr register; mask and val are allowed to be valid python expressions
+def get_csr_reg_field_mask_and_val(clause):
+    regex_match = csr_comb_covpt_regex.match(clause.strip())
+    if regex_match is None:
+        return None, None, None
+    csr_reg, mask_expr, val_expr = regex_match.groups()
+    mask = eval(mask_expr)
+    val = eval(val_expr)
+    return csr_reg, mask, val
+
 class GeneratorCSRComb():
     '''
     A class to generate RISC-V assembly tests for CSR-combination coverpoints.
@@ -214,38 +230,62 @@ class GeneratorCSRComb():
         else:
             return
 
-        # This function extracts the csr register, the field mask and the field value from the coverpoint
-        # The coverpoint is assumed of the format: 'csr_reg & mask == val'
-        # csr_reg must be a valid csr register; mask and val are allowed to be valid python expressions
-        def get_csr_reg_field_mask_and_val(coverpoint):
-            regex_match = csr_comb_covpt_regex.match(coverpoint.strip())
-            if regex_match is None:
-                return None, None, None
-            csr_reg, mask_expr, val_expr = regex_match.groups()
-            mask = eval(mask_expr)
-            val = eval(val_expr)
-            return csr_reg, mask, val
-
-        temp_regs = ['x28', 'x29'] # t0 and t1
-        dest_reg = 'x23'
+        temp_regs = ['x30', 'x31']
+        dest_reg = 'x29'
 
         instr_dict = []
         offset = 0
+
         for covpt in csr_comb:
-            csr_reg, mask, val = get_csr_reg_field_mask_and_val(covpt)
-            if csr_reg is None:
+            try:
+                bool_expr = parse_csr_covpt(covpt)
+                sols = bool_expr.SAT()
+            except:
                 logger.error(f'Invalid csr_comb coverpoint: {covpt}')
                 continue
-            instr_dict.append({
-                'csr_reg': csr_reg, 'mask': hex(mask), 'val': hex(val), 'dest_reg': dest_reg,
-                'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1], 'offset': offset
-            })
-            offset += 4
+
+            for sol, _ in sols:
+                reg_mask_val_arr = []
+                for clause in sol:
+                    csr_reg, mask, val = get_csr_reg_field_mask_and_val(clause)
+                    if csr_reg is None:
+                        logger.error(f'Skipping invalid csr_comb coverpoint condition clause: {clause}')
+                        continue
+                    reg_mask_val_arr.append((csr_reg, mask, val))
+
+                reg_mask_val_arr.sort(key=functools.cmp_to_key(lambda x, y: 1))
+
+                instr_dict_csr_writes = []
+                instr_dict_csr_restores = []
+                uniq_csr_regs = []
+                restore_reg = 1
+                for csr_reg, mask, val in reg_mask_val_arr:
+                    instr_dict_csr_writes.append({
+                        'csr_reg': csr_reg, 'mask': hex(mask), 'val': hex(val), 'restore_reg':  f'x{restore_reg}',
+                        'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1]
+                    })
+                    instr_dict_csr_restores.append({
+                        'csr_reg': csr_reg, 'restore_reg': f'x{restore_reg}'
+                    })
+                    restore_reg += 1
+                    if csr_reg not in uniq_csr_regs:
+                        uniq_csr_regs.append(csr_reg)
+
+                instr_dict_csr_restores.reverse()
+
+                instr_dict_csr_read_and_sig_upds = []
+                for csr_reg in uniq_csr_regs:
+                    instr_dict_csr_read_and_sig_upds.append({
+                        'csr_reg': csr_reg, 'dest_reg': dest_reg, 'offset': offset
+                    })
+                    offset += 4
+
+                instr_dict.append((instr_dict_csr_writes, instr_dict_csr_read_and_sig_upds, instr_dict_csr_restores))
 
         return instr_dict
 
     def write_test(self, fprefix, cgf_node, usage_str, cov_label, instr_dict):
-        base_reg = 'x8'
+        base_reg = 'x28'
 
         code = [""]
         data = [".align 4","rvtest_data:",".word 0xbabecafe", \
@@ -253,16 +293,35 @@ class GeneratorCSRComb():
         sig = [""]
 
         sig_label = f"signature_{base_reg}_0"
-        sig.append(signode_template.safe_substitute(label = sig_label, n = len(instr_dict), sz = 'XLEN/32'))
+        sig.append(signode_template.safe_substitute(label = sig_label, n = len(instr_dict), sz = '(XLEN/32)'))
         code.append(f"RVTEST_SIGBASE({base_reg}, {sig_label})\n")
 
         for i, instr in enumerate(instr_dict):
-            code.extend([
-                f"\ninst_{i}:",
-                csr_reg_write_test_template.safe_substitute({
-                    'base_reg': base_reg, **instr
-                })
-            ])
+            csr_writes, csr_read_sig_upds, csr_restores = instr
+
+            for j, csr_write in enumerate(csr_writes):
+                code.extend([
+                    f"\ninst_{i}_csr_write_{j}:",
+                    csr_reg_write_to_field_template.safe_substitute({
+                        'base_reg': base_reg, **csr_write
+                    })
+                ])
+
+            for j, csr_read_sig_upd in enumerate(csr_read_sig_upds):
+                code.extend([
+                    f"\ninst_{i}_csr_read_sig_upd_{j}:",
+                    csr_reg_read_and_sig_upd_template.safe_substitute({
+                        'base_reg': base_reg, **csr_read_sig_upd
+                    })
+                ])
+
+            for j, csr_restore in enumerate(csr_restores):
+                code.extend([
+                    f"\ninst_{i}_csr_restore_{j}:",
+                    csr_reg_restore_template.safe_substitute({
+                        'base_reg': base_reg, **csr_restore
+                    })
+                ])
 
         case_str = ''.join([case_template.safe_substitute(xlen = self.xlen, num = i, cov_label = cov_label) for i, cond in enumerate(cgf_node.get('config', []))])
         test_str = part_template.safe_substitute(case_str = case_str, code = '\n'.join(code))

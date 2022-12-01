@@ -321,7 +321,14 @@ $label:
     .fill $n*$sz,4,0xdeadbeef
 ''')
 
-csr_reg_write_test_template = Template('''
-// $csr_reg & $mask == $val
-TEST_CSR_FIELD_W_MASK($csr_reg, $temp_reg1, $temp_reg2, $mask, $val, $dest_reg, $offset, $base_reg)
+csr_reg_write_to_field_template = Template('''
+WRITE_TO_CSR_FIELD_W_MASK($csr_reg, $restore_reg, $temp_reg1, $temp_reg2, $mask, $val)
+''')
+
+csr_reg_read_and_sig_upd_template = Template('''
+READ_CSR_REG_AND_UPD_SIG($csr_reg, $dest_reg, $offset, $base_reg)
+''')
+
+csr_reg_restore_template = Template('''
+RESTORE_CSR_REG($csr_reg, $restore_reg)
 ''')
