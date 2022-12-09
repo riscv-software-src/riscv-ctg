@@ -16,11 +16,17 @@ OP_PRIORITY = {
 }
 
 CSR_REGS = ['mvendorid', 'marchid', 'mimpid', 'mhartid', 'mstatus', 'misa', 'medeleg', 'mideleg', 'mie', 'mtvec', 'mcounteren', 'mscratch', 'mepc', 'mcause', 'mtval', 'mip', 'pmpcfg0', 'pmpcfg1', 'pmpcfg2', 'pmpcfg3', 'mcycle', 'minstret', 'mcycleh', 'minstreth', 'mcountinhibit', 'tselect', 'tdata1', 'tdata2', 'tdata3', 'dcsr', 'dpc', 'dscratch0', 'dscratch1', 'sstatus', 'sedeleg', 'sideleg', 'sie', 'stvec', 'scounteren', 'sscratch', 'sepc', 'scause', 'stval', 'sip', 'satp', 'vxsat', 'fflags', 'frm', 'fcsr']
+csr_regs_capture_group = f'({"|".join(CSR_REGS)})'
+csr_regs_with_modifiers_capture_group = r'(write|old) *\( *' + csr_regs_capture_group + r' *\)'
 
-csr_comb_covpt_regex_string = f'({"|".join(CSR_REGS)})' + r' *& *([^ ].*)== *([^ ].*)'
-csr_comb_covpt_regex_w_bitshift_string = r'\( *' + f'({"|".join(CSR_REGS)})' + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)'
-csr_comb_covpt_regex = re.compile(csr_comb_covpt_regex_string)
-csr_comb_covpt_regex_w_bitshift = re.compile(csr_comb_covpt_regex_w_bitshift_string)
+csr_comb_covpt_regex_strings = [
+    csr_regs_capture_group + r' *& *([^ ].*)== *([^ ].*)' # regular
+    r'\( *' + csr_regs_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)' # with bitshifts only
+    csr_regs_with_modifiers_capture_group + r' *& *([^ ].*)== *([^ ].*)' # with modifiers only
+    r'\( *' + csr_regs_with_modifiers_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)' # with bitshifts and modifiers
+]
+
+csr_comb_covpt_regexs = [re.compile(regex_string) for regex_string in csr_comb_covpt_regex_strings]
 
 def tokenize(s):
     result = []
