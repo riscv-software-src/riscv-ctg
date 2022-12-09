@@ -17,16 +17,16 @@ OP_PRIORITY = {
 
 CSR_REGS = ['mvendorid', 'marchid', 'mimpid', 'mhartid', 'mstatus', 'misa', 'medeleg', 'mideleg', 'mie', 'mtvec', 'mcounteren', 'mscratch', 'mepc', 'mcause', 'mtval', 'mip', 'pmpcfg0', 'pmpcfg1', 'pmpcfg2', 'pmpcfg3', 'mcycle', 'minstret', 'mcycleh', 'minstreth', 'mcountinhibit', 'tselect', 'tdata1', 'tdata2', 'tdata3', 'dcsr', 'dpc', 'dscratch0', 'dscratch1', 'sstatus', 'sedeleg', 'sideleg', 'sie', 'stvec', 'scounteren', 'sscratch', 'sepc', 'scause', 'stval', 'sip', 'satp', 'vxsat', 'fflags', 'frm', 'fcsr']
 csr_regs_capture_group = f'({"|".join(CSR_REGS)})'
-csr_regs_with_modifiers_capture_group = r'(write|old) *\( *' + csr_regs_capture_group + r' *\)'
+csr_regs_with_modifiers_capture_group = r'(write|old) *\( *"' + csr_regs_capture_group + r'" *\)'
 
 csr_comb_covpt_regex_strings = [
-    csr_regs_capture_group + r' *& *([^ ].*)== *([^ ].*)' # regular
-    r'\( *' + csr_regs_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)' # with bitshifts only
-    csr_regs_with_modifiers_capture_group + r' *& *([^ ].*)== *([^ ].*)' # with modifiers only
-    r'\( *' + csr_regs_with_modifiers_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)' # with bitshifts and modifiers
+    csr_regs_capture_group + r' *& *([^ ].*)== *([^ ].*)', # regular
+    r'\( *' + csr_regs_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)', # with bitshifts only
+    csr_regs_with_modifiers_capture_group + r' *& *([^ ].*)== *([^ ].*)', # with modifiers only
+    r'\( *' + csr_regs_with_modifiers_capture_group + r' *(>>|<<) *([^ ].*)\) *& *([^ ].*)== *([^ ].*)', # with bitshifts and modifiers
 ]
 
-csr_comb_covpt_regexs = [re.compile(regex_string) for regex_string in csr_comb_covpt_regex_strings]
+csr_comb_covpt_regexes = [re.compile(regex_string) for regex_string in csr_comb_covpt_regex_strings]
 
 def tokenize(s):
     result = []
@@ -209,32 +209,50 @@ def parse_csr_covpt(covpt):
     bool_expr = clause_stack.pop()
     return bool_expr
 
-# This function extracts the csr register, the field mask and the field value from the coverpoint clause
+# This function extracts the csr register, the field mask, the field value and the csr register modifier (if present) from the coverpoint clause
 # The coverpoint clause is assumed of the format: 'csr_reg & mask == val' or '(csr_reg >> shift) & mask == val'
+# Modifiers `old()` and `write()` are also allowed on the `csr_reg`s. Example: `old(csr_reg) & mask == val`
 # csr_reg must be a valid csr register; mask and val are allowed to be valid python expressions
-def get_csr_reg_field_mask_and_val(clause, instr_dict={}):
+def get_csr_mask_val_modifier(clause, instr_dict={}):
     clause = clause.strip()
-    regex_w_shift_match = csr_comb_covpt_regex_w_bitshift.match(clause)
-    if regex_w_shift_match is None:
-        regex_match = csr_comb_covpt_regex.match(clause)
-        if regex_match is None:
-            return None, None, None
-        csr_reg, mask_expr, val_expr = regex_match.groups()
-        mask = eval(mask_expr, {}, instr_dict)
-        val = eval(val_expr, {}, instr_dict)
-        return csr_reg, mask, val
-    else:
-        csr_reg, shift_op, shift_expr, mask_expr, val_expr = regex_w_shift_match.groups()
-        shift = eval(shift_expr, {}, instr_dict)
-        mask = eval(mask_expr, {}, instr_dict)
-        val = eval(val_expr, {}, instr_dict)
-        if shift_op == '>>':
-            mask = mask << shift
-            val = val << shift
-        else:
-            mask = mask >> shift
-            val = val >> shift
-        return csr_reg, mask, val
+    for i, regex in enumerate(csr_comb_covpt_regexes):
+        regex_match = regex.match(clause)
+        if regex_match is not None:
+            if i == 0: # regular covpt
+                csr_reg, mask_expr, val_expr = regex_match.groups()
+                mask = eval(mask_expr, {}, instr_dict)
+                val = eval(val_expr, {}, instr_dict)
+                return csr_reg, mask, val, None
+            elif i == 1: # with bitshifts only
+                csr_reg, shift_op, shift_expr, mask_expr, val_expr = regex_match.groups()
+                shift = eval(shift_expr, {}, instr_dict)
+                mask = eval(mask_expr, {}, instr_dict)
+                val = eval(val_expr, {}, instr_dict)
+                if shift_op == '>>':
+                    mask = mask << shift
+                    val = val << shift
+                else:
+                    mask = mask >> shift
+                    val = val >> shift
+                return csr_reg, mask, val, None
+            elif i == 2: # with modifiers only
+                mod, csr_reg, mask_expr, val_expr = regex_match.groups()
+                mask = eval(mask_expr, {}, instr_dict)
+                val = eval(val_expr, {}, instr_dict)
+                return csr_reg, mask, val, mod
+            elif i == 3: # with both modifiers and bitshifts
+                mod, csr_reg, shift_op, shift_expr, mask_expr, val_expr = regex_match.groups()
+                shift = eval(shift_expr, {}, instr_dict)
+                mask = eval(mask_expr, {}, instr_dict)
+                val = eval(val_expr, {}, instr_dict)
+                if shift_op == '>>':
+                    mask = mask << shift
+                    val = val << shift
+                else:
+                    mask = mask >> shift
+                    val = val >> shift
+                return csr_reg, mask, val, mod
+    return None, None, None, None
 
 class GeneratorCSRComb():
     '''
@@ -268,29 +286,76 @@ class GeneratorCSRComb():
                 continue
 
             for sol, _ in sols:
-                reg_mask_val_arr = []
+                reg_mask_val_mod_dict = {} # maps a csr_reg to the 6-tuple [mask, val, write_mask, write_val, old_mask, old_val]
+                reg_with_mod = None
                 for clause in sol:
-                    csr_reg, mask, val = get_csr_reg_field_mask_and_val(clause, {'xlen': self.xlen})
+                    csr_reg, mask, val, mod = get_csr_mask_val_modifier(clause, {'xlen': self.xlen})
+
                     if csr_reg is None:
                         logger.error(f'Skipping invalid csr_comb coverpoint condition clause: {clause}')
                         continue
-                    reg_mask_val_arr.append((csr_reg, mask, val))
+                    if mod is not None:
+                        if reg_with_mod is None: reg_with_mod = csr_reg
+                        elif reg_with_mod != csr_reg:
+                            logger.error(f'Skipping invalid csr_comb solution with modifiers on more than one registers for the coverpoint: {covpt}')
+                            continue
 
-                reg_mask_val_arr.sort(key=functools.cmp_to_key(lambda x, y: 1))
+                    if not csr_reg in reg_mask_val_mod_dict:
+                        if mod == 'old':
+                            reg_mask_val_mod_dict[csr_reg] = [0, 0, 0, 0, mask, val]
+                        elif mod == 'write':
+                            reg_mask_val_mod_dict[csr_reg] = [0, 0, mask, val, 0, 0]
+                        else:
+                            reg_mask_val_mod_dict[csr_reg] = [mask, val, 0, 0, 0, 0]
+                    else:
+                        if mod == 'old':
+                            reg_mask_val_mod_dict[csr_reg][4] |= mask
+                            reg_mask_val_mod_dict[csr_reg][5] |= val
+                        elif mod == 'write':
+                            reg_mask_val_mod_dict[csr_reg][2] |= mask
+                            reg_mask_val_mod_dict[csr_reg][3] |= val
+                        else:
+                            reg_mask_val_mod_dict[csr_reg][0] |= mask
+                            reg_mask_val_mod_dict[csr_reg][1] |= val
+
+                reg_mask_val_arr = list(reg_mask_val_mod_dict.items())
+                reg_mask_val_arr.sort(key=functools.cmp_to_key(lambda x, y: 1 if x[0] == reg_with_mod else -1)) # put the register with modifier at the end
 
                 instr_dict_csr_writes = []
                 instr_dict_csr_restores = []
                 uniq_csr_regs = []
                 restore_reg = 1
-                for csr_reg, mask, val in reg_mask_val_arr:
-                    instr_dict_csr_writes.append({
-                        'csr_reg': csr_reg, 'mask': hex(mask), 'val': hex(val), 'restore_reg':  f'x{restore_reg}',
-                        'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1]
-                    })
-                    instr_dict_csr_restores.append({
-                        'csr_reg': csr_reg, 'restore_reg': f'x{restore_reg}'
-                    })
-                    restore_reg += 1
+                for csr_reg, mask_val in reg_mask_val_arr:
+                    mask, val, write_mask, write_val, old_mask, old_val = mask_val
+                    if old_mask != 0:
+                        instr_dict_csr_writes.append({
+                            'csr_reg': csr_reg, 'mask': hex(old_mask), 'val': hex(old_val), 'restore_reg':  f'x{restore_reg}',
+                            'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1]
+                        })
+                        instr_dict_csr_restores.append({
+                            'csr_reg': csr_reg, 'restore_reg': f'x{restore_reg}'
+                        })
+                        restore_reg += 1
+
+                    if write_mask != 0:
+                        instr_dict_csr_writes.append({
+                            'csr_reg': csr_reg, 'mask': hex(write_mask), 'val': hex(write_val), 'restore_reg':  f'x{restore_reg}',
+                            'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1]
+                        })
+                        instr_dict_csr_restores.append({
+                            'csr_reg': csr_reg, 'restore_reg': f'x{restore_reg}'
+                        })
+                        restore_reg += 1
+                    elif mask != 0:
+                        instr_dict_csr_writes.append({
+                            'csr_reg': csr_reg, 'mask': hex(mask), 'val': hex(val), 'restore_reg':  f'x{restore_reg}',
+                            'temp_reg1': temp_regs[0], 'temp_reg2': temp_regs[1]
+                        })
+                        instr_dict_csr_restores.append({
+                            'csr_reg': csr_reg, 'restore_reg': f'x{restore_reg}'
+                        })
+                        restore_reg += 1
+
                     if csr_reg not in uniq_csr_regs:
                         uniq_csr_regs.append(csr_reg)
 
