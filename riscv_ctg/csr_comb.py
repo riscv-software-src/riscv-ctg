@@ -211,7 +211,7 @@ def parse_csr_covpt(covpt):
 
 # This function extracts the csr register, the field mask, the field value and the csr register modifier (if present) from the coverpoint clause
 # The coverpoint clause is assumed of the format: 'csr_reg & mask == val' or '(csr_reg >> shift) & mask == val'
-# Modifiers `old()` and `write()` are also allowed on the `csr_reg`s. Example: `old(csr_reg) & mask == val`
+# Modifiers `old()` and `write()` are also allowed on the `csr_reg`s. Example: `old("csr_reg") & mask == val`
 # csr_reg must be a valid csr register; mask and val are allowed to be valid python expressions
 def get_csr_mask_val_modifier(clause, instr_dict={}):
     clause = clause.strip()
