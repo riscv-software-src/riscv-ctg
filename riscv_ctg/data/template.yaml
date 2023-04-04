@@ -10299,3 +10299,45 @@ unshfli:
     unshfli $rd, $rs1, $imm_val
     SREG $rd, $offset($swreg)
     RVMODEL_IO_ASSERT_GPR_EQ($testreg, $rd, $correctval)
+
+czero.eqz:
+  std_op:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  isa:
+    - IZicond
+  operation: 'hex(int(rs2_val != 0) * rs1_val)'
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+czero.nez:
+  std_op:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  isa:
+    - IZicond
+  operation: 'hex(int(rs2_val == 0) * rs1_val)'
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
