@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0] - 2022-12-11
+- Added support for csr_comb test generation
+
 ## [0.10.4] - 2023-03-28
 - Adding Zicond support
 
