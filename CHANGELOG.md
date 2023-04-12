@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.4] - 2023-04-12
+- Initial covergroups for Zvk* instructions
+
 ## [0.10.3] - 2022-11-22
 - Fixed canary definition
 
