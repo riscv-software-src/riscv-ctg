@@ -2001,7 +2001,7 @@ fcvtmod.w.d:
   isa:
     - IFD_Zicsr_Zfa
   flen: [64]
-  rm_val_data: '[7,0,1,2,3,4]'
+  rm_val_data: '[1]'
   fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
   std_op:
   formattype: 'fsrformat'
