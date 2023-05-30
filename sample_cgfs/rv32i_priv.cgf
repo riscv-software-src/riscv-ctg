@@ -148,7 +148,7 @@ misalign-bne:
 misalign-beq:
   config:
     - check ISA:=regex(.*I.*C.*)
-    - check ISA:=regex(.*I.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True 
+    - check ISA:=regex(.*I.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True
   cond: check ISA:=regex(.*I.*)
   opcode:
     beq: 0
@@ -156,3 +156,95 @@ misalign-beq:
     ' rs1_val==rs2_val and ea_align == 2': 0
 
 
+# Cover points for PMP
+
+# TOR with lw instruction
+pmp_tor_mode_address_match_lw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+
+# TOR with lh instruction
+pmp_tor_mode_address_match_lh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+
+# TOR with sw instruction
+pmp_tor_mode_address_match_sw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+
+# TOR with sh instruction
+pmp_tor_mode_address_match_sh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+
+# TOR with sb instruction
+pmp_tor_mode_address_match_sb:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sb: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+
+
+# NA4 with lw instruction
+pmp_tor_mode_address_match_lw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+
+# NA4 with lh instruction
+pmp_tor_mode_address_match_lh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+
+# NA4 with sw instruction
+pmp_tor_mode_address_match_sw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+
+# NA4 with sh instruction
+pmp_tor_mode_address_match_sh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+
+# NA4 with sb instruction
+pmp_tor_mode_address_match_sb:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sb: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
