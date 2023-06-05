@@ -24,8 +24,18 @@ def nan_box(prefix,rs,flen,iflen):
     else:
         return (str(to_int(rs)|(to_int(prefix)<<iflen)),flen)
 
+def sgn_extd(prefix,rs,xlen,iflen):
+    if int(prefix) == ((2**(xlen-iflen))-1):
+        return (rs,iflen)
+    else:
+        return (str(to_int(rs)|(to_int(prefix)<<iflen)),xlen)
+
+
 def extract_frs_fields(reg,cvp,iflen):
-    if (iflen == 32):
+    if (iflen == 16):
+        e_sz = 5
+        m_sz = 10
+    elif (iflen == 32):
         e_sz = 8
         m_sz = 23
     else:
@@ -48,10 +58,15 @@ def extract_frs_fields(reg,cvp,iflen):
     hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
     return int(hex_val1,16)
 
-def merge_fields_f(val_vars,cvp,flen,iflen,merge):
+def merge_fields_f(val_vars,cvp,flen,iflen,merge,inxFlag=False):
     nan_box = False
-    if flen > iflen:
-        nan_box = True
+    sgn_extd = False
+    xlen = 64
+    if xlen > iflen:
+        if inxFlag:
+            sgn_extd = True
+        else:
+            nan_box = True
     fdict = {}
     for var in val_vars:
         if var in num_dict and merge:
@@ -64,6 +79,14 @@ def merge_fields_f(val_vars,cvp,flen,iflen,merge):
                     fdict[nan_var] = eval(match_obj.group(nan_var))
                 else:
                     fdict[nan_var] = (2**(flen-iflen))-1
+            elif sgn_extd:
+                sgn_var = 'rs{0}_sgn_prefix'.format(num_dict[var])
+                regex = val_regex.format(sgn_var.replace("_","\\_"),sgn_var)
+                match_obj = re.search(regex,cvp)
+                if match_obj is not None:
+                    fdict[sgn_var] = eval(match_obj.group(sgn_var))
+                else:
+                    fdict[sgn_var] = (2**(xlen-iflen))-1
         else:
             regex = val_regex.format(var.replace("_","\\_"),var)
             match_obj = re.search(regex,cvp)
