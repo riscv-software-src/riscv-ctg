@@ -39,7 +39,7 @@
     .option push;\
     .option norvc;\
     .align UNROLLSZ;\
-        li reg,val;\
+    li reg,val;\
     .align UNROLLSZ;\
     .option pop;
 
@@ -87,7 +87,7 @@
   #define FSREG fsd
   #define FREGWIDTH 8
   #define SIGALIGN 8
-#else 
+#else
   #if FLEN==32
     #define FLREG flw
     #define FSREG fsw
@@ -95,10 +95,21 @@
   #endif
 #endif
 
-#if FLEN>XLEN
-    #define SIGALIGN FREGWIDTH
-#else
-    #define SIGALIGN REGWIDTH
+#if ZFINX==1
+  #define FLREG lw
+  #define FSREG sw
+  #define FREGWIDTH 4
+  #define FLEN 32
+  #if XLEN==64
+    #define SIGALIGN 8
+  #else
+      #define SIGALIGN 4
+  #endif
+#elif ZDINX==1
+  #define FLREG LREG
+  #define FSREG SREG
+  #define FREGWIDTH 8
+  #define FLEN 64
 #endif
 
 
@@ -109,7 +120,6 @@
   #define CANARY \
       .word 0x6F5CA309 
 #endif
-
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
 
@@ -124,9 +134,13 @@
 #endif
 
 #define NAN_BOXED(__val__,__width__,__max__)    \
+    .if __width__ == 16                        ;\
+        .hword __val__                         ;\
+    .endif                                     ;\
     .if __width__ == 32                        ;\
         .word __val__                          ;\
-    .else                                      ;\
+    .endif                                     ;\
+    .if __width__ == 64                        ;\
         .dword __val__                         ;\
     .endif                                     ;\
     .if __max__ > __width__                    ;\
@@ -160,7 +174,7 @@
   .align UNROLLSZ
   .section .text.init;
   .globl rvtest_init;                                                  \
-  rvtest_init:
+rvtest_init:
 #ifdef rvtest_mtrap_routine
   LA(x1, rvtest_trap_prolog );
   jalr ra, x1
@@ -1086,7 +1100,8 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      LI(testreg, fcsr_val); csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); \
+      csrw fcsr, testreg; \
       inst destreg, freg1, freg2, rm; \
       csrr flagreg, fcsr; \
     )
