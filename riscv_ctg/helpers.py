@@ -61,8 +61,7 @@ def extract_frs_fields(reg,cvp,iflen):
 def merge_fields_f(val_vars,cvp,flen,iflen,merge,inxFlag=False):
     nan_box = False
     sgn_extd = False
-    xlen = 64
-    if xlen > iflen:
+    if flen > iflen:
         if inxFlag:
             sgn_extd = True
         else:

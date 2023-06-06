@@ -20,6 +20,10 @@ three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu","fcvt.d.s","fcvt.s.d"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
+
+one_operand_hinstructions = ["fsqrt.h","fclass.h","fcvt.w.h","fcvt.wu.h","fcvt.h.w","fcvt.h.wu","fcvt.h.l","fcvt.h.lu","fcvt.l.h","fcvt.d.h","fcvt.h.d","fcvt.s.h","fcvt.s.h"]
+two_operand_hinstructions = ["fadd.h","fsub.h","fmul.h","fdiv.h","fmax.h","fmin.h","feq.h","flt.h","fle.h","fsgnj.h","fsgnjn.h","fsgnjx.h"]
+three_operand_hinstructions = ["fmadd.h","fmsub.h","fnmadd.h","fnmsub.h"]
 from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)

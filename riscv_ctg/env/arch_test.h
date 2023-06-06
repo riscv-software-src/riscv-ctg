@@ -92,6 +92,10 @@
     #define FLREG flw
     #define FSREG fsw
     #define FREGWIDTH 4
+  #elif FLEN==16
+    #define FLREG flh
+    #define FSREG fsh
+    #define FREGWIDTH 2
   #endif
 #endif
 
@@ -144,12 +148,12 @@
         .dword __val__                         ;\
     .endif                                     ;\
     .if __max__ > __width__                    ;\
-        .set pref_bytes,(__max__-__width__)/32 ;\
+        .set pref_bytes,(__max__-__width__)/16 ;\
     .else                                      ;\
         .set pref_bytes, 0                     ;\
     .endif                                     ;\
     .rept pref_bytes                           ;\
-        .word 0xffffffff                       ;\
+        .hword 0xffff                          ;\
     .endr                                      ;
 
 
