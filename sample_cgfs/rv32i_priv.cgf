@@ -829,7 +829,51 @@ pmp_tor_mode_address_match_sb:
   val_comb:
     '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
- 
+# NAPOT with lw instruction
+pmp_napot_mode_address_match_lw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x18) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
+
+# NAPOT with lh instruction
+pmp_napot_mode_address_match_lh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x18) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
+
+# NAPOT with sw instruction
+pmp_napot_mode_address_match_sw:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sw: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x18) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
+
+# NAPOT with sh instruction
+pmp_napot_mode_address_match_sh:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sh: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x18) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
+
+# NAPOT with sb instruction
+pmp_napot_mode_address_match_sb:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    sb: 0
+  val_comb:
+    '(pmpcfg1 & 0x18 == 0x18) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
+
 pmp_locked_NAPOT_OR_NA4:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); check hw_data_misaligned_support:=True; def rvtest_mtrap_routine=True; check is_implemented(pmpcfg0) = True
@@ -847,7 +891,7 @@ pmp_locked_TOR_region0:
     csrrw: 0
     csrrs: 0
   csr_comb:
-	((pmpcfg0 & 0x80) == 0x80) & ((pmpcfg0 & 0x18) == 0x08) & (old_val(pmpcfg0 & 0xFF) ) & (old_val(pmpaddr0)) : 0      # Check if lock bit is set for pmp0cfg0 and pmp0 is configured in TOR mode, then the values of pmpcfg0[7:0] and pmpaddr0 should not change. 
+	((pmpcfg0 & 0x80) == 0x80) & ((pmpcfg0 & 0x18) == 0x08) & (old_val(pmpcfg0 & 0xFF) ) & (old_val(pmpaddr0)) : 0      # Check if lock bit is set for pmp0cfg0 and pmp0 is configured in TOR mode, then the values of pmpcfg0[7:0] and pmpaddr0 should not change.
     
 
 pmp_locked_TOR:
