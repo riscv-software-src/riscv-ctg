@@ -48,3 +48,35 @@ clh:
     val_comb:
         'imm_val == 0': 0
         'imm_val == 2': 0
+
+csb:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*)
+    mnemonics: 
+      c.sb: 0
+    rs1: 
+      <<: *c_regs
+    rs2: 
+      <<: *c_regs
+    op_comb: 
+        'rs1 != rs2': 0
+    val_comb:
+        'imm_val == 0': 0
+        'imm_val == 1': 0
+        'imm_val == 2': 0
+        'imm_val == 3': 0
+
+csh:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*)
+    mnemonics: 
+      c.sh: 0
+    rs1: 
+      <<: *c_regs
+    rs2: 
+      <<: *c_regs
+    op_comb: 
+        'rs1 != rs2': 0
+    val_comb:
+        'imm_val == 0': 0
+        'imm_val == 2': 0
