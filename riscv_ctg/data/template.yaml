@@ -10317,7 +10317,7 @@ czero.nez:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)    
 
 amoadd.w:
   sig:
@@ -10678,3 +10678,60 @@ amomaxu.d:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
+
+c.lbu:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  rs1_op_data: *c_regs
+  rd_op_data: *c_regs
+  xlen: [32,64]
+  std_op:
+  isa: 
+    - I_Zca_Zcb
+  formattype: 'clformat'
+  rs1_val_data: '[0]'
+  imm_val_data: 'gen_usign_dataset(2)'
+  template: |-
+
+    // $comment
+    // opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
+    
+c.lhu:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  rs1_op_data: *c_regs
+  rd_op_data: *c_regs
+  xlen: [32,64]
+  std_op:
+  isa: 
+    - I_Zca_Zcb
+  formattype: 'clformat'
+  rs1_val_data: '[0]'
+  imm_val_data: 'gen_usign_dataset(2)'
+  template: |-
+
+    // $comment
+    // opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
+  
+c.lh:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  rs1_op_data: *c_regs
+  rd_op_data: *c_regs
+  xlen: [32,64]
+  std_op:
+  isa: 
+    - I_Zca_Zcb
+  formattype: 'clformat'
+  rs1_val_data: '[0]'
+  imm_val_data: 'gen_usign_dataset(2)'
+  template: |-
+
+    // $comment
+    // opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
+    TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
