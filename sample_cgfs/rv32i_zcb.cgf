@@ -80,3 +80,62 @@ csh:
     val_comb:
         'imm_val == 0': 0
         'imm_val == 2': 0
+
+csext.b:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*.Zbb.*)
+    mnemonics: 
+      c.sext.b: 0
+    rs1: 
+      <<: *c_regs
+    val_comb:
+      'rs1_val == 0': 0
+      'rs1_val == 0x80': 0
+      'rs1_val == 0x8000': 0
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+csext.h:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*.Zbb.*)
+    mnemonics: 
+      c.sext.h: 0
+    rs1: 
+      <<: *c_regs
+    val_comb:
+      'rs1_val == 0': 0
+      'rs1_val == 0x800': 0
+      'rs1_val == 0xFF80': 0
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+
+czext.b:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*)
+    mnemonics: 
+      c.zext.b: 0
+    rs1: 
+      <<: *c_regs
+    val_comb:
+      'rs1_val == 0': 0
+      'rs1_val == 0x80': 0
+      'rs1_val == 0x8000': 0
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
+
+czext.h:
+    config: 
+      - check ISA:=regex(.*I.*Zca.*Zcb.*.Zbb.*)
+    mnemonics: 
+      c.zext.h: 0
+    rs1: 
+      <<: *c_regs
+    val_comb:
+      'rs1_val == 0': 0
+      'rs1_val == 0x800': 0
+      'rs1_val == 0xFF80': 0
+      abstract_comb:
+        'walking_ones("rs1_val", xlen, False)': 0
+        'walking_zeros("rs1_val", xlen, False)': 0
