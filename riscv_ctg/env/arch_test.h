@@ -3,6 +3,12 @@
 #ifndef NUM_SPECD_INTCAUSES 
   #define NUM_SPECD_INTCAUSES 16
 #endif
+#ifndef RVMODEL_CBZ_BLOCKSIZE
+  #define RVMODEL_CBZ_BLOCKSIZE 64
+#endif
+#ifndef RVMODEL_CMO_BLOCKSIZE
+  #define RVMODEL_CMO_BLOCKSIZE 64
+#endif
 //#define RVTEST_FIXED_LEN
 #ifndef UNROLLSZ
   #define UNROLLSZ 5
@@ -64,6 +70,15 @@
         la reg,val;\
         .option pop;
 #endif
+
+#define ADDI(dst, src, imm) /* helper*/ ;\
+#if (imm<=2048)                         ;\
+        addi    dst, src, imm           ;\
+#else                                   ;\
+        LI(     dst, imm)               ;\
+        addi    dst, src, dst           ;\
+#endif
+
 #if XLEN==64
   #define SREG sd
   #define LREG ld
@@ -903,6 +918,14 @@ sub rs1,rs1,testreg                                                          ;\
 inst rs2, imm_val(rs1)                                                      ;\
 nop                                                                         ;\
 nop                                                                         
+
+#define TEST_CBO_ZERO(swreg,rs1,inst,imm_val)                               ;\
+LI(rs1,imm_val&(RVMODEL_CBZ_BLOCKSIZE-1))                                   ;\
+add rs1,rs1,swreg                                                           ;\
+inst (rs1)                                                                  ;\
+nop                                                                         ;\
+nop                                                                         ;\
+ADDI(swreg, swreg, RVMODEL_CBZ_BLOCKSIZE)
 
 #define TEST_LOAD(swreg,testreg,index,rs1,destreg,imm_val,offset,inst,adj)   ;\
 LA(rs1,rvtest_data+(index*4)+adj-imm_val)                                      ;\

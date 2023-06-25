@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.1] - 2022-09-23
+- Added support for zicboz extension
+- Fix NameError: name 'size' is not defined
+- Fix ValueError: invalid literal for int() with base 10
+
 ## [0.11.0] - 2022-12-11
 - Added support for csr_comb test generation
 

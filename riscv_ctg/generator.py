@@ -71,7 +71,8 @@ OPS = {
     'pphrrformat': ['rs1', 'rs2', 'rd'],
     'ppbrrformat': ['rs1', 'rs2', 'rd'],
     'prrformat': ['rs1', 'rs2', 'rd'],
-    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
+    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd'],
+    'zformat': ['rs1']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -117,7 +118,8 @@ VALS = {
     'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
     'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
     'prrformat': '["rs1_val", "rs2_val"]',
-    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
+    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']",
+    'zformat': "['rs1_val']"
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -791,13 +793,13 @@ class Generator():
                     if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                         var_dict['imm_val'] = \
-                            (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
+                            (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'], 0)
                     else:
-                        var_dict['imm_val'] = int(instr['imm_val'])
+                        var_dict['imm_val'] = int(instr['imm_val'], 0)
                 elif key == 'rm_val':
                     var_dict['rm_val'] = int(rm_dict[instr['rm_val']])
                 else:
-                    var_dict[key] = int(instr[key])
+                    var_dict[key] = int(instr[key], 0)
             for key in self.op_vars:
                 var_dict[key] = instr[key]
 
@@ -1031,6 +1033,7 @@ class Generator():
         else:
             FLEN = 0
         XLEN = max(self.opnode['xlen'])
+        RVMODEL_CBZ_BLOCKSIZE = XLEN
         SIGALIGN = max(XLEN,FLEN)/8
         stride_sz = eval(suffix)
         for instr in instr_dict:
@@ -1161,7 +1164,7 @@ class Generator():
         if self.operation:
             for i in range(len(instr_dict)):
                 for var in self.val_vars:
-                    locals()[var]=int(instr_dict[i][var])
+                    locals()[var]=int(instr_dict[i][var], 0)
                 correctval = eval(self.operation)
                 instr_dict[i]['correctval'] = str(normalise(correctval,instr_dict[i]))
         else:
@@ -1198,8 +1201,9 @@ class Generator():
                     field != 'val_section' and field != 'val_offset' and field != 'rm_val':
                     value = instr_dict[i][field]
                     if '0x' in value:
-                        value = '0x' + value[2:].zfill(int(self.xlen/4))
-                        value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
+#                        value = '0x' + value[2:].zfill(int(self.xlen/4))
+#                        value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
+                        value = int(value, 16)
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
@@ -1306,7 +1310,7 @@ class Generator():
                 #         dval = (instr['rs{0}_val'.format(i)],self.iflen)
                 data.extend(instr['val_section'])
             if instr['swreg'] != sreg or eval(instr['offset'],{},
-                        {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}) == 0:
+                        {'FLEN':width,'XLEN':self.xlen,'RVMODEL_CBZ_BLOCKSIZE':self.xlen, 'SIGALIGN':max(self.xlen,self.flen)/8}) == 0:
                 sign.append(signode_template.substitute(
                     {'n':n,'label':"signature_"+sreg+"_"+str(regs[sreg]),'sz':sig_sz}))
                 n = stride
