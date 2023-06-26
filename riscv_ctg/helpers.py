@@ -24,11 +24,11 @@ def nan_box(prefix,rs,flen,iflen):
     else:
         return (str(to_int(rs)|(to_int(prefix)<<iflen)),flen)
 
-def sgn_extd(prefix,rs,xlen,iflen):
-    if int(prefix) == ((2**(xlen-iflen))-1):
+def sgn_extd(prefix,rs,flen,iflen):
+    if int(prefix) == ((2**(flen-iflen))-1):
         return (rs,iflen)
     else:
-        return (str(to_int(rs)|(to_int(prefix)<<iflen)),xlen)
+        return (str(to_int(rs)|(to_int(prefix)<<iflen)),flen)
 
 
 def extract_frs_fields(reg,cvp,iflen):
