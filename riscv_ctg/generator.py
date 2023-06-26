@@ -50,11 +50,17 @@ OPS = {
     'ciformat': ['rd'],
     'cssformat': ['rs2'],
     'ciwformat': ['rd'],
-    'clformat': ['rd', 'rs1'],
+    'clformat': ['rs1', 'rd'],
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
+    'cuformat': ['rs1'],
     'cbformat': ['rs1'],
+    'clbformat': ['rs1','rd'],
+    'clhformat': ['rs1','rd'],
+    'csbformat': ['rs1','rs2'],
+    'cshformat': ['rs1','rs2'],
     'cjformat': [],
+    'ckformat': ['rs1'],
     'kformat': ['rs1','rd'],
     # 'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
@@ -94,16 +100,21 @@ VALS = {
     'jformat': "['imm_val']",
     'crformat': "['rs1_val', 'rs2_val']",
     'cmvformat': "['rs2_val']",
-    'ciformat': "['rs1_val', 'imm_val','fcsr']",
-    'cssformat': "['rs2_val', 'imm_val','fcsr']",
+    'ciformat': "['rs1_val', 'imm_val']",
+    'cssformat': "['rs2_val', 'imm_val']",
     'ciwformat': "['imm_val']",
-    'clformat': "['rs1_val', 'imm_val','fcsr']",
+    'clformat': "['rs1_val', 'imm_val', 'fcsr']",
+    'cuformat': "['rs1_val']",
+    'clbformat': "['rs1_val','imm_val']",
+    'clhformat': "['rs1_val','imm_val']",
+    'csbformat': "['rs1_val','rs2_val','imm_val']",
+    'cshformat': "['rs1_val','rs2_val','imm_val']",
     'csformat': "['rs1_val', 'rs2_val', 'imm_val']",
     'caformat': "['rs1_val', 'rs2_val']",
     'cbformat': "['rs1_val', 'imm_val']",
     'cjformat': "['imm_val']",
+    'ckformat': "['rs1_val']",
     'kformat': "['rs1_val']",
-    'clhformat' : "['rs1_val','imm_val']",
     # 'frformat': "['rs1_val', 'rs2_val', 'rm_val', 'fcsr']",
     'fsrformat': "['rs1_val','fcsr'] + get_rm(opcode) + \
         ([] if not is_nan_box else ['rs1_nan_prefix']) + \
@@ -221,7 +232,7 @@ class Generator():
         if is_fext:
             if fl>ifl:
                 is_int_src = any([opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
-                is_nan_box = not is_int_src and not is_sgn_extd
+                is_nan_box = not is_int_src and is_sgn_extd
 
         self.xlen = xl
         self.flen = fl
@@ -236,7 +247,7 @@ class Generator():
         self.inxFlag = inxFlag
         self.is_sgn_extd = is_sgn_extd
 
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd","flh","fsh","c.lbu","c.lhu","c.lh","c.sb","c.sh","c.flw","c.flwsp","c.fsw","c.fswsp"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd","flh","fsh","c.lbu","c.lhu","c.lh","c.sb","c.sh","c.flw"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -776,7 +787,7 @@ class Generator():
                 instr_dict.append(self.__cmemsp_instr__(op,val))
             elif self.fmt == 'bformat' or self.opcode in ['c.j']:
                 instr_dict.append(self.__bfmt_instr__(op,val))
-            elif self.opcode in ['c.jal', 'c.jalr','c.lbu','c.lhu','c.lh','c.sb','c.sh']:
+            elif self.opcode in ['c.jal', 'c.jalr']:
                 instr_dict.append(self.__cj_instr__(op,val))
             elif self.fmt == 'jformat':
                 instr_dict.append(self.__jfmt_instr__(op,val))
@@ -800,7 +811,7 @@ class Generator():
             for key in self.val_vars:
                 if key == 'imm_val':
                     if self.fmt in ['jformat','bformat'] or instr['inst'] in \
-                        ['c.beqz','c.bnez','c.jal','c.j','c.jalr','c.sext.h']:
+                        ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                         var_dict['imm_val'] = \
                             (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
                     else:
@@ -960,7 +971,7 @@ class Generator():
                                 if self.is_nan_box:
                                     dval = nan_box(instr_dict[i]['rs{0}_nan_prefix'.format(j)],
                                             instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
-                                elif self.is_sgn_extd:
+                                if self.is_sgn_extd:
                                     dval = sgn_extd(instr_dict[i]['rs{0}_sgn_prefix'.format(j)],
                                             instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
                                 else:

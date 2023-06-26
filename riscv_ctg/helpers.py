@@ -78,14 +78,14 @@ def merge_fields_f(val_vars,cvp,flen,iflen,merge,inxFlag=False):
                     fdict[nan_var] = eval(match_obj.group(nan_var))
                 else:
                     fdict[nan_var] = (2**(flen-iflen))-1
-            elif sgn_extd:
+        elif sgn_extd:
                 sgn_var = 'rs{0}_sgn_prefix'.format(num_dict[var])
                 regex = val_regex.format(sgn_var.replace("_","\\_"),sgn_var)
                 match_obj = re.search(regex,cvp)
                 if match_obj is not None:
                     fdict[sgn_var] = eval(match_obj.group(sgn_var))
                 else:
-                    fdict[sgn_var] = (2**(xlen-iflen))-1
+                    fdict[sgn_var] = (2**(flen-iflen))-1
         else:
             regex = val_regex.format(var.replace("_","\\_"),var)
             match_obj = re.search(regex,cvp)
