@@ -1,0 +1,161 @@
+amoadd.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amoadd.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amoand.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amoand.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amoswap.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amoswap.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amoxor.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amoxor.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amoor.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amoor.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amomin.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amomin.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amominu.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amominu.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amomax.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amomax.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
+
+amomaxu.d:
+    config: 
+      - check ISA:=regex(.*I.*A.*)
+    mnemonics: 
+      amomaxu.d: 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: [*rfmt_op_comb]
+    val_comb:
+      <<: [*base_rs2val_sgn]
+      abstract_comb:
+        <<: [*rs2val_walking]
