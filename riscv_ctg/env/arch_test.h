@@ -39,7 +39,7 @@
     .option push;\
     .option norvc;\
     .align UNROLLSZ;\
-    li reg,val;\
+        li reg,val;\
     .align UNROLLSZ;\
     .option pop;
 
@@ -86,9 +86,7 @@
   #define FLREG fld
   #define FSREG fsd
   #define FREGWIDTH 8
-  #define SIGALIGN 8
-#else
-  #if FLEN==32
+#elif FLEN==32
     #define FLREG flw
     #define FSREG fsw
     #define FREGWIDTH 4
@@ -96,14 +94,13 @@
     #define FLREG flh
     #define FSREG fsh
     #define FREGWIDTH 2
-  #endif
 #endif
 
 #if ZFINX==1
-  #define FLREG lw
-  #define FSREG sw
-  #define FREGWIDTH 4
-  #define FLEN 32
+  #define FLREG ld
+  #define FSREG sd
+  #define FREGWIDTH 8
+  #define FLEN 64
   #if XLEN==64
     #define SIGALIGN 8
   #else
@@ -116,6 +113,11 @@
   #define FLEN 64
 #endif
 
+#if FLEN>XLEN
+    #define SIGALIGN FREGWIDTH
+#else
+    #define SIGALIGN REGWIDTH
+#endif
 
 #if SIGALIGN==8
   #define CANARY \
@@ -147,14 +149,23 @@
     .if __width__ == 64                        ;\
         .dword __val__                         ;\
     .endif                                     ;\
-    .if __max__ > __width__                    ;\
-        .set pref_bytes,(__max__-__width__)/16 ;\
+    .if __max__ > __width__ 		               ;\
+    	.if __width__ == 16                      ;\
+         .set pref_bytes,(__max__-__width__)/16;\
+      .else				                             ;\
+         .set pref_bytes,(__max__-__width__)/32;\
+    	.endif                                   ;\         
     .else                                      ;\
         .set pref_bytes, 0                     ;\
     .endif                                     ;\
     .rept pref_bytes                           ;\
-        .hword 0xffff                          ;\
+        .if __width__ == 16                    ;\
+		      .hword 0xffff                        ;\
+        .else				                           ;\
+		      .word 0xffffffff                     ;\
+    	  .endif                                 ;\   
     .endr                                      ;
+
 
 
 #define ZERO_EXTEND(__val__,__width__,__max__)  \
@@ -178,7 +189,7 @@
   .align UNROLLSZ
   .section .text.init;
   .globl rvtest_init;                                                  \
-rvtest_init:
+  rvtest_init:
 #ifdef rvtest_mtrap_routine
   LA(x1, rvtest_trap_prolog );
   jalr ra, x1
@@ -1104,8 +1115,7 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg1, val_offset, testreg); \
       LOAD_MEM_VAL(FLREG, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
-      LI(testreg, fcsr_val); \
-      csrw fcsr, testreg; \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg1, freg2, rm; \
       csrr flagreg, fcsr; \
     )
@@ -1292,9 +1302,16 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
       inst destreg, x2,imm; \
       )
 
+// Tests for instructions with single (rd/rs1) register operand.
+#define TEST_CU_OP( inst, destreg, correctval, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(destreg, MASK_XLEN(val2)); \
+      inst destreg; \
+      )
 //Tests for instructions with a single register operand
-#define TEST_RD_OP(inst, destreg, reg1, correctval, val1, swreg, offset, testreg) \
+#define TEST_RD_OP(inst, destreg,reg1, correctval, val1, swreg, offset, testreg) \
   TEST_CMV_OP(inst, destreg, reg1, correctval, val1, swreg, offset, testreg)
+
 
 #define TEST_CBRANCH_OP(inst, tempreg, reg2, val2, imm, label, swreg, offset) \
     LI(reg2, MASK_XLEN(val2))                  ;\
