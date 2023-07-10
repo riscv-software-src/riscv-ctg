@@ -722,7 +722,7 @@ pmp_na4_mode:
 	(pmpcfg0 >> 16) & 0x18 == 0x10 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
 	(pmpcfg1 >> 16) & 0x18 == 0x10 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
 	(pmpcfg2 >> 16) & 0x18 == 0x10 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
-	(pmpcfg3 >> 16) & 0x18 == 0x10 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
+	(pmpcfg3 >> 16) & 0x18 == 0x10 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry
 
 
 pmp_tor_mode:
@@ -732,10 +732,10 @@ pmp_tor_mode:
     csrrw: 0
     csrrs: 0
   csr_comb:
-	(pmpcfg0 >> 16) & 0x18 == 0x08 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
-	(pmpcfg1 >> 16) & 0x18 == 0x08 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
-	(pmpcfg2 >> 16) & 0x18 == 0x08 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
-	(pmpcfg3 >> 16) & 0x18 == 0x08 : 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry                                                     
+	'(pmpcfg0 >> 16) & 0x18 == 0x08': 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry
+	'(pmpcfg1 >> 16) & 0x18 == 0x08': 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry
+	'(pmpcfg2 >> 16) & 0x18 == 0x08': 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry
+	'(pmpcfg3 >> 16) & 0x18 == 0x08': 0                                                          # Check if the NA4 (Naturally Aligned 4-byte region) mode is set for the PMP entry
 
 
 # TOR with lw instruction
@@ -745,7 +745,7 @@ pmp_tor_mode_address_match_lw:
   mnemonics:
     lw: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + imm_val < (pmpaddr1 << 2))': 0
 
 # TOR with lh instruction
 pmp_tor_mode_address_match_lh:
@@ -754,7 +754,7 @@ pmp_tor_mode_address_match_lh:
   mnemonics:
     lh: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + (imm_val << pmpaddr1))': 0
 
 # TOR with sw instruction
 pmp_tor_mode_address_match_sw:
@@ -763,7 +763,7 @@ pmp_tor_mode_address_match_sw:
   mnemonics:
     sw: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + imm_val < (pmpaddr1 << 2))': 0
 
 # TOR with sh instruction
 pmp_tor_mode_address_match_sh:
@@ -772,7 +772,7 @@ pmp_tor_mode_address_match_sh:
   mnemonics:
     sh: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + imm_val < (pmpaddr1 << 2))': 0
 
 # TOR with sb instruction
 pmp_tor_mode_address_match_sb:
@@ -781,7 +781,7 @@ pmp_tor_mode_address_match_sb:
   mnemonics:
     sb: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= pmpaddr0) and (rs1_val + imm_val < pmpaddr1)': 0
+    '(pmpcfg1 & 0x18 == 0x08) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + imm_val < (pmpaddr1 << 2))': 0
 
 
 # NA4 with lw instruction
@@ -791,7 +791,7 @@ pmp_tor_mode_address_match_lw:
   mnemonics:
     lw: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= (pmpaddr << 2)) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
 # NA4 with lh instruction
 pmp_tor_mode_address_match_lh:
@@ -800,7 +800,7 @@ pmp_tor_mode_address_match_lh:
   mnemonics:
     lh: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= (pmpaddr << 2)) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
 # NA4 with sw instruction
 pmp_tor_mode_address_match_sw:
@@ -809,7 +809,7 @@ pmp_tor_mode_address_match_sw:
   mnemonics:
     sw: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= (pmpaddr << 2)) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
 # NA4 with sh instruction
 pmp_tor_mode_address_match_sh:
@@ -818,7 +818,7 @@ pmp_tor_mode_address_match_sh:
   mnemonics:
     sh: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= (pmpaddr << 2)) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
 # NA4 with sb instruction
 pmp_tor_mode_address_match_sb:
@@ -827,7 +827,7 @@ pmp_tor_mode_address_match_sb:
   mnemonics:
     sb: 0
   val_comb:
-    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= pmpaddr) and (rs1_val +imm_val < (pmpaddr << 2))': 0
+    '(pmpcfg1 & 0x18 == 0x10) and (rs1_val + imm_val >= (pmpaddr << 2)) and (rs1_val +imm_val < (pmpaddr << 2))': 0
 
 # NAPOT with lw instruction
 pmp_napot_mode_address_match_lw:
