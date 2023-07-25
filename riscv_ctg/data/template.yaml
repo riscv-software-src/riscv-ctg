@@ -10321,9 +10321,9 @@ czero.nez:
 
 amoadd.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10337,13 +10337,13 @@ amoadd.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoand.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10357,13 +10357,13 @@ amoand.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoswap.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10377,13 +10377,13 @@ amoswap.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoxor.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10397,13 +10397,13 @@ amoxor.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoor.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10417,13 +10417,13 @@ amoor.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amomin.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10437,13 +10437,13 @@ amomin.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amominu.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10457,13 +10457,13 @@ amominu.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amomax.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10477,13 +10477,13 @@ amomax.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
  
 amomaxu.w:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
-  xlen: [32]
+  xlen: [32,64]
   std_op:
   isa: 
     - IA
@@ -10497,11 +10497,11 @@ amomaxu.w:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoadd.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10517,11 +10517,11 @@ amoadd.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoand.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10537,11 +10537,11 @@ amoand.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoswap.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10557,11 +10557,11 @@ amoswap.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoxor.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10577,11 +10577,11 @@ amoxor.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amoor.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10597,11 +10597,11 @@ amoor.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amomin.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10617,11 +10617,11 @@ amomin.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amominu.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10637,11 +10637,11 @@ amominu.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
 
 amomax.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10657,11 +10657,11 @@ amomax.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
  
 amomaxu.d:
   sig:
-    stride: 1
+    stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
@@ -10677,4 +10677,4 @@ amomaxu.d:
 
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
-    TEST_RR_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+    TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
