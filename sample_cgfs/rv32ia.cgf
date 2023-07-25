@@ -10,7 +10,7 @@ amoadd.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -28,7 +28,7 @@ amoand.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -46,7 +46,7 @@ amoswap.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -64,7 +64,7 @@ amoxor.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -82,7 +82,7 @@ amoor.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -100,7 +100,7 @@ amomin.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -118,11 +118,11 @@ amominu.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
-      <<: [*base_rs2val_sgn]
+      <<: [*base_rs2val_unsgn]
       abstract_comb:
-        <<: [*rs2val_walking]
+        <<: [*rs2val_walking_unsgn]
 
 amomax.w:
     config: 
@@ -136,7 +136,7 @@ amomax.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
       <<: [*base_rs2val_sgn]
       abstract_comb:
@@ -154,8 +154,8 @@ amomaxu.w:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: [*rfmt_op_comb]
+      <<: [*ramofmt_op_comb]
     val_comb:
-      <<: [*base_rs2val_sgn]
+      <<: [*base_rs2val_unsgn]
       abstract_comb:
-        <<: [*rs2val_walking]
+        <<: [*rs2val_walking_unsgn]

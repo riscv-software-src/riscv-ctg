@@ -224,7 +224,12 @@ datasets:
     'rs2 == rd != rs1': 0
     'rs1 == rs2 == rd': 0
     'rs1 != rs2  and rs1 != rd and rs2 != rd': 0
-    
+
+  ramofmt_op_comb: &ramofmt_op_comb
+    'rs1 == rd != rs2': 0
+    'rs2 == rd != rs1': 0
+    'rs1 != rs2  and rs1 != rd and rs2 != rd': 0
+
   r4fmt_op_comb: &r4fmt_op_comb
     'rs1 == rs2 == rs3 == rd': 0
     'rs1 == rs2 == rs3 != rd': 0
