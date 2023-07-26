@@ -915,3 +915,40 @@ pmp_lock_region_disabled:
   csr_comb:
 	(((pmpcfg0 & 0x80) == 0x80) & ((pmpcfg0 >> 3) & 0x3) == 0x0) & (old_val(pmpcfg0 & 0xFF) ) & (old_val(pmpaddr0)) : 0
                                                                                               #  Check if lock bit is set for pmpcfg0, pmpcfg0.A is set to OFF, and the values of pmpcfg0 and pmpaddr0 should not change.
+
+# Lock bit set, no R/W/X access in machine mode and lw in that region
+locking_with_M_mode:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg0 & 0x8000 == 0x8000) and (pmpcfg0 & 0x800 == 0x800) and (pmpcfg0 & 0x700 == 0x00) and (rs1_val + imm_val < (pmpaddr1 << 2)) and (rs1_val +imm_val >= (pmpaddr0 << 2))': 0
+
+# Lock bit unset, no R/W/X access in machine mode and lw in that region
+locking_with_M_mode:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg0 & 0x8000 == 0x00) and (pmpcfg0 & 0x800 == 0x800) and (pmpcfg0 & 0x700 == 0x00) and (rs1_val + imm_val < (pmpaddr1 << 2)) and (rs1_val +imm_val >= (pmpaddr0 << 2))': 0
+
+# Lock bit set, given R/W/X access in machine mode and lw in that region
+locking_with_M_mode:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg0 & 0x8000 == 0x8000) and (pmpcfg0 & 0x800 == 0x800) and (pmpcfg0 & 0x700 == 0x700) and (rs1_val + imm_val < (pmpaddr1 << 2)) and (rs1_val +imm_val >= (pmpaddr0 << 2))': 0
+
+# Lock bit unset, given R/W/X access in machine mode and lw in that region
+locking_with_M_mode:
+  config:
+    - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True;
+  mnemonics:
+    lw: 0
+  val_comb:
+    '(pmpcfg0 & 0x8000 == 0x00) and (pmpcfg0 & 0x800 == 0x800) and (pmpcfg0 & 0x700 == 0x700) and (rs1_val + imm_val < (pmpaddr1 << 2)) and (rs1_val +imm_val >= (pmpaddr0 << 2))': 0
+
