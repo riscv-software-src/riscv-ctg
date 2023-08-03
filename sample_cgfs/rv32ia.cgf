@@ -120,9 +120,9 @@ amominu.w:
     op_comb: 
       <<: [*ramofmt_op_comb]
     val_comb:
-      <<: [*base_rs2val_unsgn]
+      <<: [*base_rs2val_sgn]
       abstract_comb:
-        <<: [*rs2val_walking_unsgn]
+        <<: [*rs2val_walking]
 
 amomax.w:
     config: 
@@ -156,6 +156,6 @@ amomaxu.w:
     op_comb: 
       <<: [*ramofmt_op_comb]
     val_comb:
-      <<: [*base_rs2val_unsgn]
+      <<: [*base_rs2val_sgn]
       abstract_comb:
-        <<: [*rs2val_walking_unsgn]
+        <<: [*rs2val_walking]
