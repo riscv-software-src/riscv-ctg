@@ -1,0 +1,6 @@
+fencei:
+  config: 
+    - check ISA:=regex(.*E.*Zifencei.*) ;def RVTEST_E = True
+  opcode: 
+    fence.i: 0
+
