@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.11.1] - 2023-08-15
 - Fixed hex values handling for K extensions
 - Fixed set indexing error during opcomb gen
+- Fixed whitespaces on empty lines in yaml template files.
 
 ## [0.11.0] - 2022-12-11
 - Added support for csr_comb test generation
