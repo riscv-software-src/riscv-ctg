@@ -341,9 +341,8 @@ class Generator():
                     locals()[var] = val
                 return eval(cond)
             sat_set = set(filter(eval_func,op_comb))
-            cond_str += ", ".join([var+"=="+solution[var] for var in cond_vars]+[op_comb[i] for i in sat_set])
+            cond_str += ", ".join([var+"=="+solution[var] for var in cond_vars]+list(sat_set))
             op_tuple.append(cond_str)
-            op_comb = op_comb - sat_set
             problem.reset()
             solutions.append( tuple(op_tuple) )
 
