@@ -1,7 +1,7 @@
 # CHANGELOG
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## [0.11.1] - 2023-8-16
+## [0.11.2] - 2023-8-16
 - Added Zifencei, Bit Manipulation and Privilege tests ctg files for RV32E
 
 Please note the header `WIP-DEV` is to always remain indicating the changes done on the dev branch.
