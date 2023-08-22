@@ -78,7 +78,8 @@ OPS = {
     'pphrrformat': ['rs1', 'rs2', 'rd'],
     'ppbrrformat': ['rs1', 'rs2', 'rd'],
     'prrformat': ['rs1', 'rs2', 'rd'],
-    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
+    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd'],
+    'dcasrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -125,7 +126,8 @@ VALS = {
     'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
     'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
     'prrformat': '["rs1_val", "rs2_val"]',
-    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
+    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']",
+    'dcasrformat': '["rs1_val", "rs2_val"]'
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -875,6 +877,14 @@ class Generator():
             elif 'bit_width' in self.opnode:
                 concat_simd_data(final_instr, self.xlen, self.opnode['bit_width'])
 
+        '''
+        Zacas introduces double xlen cas operations that need paired source and destination registers
+        '''
+        if any('Zacas' in isa for isa in self.opnode['isa']):
+            if 'dcas_profile' in self.opnode:
+                gen_pair_reg_data(final_instr, self.xlen, self.opnode['bit_width'], self.opnode['dcas_profile'])
+
+
         return final_instr
 
     def valreg(self,instr_dict):
@@ -903,6 +913,9 @@ class Generator():
             if self.xlen == 32 and 'p64_profile' in self.opnode:
                 p64_profile = self.opnode['p64_profile']
                 paired_regs = self.opnode['p64_profile'].count('p')
+            if 'dcas_profile' in self.opnode:
+                dcas_profile = self.opnode['dcas_profile']
+                paired_regs = self.opnode['dcas_profile'].count('p')
 
             regset = e_regset if 'e' in self.base_isa else default_regset
             total_instr = len(instr_dict)
@@ -1023,6 +1036,9 @@ class Generator():
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             paired_regs = self.opnode['p64_profile'].count('p')
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            paired_regs = self.opnode['dcas_profile'].count('p')
 
         regset = e_regset if 'e' in self.base_isa else default_regset
         total_instr = len(instr_dict)
@@ -1109,6 +1125,9 @@ class Generator():
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             paired_regs = p64_profile.count('p')
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            paired_regs = dcas_profile.count('p')
 
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
@@ -1161,6 +1180,11 @@ class Generator():
             if len(p64_profile) >= 3 and p64_profile[0]=='p':
                 for i in range(len(instr_dict)):
                     instr_dict[i]['correctval_hi'] = '0'
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            if len(dcas_profile) >= 3 and dcas_profile[0]=='p':
+                for i in range(len(instr_dict)):
+                    instr_dict[i]['correctval_hi'] = '0'
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -1188,6 +1212,11 @@ class Generator():
             # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
             if 'bit_width' in self.opnode or (self.xlen == 32 and 'p64_profile' in self.opnode):
                 return instr_dict
+        if any('Zacas' in isa for isa in self.opnode['isa']):
+            # instr_dict is already in the desired format for Zacas dcas instructions
+            if 'bit_width' in self.opnode or 'dcas_profile' in self.opnode:
+                return instr_dict
+        
         # Fix all K instructions to be unsigned to output unsigned hex values into the test. Its
         # only a cosmetic difference and has no impact on coverage
         is_unsigned = any('IZk' in isa for isa in self.opnode['isa'])
@@ -1271,9 +1300,10 @@ class Generator():
 
         if any('IP' in isa for isa in self.opnode['isa']):
             code.append("RVTEST_VXSAT_ENABLE()")
-
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
 
         n = 0
         is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
