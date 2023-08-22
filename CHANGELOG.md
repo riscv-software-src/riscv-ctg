@@ -7,6 +7,7 @@ Only when a release to the main branch is done, the contents of the WIP-DEV are 
 versioned header while the `WIP-DEV` is left empty
 
 ## [WIP-DEV]
+- Added Zifencei, Bit Manipulation and Privilege tests ctg files for RV32E
 - Added support of Zcb from Code Size Reduction Extension. 
 - Added support of Standard Atomic (A) Extension (RV32 and RV64), excluding the LR/SC instruction.
 - Updating CONTRIBUTING.rst to capture the new git strategy adopted to follow a monthly release
