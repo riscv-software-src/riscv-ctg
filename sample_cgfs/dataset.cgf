@@ -291,6 +291,7 @@ datasets:
     'rs1_val > 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val > 0': 0
+    'rs1_val == -0x8000000000000000 and rs2_val == -0x01': 0
     'rs1_val == rs2_val': 0
     'rs1_val != rs2_val': 0
   
