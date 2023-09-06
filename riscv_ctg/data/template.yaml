@@ -1,4 +1,9 @@
 # See LICENSE.incore for details
+datasets:
+  ifmt_op_comb: &ifmt_op_comb
+    'rs1 == rd': 0
+    'rs1 != rd': 0
+
 metadata:
   all_regs: &all_regs "['x'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]"
   all_fregs: &all_fregs "['f'+str(x) for x in range(0,32 if 'e' not in base_isa else 16)]"

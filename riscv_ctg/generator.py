@@ -245,6 +245,7 @@ class Generator():
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
         self.inxFlag = inxFlag
+        self.bf16 = opcode in ['fcvt.s.bf16']
         self.is_sgn_extd = is_sgn_extd
 
         if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd","flh","fsh","c.lbu","c.lhu","c.lh","c.sb","c.sh","c.flw"]:
@@ -411,7 +412,7 @@ class Generator():
                 if self.is_fext:
 	                # fs + fe + fm -> Combiner Script
                     try:
-                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge,self.inxFlag)
+                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge,self.inxFlag,self.bf16)
                     except ExtractException as e:
                         logger.warning("Valcomb skip: "+str(e))
                         continue
@@ -824,7 +825,7 @@ class Generator():
                 var_dict[key] = instr[key]
 
             instr_obj = instructionObject(None, instr['inst'], None)
-            ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen, 'inxFlag': self.inxFlag, 'xlen': self.xlen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
+            ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen, 'inxFlag': self.inxFlag, 'xlen': self.xlen, 'bf16': self.bf16}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
             if ext_specific_vars is not None:
                 var_dict.update(ext_specific_vars)
 

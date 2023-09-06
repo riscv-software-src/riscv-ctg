@@ -1,0 +1,16 @@
+# For Licence details look at https://gitlab.com/incoresemi/riscv-compliance/riscv_ctg/-/blob/master/LICENSE.incore
+
+fcvt.s.bf16_b1:
+    config: 
+      - check ISA:=regex(.*I.*F.*Zfbfmin.*)
+    mnemonics: 
+      fcvt.s.bf16: 0
+    rs1: 
+      <<: *all_fregs
+    rd: 
+      <<: *all_fregs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      abstract_comb:
+        'ibm_b1(flen,16, "fcvt.s.bf16", 1, bf16=True)': 0
