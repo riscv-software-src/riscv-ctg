@@ -1455,7 +1455,7 @@ c.nop:
   rs1_data: "['x0']"
   rs1_val_data: "[0]"
   template: |-
-  
+
     // $comment
     // opcode:$inst; immval:$imm_val
     TEST_CNOP_OP($inst, $testreg, $imm_val, $swreg, $offset)

@@ -1485,7 +1485,6 @@ clz:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
-  
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)  
@@ -1503,7 +1502,6 @@ clzw:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
-  
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -1521,11 +1519,10 @@ cpop:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
-  
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg) 
-    
+
 cpopw:
   sig:
     stride: 1
@@ -1539,11 +1536,11 @@ cpopw:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
-  
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)  
-    
+
 ctz:
   sig:
     stride: 1
@@ -1557,11 +1554,10 @@ ctz:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
-  
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)  
-    
+
 ctzw:
   sig:
     stride: 1
@@ -1575,11 +1571,11 @@ ctzw:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+gen_sign_dataset(xlen)'
   template: |-
-  
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
-    
+
 max:
   sig:
     stride: 1
@@ -1625,7 +1621,7 @@ ukcras16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg) 
-    
+
 maxu:
   sig:
     stride: 1
@@ -1671,7 +1667,7 @@ crsa16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-    
+
 min:
   sig:
     stride: 1
@@ -1717,7 +1713,7 @@ rcrsa16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-    
+
 minu:
   sig:
     stride: 1
@@ -1804,7 +1800,7 @@ orc.b:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[16909320,33818625,67633410,134283780,72624976414508040,145249888404506625,290483284134592770,576744443617542660]'
   template: |-
-  
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg) 
@@ -1912,7 +1908,7 @@ rstas16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-    
+
 rev8:
   sig:
     stride: 1
@@ -2065,7 +2061,7 @@ rori:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
- 
+
 roriw:
   sig:
     stride: 1
@@ -2206,11 +2202,11 @@ sext.b:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
-  
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)  
-    
+
 sext.h:
   sig:
     stride: 1
@@ -2224,7 +2220,7 @@ sext.h:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg) 
@@ -2305,7 +2301,7 @@ ukstsa16:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-  
+
 zext.h:
   sig:
     stride: 1
@@ -2319,7 +2315,7 @@ zext.h:
   rd_op_data: *all_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;
     TEST_RD_OP($inst, $rd, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -2588,7 +2584,7 @@ ukadd8:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-    
+
 bclri:
   sig:
     stride: 1
@@ -2606,7 +2602,7 @@ bclri:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
-    
+
 bext:
   sig:
     stride: 1
@@ -2696,7 +2692,7 @@ rsub8:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-    
+
 bexti:
   sig:
     stride: 1
@@ -2714,7 +2710,7 @@ bexti:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
-    
+
 binv:
   sig:
     stride: 1
@@ -2806,7 +2802,7 @@ ksub8:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-    
+
 binvi:
   sig:
     stride: 1
@@ -2824,7 +2820,7 @@ binvi:
     // $comment
     // opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val;  immval:$imm_val
     TEST_IMM_OP( $inst, $rd, $rs1, $correctval, $rs1_val, $imm_val, $swreg, $offset, $testreg)
-    
+
 bset:
   sig:
     stride: 1
@@ -10145,7 +10141,7 @@ pktt32:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
-    
+
 bseti:
   sig:
     stride: 1
