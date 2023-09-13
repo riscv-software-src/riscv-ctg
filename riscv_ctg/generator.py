@@ -229,11 +229,15 @@ class Generator():
         is_fext = any(['F' in x or 'D' in x or 'Zfh' in x or 'Zfinx' in x for x in opnode['isa']])
         is_sgn_extd = True if (inxFlag and iflen <xlen) else False
 
+        print("is_sgn_extd: " + str(is_sgn_extd))
         if is_fext:
+            print("fl: " + str(fl) + ", ifl: " + str(ifl))
             if fl>ifl:
                 is_int_src = any([opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
                 is_nan_box = not is_int_src and is_sgn_extd
+                print("is_int_src: " + str(is_int_src))
 
+        print("done with some generator init")
         self.xlen = xl
         self.flen = fl
         self.iflen = ifl
@@ -242,6 +246,7 @@ class Generator():
         self.opcode = opcode
         self.op_vars = OPS[fmt]
         self.val_vars = eval(VALS[fmt])
+        print("val_vars: " + str(self.val_vars))
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
         self.inxFlag = inxFlag
@@ -323,9 +328,11 @@ class Generator():
 
             done = False
             for var in self.op_vars:
+                logger.warn("adding var: " + var)
                 problem.addVariable(var, list(self.datasets[var]))
                 if op_conds[var] and not(individual and done):
                     cond_vars.append(var)
+                    logger.warn("Add constraint1: " + str(op_conds[var]) + ", " + str(var))
                     problem.addConstraint(construct_constraint(op_conds[var]),tuple([var]))
                     done = True
             if op_comb:
@@ -335,14 +342,17 @@ class Generator():
                     for var,val in zip(self.op_vars,args):
                         locals()[var] = val
                     return eval(cond)
+                logger.warn("Add constraint2: " + str(cond) + ", " + str(self.op_vars))
                 problem.addConstraint(comb_constraint,tuple(self.op_vars))
             elif not nodiff:
+                logger.warn("Add constraint3: AllDifferent")
                 problem.addConstraint(AllDifferentConstraint())
             count = 0
             solution = problem.getSolution()
             while (solution is None and count < 5):
                 solution = problem.getSolution()
                 count = count + 1
+            logger.warn("soln count: " + str(count) + " soln? " + str(solution is not None))
             if solution is None:
                 if individual:
                     if nodiff:
@@ -392,10 +402,15 @@ class Generator():
         '''
         logger.debug(self.opcode + ' : Generating ValComb')
         if 'val_comb' not in cgf:
+            print('nothing to return')
+            print(cgf)
             return []
         val_comb = []
 
         conds = list(cgf['val_comb'].keys())
+        print("node: " + str(cgf))
+        print("conds:")
+        print(conds)
         inds = set(range(len(conds)))
         merge = True
         if 'fcvt' in self.opcode or 'fmv' in self.opcode:
@@ -403,16 +418,20 @@ class Generator():
                 merge = "fmv.x.w" in self.opcode
         while inds:
             req_val_comb = conds[inds.pop()]
+            print("doing: " + str(req_val_comb))
             if("#nosat" in req_val_comb):
                 d={}
                 soln = []
                 req_val_comb_minus_comm = req_val_comb.split("#")[0]
                 x = req_val_comb_minus_comm.split(" and ")
 
+                print("is_fext? " + str(self.is_fext))
                 if self.is_fext:
 	                # fs + fe + fm -> Combiner Script
                     try:
+                        print("pre: " + str(self.val_vars) + ", " + str(req_val_comb))
                         d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge,self.inxFlag,self.bf16)
+                        print('set d to ' + str(d))
                     except ExtractException as e:
                         logger.warning("Valcomb skip: "+str(e))
                         continue
@@ -429,8 +448,11 @@ class Generator():
                     logger.warning(
                         "Valcomb skip: Cannot bypass SAT Solver for partially defined coverpoints!"\
                                 + str(req_val_comb))
+                    logger.warning(d.keys());
+                    logger.warning(self.val_vars)
                     continue
                 for y in self.val_vars:
+                    print("soln append " + str(d[y]))
                     soln.append(d[y])
 
                 soln.append(req_val_comb_minus_comm)
@@ -465,6 +487,7 @@ class Generator():
                     continue
                 val_tuple = []
                 for i,key in enumerate(self.val_vars):
+                    print("SOLNKEY: " + str(solution[key]))
                     val_tuple.append(solution[key])
 
                 def eval_func(cond):
@@ -473,6 +496,7 @@ class Generator():
                     return eval(cond)
                 sat_set=set(filter(lambda x: eval_func(conds[x]),inds))
                 inds = inds - sat_set
+                print("req_val_comb: " + str(req_val_comb))
                 val_tuple.append(req_val_comb+', '+', '.join([conds[i] for i in sat_set]))
                 problem.reset()
             val_comb.append( tuple(val_tuple) )
@@ -979,6 +1003,7 @@ class Generator():
                                     dval = (instr_dict[i]['rs{0}_val'.format(j)],width)
                                 if self.is_fext:
                                     instr_dict[i]['flagreg'] = available_reg[1]
+                                print("subbing1 for " + template.substitute(val=dval[0],width=dval[1]))
                                 instr_dict[i]['val_section'].append(
                                         template.substitute(val=dval[0],width=dval[1]))
                                 instr_dict[i]['load_instr'] = self.opnode['val']['load_instr']
@@ -1003,9 +1028,11 @@ class Generator():
                                 dval = nan_box(instr_dict[i]['rs{0}_nan_prefix'.format(j)],
                                         instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
                             else:
+                                print("set dval2: " + str(j) + ', ' + str(instr_dict[i]))
                                 dval = (instr_dict[i]['rs{0}_val'.format(j)],width)
                             if self.is_fext:
                                 instr_dict[i]['flagreg'] = available_reg[1]
+                            print("subbing2 for " + str(template.substitute(val=dval[0],width=dval[1])))
                             instr_dict[i]['val_section'].append(
                                     template.substitute(val=dval[0],width=dval[1]))
                             instr_dict[i]['load_instr'] = self.opnode['val']['load_instr']
@@ -1329,6 +1356,7 @@ class Generator():
                 #                 instr['rs{0}_val'.format(i)],self.flen,self.iflen)
                 #     else:
                 #         dval = (instr['rs{0}_val'.format(i)],self.iflen)
+                print("data push: " + str(instr['val_section']))
                 data.extend(instr['val_section'])
             if instr['swreg'] != sreg or eval(instr['offset'],{},
                         {'FLEN':width,'XLEN':self.xlen,'SIGALIGN':max(self.xlen,self.flen)/8}) == 0:

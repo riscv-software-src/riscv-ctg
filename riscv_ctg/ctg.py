@@ -44,7 +44,11 @@ def create_test(usage_str, node,label,base_isa,max_inst, op_template, randomize,
             formattype  = op_node['formattype']
             gen = Generator(formattype,op_node,opcode,randomize,xlen,flen,iflen,base_isa,inxFlag)
             op_comb = gen.opcomb(node)
+            print("op_comb:")
+            print(op_comb)
             val_comb = gen.valcomb(node)
+            print("val_comb:")
+            print(val_comb)
             instr_dict = gen.correct_val(
                 gen.valreg(
                     gen.testreg(
@@ -134,6 +138,7 @@ def ctg(verbose, out, random ,xlen_arg,flen_arg, cgf_file,num_procs,base_isa, ma
     op_template = utils.load_yamls(const.template_files)
     cgf = expand_cgf(cgf_file,xlen,flen)
     pool = mp.Pool(num_procs)
+    #print(cgf.items())
     results = pool.starmap(create_test, [(usage_str, node,label,base_isa,max_inst, op_template,
         randomize, out_dir, xlen, flen, inxFlag) for label,node in cgf.items()])
     pool.close()

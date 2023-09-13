@@ -32,6 +32,7 @@ def sgn_extd(prefix,rs,flen,iflen):
 
 
 def extract_frs_fields(reg,cvp,iflen,bf16=False):
+    print("extract_frs_fields " + str(iflen))
     if (iflen == 16 and not bf16):
         e_sz = 5
         m_sz = 10
@@ -58,6 +59,7 @@ def extract_frs_fields(reg,cvp,iflen,bf16=False):
             raise ExtractException("{0} not defined in coverpoint:{1}".format(var+reg,cvp))
     bin_val1 = s_sz_string.format(fvals['fs'+reg]) + e_sz_string.format(fvals['fe'+reg]) \
             + m_sz_string.format(fvals['fm'+reg])
+    print("bin_val1: " + bin_val1)
     hex_val1 = '0x' + size_string.format(int(bin_val1, 2))
     return int(hex_val1,16)
 
@@ -71,29 +73,36 @@ def merge_fields_f(val_vars,cvp,flen,iflen,merge,inxFlag=False,bf16=False):
             nan_box = False
     fdict = {}
     for var in val_vars:
+        print("var: " + str(var))
         if var in num_dict and merge:
             fdict[var] = extract_frs_fields(num_dict[var],cvp,iflen,bf16)
+            print("set " + str(var) + " to " + str(fdict[var]))
             if nan_box:
                 nan_var = 'rs{0}_nan_prefix'.format(num_dict[var])
                 regex = val_regex.format(nan_var.replace("_","\\_"),nan_var)
                 match_obj = re.search(regex,cvp)
                 if match_obj is not None:
                     fdict[nan_var] = eval(match_obj.group(nan_var))
+                    print("set1 " + str(nan_var) + " to " + str(fdict[nan_var]))
                 else:
                     fdict[nan_var] = (2**(flen-iflen))-1
+                    print("set2 " + str(nan_var) + " to " + str(fdict[nan_var]))
         elif sgn_extd:
                 sgn_var = 'rs{0}_sgn_prefix'.format(num_dict[var])
                 regex = val_regex.format(sgn_var.replace("_","\\_"),sgn_var)
                 match_obj = re.search(regex,cvp)
                 if match_obj is not None:
                     fdict[sgn_var] = eval(match_obj.group(sgn_var))
+                    print("set3 " + str(sgn_var) + " to " + str(fdict[sgn_var]))
                 else:
                     fdict[sgn_var] = (2**(flen-iflen))-1
+                    print("set4 " + str(sgn_var) + " to " + str(fdict[sgn_var]))
         else:
             regex = val_regex.format(var.replace("_","\\_"),var)
             match_obj = re.search(regex,cvp)
             if match_obj is not None:
                 fdict[var] = eval(match_obj.group(var))
+                print("set5 " + str(var) + " to " + str(fdict[var]))
             elif 'nan_prefix' not in var:
                 raise ExtractException("{0} not defined in coverpoint:{1}".format(var,cvp))
     return fdict
