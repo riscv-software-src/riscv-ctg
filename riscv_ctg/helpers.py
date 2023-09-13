@@ -68,7 +68,7 @@ def merge_fields_f(val_vars,cvp,flen,iflen,merge,inxFlag=False,bf16=False):
         if inxFlag:
             sgn_extd = True
         else:
-            nan_box = True
+            nan_box = False
     fdict = {}
     for var in val_vars:
         if var in num_dict and merge:
