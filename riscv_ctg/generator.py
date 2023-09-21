@@ -12,6 +12,7 @@ from math import *
 import struct
 import sys
 import itertools
+import re
 
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
@@ -275,10 +276,15 @@ class Generator():
         to ensure that all those registers occur atleast once in the respective
         operand/destination location in the instruction. These contraints are
         then supplied to the solver for solutions
-
+        
         If randomization is enabled we use the ``MinConflictsSolver`` solver to
         find solutions.
 
+        If harcoded registers are given in the cgf file, then for the conditions other
+        than the first one, there will be No Solution. To solve that problem, some code
+        is written which will find the required register in the condition and generate the
+        solution normally.
+        
         :param cgf: a covergroup in cgf format containing the set of coverpoints to be satisfied.
 
         :type cgf: dict
@@ -328,6 +334,18 @@ class Generator():
             count = 0
             solution = problem.getSolution()
             while (solution is None and count < 5):
+                pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
+                matches = re.findall(pattern, cond)
+                if not matches or any(int(match[1:]) > 31 for match in matches):
+                    result = None
+                else:
+                    result = matches
+                    for match in result:
+                        op_conds['rs1'].add(match)
+                        op_conds['rs2'].add(match)
+                        op_conds['rd'].add(match)
+                    op_comb.add(cond)
+                    break
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
