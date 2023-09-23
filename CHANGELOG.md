@@ -2,6 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.3] - 2023-09-23
+- Add Zcmop extension
+
 ## [0.11.1] - 2023-08-15
 - Fixed hex values handling for K extensions
 - Fixed set indexing error during opcomb gen
