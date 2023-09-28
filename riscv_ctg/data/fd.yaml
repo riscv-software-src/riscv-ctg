@@ -1312,7 +1312,7 @@ fcvt.s.wu:
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
- 
+
 fcvt.d.w:
   sig:
     stride: 2
@@ -1681,7 +1681,7 @@ fcvt.s.l:
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
- 
+
 fcvt.s.lu:
   sig:
     stride: 2
@@ -1708,7 +1708,6 @@ fcvt.s.lu:
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
-
 
 flh:
   sig:

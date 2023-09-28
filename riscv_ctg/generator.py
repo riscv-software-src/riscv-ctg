@@ -28,6 +28,12 @@ from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
 
+def toint(x: str):
+    if '0x' in x:
+        return int(x,16)
+    else:
+        return int(x)
+
 def get_rm(opcode):
     if any([x in opcode for x in
         ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax',
@@ -363,9 +369,8 @@ class Generator():
                     locals()[var] = val
                 return eval(cond)
             sat_set = set(filter(eval_func,op_comb))
-            cond_str += ", ".join([var+"=="+solution[var] for var in cond_vars]+[op_comb[i] for i in sat_set])
+            cond_str += ", ".join([var+"=="+solution[var] for var in cond_vars]+list(sat_set))
             op_tuple.append(cond_str)
-            op_comb = op_comb - sat_set
             problem.reset()
             solutions.append( tuple(op_tuple) )
 
@@ -813,13 +818,13 @@ class Generator():
                     if self.fmt in ['jformat','bformat'] or instr['inst'] in \
                         ['c.beqz','c.bnez','c.jal','c.j','c.jalr']:
                         var_dict['imm_val'] = \
-                            (-1 if instr['label'] == '1b' else 1) * int(instr['imm_val'])
+                            (-1 if instr['label'] == '1b' else 1) * toint(instr['imm_val'])
                     else:
-                        var_dict['imm_val'] = int(instr['imm_val'])
+                        var_dict['imm_val'] = toint(instr['imm_val'])
                 elif key == 'rm_val':
-                    var_dict['rm_val'] = int(rm_dict[instr['rm_val']])
+                    var_dict['rm_val'] = toint(rm_dict[instr['rm_val']])
                 else:
-                    var_dict[key] = int(instr[key])
+                    var_dict[key] = toint(instr[key])
             for key in self.op_vars:
                 var_dict[key] = instr[key]
 
@@ -1185,7 +1190,7 @@ class Generator():
         if self.operation:
             for i in range(len(instr_dict)):
                 for var in self.val_vars:
-                    locals()[var]=int(instr_dict[i][var])
+                    locals()[var]=toint(instr_dict[i][var])
                 correctval = eval(self.operation)
                 instr_dict[i]['correctval'] = str(normalise(correctval,instr_dict[i]))
         else:
@@ -1205,28 +1210,33 @@ class Generator():
             # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
             if 'bit_width' in self.opnode or (self.xlen == 32 and 'p64_profile' in self.opnode):
                 return instr_dict
+        # Fix all K instructions to be unsigned to output unsigned hex values into the test. Its
+        # only a cosmetic difference and has no impact on coverage
+        is_unsigned = any('IZk' in isa for isa in self.opnode['isa'])
 
         for i in range(len(instr_dict)):
             for field in instr_dict[i]:
-                # if xlen == 32:
-                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                #         size = '>I'
-                #     else:
-                #         size = '>i'
-                # else:
-                #     if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu']:
-                #         size = '>Q'
-                #     else:
-                #         size = '>q'
+                if xlen == 32:
+                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu'] or is_unsigned:
+                        size = '>I'
+                    else:
+                        size = '>i'
+                else:
+                    if instr_dict[i]['inst'] in ['sltu', 'sltiu', 'bgeu', 'bltu'] or is_unsigned:
+                        size = '>Q'
+                    else:
+                        size = '>q'
                 if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and \
                     field != 'val_section' and field != 'val_offset' and field != 'rm_val':
-                    value = instr_dict[i][field]
+                    value = (instr_dict[i][field]).strip()
+                    print(value)
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(self.xlen/4))
                         value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
+                    print("test",hex(value))
                     instr_dict[i][field] = hex(value)
         return instr_dict
 
