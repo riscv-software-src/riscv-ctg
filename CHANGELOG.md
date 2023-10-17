@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Please note the header `WIP-DEV` is to always remain indicating the changes done on the dev branch.
 Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
 versioned header while the `WIP-DEV` is left empty
+## [WIP-DEV]
+- Added unratified Zcmop
 
 ## [WIP-DEV]
 - Added Zifencei, Bit Manipulation and Privilege tests ctg files for RV32E
