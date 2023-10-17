@@ -10986,3 +10986,131 @@ c.mul:
     // $comment
     // opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+c.mop.1:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x1, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.3:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x3, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.5:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x5, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.7:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x7, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.9:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x9, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.11:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x11, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.13:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x13, $imm_val, $swreg, $testreg, $offset)
+
+c.mop.15:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - ICZcmop
+  formattype: 'cjformat'
+  imm_val_data: 'gen_sign_dataset(6)'
+  template: |-
+
+    // $comment
+    // opcode:$inst; immval:$imm_val
+    TEST_CMOP_OP($inst, x15, $imm_val, $swreg, $testreg, $offset)
