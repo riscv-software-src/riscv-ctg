@@ -10319,7 +10319,7 @@ czero.nez:
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_RR_OP($inst, $rd, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
-c.mop.0:
+c.mop.1:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10336,7 +10336,7 @@ c.mop.0:
     TEST_CMOP_OP($inst, x1, $imm_val, $swreg, $testreg, $offset)
 
 
-c.mop.1:
+c.mop.3:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10352,7 +10352,7 @@ c.mop.1:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x3, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.2:
+c.mop.5:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10368,7 +10368,7 @@ c.mop.2:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x5, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.3:
+c.mop.7:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10384,7 +10384,7 @@ c.mop.3:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x7, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.4:
+c.mop.9:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10400,7 +10400,7 @@ c.mop.4:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x9, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.5:
+c.mop.11:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10416,7 +10416,7 @@ c.mop.5:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x11, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.6:
+c.mop.13:
   sig:
     stride: 1
     sz: 'XLEN/8'
@@ -10432,7 +10432,7 @@ c.mop.6:
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x13, $imm_val, $swreg, $testreg, $offset)
 
-c.mop.7:
+c.mop.15:
   sig:
     stride: 1
     sz: 'XLEN/8'
