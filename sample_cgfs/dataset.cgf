@@ -291,10 +291,11 @@ datasets:
     'rs1_val > 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val > 0': 0
-    'rs1_val == -0x8000000000000000 and rs2_val == -0x01': 0
+    'rs1_val == 0x8000000000000000 and rs2_val == -0x01': 0 # Most negative num divided by -1 for RV64
+    'rs1_val == 0x80000000 and rs2_val == -0x01': 0         # Most negative num divided by -1 for RV32
     'rs1_val == rs2_val': 0
     'rs1_val != rs2_val': 0
-  
+
   rfmt_val_comb_unsgn: &rfmt_val_comb_unsgn
     'rs1_val > 0 and rs2_val > 0': 0
     'rs1_val == rs2_val and rs1_val > 0 and rs2_val > 0': 0
