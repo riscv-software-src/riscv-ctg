@@ -57,10 +57,10 @@ pmp_access_permission:
     (mstatus & 0x1800 != 0x0800) and ((old("pmpcfg0")) ^ (pmpcfg0) != 0x00): 0   #any other write ignored
     (mstatus & 0x1800 != 0x0800) and ((old("pmpaddr0")) ^ (pmpaddr0) != 0x00): 0   #any other write ignored
   val_comb:
-    'mstatus   &  0x1800 == 0x800 and (rs2_val == 0x00000002) and (rs1_val + imm_val >= 0x80005198) and (rs1_val + imm_val <= 0x80005198 + 0x10)' : 0 #Start of mtrap_sigptr
-    'mstatus   &  0x1800 == 0x800 and (rs2_val == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x10) and (rs1_val + imm_val <= 0x80005198 + 0x20)' : 0 #Start of mtrap_sigptr
-    'mstatus   &  0x1800 == 0x000 and (rs2_val == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x20) and (rs1_val + imm_val <= 0x80005198 + 0x30)' : 0 #Start of mtrap_sigptr
-    'mstatus   &  0x1800 == 0x000 and (rs2_val == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x30) and (rs1_val + imm_val <= 0x80005198 + 0x40)' : 0 #Start of mtrap_sigptr
+    'mstatus   &  0x1800 == 0x800 and (read_csr("mcause") == 0x00000002) and (rs1_val + imm_val >= 0x80005198) and (rs1_val + imm_val <= 0x80005198 + 0x10)' : 0 #Start of mtrap_sigptr
+    'mstatus   &  0x1800 == 0x800 and (read_csr("mcause") == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x10) and (rs1_val + imm_val <= 0x80005198 + 0x20)' : 0 #Start of mtrap_sigptr
+    'mstatus   &  0x1800 == 0x000 and (read_csr("mcause") == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x20) and (rs1_val + imm_val <= 0x80005198 + 0x30)' : 0 #Start of mtrap_sigptr
+    'mstatus   &  0x1800 == 0x000 and (read_csr("mcause") == 0x00000002) and (rs1_val + imm_val >= 0x80005198+0x30) and (rs1_val + imm_val <= 0x80005198 + 0x40)' : 0 #Start of mtrap_sigptr
 pmp_NA4_RWX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -74,20 +74,19 @@ pmp_NA4_RWX:
     ((pmpcfg0 >> 8) & 0x9A) == 0x92: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x91: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    #No exception in M Mode
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    #No exception in S and U Mode
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     #address should be in range of PMP
-    '((pmpcfg0 >> 8) & 0x9F == 0x97) and (rs1_val + imm_val == (pmpaddr1 << 2)) and (mnemonic == "lw")': 0
-    #No exception in M Mode
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    #No exception in S and U Mode
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+    '((pmpcfg0 >> 8) & 0x9F == 0x97) and (rs1_val + imm_val == (pmpaddr1 << 2))': 0
 pmp_NAPOT_RWX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -101,17 +100,17 @@ pmp_NAPOT_RWX:
     ((pmpcfg0 >> 8) & 0x9A) == 0x9A: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x99: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x9F) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_TOR_RWX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -125,17 +124,16 @@ pmp_TOR_RWX:
     ((pmpcfg0 >> 8) & 0x9A) == 0x92: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x91: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x97) and (rs1_val + imm_val >= (pmpaddr0 << 2)) and (rs1_val + imm_val < (pmpaddr1 << 2))': 0
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
 
 pmp_NA4_RW:
   config:
@@ -150,17 +148,17 @@ pmp_NA4_RW:
     ((pmpcfg0 >> 8) & 0x9A) == 0x92: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x91: 0                                              #No execute permissions
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x93) and (rs1_val + imm_val == (pmpaddr1 << 2))': 0
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
+
 pmp_NAPOT_RW:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -174,17 +172,16 @@ pmp_NAPOT_RW:
     ((pmpcfg0 >> 8) & 0x9A) == 0x9A: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x99: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x9B) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
 pmp_TOR_RW:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -198,17 +195,16 @@ pmp_TOR_RW:
     ((pmpcfg0 >> 16) & 0x9A) == 0x8A: 0
     ((pmpcfg0 >> 16) & 0x99) == 0x89: 0
     ((pmpaddr2) >= 0x00000000) and ((pmpaddr2) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") != 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 16) & 0x9F == 0x8B) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < (pmpaddr2 << 2))': 0
-    '(rs2_val != 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
 
 pmp_NA4_R:
   config:
@@ -223,17 +219,16 @@ pmp_NA4_R:
     ((pmpcfg0 >> 8) & 0x9A) == 0x90: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x91: 0                                              #No execute permissions
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x91) and (rs1_val + imm_val == (pmpaddr1 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
 pmp_NAPOT_R:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -247,17 +242,17 @@ pmp_NAPOT_R:
     ((pmpcfg0 >> 8) & 0x9A) == 0x98: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x99: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x99) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
+
 pmp_TOR_R:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -271,17 +266,16 @@ pmp_TOR_R:
     ((pmpcfg0 >> 16) & 0x9A) == 0x88: 0
     ((pmpcfg0 >> 16) & 0x99) == 0x89: 0
     ((pmpaddr2) >= 0x00000000) and ((pmpaddr2) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") == 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 16) & 0x9F == 0x89) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < (pmpaddr2 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000001)': 0
 
 pmp_NA4_X:
   config:
@@ -296,17 +290,17 @@ pmp_NA4_X:
     ((pmpcfg0 >> 8) & 0x9A) == 0x90: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x90: 0                                              #No execute permissions
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") == 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x94) and (rs1_val + imm_val == (pmpaddr1 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val == 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_NAPOT_X:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -320,17 +314,17 @@ pmp_NAPOT_X:
     ((pmpcfg0 >> 8) & 0x9A) == 0x98: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x98: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") == 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x9C) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val == 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_TOR_X:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -344,17 +338,17 @@ pmp_TOR_X:
     ((pmpcfg0 >> 16) & 0x9A) == 0x88: 0
     ((pmpcfg0 >> 16) & 0x99) == 0x88: 0
     ((pmpaddr2) >= 0x00000000) and ((pmpaddr2) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") == 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 16) & 0x9F == 0x8C) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < (pmpaddr2 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val == 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_NA4_RX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -368,17 +362,17 @@ pmp_NA4_RX:
     ((pmpcfg0 >> 8) & 0x9A) == 0x90: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x91: 0                                              #No execute permissions
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x95) and (rs1_val + imm_val == (pmpaddr1 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_NAPOT_RX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -392,17 +386,17 @@ pmp_NAPOT_RX:
     ((pmpcfg0 >> 8) & 0x9A) == 0x98: 0
     ((pmpcfg0 >> 8) & 0x99) == 0x99: 0
     ((pmpaddr1) >= 0x00000000) and ((pmpaddr1) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 8) & 0x9F == 0x9D) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < ((((((pmpaddr1 << 2) | 3) + 1) | (((pmpaddr1 << 2) | 3))) + 1)))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
+
 pmp_TOR_RX:
   config:
     - check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*);  def rvtest_mtrap_routine=True;
@@ -416,14 +410,13 @@ pmp_TOR_RX:
     ((pmpcfg0 >> 16) & 0x9A) == 0x88: 0
     ((pmpcfg0 >> 16) & 0x99) == 0x89: 0
     ((pmpaddr2) >= 0x00000000) and ((pmpaddr2) <= 0xFFFFFFFF): 0
+    '(read_csr("mcause") == 0x00000007)': 0
+    '(read_csr("mcause") != 0x00000005)': 0
+    '(read_csr("mcause") != 0x00000001)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x800) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") == 0x00000007)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000005)': 0
+    '((mstatus & 0x1800 == 0x000) and read_csr("mcause") != 0x00000001)': 0
   val_comb:
     '((pmpcfg0 >> 16) & 0x9F == 0x8D) and (rs1_val + imm_val >= (pmpaddr1 << 2)) and (rs1_val + imm_val < (pmpaddr2 << 2))': 0
-    '(rs2_val == 0x00000007)': 0
-    '(rs2_val != 0x00000005)': 0
-    '(rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x800) and rs2_val != 0x00000001)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val == 0x00000007)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000005)': 0
-    '((mstatus & 0x1800 == 0x000) and rs2_val != 0x00000001)': 0
