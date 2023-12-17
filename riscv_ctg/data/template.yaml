@@ -10986,3 +10986,196 @@ c.mul:
     // $comment
     // opcode: $inst; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
     TEST_CR_OP( $inst, $rs1, $rs2, $correctval, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
+
+sspushpopchk_u:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32, 64]
+  std_op:
+  isa:
+    - I_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: |-
+    // $comment
+    TEST_SSPUSH_SSPOP_OP($swreg, $offset, $rs2_val, Umode)
+
+sspushpopchk_s:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32, 64]
+  std_op:
+  isa:
+    - I_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: |-
+    // $comment
+    TEST_SSPUSH_SSPOP_OP($swreg, $offset, $rs2_val, Smode)
+
+c.sspushpopchk_u:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32, 64]
+  std_op:
+  isa:
+    - IC_Zicfiss_Zicsr
+  formattype: 'crformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: |-
+    // $comment
+    TEST_C_SSPUSH_SSPOP_OP($swreg, $offset, $rs2_val, Umode)
+
+c.sspushpopchk_s:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32, 64]
+  std_op:
+  isa:
+    - IC_Zicfiss_Zicsr
+  formattype: 'crformat'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
+  template: |-
+    // $comment
+    TEST_C_SSPUSH_SSPOP_OP($swreg, $offset, $rs2_val, Smode)
+
+ssamoswap.w_s:
+  sig:
+    stride: 2
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IA_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; dest: $rd op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; $swreg; $testreg; Priv
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSAMOSWAP_OP(ssamoswap.w, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $testreg, Smode)
+
+ssamoswap.d_s:
+  sig:
+    stride: 2
+    sz: 'XLEN/8'
+  xlen: [64]
+  std_op:
+  isa:
+    - IA_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; dest: $rd op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; $swreg; $testreg; Priv
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSAMOSWAP_OP(ssamoswap.d, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $testreg, Smode)
+
+ssamoswap.w_u:
+  sig:
+    stride: 2
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IA_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; dest: $rd op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; $swreg; $testreg; Priv
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSAMOSWAP_OP(ssamoswap.w, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $testreg, Umode)
+
+ssamoswap.d_u:
+  sig:
+    stride: 2
+    sz: 'XLEN/8'
+  xlen: [64]
+  std_op:
+  isa:
+    - IA_Zicfiss_Zicsr
+  formattype: 'rformat'
+  rs1_op_data: *all_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  template: |-
+
+    // $comment
+    // opcode: $inst ; dest: $rd op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val; $swreg; $testreg; Priv
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSAMOSWAP_OP(ssamoswap.d, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $testreg, Umode)
+
+ssrdp_s:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  rd_op_data: *all_regs_mx0
+  xlen: [32,64]
+  std_op:
+  isa:
+    - I_Zicfiss_Zicsr
+  formattype: 'rformat'
+  template: |-
+
+    // $comment
+    // opcode:ssrdp; dest: $rd; $swreg; $testreg; Priv
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSRDP_OP(ssrdp, $rd, $swreg, $testreg, Smode)
+
+ssrdp_u:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  rd_op_data: *all_regs_mx0
+  xlen: [32,64]
+  std_op:
+  isa:
+    - I_Zicfiss_Zicsr
+  formattype: 'rformat'
+  template: |-
+
+    // $comment
+    // opcode:ssrdp; dest: $rd; $swreg; $testreg; Priv 
+    #ifndef ZICFISS_SETUP_DONE
+    .set zicfiss_setup_done, 0
+    #define ZICFISS_SETUP_DONE 1
+    #endif
+    TEST_SSRDP_OP(ssrdp, $rd, $swreg, $testreg, Umode)
+
