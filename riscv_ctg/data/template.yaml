@@ -10842,7 +10842,7 @@ c.sb:
   template: |-
 
     // $comment
-    // opcode:$inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sh:
@@ -10862,7 +10862,7 @@ c.sh:
   template: |-
 
     // $comment
-    // opcode:$inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val
     TEST_STORE($swreg,$testreg,$index,$rs1,$rs2,$rs2_val,$imm_val,$offset,$inst,0)
 
 c.sext.b:
@@ -10877,7 +10877,7 @@ c.sext.b:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -10894,7 +10894,7 @@ c.sext.h:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -10911,7 +10911,7 @@ c.zext.b:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+[128]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -10928,7 +10928,7 @@ c.zext.h:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -10945,7 +10945,7 @@ c.zext.w:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
@@ -10962,7 +10962,7 @@ c.not:
   rs1_op_data: *c_regs
   rs1_val_data: 'gen_usign_dataset(xlen)+[65408]'
   template: |-
- 
+
     // $comment
     // opcode: $inst ; op1=dest:$rs1 ; op1val:$rs1_val;
     TEST_CRD_OP($inst, $rs1, $correctval, $rs1_val, $swreg, $offset, $testreg)
