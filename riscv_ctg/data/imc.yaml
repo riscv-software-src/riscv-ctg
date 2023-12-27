@@ -1077,7 +1077,7 @@ div:
     - IM
   formattype: 'rformat'
   operation:  'hex(int(abs(rs1_val)//abs(rs2_val))) if (rs1_val * rs2_val > 0) else hex(-int(abs(rs1_val)//abs(rs2_val))) if rs2_val != 0 else "0x"+("F"*int(xlen/4))'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True) + 0x8000000000000000'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
