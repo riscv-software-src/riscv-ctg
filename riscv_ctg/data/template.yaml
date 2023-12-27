@@ -10713,8 +10713,8 @@ amocas.d_32:
   dcas_profile: 'pnp'
   formattype: 'dcasrformat'
   rs1_op_data: *all_regs_mx0
-  rs2_op_data: *rv32rv64pair_regs
-  rd_op_data: *rv32rv64pair_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(64)'
   rs2_val_data: 'gen_sign_dataset(64)'
 
@@ -10757,8 +10757,8 @@ amocas.q:
   dcas_profile: 'pnp'
   formattype: 'dcasrformat'
   rs1_op_data: *all_regs_mx0
-  rs2_op_data: *rv32rv64pair_regs
-  rd_op_data: *rv32rv64pair_regs
+  rs2_op_data: *all_regs
+  rd_op_data: *all_regs
   rs1_val_data: 'gen_sign_dataset(128)'
   rs2_val_data: 'gen_sign_dataset(128)'
 
