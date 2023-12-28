@@ -366,7 +366,7 @@ class GeneratorCSRComb():
                     instr_dict_csr_read_and_sig_upds.append({
                         'csr_reg': csr_reg, 'dest_reg': dest_reg, 'offset': offset
                     })
-                    offset += 4
+                    offset += (self.xlen >> 3)
 
                 instr_dict.append((instr_dict_csr_writes, instr_dict_csr_read_and_sig_upds, instr_dict_csr_restores))
 
