@@ -260,7 +260,7 @@ class GeneratorCSRComb():
     '''
 
     def __init__(self, base_isa, xlen, randomize):
-        self.base_isa = base_isa
+        self.base_isa = base_isa + "_Zicsr"
         self.xlen = xlen
         self.randomize = randomize
 
