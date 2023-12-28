@@ -1595,6 +1595,7 @@ c.li:
   formattype: 'ciformat'
   operation : 'hex(sign_extend(imm_val,6))'
   imm_val_data: 'gen_sign_dataset(6)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1709,6 +1710,7 @@ c.lwsp:
     - IC
   formattype: 'ciformat'
   imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1830,6 +1832,7 @@ c.jal:
     - IC
   formattype: 'cbformat'
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1846,11 +1849,13 @@ c.jr:
   isa: 
     - IC
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
-    // opcode: c.jr; op1:$rs1
-    TEST_CJR_OP($testreg, $rs1, $swreg, $offset)
+    // opcode: c.jr; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CJR_OP($testreg, $rs1, $rs2, $swreg, $offset)
 
 c.jalr:
   sig:
@@ -1862,9 +1867,11 @@ c.jalr:
   isa: 
     - IC
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
-    // opcode:c.jalr; op1:$rs1
-    TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
+    // opcode: c.jr; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
+    TEST_CJR_OP($testreg, $rs1, $rs2, $swreg, $offset)
 
