@@ -2574,6 +2574,7 @@ bclri:
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+[-1]'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -2682,6 +2683,7 @@ bexti:
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -2792,6 +2794,7 @@ binvi:
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -10131,6 +10134,7 @@ bseti:
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
