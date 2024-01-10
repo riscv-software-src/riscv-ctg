@@ -1854,8 +1854,8 @@ c.jr:
   template: |-
 
     // $comment
-    // opcode: c.jr; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
-    TEST_CJR_OP($testreg, $rs1, $rs2, $swreg, $offset)
+    // opcode: c.jr; op1:$rs1
+    TEST_CJR_OP($testreg, $rs1, $swreg, $offset)
 
 c.jalr:
   sig:
@@ -1872,6 +1872,6 @@ c.jalr:
   template: |-
 
     // $comment
-    // opcode: c.jr; op1:$rs1; op2:$rs2; op1val:$rs1_val; op2val:$rs2_val
-    TEST_CJR_OP($testreg, $rs1, $rs2, $swreg, $offset)
+    // opcode: c.jalr; op1:$rs1
+    TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
 
