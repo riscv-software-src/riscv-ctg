@@ -15,6 +15,9 @@ aes32dsi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -35,6 +38,9 @@ aes32dsmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -55,6 +61,9 @@ aes32esi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -75,6 +84,9 @@ aes32esmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -95,6 +107,9 @@ sm4ed:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32,64]
   std_op:
   isa: 
@@ -114,6 +129,9 @@ sm4ks:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32,64]
   std_op:
   isa: 
