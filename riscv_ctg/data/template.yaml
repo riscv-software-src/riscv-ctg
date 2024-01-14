@@ -10328,6 +10328,7 @@ amoadd.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10348,6 +10349,7 @@ amoand.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10368,6 +10370,7 @@ amoswap.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10388,6 +10391,7 @@ amoxor.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10408,6 +10412,7 @@ amoor.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10428,6 +10433,7 @@ amomin.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10448,6 +10454,7 @@ amominu.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10468,6 +10475,7 @@ amomax.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10488,6 +10496,7 @@ amomaxu.w:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10508,6 +10517,7 @@ amoadd.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10528,6 +10538,7 @@ amoand.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10548,6 +10559,7 @@ amoswap.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10568,6 +10580,7 @@ amoxor.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10588,6 +10601,7 @@ amoor.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10608,6 +10622,7 @@ amomin.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10628,6 +10643,7 @@ amominu.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10648,6 +10664,7 @@ amomax.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10668,6 +10685,7 @@ amomaxu.d:
   std_op:
   isa: 
     - IA
+    - IZaamo
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
