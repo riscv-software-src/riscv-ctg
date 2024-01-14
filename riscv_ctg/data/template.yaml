@@ -407,6 +407,7 @@ rol:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -832,6 +833,7 @@ rolw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -909,6 +911,7 @@ add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -929,6 +932,7 @@ sh1add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -949,6 +953,7 @@ sh1add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -969,6 +974,7 @@ sh2add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -989,6 +995,7 @@ sh2add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1009,6 +1016,7 @@ sh3add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1029,6 +1037,7 @@ sh3add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1049,6 +1058,7 @@ slli.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1073,6 +1083,7 @@ andn:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1476,6 +1487,7 @@ clz:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1493,6 +1505,7 @@ clzw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1510,6 +1523,7 @@ cpop:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1527,6 +1541,7 @@ cpopw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1544,6 +1559,7 @@ ctz:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1561,6 +1577,7 @@ ctzw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1578,6 +1595,7 @@ max:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1623,6 +1641,7 @@ maxu:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1668,6 +1687,7 @@ min:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1713,6 +1733,7 @@ minu:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1784,6 +1805,7 @@ orc.b:
   std_op: orc.b
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1805,6 +1827,7 @@ orn:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1906,6 +1929,7 @@ rev8:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1931,6 +1955,7 @@ ror:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2032,6 +2057,7 @@ rori:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2055,6 +2081,7 @@ roriw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2078,6 +2105,7 @@ rorw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2178,6 +2206,7 @@ sext.b:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2195,6 +2224,7 @@ sext.h:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2216,6 +2246,7 @@ xnor:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2289,6 +2320,7 @@ zext.h:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2480,6 +2512,7 @@ bclr:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2570,6 +2603,7 @@ bclri:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2678,6 +2712,7 @@ bexti:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2696,6 +2731,7 @@ binv:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2788,6 +2824,7 @@ binvi:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2806,6 +2843,7 @@ bset:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -10127,6 +10165,7 @@ bseti:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
