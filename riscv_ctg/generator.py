@@ -827,7 +827,7 @@ class Generator():
                     else:
                         var_dict['imm_val'] = toint(instr['imm_val'])
                 elif key == 'rm_val':
-                    var_dict['rm_val'] = toint(rm_dict[instr['rm_val']])
+                    var_dict['rm_val'] = rm_dict[instr['rm_val']]
                 else:
                     var_dict[key] = toint(instr[key])
             for key in self.op_vars:
