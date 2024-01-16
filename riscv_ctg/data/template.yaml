@@ -6668,7 +6668,9 @@ uradd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 kadd64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6689,7 +6691,9 @@ kadd64:
     TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 ukadd64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6779,7 +6783,9 @@ ursub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 ksub64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6800,7 +6806,9 @@ ksub64:
     TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 uksub64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6923,7 +6931,9 @@ umsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmar64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6946,7 +6956,9 @@ kmar64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsr64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6969,7 +6981,9 @@ kmsr64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmar64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6992,7 +7006,9 @@ ukmar64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmsr64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
