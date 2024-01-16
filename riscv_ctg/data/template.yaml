@@ -9,7 +9,6 @@ metadata:
 
 aes32dsi:
   sig:
-    sig:
     stride: 1
     sz: 'XLEN/8'
   rs1_op_data: *all_regs
