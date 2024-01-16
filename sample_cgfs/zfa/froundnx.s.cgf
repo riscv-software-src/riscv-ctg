@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
-froundns_b1:
+froundnx_b1:
     config:
       - check ISA:=regex(.*I.*F.*Zfa.*)
     mnemonics:
-      froundns.s: 0
+      froundnx.s: 0
     rs1:
       <<: *all_fregs
     rd:
