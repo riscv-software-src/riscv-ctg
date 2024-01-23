@@ -251,12 +251,22 @@ datasets:
   sfmt_op_comb: &sfmt_op_comb
     'rs1 == rs2': 0
     'rs1 != rs2': 0
+
+  r0fmt_op_comb: &r0fmt_op_comb
+    'rs1 == 0': 0
+    'rs1 != 0': 0
   
   base_rs1val_sgn: &base_rs1val_sgn
     'rs1_val == (-2**(xlen-1))': 0
     'rs1_val == 0': 0
     'rs1_val == (2**(xlen-1)-1)': 0
     'rs1_val == 1': 0
+
+  base_rs1val_sgn_rs2val_zero: &base_rs1val_sgn_rs2val_zero
+    'rs1_val == (-2**(xlen-1)) and rs2_val == 0': 0
+    'rs1_val == 0 and rs2_val == 0': 0
+    'rs1_val == (2**(xlen-1)-1) and rs2_val == 0': 0
+    'rs1_val == 1 and rs2_val == 0': 0
   
   base_rs2val_sgn: &base_rs2val_sgn
     'rs2_val == (-2**(xlen-1))': 0
@@ -291,9 +301,11 @@ datasets:
     'rs1_val > 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val < 0': 0
     'rs1_val < 0 and rs2_val > 0': 0
-    'rs1_val == -0x8000000000000000 and rs2_val == -0x01': 0
     'rs1_val == rs2_val': 0
     'rs1_val != rs2_val': 0
+
+  div_corner_case: &div_corner_case
+    'rs1_val == -(2**(xlen-1)) and rs2_val == -0x01': 0
   
   rfmt_val_comb_unsgn: &rfmt_val_comb_unsgn
     'rs1_val > 0 and rs2_val > 0': 0

@@ -9,12 +9,14 @@ metadata:
 
 aes32dsi:
   sig:
-    sig:
     stride: 1
     sz: 'XLEN/8'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -35,6 +37,9 @@ aes32dsmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -55,6 +60,9 @@ aes32esi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -75,6 +83,9 @@ aes32esmi:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32]
   std_op:
   isa: 
@@ -95,6 +106,9 @@ sm4ed:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32,64]
   std_op:
   isa: 
@@ -114,6 +128,9 @@ sm4ks:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   xlen: [32,64]
   std_op:
   isa: 
@@ -407,6 +424,7 @@ rol:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -454,6 +472,7 @@ zip:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -477,6 +496,7 @@ unzip:
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -501,6 +521,8 @@ pack:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -540,6 +562,8 @@ packh:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -596,6 +620,8 @@ aes64ds:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -616,6 +642,8 @@ aes64dsm:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -636,6 +664,8 @@ aes64es:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -656,6 +686,8 @@ aes64esm:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -676,6 +708,8 @@ aes64ks1i:
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_usign_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -832,10 +866,13 @@ rolw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -877,6 +914,8 @@ packw:
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
   rd_op_data: *all_regs
+  rs1_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
   template: |-
 
     // $comment
@@ -909,6 +948,7 @@ add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -929,6 +969,7 @@ sh1add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -949,6 +990,7 @@ sh1add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -969,6 +1011,7 @@ sh2add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -989,6 +1032,7 @@ sh2add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1009,6 +1053,7 @@ sh3add:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1029,6 +1074,7 @@ sh3add.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1049,6 +1095,7 @@ slli.uw:
   std_op:
   isa: 
     - IZba
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1073,6 +1120,7 @@ andn:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1476,6 +1524,7 @@ clz:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1493,6 +1542,7 @@ clzw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1510,6 +1560,7 @@ cpop:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1527,6 +1578,7 @@ cpopw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1544,6 +1596,7 @@ ctz:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1561,6 +1614,7 @@ ctzw:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1578,6 +1632,7 @@ max:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1623,6 +1678,7 @@ maxu:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1668,6 +1724,7 @@ min:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1713,6 +1770,7 @@ minu:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1784,6 +1842,7 @@ orc.b:
   std_op: orc.b
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1805,6 +1864,7 @@ orn:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -1906,6 +1966,7 @@ rev8:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -1931,6 +1992,7 @@ ror:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2032,6 +2094,7 @@ rori:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2055,6 +2118,7 @@ roriw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2078,6 +2142,7 @@ rorw:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2178,6 +2243,7 @@ sext.b:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2195,6 +2261,7 @@ sext.h:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2216,6 +2283,7 @@ xnor:
     - IZk
     - IZkn
     - IZks
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2289,6 +2357,7 @@ zext.h:
   std_op:
   isa: 
     - IZbb
+    - IB
   formattype: 'kformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
@@ -2480,6 +2549,7 @@ bclr:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2570,10 +2640,12 @@ bclri:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+[-1]'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -2678,10 +2750,12 @@ bexti:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -2696,6 +2770,7 @@ binv:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -2788,10 +2863,12 @@ binvi:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)+gen_sign_dataset(xlen)+gen_usign_dataset(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -2806,6 +2883,7 @@ bset:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'rformat'
   rs1_op_data: *all_regs
   rs2_op_data: *all_regs
@@ -6627,7 +6705,9 @@ uradd64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 kadd64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6648,7 +6728,9 @@ kadd64:
     TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 ukadd64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6738,7 +6820,9 @@ ursub64:
     TEST_P64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $swreg, $offset, $testreg)
 
 ksub64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6759,7 +6843,9 @@ ksub64:
     TEST_PK64_PPP_OP($inst, $rd, $rd_hi, $rs1, $rs1_hi, $rs2, $rs2_hi, $correctval, $correctval_hi, $rs1_val, $rs1_val_hi, $rs2_val, $rs2_val_hi, $rs1, $swreg, $offset, $testreg)
 
 uksub64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6882,7 +6968,9 @@ umsr64:
     TEST_P64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $swreg, $offset, $testreg)
 
 kmar64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6905,7 +6993,9 @@ kmar64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 kmsr64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6928,7 +7018,9 @@ kmsr64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmar64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -6951,7 +7043,9 @@ ukmar64:
     TEST_PK64_PNN_OP($inst, $rd, $rd_hi, $rs1, $rs2, $correctval, $correctval_hi, $rs1_val, $rs2_val, $rs1, $swreg, $offset, $testreg)
 
 ukmsr64:
-  stride: 3
+  sig:
+    stride: 3
+    sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
   isa: 
@@ -10127,10 +10221,12 @@ bseti:
   std_op:
   isa: 
     - IZbs
+    - IB
   formattype: 'iformat'
   rs1_op_data: *all_regs
   rd_op_data: *all_regs
   rs1_val_data: 'zerotoxlen(xlen)'
+  imm_val_data: 'gen_imm_dataset(ceil(log(xlen,2)))'
   template: |-
 
     // $comment
@@ -10993,7 +11089,7 @@ amoadd.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11013,7 +11109,7 @@ amoand.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11033,7 +11129,7 @@ amoswap.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11053,7 +11149,7 @@ amoxor.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11073,7 +11169,7 @@ amoor.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11093,7 +11189,7 @@ amomin.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11113,7 +11209,7 @@ amominu.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11133,7 +11229,7 @@ amomax.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11146,14 +11242,14 @@ amomax.b:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
-
+ 
 amomaxu.b:
   sig:
     stride: 2
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11194,7 +11290,7 @@ amoadd.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11214,7 +11310,7 @@ amoand.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11234,7 +11330,7 @@ amoswap.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11254,7 +11350,7 @@ amoxor.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11274,7 +11370,7 @@ amoor.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11294,7 +11390,7 @@ amomin.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11314,7 +11410,7 @@ amominu.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11334,7 +11430,7 @@ amomax.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0
@@ -11347,14 +11443,14 @@ amomax.h:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
-
+ 
 amomaxu.h:
   sig:
     stride: 2
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs_mx0

@@ -4004,11 +4004,11 @@ kslraw.u:
     op_comb:
       <<: *rfmt_op_comb
     val_comb:
+      'rs1_w0_val == rs2_w0_val': 0
+      'rs1_w0_val != rs2_w0_val': 0
       abstract_comb:
         'simd_base_val("rs1", xlen, 32, signed=False)': 0
         'simd_base_val("rs2", xlen, 32, signed=True)': 0
-        'rs1_val == rs2_val': 0
-        'rs1_val != rs2_val': 0
 
 ksllw:
     config:
