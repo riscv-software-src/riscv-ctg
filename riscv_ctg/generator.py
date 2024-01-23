@@ -1254,14 +1254,14 @@ class Generator():
                 if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and \
                     field != 'val_section' and field != 'val_offset' and field != 'rm_val':
                     value = (instr_dict[i][field]).strip()
-                    print(value)
+                    #print(value)
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(self.xlen/4))
                         value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
-                    print("test",hex(value))
+                    #print("test",hex(value))
                     instr_dict[i][field] = hex(value)
         return instr_dict
 

@@ -7,9 +7,9 @@ amocas.w:
     rs1: 
       <<: *all_regs_mx0
     rs2: 
-      <<: *all_regs
+      <<: *pair_regs
     rd: 
-      <<: *all_regs
+      <<: *pair_regs
     op_comb: 
       <<: *zacas_op_comb
     val_comb:
