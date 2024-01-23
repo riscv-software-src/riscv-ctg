@@ -10422,7 +10422,7 @@ amoadd.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10442,7 +10442,7 @@ amoand.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10462,7 +10462,7 @@ amoswap.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10482,7 +10482,7 @@ amoxor.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10502,7 +10502,7 @@ amoor.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10522,7 +10522,7 @@ amomin.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10542,7 +10542,7 @@ amominu.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10562,7 +10562,7 @@ amomax.w:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10575,14 +10575,14 @@ amomax.w:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
-
+ 
 amomaxu.w:
   sig:
     stride: 2
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10602,7 +10602,7 @@ amoadd.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10622,7 +10622,7 @@ amoand.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10642,7 +10642,7 @@ amoswap.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10662,7 +10662,7 @@ amoxor.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10682,7 +10682,7 @@ amoor.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10702,7 +10702,7 @@ amomin.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10722,7 +10722,7 @@ amominu.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10742,7 +10742,7 @@ amomax.d:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10755,14 +10755,14 @@ amomax.d:
     // $comment
     // opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val;  op2val:$rs2_val
     TEST_AMO_OP($inst, $rd, $rs1, $rs2, $rs1_val, $rs2_val, $swreg, $offset)
-
+ 
 amomaxu.d:
   sig:
     stride: 2
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - IA
   formattype: 'rformat'
   rs1_op_data: *all_regs
@@ -10872,7 +10872,7 @@ c.lbu:
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'clformat'
   rs1_val_data: '[0]'
@@ -10882,7 +10882,7 @@ c.lbu:
     // $comment
     // opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
-
+    
 c.lhu:
   sig:
     stride: 1
@@ -10891,7 +10891,7 @@ c.lhu:
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'clformat'
   rs1_val_data: '[0]'
@@ -10901,7 +10901,7 @@ c.lhu:
     // $comment
     // opcode: $inst; op1:$rs1; dest:$rd; immval:$imm_val
     TEST_LOAD($swreg,$testreg,$index,$rs1,$rd,$imm_val,$offset,$inst,0)
-
+  
 c.lh:
   sig:
     stride: 1
@@ -10910,7 +10910,7 @@ c.lh:
   rd_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'clformat'
   rs1_val_data: '[0]'
@@ -10929,7 +10929,7 @@ c.sb:
   rs2_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'csformat'
   rs1_val_data: '[0]'
@@ -10949,7 +10949,7 @@ c.sh:
   rs2_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'csformat'
   rs1_val_data: '[0]'
@@ -10967,7 +10967,7 @@ c.sext.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb_Zbb
   formattype: 'ckformat'
   rs1_op_data: *c_regs
@@ -10984,7 +10984,7 @@ c.sext.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb_Zbb
   formattype: 'ckformat'
   rs1_op_data: *c_regs
@@ -11001,7 +11001,7 @@ c.zext.b:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'ckformat'
   rs1_op_data: *c_regs
@@ -11018,7 +11018,7 @@ c.zext.h:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb_Zbb
   formattype: 'ckformat'
   rs1_op_data: *c_regs
@@ -11035,7 +11035,7 @@ c.zext.w:
     sz: 'XLEN/8'
   xlen: [64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb_Zba
   formattype: 'ckformat'
   rs1_op_data: *c_regs
@@ -11052,7 +11052,7 @@ c.not:
     sz: 'XLEN/8'
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - I_Zca_Zcb
   formattype: 'kformat'
   rs1_op_data: *c_regs
@@ -11071,7 +11071,7 @@ c.mul:
   rs2_op_data: *c_regs
   xlen: [32,64]
   std_op:
-  isa:
+  isa: 
     - IM_Zca_Zcb
   formattype: 'crformat'
   operation: 'hex((rs1_val * rs2_val) & (2**(xlen)-1))'
