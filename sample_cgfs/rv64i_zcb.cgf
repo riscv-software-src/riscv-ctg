@@ -162,6 +162,8 @@ cnot:
       c.not: 0
     rs1: 
       <<: *c_regs
+    op_comb:
+      <<: *r0fmt_op_comb
     val_comb:
       'rs1_val == 0': 0
       'rs1_val == 0x800': 0
