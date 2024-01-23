@@ -175,9 +175,14 @@ def gen_pair_reg_data(instr_dict, xlen, _bit_width, p64_profile):
     else:
         bit_width1, bit_width2 = _bit_width, _bit_width
 
-    rs1_width = 64 if len(p64_profile) >= 3 and p64_profile[1]=='p' else xlen
-    rs2_width = 64 if len(p64_profile) >= 3 and p64_profile[2]=='p' else xlen
-    rd_width  = 64 if len(p64_profile) >= 3 and p64_profile[0]=='p' else xlen
+    if xlen == 32:
+        rs1_width = 64 if len(p64_profile) >= 3 and p64_profile[1]=='p' else xlen
+        rs2_width = 64 if len(p64_profile) >= 3 and p64_profile[2]=='p' else xlen
+        rd_width  = 64 if len(p64_profile) >= 3 and p64_profile[0]=='p' else xlen
+    else:
+        rs1_width = 128 if len(p64_profile) >= 3 and p64_profile[1]=='p' else xlen
+        rs2_width = 128 if len(p64_profile) >= 3 and p64_profile[2]=='p' else xlen
+        rd_width  = 128 if len(p64_profile) >= 3 and p64_profile[0]=='p' else xlen
 
     for instr in instr_dict:
         if 'rs1' in instr:

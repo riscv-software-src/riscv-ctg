@@ -2,6 +2,17 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+Please note the header `WIP-DEV` is to always remain indicating the changes done on the dev branch.
+Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
+versioned header while the `WIP-DEV` is left empty
+
+## [WIP-DEV]
+- Added Zifencei, Bit Manipulation and Privilege tests ctg files for RV32E
+- Added support of Zcb from Code Size Reduction Extension. 
+- Added support of Standard Atomic (A) Extension (RV32 and RV64), excluding the LR/SC instruction.
+- Updating CONTRIBUTING.rst to capture the new git strategy adopted to follow a monthly release
+  cadence.
+
 ## [0.11.1] - 2023-08-15
 - Fixed hex values handling for K extensions
 - Fixed set indexing error during opcomb gen
