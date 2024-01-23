@@ -136,38 +136,7 @@ clui:
   opcode: 
     c.lui: 0
   rd:
-    x0: 0
-    x1: 0
-    x3: 0
-    x4: 0
-    x5: 0
-    x6: 0
-    x7: 0
-    x8: 0
-    x9: 0
-    x10: 0
-    x11: 0
-    x12: 0
-    x13: 0
-    x14: 0
-    x15: 0
-    x16: 0
-    x17: 0
-    x18: 0
-    x19: 0
-    x20: 0
-    x21: 0
-    x22: 0
-    x23: 0
-    x24: 0
-    x25: 0
-    x26: 0
-    x27: 0
-    x28: 0
-    x29: 0
-    x30: 0
-    x31: 0
-
+    <<: *rv32e_regs_mx2
   val_comb:
     'rs1_val > 0 and imm_val > 32': 0
     'rs1_val > 0 and imm_val < 32 and imm_val !=0 ': 0
@@ -401,6 +370,13 @@ cjr:
     c.jr: 0
   rs1:
     <<: *rv32e_regs_mx0
+  op_comb:
+    <<: *sfmt_op_comb
+  val_comb:
+    <<: *base_rs1val_sgn_rs2val_zero
+    abstract_comb:
+      'sp_dataset(xlen)': 0
+      <<: *rs1val_walking
 
 cmv:
     config: 
@@ -444,6 +420,13 @@ cjalr:
     c.jalr: 0
   rs1:
     <<: *rv32e_regs_mx0
+  op_comb:
+    <<: *sfmt_op_comb
+  val_comb:
+    <<: *base_rs1val_sgn_rs2val_zero
+    abstract_comb:
+      'sp_dataset(xlen)': 0
+      <<: *rs1val_walking
 
 cswsp:
     config: 
@@ -461,4 +444,3 @@ cswsp:
           'walking_ones("imm_val",6,False, scale_func = lambda x: x*4)': 0
           'walking_zeros("imm_val",6,False, scale_func = lambda x: x*4)': 0
           'alternate("imm_val",6, False,scale_func = lambda x: x*4)': 0
-
