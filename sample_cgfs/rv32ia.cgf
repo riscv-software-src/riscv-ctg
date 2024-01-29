@@ -1,6 +1,7 @@
 amoadd.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amoadd.w: 0
     rs1: 
@@ -18,7 +19,8 @@ amoadd.w:
 
 amoand.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amoand.w: 0
     rs1: 
@@ -36,7 +38,8 @@ amoand.w:
 
 amoswap.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amoswap.w: 0
     rs1: 
@@ -54,7 +57,8 @@ amoswap.w:
 
 amoxor.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amoxor.w: 0
     rs1: 
@@ -72,7 +76,8 @@ amoxor.w:
 
 amoor.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amoor.w: 0
     rs1: 
@@ -90,7 +95,8 @@ amoor.w:
 
 amomin.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amomin.w: 0
     rs1: 
@@ -108,7 +114,8 @@ amomin.w:
 
 amominu.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amominu.w: 0
     rs1: 
@@ -126,7 +133,8 @@ amominu.w:
 
 amomax.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amomax.w: 0
     rs1: 
@@ -144,7 +152,8 @@ amomax.w:
 
 amomaxu.w:
     config: 
-      - check ISA:=regex(.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*A.*)
+      - check ISA:=regex(.*32.*I.*Zaamo.*)
     mnemonics: 
       amomaxu.w: 0
     rs1: 
