@@ -413,9 +413,8 @@ class GeneratorCSRComb():
 
         case_str = ''.join([case_template.safe_substitute(xlen = self.xlen, num = i, cov_label = cov_label) for i, cond in enumerate(cgf_node.get('config', []))])
         test_str = part_template.safe_substitute(case_str = case_str, code = '\n'.join(code))
-        fname = fprefix + '_csr-comb.S'
-        logger.debug("Writing Test to %s", str(fname))
-        with open(fname, 'w') as fp:
+        
+        with open(fprefix + '_csr-comb.S', 'w') as fp:
             fp.write(usage_str + csr_comb_test_template.safe_substitute(
                 isa = self.base_isa.upper(), # how to get the extensions?
                 test = test_str,
