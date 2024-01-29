@@ -91,7 +91,7 @@ div:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
@@ -129,7 +129,7 @@ rem:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
@@ -186,7 +186,7 @@ divw:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
@@ -224,7 +224,7 @@ remw:
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
