@@ -7,7 +7,7 @@ Only when a release to the main branch is done, the contents of the WIP-DEV are 
 versioned header while the `WIP-DEV` is left empty
 
 ## [WIP-DEV]
-- Add B extension
+- Add Zaamo subcomponent of A
 
 ## [WIP-DEV]
 - Added Zifencei, Bit Manipulation and Privilege tests ctg files for RV32E
