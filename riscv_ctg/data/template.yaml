@@ -12422,3 +12422,48 @@ c.mop.15:
     // $comment
     // opcode:$inst; immval:$imm_val
     TEST_CMOP_OP($inst, x15, $imm_val, $swreg, $testreg, $offset)
+
+lpad-m:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IZicfilp
+  formattype: 'uformat'
+  imm_val_data: 'gen_usign_dataset(20)+ gen_sp_dataset(20,False)'
+  template: |-
+    // $comment
+    // opcode: lpad ; dest:x0; immval:$imm_val
+    TEST_LPAD_MMODE($testreg, $swreg, $offset, $imm_val)
+
+lpad-s:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IZicfilp
+  formattype: 'uformat'
+  imm_val_data: 'gen_usign_dataset(20)+ gen_sp_dataset(20,False)'
+  template: |-
+    // $comment
+    // opcode: lpad ; dest:x0; immval:$imm_val
+    TEST_LPAD_SMODE($testreg, $swreg, $offset, $imm_val)
+
+lpad-u:
+  sig:
+    stride: 1
+    sz: 'XLEN/8'
+  xlen: [32,64]
+  std_op:
+  isa:
+    - IZicfilp
+  formattype: 'uformat'
+  imm_val_data: 'gen_usign_dataset(20)+ gen_sp_dataset(20,False)'
+  template: |-
+    // $comment
+    // opcode: lpad ; dest:x0; immval:$imm_val
+    TEST_LPAD_UMODE($testreg, $swreg, $offset, $imm_val)
