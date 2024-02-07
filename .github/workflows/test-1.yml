@@ -1,0 +1,80 @@
+name: test-1
+on:
+  pull_request:
+    branches:
+        -master
+        -dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+  
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r riscv_ctg/requirements.txt
+          pip install --editable .
+          
+
+      - name: Run RISC-V CTG for all CGF files except FP
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" == *rv32e* ]]; then
+                cmd="riscv_ctg -r -d ./tests -bi rv32e -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              elif [[ "$cgf_file" == *rv32* && "$cgf_file" != *rv32e* ]]; then
+                cmd="riscv_ctg -r -d ./tests -bi rv32i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              elif [[ "$cgf_file" == *rv64* ]]; then
+                cmd="riscv_ctg -r -d ./tests -bi rv64i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              else
+                for arch in rv32i rv64i; do
+                  cmd="riscv_ctg -r -d ./tests -bi $arch -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                  echo $cmd
+                  eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+                done
+              fi
+          fi
+          done
+
+  check-version:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: version check
+        run: |
+          export CHNGVER=$(grep -P -o '(?<=## \[).*(?=\])' -m1 CHANGELOG.md); 
+          echo "CHANGELOG VERSION: $CHNGVER"
+          export INITVER=$(grep -P "__version__ = '.*?'" riscv_ctg/__init__.py | awk '{print $3}'|sed "s/'//g"); 
+          echo "INIT VERSION: $INITVER"
+          if [ "$CHNGVER" = "$INITVER" ]; then
+              echo "Versions are equal in Changelog and init.py."
+          else
+              echo "Versions are not equal in Changelog and init.py."
+          exit 1
+          fi
+          export TAGVER=${{ steps.get-latest-tag.outputs.tag }}; 
+          echo "TAG VERSION: $TAGVER"
+          if [ "$CHNGVER" = "$TAGVER" ]; then
+              echo "No changelog update."
+              exit 1
+          else
+              echo "Changelog updated."
+          fi
+
+       
