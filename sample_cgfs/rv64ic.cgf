@@ -3,13 +3,13 @@
 cebreak:
   config: 
     - check ISA:=regex(.*I.*C.*)
-  opcode: 
+  mnemonics: 
     c.ebreak: 0
 
 caddi4spn:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.addi4spn: 0
     rd:
       <<: *c_regs
@@ -24,7 +24,7 @@ caddi4spn:
 clw:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.lw: 0
     rs1: 
       <<: *c_regs
@@ -44,7 +44,7 @@ clw:
 cld:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.ld: 0
     rs1: 
       <<: *c_regs
@@ -64,7 +64,7 @@ cld:
 csw:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.sw: 0
     rs1: 
       <<: *c_regs
@@ -85,7 +85,7 @@ csw:
 csd:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.sd: 0
     rs1: 
       <<: *c_regs
@@ -106,7 +106,7 @@ csd:
 cnop:
     config: 
       - check ISA:=regex(.*I.*C.*) 
-    opcode: 
+    mnemonics: 
       c.nop: 0
     val_comb:
       abstract_comb:
@@ -115,7 +115,7 @@ cnop:
 caddi:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.addi: 0
     rd:
       <<: *all_regs_mx0
@@ -128,7 +128,7 @@ caddi:
 caddiw:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*) 
-    opcode: 
+    mnemonics: 
       c.addiw: 0
     rd: 
       <<: *all_regs_mx0
@@ -148,7 +148,7 @@ caddiw:
 cli:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.li: 0
   rd:
     <<: *all_regs
@@ -162,7 +162,7 @@ cli:
 caddi16sp:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.addi16sp: 0
     rd:
       x2: 0
@@ -179,7 +179,7 @@ caddi16sp:
 clui:
   config: 
     - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.lui: 0
   rd:
     x0: 0
@@ -227,7 +227,7 @@ clui:
 csrli:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.srli: 0
   rs1:
     <<: *c_regs
@@ -249,7 +249,7 @@ csrli:
 csrai:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.srai: 0
   rs1:
     <<: *c_regs
@@ -271,7 +271,7 @@ csrai:
 candi:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.andi: 0
     rs1:
       <<: *c_regs
@@ -284,7 +284,7 @@ candi:
 csub:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.sub: 0
     rs1:
       <<: *c_regs
@@ -301,7 +301,7 @@ csub:
 cxor:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.xor: 0
     rs1:
       <<: *c_regs
@@ -318,7 +318,7 @@ cxor:
 cor:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.or: 0
     rs1:
       <<: *c_regs
@@ -335,7 +335,7 @@ cor:
 cand:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.and: 0
     rs1:
       <<: *c_regs
@@ -352,7 +352,7 @@ cand:
 csubw:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.subw: 0
     rs1:
       <<: *c_regs
@@ -369,7 +369,7 @@ csubw:
 caddw:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.addw: 0
     rs1:
       <<: *c_regs
@@ -386,7 +386,7 @@ caddw:
 cj:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.j: 0
   val_comb:
     'imm_val > 0': 0
@@ -399,7 +399,7 @@ cj:
 cbeqz:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.beqz: 0
   rs1:
     <<: *c_regs
@@ -418,7 +418,7 @@ cbeqz:
 cbnez:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.bnez: 0
   rs1:
     <<: *c_regs
@@ -437,7 +437,7 @@ cbnez:
 cslli:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.slli: 0
   rd:
     <<: *c_regs
@@ -459,7 +459,7 @@ cslli:
 clwsp:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.lwsp: 0
     rd: 
       <<: *all_regs_mx0
@@ -474,7 +474,7 @@ clwsp:
 cldsp:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.ldsp: 0
     rd: 
       <<: *all_regs_mx0
@@ -489,7 +489,7 @@ cldsp:
 cjr:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.jr: 0
   rs1:
     <<: *all_regs_mx0
@@ -504,7 +504,7 @@ cjr:
 cmv:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.mv: 0
     rs2:
       <<: *all_regs_mx0
@@ -522,7 +522,7 @@ cmv:
 cadd:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.add: 0
     rs1:
       <<: *all_regs
@@ -539,7 +539,7 @@ cadd:
 cjalr:
   config: 
       - check ISA:=regex(.*I.*C.*) 
-  opcode: 
+  mnemonics: 
     c.jalr: 0
   rs1:
     <<: *all_regs_mx0
@@ -554,7 +554,7 @@ cjalr:
 cswsp:
     config: 
       - check ISA:=regex(.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.swsp: 0
     rs2: 
       <<: *all_regs_mx2
@@ -571,7 +571,7 @@ cswsp:
 csdsp:
     config: 
       - check ISA:=regex(.*RV64.*I.*C.*)
-    opcode: 
+    mnemonics: 
       c.sdsp: 0
     rs2: 
       <<: *all_regs_mx2

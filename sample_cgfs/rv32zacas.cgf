@@ -2,7 +2,7 @@
 amocas.w:
     config: 
       - check ISA:=regex(.*Zacas.*)
-    opcode: 
+    mnemonics: 
       amocas.w: 0
     rs1: 
       <<: *all_regs_mx0
@@ -20,7 +20,7 @@ amocas.w:
 amocas.d_32:
     config:
       - check ISA:=regex(.*Zacas.*)
-    opcode:
+    mnemonics:
       amocas.d_32: 0
     rs1:
       <<: *all_regs_mx0

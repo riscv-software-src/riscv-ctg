@@ -163,7 +163,7 @@ amomaxu.b:
 amocas.b:
     config:
       - check ISA:=regex(.*I.*A.*Zabha.*Zacas.*)
-    opcode:
+    mnemonics:
       amocas.b: 0
     rs1:
       <<: *all_regs_mx0
@@ -344,7 +344,7 @@ amomaxu.h:
 amocas.h:
     config:
       - check ISA:=regex(.*I.*A.*Zabha.*Zacas.*)
-    opcode:
+    mnemonics:
       amocas.h: 0
     rs1:
       <<: *all_regs_mx0

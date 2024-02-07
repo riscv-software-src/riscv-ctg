@@ -1,7 +1,7 @@
 lpad-m:
   config:
     - check ISA:=regex(.*I.*Zicsr.*Zicfilp.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-  opcode:
+  mnemonics:
     lpad-m: 0
   val_comb:
     'imm_val == 0': 0
@@ -16,7 +16,7 @@ lpad-m:
 lpad-s:
   config:
     - check ISA:=regex(.*I.*Zicsr.*Zicfilp.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-  opcode:
+  mnemonics:
     lpad-s: 0
   val_comb:
     'imm_val == 0': 0
@@ -31,7 +31,7 @@ lpad-s:
 lpad-u:
   config:
     - check ISA:=regex(.*I.*Zicsr.*Zicfilp.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-  opcode:
+  mnemonics:
     lpad-u: 0
   val_comb:
     'imm_val == 0': 0

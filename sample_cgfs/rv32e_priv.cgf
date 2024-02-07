@@ -3,7 +3,7 @@ misalign-lh:
   config:
     - check ISA:=regex(.*E.*); check hw_data_misaligned_support:=True ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check hw_data_misaligned_support:=False; def rvtest_mtrap_routine=True ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     lh: 0
   val_comb:
     'ea_align == 1': 0
@@ -13,7 +13,7 @@ misalign-lhu:
     - check ISA:=regex(.*E.*); check hw_data_misaligned_support:=True ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check hw_data_misaligned_support:=False; def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*Zicsr.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     lhu: 0
   val_comb:
     'ea_align == 1': 0
@@ -24,7 +24,7 @@ misalign-lw:
     - check ISA:=regex(.*E.*); check hw_data_misaligned_support:=True ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check hw_data_misaligned_support:=False; def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*Zicsr.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     lw: 0
   val_comb:
     'ea_align == 1': 0
@@ -36,7 +36,7 @@ misalign-sh:
     - check ISA:=regex(.*E.*); check hw_data_misaligned_support:=True ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check hw_data_misaligned_support:=False; def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*Zicsr.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     sh: 0
   val_comb:
     'ea_align == 1': 0
@@ -46,7 +46,7 @@ misalign-sw:
     - check ISA:=regex(.*E.*); check hw_data_misaligned_support:=True ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check hw_data_misaligned_support:=False; def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*Zicsr.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     sw: 0
   val_comb:
     'ea_align == 1': 0
@@ -58,7 +58,7 @@ misalign2-jalr:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     jalr: 0
   val_comb:
     'imm_val%2 == 1 and ea_align == 2': 0
@@ -67,7 +67,7 @@ misalign2-jalr:
 misalign1-jalr:
   config: 
     - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     jalr: 0
   val_comb:
     'imm_val%2 == 1 and ea_align == 1': 0
@@ -78,7 +78,7 @@ misalign-jal:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     jal: 0
   val_comb:
     'ea_align == 2': 0
@@ -88,7 +88,7 @@ misalign-bge:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     bge: 0
   val_comb:
     ' rs1_val>rs2_val and ea_align == 2': 0
@@ -98,7 +98,7 @@ misalign-bgeu:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True 
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     bgeu: 0
   val_comb:
     ' rs1_val>rs2_val and ea_align == 2': 0
@@ -108,7 +108,7 @@ misalign-blt:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     blt: 0
   val_comb:
     ' rs1_val<rs2_val and ea_align == 2': 0
@@ -118,7 +118,7 @@ misalign-bltu:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     bltu: 0
   val_comb:
     ' rs1_val<rs2_val and ea_align == 2': 0
@@ -128,7 +128,7 @@ misalign-bne:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     bne: 0
   val_comb:
     ' rs1_val!=rs2_val and ea_align == 2': 0
@@ -138,7 +138,7 @@ misalign-beq:
     - check ISA:=regex(.*E.*C.*) ;def RVTEST_E = True
     - check ISA:=regex(.*E.*Zicsr.*); check ISA:=regex(^[^C]+$); def rvtest_mtrap_routine=True ;def RVTEST_E = True
   cond: check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode:
+  mnemonics:
     beq: 0
   val_comb:
     ' rs1_val==rs2_val and ea_align == 2': 0
