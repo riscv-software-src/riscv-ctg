@@ -334,18 +334,18 @@ class Generator():
             count = 0
             solution = problem.getSolution()
             while (solution is None and count < 5):
-                pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
-                matches = re.findall(pattern, cond)
-                if not matches or any(int(match[1:]) > 31 for match in matches):
-                    result = None
-                else:
-                    result = matches
-                    for match in result:
-                        op_conds['rs1'].add(match)
-                        op_conds['rs2'].add(match)
-                        op_conds['rd'].add(match)
-                    op_comb.add(cond)
-                    break
+#                pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
+#                matches = re.findall(pattern, cond)
+#                if not matches or any(int(match[1:]) > 31 for match in matches):
+#                    result = None
+#                else:
+#                    result = matches
+#                    for match in result:
+#                        op_conds['rs1'].add(match)
+#                        op_conds['rs2'].add(match)
+#                        op_conds['rd'].add(match)
+#                    op_comb.add(cond)
+#                    break
                 solution = problem.getSolution()
                 count = count + 1
             if solution is None:
@@ -358,7 +358,6 @@ class Generator():
                 else:
                     individual = True
                 continue
-
             op_tuple = []
             for key in self.op_vars:
                 op_tuple.append(solution[key])
