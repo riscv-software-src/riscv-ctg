@@ -1740,6 +1740,7 @@ c.ldsp:
     - IC
   formattype: 'ciformat'
   imm_val_data: '[x*8 for x in gen_usign_dataset(6)]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
