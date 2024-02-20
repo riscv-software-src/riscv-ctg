@@ -225,6 +225,12 @@ datasets:
     'rs1 == rs2 == rd': 0
     'rs1 != rs2  and rs1 != rd and rs2 != rd': 0
 
+  div_hardcoded_opcomb: &div_hardcoded_opcomb
+    'rs1 == rd != rs2 and rd != "x0"': 0
+    'rs1 == rd != rs2 and rd == "x0"': 0
+    'rs1 == "x0" != rd': 0
+    'rd == "x0" != rs1': 0
+
   ramofmt_op_comb: &ramofmt_op_comb
     'rs1 == rd != rs2': 0
     'rs2 == rd != rs1': 0
