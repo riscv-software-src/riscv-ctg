@@ -294,6 +294,7 @@ class Generator():
         logger.debug(self.opcode + ' : Generating OpComb')
         solutions = []
         op_conds = {}
+        opcomb_value = cgf.get("op_comb")
         if "op_comb" in cgf:
             op_comb = set(cgf["op_comb"])
         else:
@@ -333,21 +334,26 @@ class Generator():
                 problem.addConstraint(AllDifferentConstraint())
             count = 0
             solution = problem.getSolution()
-            while (solution is None and count < 5):
-#                pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
-#                matches = re.findall(pattern, cond)
-#                if not matches or any(int(match[1:]) > 31 for match in matches):
-#                    result = None
-#                else:
-#                    result = matches
-#                    for match in result:
-#                        op_conds['rs1'].add(match)
-#                        op_conds['rs2'].add(match)
-#                        op_conds['rd'].add(match)
-#                    op_comb.add(cond)
-#                    break
+            while solution is None and count < 5:
+                if opcomb_value:
+                    for i in opcomb_value:
+                        opcomb_match = re.search(r'x\d{1,2}', i)
+                        if opcomb_match is not None:
+                            pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
+                            matches = re.findall(pattern, cond)
+                            if not matches or any(int(match[1:]) > 31 for match in matches):
+                                result = None
+                            else:
+                                result = matches
+                                for match in result:
+                                    op_conds['rs1'].add(match)
+                                    op_conds['rs2'].add(match)
+                                    op_conds['rd'].add(match)
+                                op_comb.add(cond)
+                                break
                 solution = problem.getSolution()
                 count = count + 1
+
             if solution is None:
                 if individual:
                     if nodiff:
