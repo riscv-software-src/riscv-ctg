@@ -1,4 +1,4 @@
-name: test-1
+name: test-2
 on:
   pull_request:
     branches:
@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            cgf_files: ["./sample_cgfs/*.cgf"]
+            architecture: ["rv32e", "rv32i", "rv64i", "rv32i_64i"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
@@ -23,24 +27,51 @@ jobs:
           pip install --editable .
           
 
-      - name: Run RISC-V CTG for all CGF files except FP
+      - name: Run RISC-V CTG for RV32E
         run: |
           set -e
           for cgf_file in ./sample_cgfs/*.cgf; do
           if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
-              if [[ "$cgf_file" == *rv32e* ]]; then
+              if [[ "$cgf_file" == *rv32e* ]] && [ "${{matrix.architecture}}" == "rv32e" ] ; then
                 cmd="riscv_ctg -r -d ./tests -bi rv32e -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
                 echo $cmd
                 eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
-              elif [[ "$cgf_file" == *rv32* && "$cgf_file" != *rv32e* ]]; then
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV32I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" != *rv32e* ]] && [[ "cgf_file" == *rv32* ]] && [ "${{matrix.architecture}}" == "rv32i" ] ; then
                 cmd="riscv_ctg -r -d ./tests -bi rv32i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
                 echo $cmd
                 eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
-              elif [[ "$cgf_file" == *rv64* ]]; then
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV64I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" == *rv64* ]] && [ "${{matrix.architecture}}" == "rv64i" ] ; then
                 cmd="riscv_ctg -r -d ./tests -bi rv64i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
                 echo $cmd
                 eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
-              else
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV64I and RV32I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" != *rv32e* ]] && [[ "$cgf_file" != *rv32* ]] && [[ "$cgf_file" != *rv64* ]] && [ "${{matrix.architecture}}" == "rv32i_64i" ] ; then
                 for arch in rv32i rv64i; do
                   cmd="riscv_ctg -r -d ./tests -bi $arch -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
                   echo $cmd
