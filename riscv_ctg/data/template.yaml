@@ -12477,6 +12477,7 @@ sspushpopchk_u:
   isa:
     - I_Zicfiss_Zicsr
   formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     // $comment
@@ -12491,6 +12492,7 @@ sspushpopchk_s:
   isa:
     - I_Zicfiss_Zicsr
   formattype: 'rformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     // $comment
@@ -12505,6 +12507,7 @@ c.sspushpopchk_u:
   isa:
     - IC_Zicfiss_Zicsr
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     // $comment
@@ -12519,6 +12522,7 @@ c.sspushpopchk_s:
   isa:
     - IC_Zicfiss_Zicsr
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   template: |-
     // $comment
@@ -12625,6 +12629,8 @@ ssrdp_s:
   std_op:
   isa:
     - I_Zicfiss_Zicsr
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   formattype: 'rformat'
   template: |-
     // $comment
@@ -12644,6 +12650,8 @@ ssrdp_u:
   std_op:
   isa:
     - I_Zicfiss_Zicsr
+  rs1_val_data: 'gen_sign_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)'
   formattype: 'rformat'
   template: |-
     // $comment
