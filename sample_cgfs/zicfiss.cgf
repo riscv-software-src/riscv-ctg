@@ -1,7 +1,7 @@
 sspush_popchk_u:
     config: 
       - check ISA:=regex(.*I.*Zicsr.*Zicfiss.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-    opcode: 
+    mnemonics: 
       sspushpopchk_u: 0
     val_comb:
       <<: [*base_rs2val_sgn]
@@ -11,7 +11,7 @@ sspush_popchk_u:
 sspush_popchk_s:
     config:
       - check ISA:=regex(.*I.*Zicsr.*Zicfiss.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-    opcode:
+    mnemonics:
       sspushpopchk_s: 0
     val_comb:
       <<: [*base_rs2val_sgn]
@@ -21,7 +21,7 @@ sspush_popchk_s:
 csspush_popchk_u:
     config: 
       - check ISA:=regex(.*I.*C.*Zicsr.*Zicfiss.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-    opcode: 
+    mnemonics: 
       c.sspushpopchk_u: 0
     val_comb:
       <<: [*base_rs2val_sgn]
@@ -31,7 +31,7 @@ csspush_popchk_u:
 csspush_popchk_s:
     config:
       - check ISA:=regex(.*I.*C.*Zicsr.*Zicfiss.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True
-    opcode:
+    mnemonics:
       c.sspushpopchk_s: 0
     val_comb:
       <<: [*base_rs2val_sgn]
