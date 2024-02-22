@@ -12,6 +12,7 @@ from math import *
 import struct
 import sys
 import itertools
+import re
 
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
@@ -58,6 +59,7 @@ OPS = {
     'cbformat': ['rs1'],
     'cjformat': [],
     'kformat': ['rs1','rd'],
+    'ckformat': ['rs1'],
     # 'frformat': ['rs1', 'rs2', 'rd'],
     'fsrformat': ['rs1', 'rd'],
     # 'fr4format': ['rs1', 'rs2', 'rs3', 'rd'],
@@ -77,7 +79,8 @@ OPS = {
     'pphrrformat': ['rs1', 'rs2', 'rd'],
     'ppbrrformat': ['rs1', 'rs2', 'rd'],
     'prrformat': ['rs1', 'rs2', 'rd'],
-    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd']
+    'prrrformat': ['rs1', 'rs2', 'rs3', 'rd'],
+    'dcasrformat': ['rs1', 'rs2', 'rd']
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -103,6 +106,7 @@ VALS = {
     'cbformat': "['rs1_val', 'imm_val']",
     'cjformat': "['imm_val']",
     'kformat': "['rs1_val']",
+    'ckformat': "['rs1_val']",
     # 'frformat': "['rs1_val', 'rs2_val', 'rm_val', 'fcsr']",
     'fsrformat': "['rs1_val', 'fcsr'] + get_rm(opcode) + \
         ([] if not is_nan_box else ['rs1_nan_prefix'])",
@@ -123,7 +127,8 @@ VALS = {
     'pphrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 16)',
     'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
     'prrformat': '["rs1_val", "rs2_val"]',
-    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']"
+    'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']",
+    'dcasrformat': '["rs1_val", "rs2_val"]'
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -271,10 +276,15 @@ class Generator():
         to ensure that all those registers occur atleast once in the respective
         operand/destination location in the instruction. These contraints are
         then supplied to the solver for solutions
-
+        
         If randomization is enabled we use the ``MinConflictsSolver`` solver to
         find solutions.
 
+        If harcoded registers are given in the cgf file, then for the conditions other
+        than the first one, there will be No Solution. To solve that problem, some code
+        is written which will find the required register in the condition and generate the
+        solution normally.
+        
         :param cgf: a covergroup in cgf format containing the set of coverpoints to be satisfied.
 
         :type cgf: dict
@@ -284,6 +294,7 @@ class Generator():
         logger.debug(self.opcode + ' : Generating OpComb')
         solutions = []
         op_conds = {}
+        opcomb_value = cgf.get("op_comb")
         if "op_comb" in cgf:
             op_comb = set(cgf["op_comb"])
         else:
@@ -323,9 +334,26 @@ class Generator():
                 problem.addConstraint(AllDifferentConstraint())
             count = 0
             solution = problem.getSolution()
-            while (solution is None and count < 5):
+            while solution is None and count < 5:
+                if opcomb_value:
+                    for i in opcomb_value:
+                        opcomb_match = re.search(r'x\d{1,2}', i)
+                        if opcomb_match is not None:
+                            pattern = r'(?:rs1|rs2|rd) == "(x\d+)"'
+                            matches = re.findall(pattern, cond)
+                            if not matches or any(int(match[1:]) > 31 for match in matches):
+                                result = None
+                            else:
+                                result = matches
+                                for match in result:
+                                    op_conds['rs1'].add(match)
+                                    op_conds['rs2'].add(match)
+                                    op_conds['rd'].add(match)
+                                op_comb.add(cond)
+                                break
                 solution = problem.getSolution()
                 count = count + 1
+
             if solution is None:
                 if individual:
                     if nodiff:
@@ -336,7 +364,6 @@ class Generator():
                 else:
                     individual = True
                 continue
-
             op_tuple = []
             for key in self.op_vars:
                 op_tuple.append(solution[key])
@@ -873,6 +900,14 @@ class Generator():
             elif 'bit_width' in self.opnode:
                 concat_simd_data(final_instr, self.xlen, self.opnode['bit_width'])
 
+        '''
+        Zacas introduces double xlen cas operations that need paired source and destination registers
+        '''
+        if any('Zacas' in isa for isa in self.opnode['isa']):
+            if 'dcas_profile' in self.opnode:
+                gen_pair_reg_data(final_instr, self.xlen, self.opnode['bit_width'], self.opnode['dcas_profile'])
+
+
         return final_instr
 
     def valreg(self,instr_dict):
@@ -901,6 +936,9 @@ class Generator():
             if self.xlen == 32 and 'p64_profile' in self.opnode:
                 p64_profile = self.opnode['p64_profile']
                 paired_regs = self.opnode['p64_profile'].count('p')
+            if 'dcas_profile' in self.opnode:
+                dcas_profile = self.opnode['dcas_profile']
+                paired_regs = self.opnode['dcas_profile'].count('p')
 
             regset = e_regset if 'e' in self.base_isa else default_regset
             total_instr = len(instr_dict)
@@ -1021,6 +1059,9 @@ class Generator():
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             paired_regs = self.opnode['p64_profile'].count('p')
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            paired_regs = self.opnode['dcas_profile'].count('p')
 
         regset = e_regset if 'e' in self.base_isa else default_regset
         total_instr = len(instr_dict)
@@ -1107,6 +1148,9 @@ class Generator():
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
             paired_regs = p64_profile.count('p')
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            paired_regs = dcas_profile.count('p')
 
         for instr in instr_dict:
             if 'rs1' in instr and instr['rs1'] in available_reg:
@@ -1159,6 +1203,11 @@ class Generator():
             if len(p64_profile) >= 3 and p64_profile[0]=='p':
                 for i in range(len(instr_dict)):
                     instr_dict[i]['correctval_hi'] = '0'
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
+            if len(dcas_profile) >= 3 and dcas_profile[0]=='p':
+                for i in range(len(instr_dict)):
+                    instr_dict[i]['correctval_hi'] = '0'
         if self.fmt in ['caformat','crformat']:
             normalise = lambda x,y: 0 if y['rs1']=='x0' else x
         else:
@@ -1186,6 +1235,11 @@ class Generator():
             # instr_dict is already in the desired format for instructions that perform SIMD operations, or Zpsfoperand instructions in RV32.
             if 'bit_width' in self.opnode or (self.xlen == 32 and 'p64_profile' in self.opnode):
                 return instr_dict
+        if any('Zacas' in isa for isa in self.opnode['isa']):
+            # instr_dict is already in the desired format for Zacas dcas instructions
+            if 'bit_width' in self.opnode or 'dcas_profile' in self.opnode:
+                return instr_dict
+        
         # Fix all K instructions to be unsigned to output unsigned hex values into the test. Its
         # only a cosmetic difference and has no impact on coverage
         is_unsigned = any('IZk' in isa for isa in self.opnode['isa'])
@@ -1205,14 +1259,14 @@ class Generator():
                 if 'val' in field and field != 'correctval' and field != 'valaddr_reg' and \
                     field != 'val_section' and field != 'val_offset' and field != 'rm_val':
                     value = (instr_dict[i][field]).strip()
-                    print(value)
+                    #print(value)
                     if '0x' in value:
                         value = '0x' + value[2:].zfill(int(self.xlen/4))
                         value = struct.unpack(size, bytes.fromhex(value[2:]))[0]
                     else:
                         value = int(value)
 #                    value = '0x' + struct.pack(size,value).hex()
-                    print("test",hex(value))
+                    #print("test",hex(value))
                     instr_dict[i][field] = hex(value)
         return instr_dict
 
@@ -1269,9 +1323,10 @@ class Generator():
 
         if any('IP' in isa for isa in self.opnode['isa']):
             code.append("RVTEST_VXSAT_ENABLE()")
-
         if self.xlen == 32 and 'p64_profile' in self.opnode:
             p64_profile = self.opnode['p64_profile']
+        if 'dcas_profile' in self.opnode:
+            dcas_profile = self.opnode['dcas_profile']
 
         n = 0
         is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])

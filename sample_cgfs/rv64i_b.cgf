@@ -1,5 +1,6 @@
 add.uw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zba.*)
     mnemonics: 	
       add.uw: 0
@@ -19,6 +20,7 @@ add.uw:
         
 sh1add:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zba.*)
     mnemonics: 
       sh1add: 0
@@ -39,6 +41,7 @@ sh1add:
         
 sh1add.uw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zba.*)
     mnemonics: 
       sh1add.uw: 0
@@ -58,6 +61,7 @@ sh1add.uw:
         
 sh2add:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zba.*)
     mnemonics: 
       sh2add: 0
@@ -77,6 +81,7 @@ sh2add:
         
 sh2add.uw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zba.*)
     mnemonics: 
       sh2add.uw: 0
@@ -96,6 +101,7 @@ sh2add.uw:
         
 sh3add:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zba.*)
     mnemonics: 
       sh3add: 0
@@ -115,6 +121,7 @@ sh3add:
         
 sh3add.uw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zba.*)
     mnemonics: 
       sh3add.uw: 0
@@ -134,6 +141,7 @@ sh3add.uw:
         
 slli.uw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zba.*)
     mnemonics: 
       slli.uw: 0
@@ -153,6 +161,7 @@ slli.uw:
 
 xnor:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -177,6 +186,7 @@ xnor:
         
 zext.h_64:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       zext.h: 0
@@ -198,6 +208,7 @@ zext.h_64:
         'uniform_random(20, 100, ["rs1_val"], [xlen])': 0
 andn:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -222,6 +233,7 @@ andn:
 
 clz:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       clz: 0
@@ -234,14 +246,15 @@ clz:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
 
         
 clzw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
     mnemonics: 
       clzw: 0
@@ -254,13 +267,14 @@ clzw:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
         
 ctz:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       ctz: 0
@@ -273,13 +287,14 @@ ctz:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
         
 ctzw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
     mnemonics: 
       ctzw: 0
@@ -292,14 +307,15 @@ ctzw:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
 
         
 cpop:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       cpop: 0
@@ -312,13 +328,14 @@ cpop:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
         
 cpopw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
     mnemonics: 
       cpopw: 0
@@ -331,13 +348,14 @@ cpopw:
     val_comb:
       abstract_comb:
         <<: [*rs1val_walking_unsgn]
-        'leading_zeros("rs1_val", xlen, False)': 0
-        'leading_ones("rs1_val", xlen, False)': 0
-        'trailing_zeros("rs1_val", xlen, False)': 0
-        'trailing_ones("rs1_val", xlen, False)': 0
+        'leading_zeros(xlen, ["rs1_val"], [xlen], 11)': 0
+        'leading_ones(xlen, ["rs1_val"], [xlen], 10)': 0
+        'trailing_zeros(xlen, ["rs1_val"], [xlen], 12)': 0
+        'trailing_ones(xlen, ["rs1_val"], [xlen], 13)': 0
         
 max:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       max: 0
@@ -357,6 +375,7 @@ max:
 
 maxu:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       maxu: 0
@@ -376,6 +395,7 @@ maxu:
         
 min:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       min: 0
@@ -395,6 +415,7 @@ min:
         
 minu:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       minu: 0
@@ -414,6 +435,7 @@ minu:
         
 orcb_64:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       orc.b: 0
@@ -436,6 +458,7 @@ orcb_64:
         
 orn:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -460,6 +483,7 @@ orn:
 
 rev8:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -489,6 +513,7 @@ rev8:
         
 rol:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -513,6 +538,7 @@ rol:
 
 rolw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
       - check ISA:=regex(.*RV64.*I.*Zbkb.*)
       - check ISA:=regex(.*RV64.*I.*Zk.*)
@@ -537,6 +563,7 @@ rolw:
         
 ror:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -561,6 +588,7 @@ ror:
         
 rori:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
       - check ISA:=regex(.*I.*Zbkb.*)
       - check ISA:=regex(.*I.*Zk.*)
@@ -584,6 +612,7 @@ rori:
         
 roriw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
       - check ISA:=regex(.*RV64.*I.*Zbkb.*)
       - check ISA:=regex(.*RV64.*I.*Zk.*)
@@ -606,6 +635,7 @@ roriw:
 
 rorw:
     config: 
+      - check ISA:=regex(.*RV64.*I.*B.*)
       - check ISA:=regex(.*RV64.*I.*Zbb.*)
       - check ISA:=regex(.*RV64.*I.*Zbkb.*)
       - check ISA:=regex(.*RV64.*I.*Zk.*)
@@ -631,6 +661,7 @@ rorw:
         
 sext.b:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       sext.b: 0
@@ -650,6 +681,7 @@ sext.b:
 
 sext.h:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbb.*)
     mnemonics: 
       sext.h: 0
@@ -751,6 +783,7 @@ clmulr:
 
 bclr:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bclr: 0
@@ -764,8 +797,8 @@ bclr:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'xlenlim("rs1_val", xlen)': 0
-        'xlenlim("rs2_val", xlen )': 0
+#        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs2_val", xlen )': 0
         'walking_ones("rs1_val", ceil(log(xlen, 2)), False)': 0
         'walking_ones("rs2_val", ceil(log(xlen, 2)), False)': 0
         'leading_ones(64, ["rs1_val", "rs2_val"], [32,5])': 0
@@ -777,6 +810,7 @@ bclr:
         
 bclri:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bclri: 0
@@ -788,7 +822,7 @@ bclri:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs1_val", xlen)': 0
         'leading_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'trailing_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'leading_zeros(64, ["rs1_val", "imm_val"], [32,5])': 0
@@ -797,6 +831,7 @@ bclri:
         
 bext:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bext: 0
@@ -810,8 +845,8 @@ bext:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'xlenlim("rs1_val", xlen)': 0
-        'xlenlim("rs2_val", xlen )': 0
+#        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs2_val", xlen )': 0
         'walking_ones("rs1_val", ceil(log(xlen, 2)), False)': 0
         'walking_ones("rs2_val", ceil(log(xlen, 2)), False)': 0
         'leading_ones(64, ["rs1_val", "rs2_val"], [32,5])': 0
@@ -823,6 +858,7 @@ bext:
         
 bexti:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bexti: 0
@@ -834,7 +870,7 @@ bexti:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs1_val", xlen)': 0
         'leading_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'trailing_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'leading_zeros(64, ["rs1_val", "imm_val"], [32,5])': 0
@@ -843,6 +879,7 @@ bexti:
         
 binv:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       binv: 0
@@ -856,8 +893,8 @@ binv:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'xlenlim("rs1_val", xlen)': 0
-        'xlenlim("rs2_val", xlen )': 0
+#        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs2_val", xlen )': 0
         'walking_ones("rs1_val", ceil(log(xlen, 2)), False)': 0
         'walking_ones("rs2_val", ceil(log(xlen, 2)), False)': 0
         'leading_ones(64, ["rs1_val", "rs2_val"], [32,5])': 0
@@ -869,6 +906,7 @@ binv:
         
 binvi:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       binvi: 0
@@ -880,7 +918,7 @@ binvi:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs1_val", xlen)': 0
         'leading_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'trailing_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'leading_zeros(64, ["rs1_val", "imm_val"], [32,5])': 0
@@ -888,6 +926,7 @@ binvi:
         
 bset:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bset: 0
@@ -901,8 +940,8 @@ bset:
       <<: *rfmt_op_comb
     val_comb:
       abstract_comb:
-        'xlenlim("rs1_val", xlen)': 0
-        'xlenlim("rs2_val", xlen )': 0
+#        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs2_val", xlen )': 0
         'walking_ones("rs1_val", ceil(log(xlen, 2)), False)': 0
         'walking_ones("rs2_val", ceil(log(xlen, 2)), False)': 0
         'leading_ones(64, ["rs1_val", "rs2_val"], [32,5])': 0
@@ -915,6 +954,7 @@ bset:
         
 bseti:
     config: 
+      - check ISA:=regex(.*I.*B.*)
       - check ISA:=regex(.*I.*Zbs.*)
     mnemonics: 
       bseti: 0
@@ -926,7 +966,7 @@ bseti:
       <<: *ifmt_op_comb
     val_comb:
       abstract_comb:      
-        'xlenlim("rs1_val", xlen)': 0
+#        'xlenlim("rs1_val", xlen)': 0
         'leading_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'trailing_ones(64, ["rs1_val", "imm_val"], [32,5])': 0
         'leading_zeros(64, ["rs1_val", "imm_val"], [32,5])': 0

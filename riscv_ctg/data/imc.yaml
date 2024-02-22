@@ -744,6 +744,7 @@ sd:
   ea_align_data: '[0,1,2,3,4,5,6,7]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
   imm_val_data: 'gen_sign_dataset(12)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -763,6 +764,7 @@ sw:
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -783,6 +785,7 @@ sh:
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -803,6 +806,7 @@ sb:
   formattype: 'sformat'
   ea_align_data: '[0,1,2,3]'
   rs2_val_data: 'gen_sign_dataset(xlen)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -823,6 +827,7 @@ ld:
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3,4,5,6,7]'
   imm_val_data: 'gen_sign_dataset(12)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -842,6 +847,7 @@ lwu:
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -860,6 +866,7 @@ lw:
     - I
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -879,6 +886,7 @@ lhu:
     - I
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
+  rs1_val_data: 'gen_usign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -898,6 +906,7 @@ lh:
     - I
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -918,6 +927,7 @@ lbu:
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
+  rs1_val_data: 'gen_usign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -937,6 +947,7 @@ lb:
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
   imm_val_data: 'gen_sign_dataset(12)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   template: |-
 
     // $comment
@@ -973,6 +984,7 @@ jalr:
     - I
   formattype: 'iformat'
   ea_align_data: '[0,1,2,3]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen,True)'
   imm_val_data: 'gen_sign_dataset(12)'
   template: |-
 
@@ -1077,7 +1089,7 @@ div:
     - IM
   formattype: 'rformat'
   operation:  'hex(int(abs(rs1_val)//abs(rs2_val))) if (rs1_val * rs2_val > 0) else hex(-int(abs(rs1_val)//abs(rs2_val))) if rs2_val != 0 else "0x"+("F"*int(xlen/4))'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True) + [-(2**(xlen-1))]'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
@@ -1120,7 +1132,7 @@ rem:
   formattype: 'rformat'
   #  operation: 'hex(rs1_val if rs2_val==0 or (rs1_val<rs2_val and rs2_val<0) else (rs1_val % rs2_val) & (2**(xlen)-1))'
   operation: 'hex(rs1_val) if rs2_val == 0 else hex(int(abs(rs1_val) % abs(rs2_val))) if rs1_val > 0 else hex(-int(abs(rs1_val) % abs(rs2_val)))'
-  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
+  rs1_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True) + [-(2**(xlen-1))]'
   rs2_val_data: 'gen_sign_dataset(xlen) + gen_sp_dataset(xlen,True)'
   template: |-
 
@@ -1595,6 +1607,7 @@ c.li:
   formattype: 'ciformat'
   operation : 'hex(sign_extend(imm_val,6))'
   imm_val_data: 'gen_sign_dataset(6)'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1709,6 +1722,7 @@ c.lwsp:
     - IC
   formattype: 'ciformat'
   imm_val_data: '[x*4 for x in gen_usign_dataset(6)]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1726,6 +1740,7 @@ c.ldsp:
     - IC
   formattype: 'ciformat'
   imm_val_data: '[x*8 for x in gen_usign_dataset(6)]'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1830,6 +1845,7 @@ c.jal:
     - IC
   formattype: 'cbformat'
   imm_val_data: 'list(filter(lambda x: (x >=4 and x<2030) if x>0 else (x<=-4 and x> -2030 ),[x*2 for x in gen_sign_dataset(11)]))'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1846,6 +1862,8 @@ c.jr:
   isa: 
     - IC
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
@@ -1862,9 +1880,11 @@ c.jalr:
   isa: 
     - IC
   formattype: 'crformat'
+  rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
+  rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
 
     // $comment
-    // opcode:c.jalr; op1:$rs1
+    // opcode: c.jalr; op1:$rs1
     TEST_CJALR_OP($testreg, $rs1, $swreg, $offset)
 
