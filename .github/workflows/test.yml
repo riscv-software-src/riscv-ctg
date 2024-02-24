@@ -1,9 +1,7 @@
 name: test
 on:
   pull_request:
-    branches:
-        -master
-        -dev
+    branches: [ master, dev ]
   workflow_dispatch:
 
 jobs:
@@ -45,7 +43,7 @@ jobs:
           set -e
           for cgf_file in ./sample_cgfs/*.cgf; do
           if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
-              if [[ "$cgf_file" != *rv32e* ]] && [[ "cgf_file" == *rv32* ]] && [ "${{matrix.architecture}}" == "rv32i" ] ; then
+              if [[ "$cgf_file" != *rv32e* ]] && [[ "$cgf_file" == *rv32* ]] && [ "${{matrix.architecture}}" == "rv32i" ] ; then
                 cmd="riscv_ctg -r -d ./tests -bi rv32i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
                 echo $cmd
                 eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
@@ -86,6 +84,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
 
       - name: version check
         run: |
