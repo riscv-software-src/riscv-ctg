@@ -6,6 +6,9 @@ Please note the header `WIP-DEV` is to always remain indicating the changes done
 Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
 versioned header while the `WIP-DEV` is left empty
 
+## [0.12.1] - 2024-02-27
+- Fix test.yml
+
 ## [0.12.0] - 2024-02-22
 - Update generator.py to take care of hard coded register testcases only if a hard coded register is assigned in the op_comb node of a coverpoint of an instruction.
 - Add hardcoded register testcases to dataset.cgf and rv32im.cgf
