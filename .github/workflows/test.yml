@@ -80,7 +80,7 @@ jobs:
           done
 
   check-version:
-    if: github.ref == 'refs/heads/master'
+    if: github.event.pull_request.base.ref == 'master' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
