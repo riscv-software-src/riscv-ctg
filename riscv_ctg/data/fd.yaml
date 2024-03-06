@@ -1962,7 +1962,7 @@ fmvh.x.d:
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
 
-fmvh.d.x:
+fmvp.d.x:
   sig:
     stride: 2
     sz: 'SIGALIGN'
