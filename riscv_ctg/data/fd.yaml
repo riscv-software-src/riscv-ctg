@@ -2010,9 +2010,9 @@ fcvtmod.w.d:
   template: |-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
-    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    val_offset:$val_offset; rmval:rtz; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
-    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+    TEST_FPID_OP($inst, $rd, $rs1, rtz, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
 fltq.s:
   sig:
