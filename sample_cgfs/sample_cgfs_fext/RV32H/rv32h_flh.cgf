@@ -2,7 +2,7 @@
 
 flh-align:
     config: 
-      - check ISA:=regex(.*I.*)
+      - check ISA:=regex(.*I.*F.*Zfh.*)
     opcode: 
       flh: 0
     rs1: 

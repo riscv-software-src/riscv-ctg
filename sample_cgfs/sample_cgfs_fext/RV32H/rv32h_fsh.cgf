@@ -2,7 +2,7 @@
 
 fsh-align:
     config: 
-      - check ISA:=regex(.*I.*Zfh.*)
+      - check ISA:=regex(.*I.*F.*Zfh.*)
     opcode: 
       fsh: 0
     rs1: 
