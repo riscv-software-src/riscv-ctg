@@ -1,15 +1,14 @@
 sh1add:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zba.*)
+      - check ISA:=regex(.*E.*Zba.*) ;def RVTEST_E = True
     mnemonics: 
       sh1add: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -17,19 +16,18 @@ sh1add:
       abstract_comb:
         'bitmanip_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
-        
+
 sh2add:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zba.*)
+      - check ISA:=regex(.*E.*Zba.*) ;def RVTEST_E = True
     mnemonics: 
       sh2add: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -40,16 +38,15 @@ sh2add:
         
 sh3add:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zba.*)
+      - check ISA:=regex(.*E.*Zba.*) ;def RVTEST_E = True
     mnemonics: 
       sh3add: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -60,20 +57,19 @@ sh3add:
         
 xnor:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       xnor: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -85,16 +81,15 @@ xnor:
         
 zext.h_32:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       zext.h: 0
     base_op: pack
     p_op_cond: rs2 == x0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -107,20 +102,19 @@ zext.h_32:
         'uniform_random(20, 100, ["rs1_val"], [xlen])': 0
 andn:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       andn: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -132,14 +126,13 @@ andn:
 
 clz:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       clz: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -152,14 +145,13 @@ clz:
 
 ctz:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       ctz: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -172,14 +164,13 @@ ctz:
         
 cpop:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       cpop: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -192,16 +183,15 @@ cpop:
         
 max:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       max: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -212,16 +202,15 @@ max:
 
 maxu:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       maxu: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -232,16 +221,15 @@ maxu:
         
 min:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       min: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -252,16 +240,15 @@ min:
         
 minu:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       minu: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -272,16 +259,15 @@ minu:
         
 orcb_32:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       orc.b: 0
     base_op: gorci
     p_op_cond: imm_val == 7
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -295,20 +281,19 @@ orcb_32:
         
 orn:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       orn: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -320,20 +305,19 @@ orn:
 
 rev8_32:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       rev8: 0
     base_op: grevi
     p_op_cond: imm_val == 24
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd: 
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -350,20 +334,19 @@ rev8_32:
         
 rol:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       rol: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -375,20 +358,19 @@ rol:
 
 ror:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       ror: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -400,18 +382,17 @@ ror:
         
 rori:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
-      - check ISA:=regex(.*I.*Zbkb.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkb.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*I.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       rori: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -423,14 +404,13 @@ rori:
 
 sext.b:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       sext.b: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -443,14 +423,13 @@ sext.b:
 
 sext.h:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbb.*)
+      - check ISA:=regex(.*E.*Zbb.*) ;def RVTEST_E = True
     mnemonics: 
       sext.h: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -464,19 +443,19 @@ sext.h:
 
 clmul:
     config: 
-      - check ISA:=regex(.*I.*Zbc.*)
-      - check ISA:=regex(.*I.*Zbkc.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zks.*)
-      - check ISA:=regex(.*I.*Zkn.*)
+      - check ISA:=regex(.*E.*Zbc.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkc.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
     mnemonics: 
       clmul: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -492,19 +471,19 @@ clmul:
         
 clmulh:
     config: 
-      - check ISA:=regex(.*I.*Zbc.*)
-      - check ISA:=regex(.*I.*Zbkc.*)
-      - check ISA:=regex(.*I.*Zk.*)
-      - check ISA:=regex(.*I.*Zkn.*)
-      - check ISA:=regex(.*I.*Zks.*)
+      - check ISA:=regex(.*E.*Zbc.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zbkc.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zk.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zkn.*) ;def RVTEST_E = True
+      - check ISA:=regex(.*E.*Zks.*) ;def RVTEST_E = True
     mnemonics: 
       clmulh: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -521,15 +500,15 @@ clmulh:
         
 clmulr:
     config: 
-      - check ISA:=regex(.*I.*Zbc.*)
+      - check ISA:=regex(.*E.*Zbc.*) ;def RVTEST_E = True
     mnemonics: 
       clmulr: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -545,16 +524,15 @@ clmulr:
 
 bclr:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bclr: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -572,14 +550,13 @@ bclr:
         
 bclri:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bclri: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -593,16 +570,15 @@ bclri:
         
 bext:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bext: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -620,14 +596,13 @@ bext:
         
 bexti:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bexti: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -641,16 +616,15 @@ bexti:
         
 binv:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       binv: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -668,14 +642,13 @@ binv:
         
 binvi:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       binvi: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:
@@ -688,16 +661,15 @@ binvi:
         
 bset:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bset: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rs2: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *rfmt_op_comb
     val_comb:
@@ -715,14 +687,13 @@ bset:
         
 bseti:
     config: 
-      - check ISA:=regex(.*I.*B.*)
-      - check ISA:=regex(.*I.*Zbs.*)
+      - check ISA:=regex(.*E.*Zbs.*) ;def RVTEST_E = True
     mnemonics: 
       bseti: 0
     rs1: 
-      <<: *all_regs
+      <<: *rv32e_regs
     rd:
-      <<: *all_regs
+      <<: *rv32e_regs
     op_comb: 
       <<: *ifmt_op_comb
     val_comb:

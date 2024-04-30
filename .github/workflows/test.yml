@@ -1,26 +1,17 @@
-# This is a basic workflow to help you get started with Actions
-
 name: test
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ master, dev ]
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+        matrix:
+            cgf_files: ["./sample_cgfs/*.cgf"]
+            architecture: ["rv32e", "rv32i", "rv64i", "rv32i_64i"]
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -33,13 +24,69 @@ jobs:
           pip install -r riscv_ctg/requirements.txt
           pip install --editable .
           
-      - name: Run rv32i
-        run: riscv_ctg -r -d rv32i -bi rv32i -cf sample_cgfs/dataset.cgf -cf sample_cgfs/rv32i.cgf -v debug -p $(nproc)
+
+      - name: Run RISC-V CTG for RV32E
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" == *rv32e* ]] && [ "${{matrix.architecture}}" == "rv32e" ] ; then
+                cmd="riscv_ctg -r -d ./tests -bi rv32e -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV32I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" != *rv32e* ]] && [[ "$cgf_file" == *rv32* ]] && [ "${{matrix.architecture}}" == "rv32i" ] ; then
+                cmd="riscv_ctg -r -d ./tests -bi rv32i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV64I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" == *rv64* ]] && [ "${{matrix.architecture}}" == "rv64i" ] ; then
+                cmd="riscv_ctg -r -d ./tests -bi rv64i -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                echo $cmd
+                eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+              fi
+          fi
+          done
+
+      - name: Run RISC-V CTG for RV64I and RV32I
+        run: |
+          set -e
+          for cgf_file in ./sample_cgfs/*.cgf; do
+          if [ "$cgf_file" != "./sample_cgfs/dataset.cgf" ]; then
+              if [[ "$cgf_file" != *rv32e* ]] && [[ "$cgf_file" != *rv32* ]] && [[ "$cgf_file" != *rv64* ]] && [ "${{matrix.architecture}}" == "rv32i_64i" ] ; then
+                for arch in rv32i rv64i; do
+                  cmd="riscv_ctg -r -d ./tests -bi $arch -cf sample_cgfs/dataset.cgf -cf \"$cgf_file\" -v warning -p \$(nproc)"
+                  echo $cmd
+                  eval $cmd || { echo "Error executing command: $cmd"; exit 1; }
+                done
+              fi
+          fi
+          done
 
   check-version:
+    if: github.event.pull_request.base.ref == 'master' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
 
       - name: version check
         run: |
@@ -51,21 +98,8 @@ jobs:
               echo "Versions are equal in Changelog and init.py."
           else
               echo "Versions are not equal in Changelog and init.py."
-              exit 1
+          exit 1
           fi
-
-  check-version-changelog:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - uses: actions-ecosystem/action-get-latest-tag@v1
-        id: get-latest-tag
-      
-      - name: version check
-        run: |
-          export CHNGVER=$(grep -P -o '(?<=## \[).*(?=\])' -m1 CHANGELOG.md); 
-          echo "CHANGELOG VERSION: $CHNGVER"
           export TAGVER=${{ steps.get-latest-tag.outputs.tag }}; 
           echo "TAG VERSION: $TAGVER"
           if [ "$CHNGVER" = "$TAGVER" ]; then
@@ -74,3 +108,5 @@ jobs:
           else
               echo "Changelog updated."
           fi
+
+       

@@ -3,7 +3,7 @@
 mul:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       mul: 0
     rs1: 
       <<: *all_regs
@@ -22,7 +22,7 @@ mul:
 mulh:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       mulh: 0
     rs1: 
       <<: *all_regs
@@ -41,7 +41,7 @@ mulh:
 mulhu:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       mulhu: 0
     rs1: 
       <<: *all_regs
@@ -60,7 +60,7 @@ mulhu:
 mulhsu:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       mulhsu: 0
     rs1: 
       <<: *all_regs
@@ -80,7 +80,7 @@ mulhsu:
 div:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       div: 0
     rs1: 
       <<: *all_regs
@@ -89,9 +89,9 @@ div:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: [*rfmt_op_comb , *div_hardcoded_opcomb]
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
@@ -99,7 +99,7 @@ div:
 divu:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       divu: 0
     rs1: 
       <<: *all_regs
@@ -108,7 +108,7 @@ divu:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: [*rfmt_op_comb , *div_hardcoded_opcomb]
     val_comb:
       <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:
@@ -118,7 +118,7 @@ divu:
 rem:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       rem: 0
     rs1: 
       <<: *all_regs
@@ -127,9 +127,9 @@ rem:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: [*rfmt_op_comb , *div_hardcoded_opcomb]
     val_comb:
-      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn]
+      <<: [*base_rs1val_sgn , *base_rs2val_sgn , *rfmt_val_comb_sgn, *div_corner_case]
       abstract_comb:
         'sp_dataset(xlen)': 0
         <<: [*rs1val_walking, *rs2val_walking]
@@ -137,7 +137,7 @@ rem:
 remu:
     config: 
       - check ISA:=regex(.*I.*M.*)
-    opcode: 
+    mnemonics: 
       remu: 0
     rs1: 
       <<: *all_regs
@@ -146,7 +146,7 @@ remu:
     rd: 
       <<: *all_regs
     op_comb: 
-      <<: *rfmt_op_comb
+      <<: [*rfmt_op_comb , *div_hardcoded_opcomb]
     val_comb:
       <<: [*base_rs1val_unsgn , *base_rs2val_unsgn , *rfmt_val_comb_unsgn]
       abstract_comb:

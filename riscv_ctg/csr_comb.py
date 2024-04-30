@@ -15,7 +15,7 @@ OP_PRIORITY = {
     'or' : -3,
 }
 
-CSR_REGS = ['mvendorid', 'marchid', 'mimpid', 'mhartid', 'mstatus', 'misa', 'medeleg', 'mideleg', 'mie', 'mtvec', 'mcounteren', 'mscratch', 'mepc', 'mcause', 'mtval', 'mip', 'pmpcfg0', 'pmpcfg1', 'pmpcfg2', 'pmpcfg3', 'mcycle', 'minstret', 'mcycleh', 'minstreth', 'mcountinhibit', 'tselect', 'tdata1', 'tdata2', 'tdata3', 'dcsr', 'dpc', 'dscratch0', 'dscratch1', 'sstatus', 'sedeleg', 'sideleg', 'sie', 'stvec', 'scounteren', 'sscratch', 'sepc', 'scause', 'stval', 'sip', 'satp', 'vxsat', 'fflags', 'frm', 'fcsr']
+CSR_REGS = ['mvendorid', 'marchid', 'mimpid', 'mhartid', 'mstatus', 'misa', 'medeleg', 'mideleg', 'mie', 'mtvec', 'mcounteren', 'mscratch', 'mepc', 'mcause', 'mtval', 'mip', 'pmpcfg0', 'pmpcfg1', 'pmpcfg2', 'pmpcfg3', 'mcycle', 'minstret', 'mcycleh', 'minstreth', 'mcountinhibit', 'tselect', 'tdata1', 'tdata2', 'tdata3', 'dcsr', 'dpc', 'dscratch0', 'dscratch1', 'sstatus', 'sedeleg', 'sideleg', 'sie', 'stvec', 'scounteren', 'sscratch', 'sepc', 'scause', 'stval', 'sip', 'satp', 'vxsat', 'fflags', 'frm', 'fcsr', 'CSR_SRMCFG']
 csr_regs_capture_group = f'({"|".join(CSR_REGS)})'
 csr_regs_with_modifiers_capture_group = r'(write|old) *\( *"' + csr_regs_capture_group + r'" *\)'
 
@@ -260,7 +260,7 @@ class GeneratorCSRComb():
     '''
 
     def __init__(self, base_isa, xlen, randomize):
-        self.base_isa = base_isa
+        self.base_isa = base_isa + "_Zicsr"
         self.xlen = xlen
         self.randomize = randomize
 
@@ -366,7 +366,7 @@ class GeneratorCSRComb():
                     instr_dict_csr_read_and_sig_upds.append({
                         'csr_reg': csr_reg, 'dest_reg': dest_reg, 'offset': offset
                     })
-                    offset += 4
+                    offset += (self.xlen >> 3)
 
                 instr_dict.append((instr_dict_csr_writes, instr_dict_csr_read_and_sig_upds, instr_dict_csr_restores))
 
@@ -413,8 +413,9 @@ class GeneratorCSRComb():
 
         case_str = ''.join([case_template.safe_substitute(xlen = self.xlen, num = i, cov_label = cov_label) for i, cond in enumerate(cgf_node.get('config', []))])
         test_str = part_template.safe_substitute(case_str = case_str, code = '\n'.join(code))
-
-        with open(fprefix + '_csr-comb.S', 'w') as fp:
+        fname = fprefix + '_csr-comb.S'
+        logger.debug("Writing Test to %s", str(fname))
+        with open(fname, 'w') as fp:
             fp.write(usage_str + csr_comb_test_template.safe_substitute(
                 isa = self.base_isa.upper(), # how to get the extensions?
                 test = test_str,

@@ -2,6 +2,57 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+Please note the header `WIP-DEV` is to always remain indicating the changes done on the dev branch.
+Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
+versioned header while the `WIP-DEV` is left empty
+
+## [0.12.1] - 2024-02-27
+- Fix test.yml
+
+## [0.12.0] - 2024-02-22
+- Update generator.py to take care of hard coded register testcases only if a hard coded register is assigned in the op_comb node of a coverpoint of an instruction.
+- Add hardcoded register testcases to dataset.cgf and rv32im.cgf
+- Define rs1_val_data for c.ldsp in imc.yaml
+- Update "opcode" to "mnemonics" in the cgf files
+- Delete main.yml 
+- Update test.yml for CI
+- Define rs1_val_data for instructions from zicfiss.cgf in template.yaml
+- Add "warning" in the verbose definition
+- Add unratified Zicfiss extension
+- Add unratified Zicfilp extension
+- Add corner case of division for division operations for RV64
+- Fix csr_comb to write test information
+- Add unratified Zaamo subcomponent of A extension
+- Add unratified B extension
+- Fix issues with csr_comb
+- Minor fix in kslraw.u in rv32ip 
+- Fix incorrect 'sig:' entry in aes32dsi in template.yaml
+- Add sig and sz for instructions in template.yaml
+- Minor change of rd definition in c.lui in rv32ec
+- Minor fix in rv32i_k
+- Add rs1_val_data, rs2_val_data, imm_val_data for instructions in template.yaml
+- Comment xlenlim out of val_comb in rv32i_b, rv64i_b
+- Fix the formats of leading_ones, leading_zeros, trailing_ones, trailing_zeros for instructions in rv32i_b, rv32e_b
+- Add op_comb for instructions in rv32i_zcb
+- Add rs1_val_data for instructions in imc.yaml
+- Add op_comb and val_comb for instructions in rv32ic, rv64ic, rv32ec
+- Add corner case of division for division operations for RV32
+- Comment print statements out from generator.py
+- Fix whitespaces on empty lines in yaml template files.
+- Add unratified Zabha extension
+- Add support for unratified Zcmop extension
+- Add support for unratified Zimop extension
+- Add missing coverage for hard coded register testcases
+- Updated CONTRIBUTING.rst to capture the new git strategy adopted to follow a monthly release cadence.
+- Add Zifencei, Bit Manipulation and Privilege tests cgf files for RV32E
+- Add unratified Zacas extension
+- Add support for standard Atomic(A) extension
+
+## [0.11.1] - 2023-08-15
+- Fixed hex values handling for K extensions
+- Fixed set indexing error during opcomb gen
+- Fixed whitespaces on empty lines in yaml template files.
+
 ## [0.11.0] - 2022-12-11
 - Added support for csr_comb test generation
 

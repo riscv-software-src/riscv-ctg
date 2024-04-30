@@ -3,13 +3,13 @@
 fence:
   config: 
     - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-  opcode: 
+  mnemonics: 
     fence: 0
 
 addi:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       addi: 0
     rs1: 
       <<: *rv32e_regs
@@ -26,7 +26,7 @@ addi:
 slti:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       slti: 0
     rs1: 
       <<: *rv32e_regs
@@ -43,7 +43,7 @@ slti:
 sltiu:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sltiu: 0
     rs1: 
       <<: *rv32e_regs
@@ -60,7 +60,7 @@ sltiu:
 andi:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       andi: 0
     rs1: 
       <<: *rv32e_regs
@@ -77,7 +77,7 @@ andi:
 ori:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       ori: 0
     rs1: 
       <<: *rv32e_regs
@@ -94,7 +94,7 @@ ori:
 xori:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       xori: 0
     rs1: 
       <<: *rv32e_regs
@@ -111,7 +111,7 @@ xori:
 slli:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       slli: 0
     rs1: 
       <<: *rv32e_regs
@@ -131,7 +131,7 @@ slli:
 srai:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       srai: 0
     rs1: 
       <<: *rv32e_regs
@@ -151,7 +151,7 @@ srai:
 srli:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       srli: 0
     rs1: 
       <<: *rv32e_regs
@@ -171,7 +171,7 @@ srli:
 add:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       add: 0
     rs1: 
       <<: *rv32e_regs
@@ -190,7 +190,7 @@ add:
 sub:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sub: 0
     rs1: 
       <<: *rv32e_regs
@@ -209,7 +209,7 @@ sub:
 slt:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       slt: 0
     rs1: 
       <<: *rv32e_regs
@@ -228,7 +228,7 @@ slt:
 sltu:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sltu: 0
     rs1: 
       <<: *rv32e_regs
@@ -247,7 +247,7 @@ sltu:
 and:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       and: 0
     rs1: 
       <<: *rv32e_regs
@@ -266,7 +266,7 @@ and:
 or:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       or: 0
     rs1: 
       <<: *rv32e_regs
@@ -285,7 +285,7 @@ or:
 xor:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       xor: 0
     rs1: 
       <<: *rv32e_regs
@@ -304,7 +304,7 @@ xor:
 sll:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sll: 0
     rs1: 
       <<: *rv32e_regs
@@ -326,7 +326,7 @@ sll:
 srl:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       srl: 0
     rs1: 
       <<: *rv32e_regs
@@ -348,7 +348,7 @@ srl:
 sra:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sra: 0
     rs1: 
       <<: *rv32e_regs
@@ -370,7 +370,7 @@ sra:
 beq:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       beq: 0
     rs1: 
       <<: *rv32e_regs
@@ -387,7 +387,7 @@ beq:
 bge:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       bge: 0
     rs1: 
       <<: *rv32e_regs
@@ -404,7 +404,7 @@ bge:
 bgeu:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       bgeu: 0
     rs1: 
       <<: *rv32e_regs
@@ -421,7 +421,7 @@ bgeu:
 blt:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       blt: 0
     rs1: 
       <<: *rv32e_regs
@@ -438,7 +438,7 @@ blt:
 bltu:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       bltu: 0
     rs1: 
       <<: *rv32e_regs
@@ -455,7 +455,7 @@ bltu:
 bne:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       bne: 0
     rs1: 
       <<: *rv32e_regs
@@ -472,7 +472,7 @@ bne:
 lhu-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lhu: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -496,7 +496,7 @@ lhu-align:
 lh-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lh: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -520,7 +520,7 @@ lh-align:
 lbu-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lbu: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -552,7 +552,7 @@ lbu-align:
 lb-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lb: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -584,7 +584,7 @@ lb-align:
 lw-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lw: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -605,7 +605,7 @@ lw-align:
 sh-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sh: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -632,7 +632,7 @@ sh-align:
 sb-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sb: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -667,7 +667,7 @@ sb-align:
 sw-align:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       sw: 0
     rs1: 
       <<: *rv32e_regs_mx0
@@ -690,7 +690,7 @@ sw-align:
 auipc:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       auipc: 0
     rd: 
       <<: *rv32e_regs
@@ -707,7 +707,7 @@ auipc:
 lui:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       lui: 0
     rd: 
       <<: *rv32e_regs
@@ -724,7 +724,7 @@ lui:
 jal:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       jal: 0
     rd: 
       <<: *rv32e_regs
@@ -737,7 +737,7 @@ jal:
 jalr:
     config: 
       - check ISA:=regex(.*E.*) ;def RVTEST_E = True
-    opcode: 
+    mnemonics: 
       jalr: 0
     rs1:
       <<: *rv32e_regs_mx0

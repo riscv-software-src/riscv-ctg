@@ -3,7 +3,7 @@
 add32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       add32: 0
     rs1: 
       <<: *all_regs
@@ -22,7 +22,7 @@ add32:
 radd32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       radd32: 0
     rs1:
       <<: *all_regs
@@ -41,7 +41,7 @@ radd32:
 uradd32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       uradd32: 0
     rs1:
       <<: *all_regs
@@ -60,7 +60,7 @@ uradd32:
 kadd32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kadd32: 0
     rs1:
       <<: *all_regs
@@ -79,7 +79,7 @@ kadd32:
 ukadd32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ukadd32: 0
     rs1:
       <<: *all_regs
@@ -98,7 +98,7 @@ ukadd32:
 sub32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       sub32: 0
     rs1:
       <<: *all_regs
@@ -117,7 +117,7 @@ sub32:
 rsub32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       rsub32: 0
     rs1:
       <<: *all_regs
@@ -137,7 +137,7 @@ rsub32:
 ursub32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ursub32: 0
     rs1:
       <<: *all_regs
@@ -156,7 +156,7 @@ ursub32:
 ksub32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ksub32: 0
     rs1:
       <<: *all_regs
@@ -175,7 +175,7 @@ ksub32:
 uksub32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       uksub32: 0
     rs1:
       <<: *all_regs
@@ -194,7 +194,7 @@ uksub32:
 cras32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       cras32: 0
     rs1:
       <<: *all_regs
@@ -213,7 +213,7 @@ cras32:
 rcras32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       rcras32: 0
     rs1:
       <<: *all_regs
@@ -232,7 +232,7 @@ rcras32:
 urcras32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       urcras32: 0
     rs1:
       <<: *all_regs
@@ -251,7 +251,7 @@ urcras32:
 kcras32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kcras32: 0
     rs1:
       <<: *all_regs
@@ -270,7 +270,7 @@ kcras32:
 ukcras32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ukcras32: 0
     rs1:
       <<: *all_regs
@@ -289,7 +289,7 @@ ukcras32:
 crsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       crsa32: 0
     rs1:
       <<: *all_regs
@@ -308,7 +308,7 @@ crsa32:
 rcrsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       rcrsa32: 0
     rs1:
       <<: *all_regs
@@ -327,7 +327,7 @@ rcrsa32:
 urcrsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       urcrsa32: 0
     rs1:
       <<: *all_regs
@@ -346,7 +346,7 @@ urcrsa32:
 kcrsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kcrsa32: 0
     rs1:
       <<: *all_regs
@@ -365,7 +365,7 @@ kcrsa32:
 ukcrsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ukcrsa32: 0
     rs1:
       <<: *all_regs
@@ -384,7 +384,7 @@ ukcrsa32:
 stas32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       stas32: 0
     rs1:
       <<: *all_regs
@@ -403,7 +403,7 @@ stas32:
 rstas32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       rstas32: 0
     rs1:
       <<: *all_regs
@@ -422,7 +422,7 @@ rstas32:
 urstas32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       urstas32: 0
     rs1:
       <<: *all_regs
@@ -441,7 +441,7 @@ urstas32:
 kstas32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kstas32: 0
     rs1:
       <<: *all_regs
@@ -460,7 +460,7 @@ kstas32:
 ukstas32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ukstas32: 0
     rs1:
       <<: *all_regs
@@ -479,7 +479,7 @@ ukstas32:
 stsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       stsa32: 0
     rs1:
       <<: *all_regs
@@ -498,7 +498,7 @@ stsa32:
 rstsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       rstsa32: 0
     rs1:
       <<: *all_regs
@@ -517,7 +517,7 @@ rstsa32:
 urstsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       urstsa32: 0
     rs1:
       <<: *all_regs
@@ -536,7 +536,7 @@ urstsa32:
 kstsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kstsa32: 0
     rs1:
       <<: *all_regs
@@ -555,7 +555,7 @@ kstsa32:
 ukstsa32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       ukstsa32: 0
     rs1:
       <<: *all_regs
@@ -574,7 +574,7 @@ ukstsa32:
 sra32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       sra32: 0
     rs1: 
       <<: *all_regs
@@ -594,7 +594,7 @@ sra32:
 srai32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srai32: 0
     rs1: 
       <<: *all_regs
@@ -610,7 +610,7 @@ srai32:
 sra32.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       sra32.u: 0
     rs1: 
       <<: *all_regs
@@ -630,7 +630,7 @@ sra32.u:
 srai32.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srai32.u: 0
     rs1: 
       <<: *all_regs
@@ -646,7 +646,7 @@ srai32.u:
 srl32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srl32: 0
     rs1: 
       <<: *all_regs
@@ -666,7 +666,7 @@ srl32:
 srli32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srli32: 0
     rs1: 
       <<: *all_regs
@@ -682,7 +682,7 @@ srli32:
 srl32.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srl32.u: 0
     rs1: 
       <<: *all_regs
@@ -702,7 +702,7 @@ srl32.u:
 srli32.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       srli32.u: 0
     rs1: 
       <<: *all_regs
@@ -718,7 +718,7 @@ srli32.u:
 sll32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       sll32: 0
     rs1: 
       <<: *all_regs
@@ -738,7 +738,7 @@ sll32:
 slli32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       slli32: 0
     rs1: 
       <<: *all_regs
@@ -754,7 +754,7 @@ slli32:
 ksll32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       ksll32: 0
     rs1: 
       <<: *all_regs
@@ -774,7 +774,7 @@ ksll32:
 kslli32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       kslli32: 0
     rs1: 
       <<: *all_regs
@@ -790,7 +790,7 @@ kslli32:
 kslra32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       kslra32: 0
     rs1: 
       <<: *all_regs
@@ -810,7 +810,7 @@ kslra32:
 kslra32.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       kslra32.u: 0
     rs1: 
       <<: *all_regs
@@ -830,7 +830,7 @@ kslra32.u:
 smin32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       smin32: 0
     rs1: 
       <<: *all_regs
@@ -849,7 +849,7 @@ smin32:
 umin32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       umin32: 0
     rs1: 
       <<: *all_regs
@@ -868,7 +868,7 @@ umin32:
 smax32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       smax32: 0
     rs1: 
       <<: *all_regs
@@ -887,7 +887,7 @@ smax32:
 umax32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       umax32: 0
     rs1: 
       <<: *all_regs
@@ -906,7 +906,7 @@ umax32:
 kabs32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       kabs32: 0
     rs1: 
       <<: *all_regs
@@ -919,7 +919,7 @@ kabs32:
 khmbb16:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       khmbb16: 0
     rs1: 
       <<: *all_regs
@@ -938,7 +938,7 @@ khmbb16:
 khmbt16:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       khmbt16: 0
     rs1: 
       <<: *all_regs
@@ -957,7 +957,7 @@ khmbt16:
 khmtt16:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       khmtt16: 0
     rs1: 
       <<: *all_regs
@@ -976,7 +976,7 @@ khmtt16:
 kdmbb16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmbb16: 0
     rs1:
       <<: *all_regs
@@ -995,7 +995,7 @@ kdmbb16:
 kdmbt16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmbt16: 0
     rs1:
       <<: *all_regs
@@ -1014,7 +1014,7 @@ kdmbt16:
 kdmtt16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmtt16: 0
     rs1:
       <<: *all_regs
@@ -1033,7 +1033,7 @@ kdmtt16:
 kdmabb16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmabb16: 0
     rs1:
       <<: *all_regs
@@ -1052,7 +1052,7 @@ kdmabb16:
 kdmabt16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmabt16: 0
     rs1:
       <<: *all_regs
@@ -1071,7 +1071,7 @@ kdmabt16:
 kdmatt16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kdmatt16: 0
     rs1:
       <<: *all_regs
@@ -1091,7 +1091,7 @@ kdmatt16:
 # smbb32:
 #     config:
 #       - check ISA:=regex(.*I.*P.*Zicsr.*)
-#     opcode:
+#     mnemonics:
 #       smbb32: 0
 #     rs1:
 #       <<: *all_regs
@@ -1110,7 +1110,7 @@ kdmatt16:
 smbt32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       smbt32: 0
     rs1:
       <<: *all_regs
@@ -1129,7 +1129,7 @@ smbt32:
 smtt32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       smtt32: 0
     rs1:
       <<: *all_regs
@@ -1148,7 +1148,7 @@ smtt32:
 kmabb32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmabb32: 0
     rs1:
       <<: *all_regs
@@ -1167,7 +1167,7 @@ kmabb32:
 kmabt32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmabt32: 0
     rs1:
       <<: *all_regs
@@ -1186,7 +1186,7 @@ kmabt32:
 kmatt32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmatt32: 0
     rs1:
       <<: *all_regs
@@ -1205,7 +1205,7 @@ kmatt32:
 kmda32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmda32: 0
     rs1:
       <<: *all_regs
@@ -1224,7 +1224,7 @@ kmda32:
 kmxda32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmxda32: 0
     rs1:
       <<: *all_regs
@@ -1244,7 +1244,7 @@ kmxda32:
 # kmada32:
 #     config:
 #       - check ISA:=regex(.*I.*P.*Zicsr.*)
-#     opcode:
+#     mnemonics:
 #       kmada32: 0
 #     rs1:
 #       <<: *all_regs
@@ -1263,7 +1263,7 @@ kmxda32:
 kmaxda32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmaxda32: 0
     rs1:
       <<: *all_regs
@@ -1282,7 +1282,7 @@ kmaxda32:
 kmads32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmads32: 0
     rs1:
       <<: *all_regs
@@ -1301,7 +1301,7 @@ kmads32:
 kmadrs32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmadrs32: 0
     rs1:
       <<: *all_regs
@@ -1320,7 +1320,7 @@ kmadrs32:
 kmaxds32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmaxds32: 0
     rs1:
       <<: *all_regs
@@ -1339,7 +1339,7 @@ kmaxds32:
 kmsda32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmsda32: 0
     rs1:
       <<: *all_regs
@@ -1358,7 +1358,7 @@ kmsda32:
 kmsxda32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       kmsxda32: 0
     rs1:
       <<: *all_regs
@@ -1377,7 +1377,7 @@ kmsxda32:
 smds32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       smds32: 0
     rs1:
       <<: *all_regs
@@ -1396,7 +1396,7 @@ smds32:
 smdrs32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       smdrs32: 0
     rs1:
       <<: *all_regs
@@ -1415,7 +1415,7 @@ smdrs32:
 smxds32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       smxds32: 0
     rs1:
       <<: *all_regs
@@ -1434,7 +1434,7 @@ smxds32:
 sraiw.u:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       sraiw.u: 0
     rs1: 
       <<: *all_regs
@@ -1451,7 +1451,7 @@ sraiw.u:
 # pkbb32:
 #     config: 
 #       - check ISA:=regex(.*I.*P.*Zicsr.*)
-#     opcode: 
+#     mnemonics: 
 #       pkbb32: 0
 #     rs1: 
 #       <<: *all_regs
@@ -1470,7 +1470,7 @@ sraiw.u:
 pkbt32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       pkbt32: 0
     rs1: 
       <<: *all_regs
@@ -1489,7 +1489,7 @@ pkbt32:
 pktb32:
     config: 
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode: 
+    mnemonics: 
       pktb32: 0
     rs1: 
       <<: *all_regs
@@ -1509,7 +1509,7 @@ pktb32:
 # pktt32:
 #     config: 
 #       - check ISA:=regex(.*I.*P.*Zicsr.*)
-#     opcode: 
+#     mnemonics: 
 #       pktt32: 0
 #     rs1: 
 #       <<: *all_regs
@@ -1529,7 +1529,7 @@ pktb32:
 clz32:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       clz32: 0
     rs1:
       <<: *all_regs
@@ -1542,7 +1542,7 @@ clz32:
 pkbb16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       pkbb16: 0
     rs1:
       <<: *all_regs
@@ -1561,7 +1561,7 @@ pkbb16:
 pktt16:
     config:
       - check ISA:=regex(.*I.*P.*Zicsr.*)
-    opcode:
+    mnemonics:
       pktt16: 0
     rs1:
       <<: *all_regs

@@ -4,6 +4,7 @@
 
 from setuptools import setup, find_packages
 import os
+import riscv_ctg
 
 # Base directory of package
 here = os.path.abspath(os.path.dirname(__file__))
@@ -26,7 +27,7 @@ test_requirements = [ ]
 
 setup(
     name='riscv_ctg',
-    version='0.11.0',
+    version=riscv_ctg.__version__,
     description="RISC-V CTG",
     long_description=readme + '\n\n',
     classifiers=[
