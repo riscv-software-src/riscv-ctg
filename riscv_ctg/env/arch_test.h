@@ -942,6 +942,23 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
     csrr DEST_REG,ADDRESS;\
     RVTEST_SIGUPD(BASE_REG,DEST_REG,OFFSET)
 
+#define WRITE_TO_CSR_FIELD_W_MASK(ADDRESS,RESTORE_REG,TEMP_REG1,TEMP_REG2,MASK_VAL,VAL) \
+  LI(TEMP_REG1,VAL);\
+  LI(TEMP_REG2,MASK_VAL);\
+  and TEMP_REG1,TEMP_REG1,TEMP_REG2;\
+  csrr RESTORE_REG,ADDRESS;\
+  not TEMP_REG2,TEMP_REG2;\
+  and RESTORE_REG,RESTORE_REG,TEMP_REG2;\
+  or TEMP_REG1,TEMP_REG1,RESTORE_REG;\
+  csrrw RESTORE_REG,ADDRESS,TEMP_REG1;\
+
+#define READ_CSR_REG_AND_UPD_SIG(ADDRESS,DEST_REG,OFFSET,BASE_REG) \
+  csrr DEST_REG,ADDRESS;\
+  RVTEST_SIGUPD(BASE_REG,DEST_REG,OFFSET)
+
+#define RESTORE_CSR_REG(ADDRESS,RESTORE_REG) \
+  csrw ADDRESS,RESTORE_REG;
+
 
 #define TEST_CASE(testreg, destreg, correctval, swreg, offset, code... ) \
     code; \
@@ -1020,11 +1037,22 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
       csrr flagreg, fcsr      ; \
       )
     
-//Tests for floating-point instructions with a single register operand and integer operand register
+//Tests for floating-point instructions with one GPR operand and a single FPR result
 //This variant does not take the rm field and set it while writing the instruction
 #define TEST_FPIO_OP_NRM( inst, destreg, freg, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
     TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
       LOAD_MEM_VAL(load_instr, valaddr_reg, freg, val_offset, testreg); \
+      LI(testreg, fcsr_val); csrw fcsr, testreg; \
+      inst destreg, freg; \
+      csrr flagreg, fcsr; \
+    )
+
+//Tests for floating-point instructions with two GPR operands and a single FPR result
+//This variant does not take the rm field and set it while writing the instruction
+#define TEST_FPIOIO_OP_NRM(inst, destreg, freg1, freg2, fcsr_val, correctval, valaddr_reg, val_offset, flagreg, swreg, testreg, load_instr) \
+    TEST_CASE_F(testreg, destreg, correctval, swreg, flagreg, \
+      LOAD_MEM_VAL(load_instr, valaddr_reg, freg1, val_offset, testreg); \
+      LOAD_MEM_VAL(load_instr, valaddr_reg, freg2, (val_offset+FREGWIDTH), testreg); \
       LI(testreg, fcsr_val); csrw fcsr, testreg; \
       inst destreg, freg; \
       csrr flagreg, fcsr; \

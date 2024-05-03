@@ -2,7 +2,7 @@
 fencei:
   config: 
     - check ISA:=regex(.*I.*Zifencei.*)
-  opcode: 
+  mnemonics: 
     fence.i: 0
 
 
