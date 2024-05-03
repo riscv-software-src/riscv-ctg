@@ -6,6 +6,9 @@ Please note the header `WIP-DEV` is to always remain indicating the changes done
 Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
 versioned header while the `WIP-DEV` is left empty
 
+## [0.12.2] - 2024-03-06
+- Add Zfa support.
+
 ## [0.12.1] - 2024-02-27
 - Fix test.yml
 
