@@ -1,0 +1,101 @@
+# cover group format file for Zalasr extension
+lb.aq:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      lb.aq 0
+    rs1: 
+      <<: *all_regs_mx0
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      'ea_align == 0'
+      'ea_align == 1'
+      'ea_align == 2'
+      'ea_align == 3'
+
+lh.aq:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      lh.aq 0
+    rs1: 
+      <<: *all_regs_mx0
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      'ea_align == 0'
+      'ea_align == 2'
+
+lw.aq:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      lw.aq 0
+    rs1: 
+      <<: *all_regs_mx0
+    rd: 
+      <<: *all_regs
+    op_comb: 
+      <<: *ifmt_op_comb
+    val_comb:
+      'ea_align == 0'
+
+sb.rl:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      sb.rl 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    op_comb: 
+        'rs1 != rs2': 0
+    val_comb:
+        'ea_align == 0': 0
+        'ea_align == 1': 0
+        'ea_align == 2': 0
+        'ea_align == 3': 0
+        <<: [  *base_rs2val_sgn]
+        abstract_comb:
+          <<: [*rs2val_walking]
+
+sh.rl:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      sh.rl 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    op_comb: 
+        'rs1 != rs2': 0
+    val_comb:
+        'ea_align == 0': 0
+        'ea_align == 2': 0
+        <<: [  *base_rs2val_sgn]
+        abstract_comb:
+          <<: [*rs2val_walking]
+
+sw.rl:
+    config: 
+      - check ISA:=regex(.*Zalasr.*)
+    opcode: 
+      sw.rl 0
+    rs1: 
+      <<: *all_regs_mx0
+    rs2: 
+      <<: *all_regs
+    op_comb: 
+        'rs1 != rs2': 0
+    val_comb:
+        'ea_align == 0': 0
+        <<: [  *base_rs2val_sgn]
+        abstract_comb:
+          <<: [*rs2val_walking]
