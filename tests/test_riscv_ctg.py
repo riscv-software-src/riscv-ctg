@@ -19,3 +19,10 @@ def test_rv32i(runner):
     result = runner.invoke(cli, ['--randomize', '--out-dir', 'rv32i', '-cf',
         '../sample_cgfs/rv32i.cgf', '-v', 'debug'])
     assert result.exit_code == 0 or result.exit_code == 1
+
+# -r -d temp1 -x 32 -cf sample_cgfs/rv32zalasr.cgf -v debu
+def test_rv32zalasr(runner):
+    ''' Testing rv32zalasr runs '''
+    result = runner.invoke(cli, ['--randomize', '--out-dir', 'rv32zalasr', '-cf',
+        '../sample_cgfs/rv32zalasr.cgf', '-v', 'debug'])
+    assert result.exit_code == 0 or result.exit_code == 1
