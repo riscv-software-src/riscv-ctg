@@ -14,17 +14,39 @@ import sys
 import itertools
 import re
 
+# F
 one_operand_finstructions = ["fsqrt.s","fmv.x.w","fcvt.wu.s","fcvt.w.s","fclass.s","fcvt.l.s","fcvt.lu.s","fcvt.s.l","fcvt.s.lu"]
 two_operand_finstructions = ["fadd.s","fsub.s","fmul.s","fdiv.s","fmax.s","fmin.s","feq.s","flt.s","fle.s","fsgnj.s","fsgnjn.s","fsgnjx.s"]
 three_operand_finstructions = ["fmadd.s","fmsub.s","fnmadd.s","fnmsub.s"]
+# Zfa/F:
+one_operand_finstructions += ["fround.s", "froundnx.s", "fcvtmod.w.d","fmvh.x.d"]
+two_operand_finstructions += ["fmaxm.s", "fminm.s", "fmvp.d.x", "fleq.s", "fltq.s"]
 
+# D
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu","fcvt.d.s","fcvt.s.d"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
 
+# H
 one_operand_hinstructions = ["fsqrt.h","fclass.h","fcvt.w.h","fcvt.wu.h","fcvt.h.w","fcvt.h.wu","fcvt.h.l","fcvt.h.lu","fcvt.l.h","fcvt.d.h","fcvt.h.d","fcvt.s.h","fcvt.s.h"]
 two_operand_hinstructions = ["fadd.h","fsub.h","fmul.h","fdiv.h","fmax.h","fmin.h","feq.h","flt.h","fle.h","fsgnj.h","fsgnjn.h","fsgnjx.h"]
 three_operand_hinstructions = ["fmadd.h","fmsub.h","fnmadd.h","fnmsub.h"]
+
+# Zfa/D:
+one_operand_dinstructions += ["fround.d", "froundnx.d"]
+two_operand_dinstructions += ["fmaxm.d", "fminm.d", "fleq.d", "fltq.d"]
+
+
+def is_fp_instruction(insn):
+    '''
+    Takes an instruction string (e.g. 'fadd.s') and returns True if it is a FP instruction.
+    The function is compatible with all existing and future RISC-V ISA extensions.
+
+    :param insn: String representing an instruction (e.g. 'fadd.s', 'lw')
+    '''
+    return type(insn) == str and insn.lower()[0] == 'f'
+
+
 from riscv_ctg.dsp_function import *
 
 twos_xlen = lambda x: twos(x,xlen)
@@ -36,9 +58,10 @@ def toint(x: str):
         return int(x)
 
 def get_rm(opcode):
-    if any([x in opcode for x in
-        ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax',
-            'fcvt.d.s', 'fcvt.d.w','fcvt.d.wu']]):
+    insns = ['fsgnj','fle','flt','feq','fclass','fmv','flw','fsw','fld','fsd','fmin','fmax',
+             'fcvt.d.s', 'fcvt.d.w','fcvt.d.wu']
+    insns += ['fminm', 'fmaxm']
+    if any([x in opcode for x in insns]):
         return []
     else:
         return ['rm_val']
@@ -849,14 +872,24 @@ class Generator():
                     else:
                         var_dict['imm_val'] = toint(instr['imm_val'])
                 elif key == 'rm_val':
-                    var_dict['rm_val'] = toint(rm_dict[instr['rm_val']])
+                    var_dict['rm_val'] = rm_dict[instr['rm_val']]
                 else:
                     var_dict[key] = toint(instr[key])
             for key in self.op_vars:
                 var_dict[key] = instr[key]
 
+
             instr_obj = instructionObject(None, instr['inst'], None)
             ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen, 'inxFlag': self.inxFlag, 'xlen': self.xlen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
+            insn = instr['inst']
+            # instructionObject() has an outdated list of instructions.
+            # Let's make it support all FP instructions until this is fixed.
+            # See https://github.com/riscv-software-src/riscv-isac/issues/69
+            if (is_fp_instruction(insn)):
+                insn = "fadd.s"
+            instr_obj = instructionObject(None, insn, None)
+            ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
+
             if ext_specific_vars is not None:
                 var_dict.update(ext_specific_vars)
 
