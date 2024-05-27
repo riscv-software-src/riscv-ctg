@@ -26,6 +26,12 @@ two_operand_finstructions += ["fmaxm.s", "fminm.s", "fmvp.d.x", "fleq.s", "fltq.
 one_operand_dinstructions = ["fsqrt.d","fclass.d","fcvt.w.d","fcvt.wu.d","fcvt.d.w","fcvt.d.wu","fcvt.d.s","fcvt.s.d"]
 two_operand_dinstructions = ["fadd.d","fsub.d","fmul.d","fdiv.d","fmax.d","fmin.d","feq.d","flt.d","fle.d","fsgnj.d","fsgnjn.d","fsgnjx.d"]
 three_operand_dinstructions = ["fmadd.d","fmsub.d","fnmadd.d","fnmsub.d"]
+
+# H
+one_operand_hinstructions = ["fsqrt.h","fclass.h","fcvt.w.h","fcvt.wu.h","fcvt.h.w","fcvt.h.wu","fcvt.h.l","fcvt.h.lu","fcvt.l.h","fcvt.d.h","fcvt.h.d","fcvt.s.h","fcvt.s.h"]
+two_operand_hinstructions = ["fadd.h","fsub.h","fmul.h","fdiv.h","fmax.h","fmin.h","feq.h","flt.h","fle.h","fsgnj.h","fsgnjn.h","fsgnjx.h"]
+three_operand_hinstructions = ["fmadd.h","fmsub.h","fnmadd.h","fnmsub.h"]
+
 # Zfa/D:
 one_operand_dinstructions += ["fround.d", "froundnx.d"]
 two_operand_dinstructions += ["fmaxm.d", "fminm.d", "fleq.d", "fltq.d"]
@@ -39,6 +45,7 @@ def is_fp_instruction(insn):
     :param insn: String representing an instruction (e.g. 'fadd.s', 'lw')
     '''
     return type(insn) == str and insn.lower()[0] == 'f'
+
 
 from riscv_ctg.dsp_function import *
 
@@ -73,11 +80,17 @@ OPS = {
     'ciformat': ['rd'],
     'cssformat': ['rs2'],
     'ciwformat': ['rd'],
-    'clformat': ['rd', 'rs1'],
+    'clformat': ['rs1', 'rd'],
     'csformat': ['rs1', 'rs2'],
     'caformat': ['rs1', 'rs2'],
+    'cuformat': ['rs1'],
     'cbformat': ['rs1'],
+    'clbformat': ['rs1','rd'],
+    'clhformat': ['rs1','rd'],
+    'csbformat': ['rs1','rs2'],
+    'cshformat': ['rs1','rs2'],
     'cjformat': [],
+    'ckformat': ['rs1'],
     'kformat': ['rs1','rd'],
     'ckformat': ['rs1'],
     # 'frformat': ['rs1', 'rs2', 'rd'],
@@ -106,9 +119,11 @@ OPS = {
 
 VALS = {
     'rformat': "['rs1_val', 'rs2_val'] + ((get_rm(opcode)+['fcsr']) if is_fext else []) + \
-        ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,3)])",
+        ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,3)]) + \
+        (['rs{0}_sgn_prefix'.format(x) for x in range(1,3)] if is_sgn_extd else [])",
     'r4format': "['rs1_val', 'rs2_val', 'rs3_val'] + (['rm_val','fcsr'] if is_fext else []) + \
-        ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,4)])",
+        ([] if not is_nan_box else ['rs{0}_nan_prefix'.format(x) for x in range(1,4)]) + \
+        (['rs{0}_sgn_prefix'.format(x) for x in range(1,4)] if is_sgn_extd else [])",
     'iformat': "['rs1_val', 'imm_val'] + ([] if not is_fext else ['fcsr'])",
     'sformat': "['rs1_val', 'rs2_val', 'imm_val'] + ([] if not is_fext else ['fcsr'])",
     'bsformat': "['rs1_val', 'rs2_val', 'imm_val']",
@@ -120,16 +135,23 @@ VALS = {
     'ciformat': "['rs1_val', 'imm_val']",
     'cssformat': "['rs2_val', 'imm_val']",
     'ciwformat': "['imm_val']",
-    'clformat': "['rs1_val', 'imm_val']",
+    'clformat': "['rs1_val', 'imm_val', 'fcsr']",
+    'cuformat': "['rs1_val']",
+    'clbformat': "['rs1_val','imm_val']",
+    'clhformat': "['rs1_val','imm_val']",
+    'csbformat': "['rs1_val','rs2_val','imm_val']",
+    'cshformat': "['rs1_val','rs2_val','imm_val']",
     'csformat': "['rs1_val', 'rs2_val', 'imm_val']",
     'caformat': "['rs1_val', 'rs2_val']",
     'cbformat': "['rs1_val', 'imm_val']",
     'cjformat': "['imm_val']",
+    'ckformat': "['rs1_val']",
     'kformat': "['rs1_val']",
     'ckformat': "['rs1_val']",
     # 'frformat': "['rs1_val', 'rs2_val', 'rm_val', 'fcsr']",
-    'fsrformat': "['rs1_val', 'fcsr'] + get_rm(opcode) + \
-        ([] if not is_nan_box else ['rs1_nan_prefix'])",
+    'fsrformat': "['rs1_val','fcsr'] + get_rm(opcode) + \
+        ([] if not is_nan_box else ['rs1_nan_prefix']) + \
+        (['rs1_sgn_prefix'] if is_sgn_extd else [])",
     # 'fr4format': "['rs1_val', 'rs2_val', 'rs3_val', 'rm_val', 'fcsr']",
     'pbrrformat': 'simd_val_vars("rs1", xlen, 8) + simd_val_vars("rs2", xlen, 8)',
     'phrrformat': 'simd_val_vars("rs1", xlen, 16) + simd_val_vars("rs2", xlen, 16)',
@@ -213,7 +235,7 @@ class Generator():
     :type xl: int
     :type base_isa_str: str
     '''
-    def __init__(self,fmt,opnode,opcode,randomization, xl, fl, ifl ,base_isa_str):
+    def __init__(self,fmt,opnode,opcode,randomization, xl, fl, ifl ,base_isa_str,inxFlag):
         '''
         This is a Constructor function which initializes various class variables
         depending on the arguments.
@@ -238,12 +260,13 @@ class Generator():
 
 
         is_nan_box = False
-        is_fext = any(['F' in x or 'D' in x for x in opnode['isa']])
+        is_fext = any(['F' in x or 'D' in x or 'Zfh' in x or 'Zfinx' in x for x in opnode['isa']])
+        is_sgn_extd = True if (inxFlag and iflen <xlen) else False
 
         if is_fext:
             if fl>ifl:
                 is_int_src = any([opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
-                is_nan_box = not is_int_src
+                is_nan_box = not is_int_src and is_sgn_extd
 
         self.xlen = xl
         self.flen = fl
@@ -255,8 +278,10 @@ class Generator():
         self.val_vars = eval(VALS[fmt])
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
+        self.inxFlag = inxFlag
+        self.is_sgn_extd = is_sgn_extd
 
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd","flh","fsh","c.lbu","c.lhu","c.lh","c.sb","c.sh","c.flw"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode
@@ -441,7 +466,7 @@ class Generator():
                 if self.is_fext:
 	                # fs + fe + fm -> Combiner Script
                     try:
-                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge)
+                        d = merge_fields_f(self.val_vars,req_val_comb,self.flen,self.iflen,merge,self.inxFlag)
                     except ExtractException as e:
                         logger.warning("Valcomb skip: "+str(e))
                         continue
@@ -811,7 +836,7 @@ class Generator():
                 instr_dict.append(self.__fext_instr__(op,val))
             elif self.opcode == 'c.lui':
                 instr_dict.append(self.__clui_instr__(op,val))
-            elif self.opcode in ['c.beqz', 'c.bnez']:
+            elif self.opcode in ['c.beqz', 'c.bnez','c.lbu','c.lhu','c.lh','c.sb','c.sh']:
                 instr_dict.append(self.__cb_instr__(op,val))
             elif self.opcode in ['c.lwsp', 'c.swsp', 'c.ldsp', 'c.sdsp']:
                 instr_dict.append(self.__cmemsp_instr__(op,val))
@@ -853,6 +878,9 @@ class Generator():
             for key in self.op_vars:
                 var_dict[key] = instr[key]
 
+
+            instr_obj = instructionObject(None, instr['inst'], None)
+            ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen, 'inxFlag': self.inxFlag, 'xlen': self.xlen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
             insn = instr['inst']
             # instructionObject() has an outdated list of instructions.
             # Let's make it support all FP instructions until this is fixed.
@@ -861,6 +889,7 @@ class Generator():
                 insn = "fadd.s"
             instr_obj = instructionObject(None, insn, None)
             ext_specific_vars = instr_obj.evaluate_instr_var("ext_specific_vars", {**var_dict, 'flen': self.flen, 'iflen': self.iflen}, None, {'fcsr': hex(var_dict.get('fcsr', 0))})
+
             if ext_specific_vars is not None:
                 var_dict.update(ext_specific_vars)
 
@@ -910,7 +939,7 @@ class Generator():
                 cover_hits = eval_inst_coverage(cgf,instr)
                 for entry in cover_hits:
                     if entry=='val_comb' and skip_val:
-                        continue
+                       continue
                     over = hits[entry] & cover_hits[entry]
                     if over != cover_hits[entry]:
                         unique = unique or True
@@ -926,13 +955,13 @@ class Generator():
             elif 'bit_width' in self.opnode:
                 concat_simd_data(final_instr, self.xlen, self.opnode['bit_width'])
 
+
         '''
         Zacas introduces double xlen cas operations that need paired source and destination registers
         '''
         if any('Zacas' in isa for isa in self.opnode['isa']):
             if 'dcas_profile' in self.opnode:
                 gen_pair_reg_data(final_instr, self.xlen, self.opnode['bit_width'], self.opnode['dcas_profile'])
-
 
         return final_instr
 
@@ -984,7 +1013,7 @@ class Generator():
             SIGALIGN = max(XLEN,FLEN)/8
             stride_sz = eval(suffix)
             template = Template(eval(self.opnode['val']['val_template']))
-            width = self.iflen if self.is_fext else self.xlen
+            width = self.iflen if self.is_fext else self.flen
             for instr in instr_dict:
                 if 'rs1' in instr and instr['rs1'] in available_reg:
                     available_reg.remove(instr['rs1'])
@@ -1018,6 +1047,9 @@ class Generator():
                                 dval = ()
                                 if self.is_nan_box:
                                     dval = nan_box(instr_dict[i]['rs{0}_nan_prefix'.format(j)],
+                                            instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
+                                if self.is_sgn_extd:
+                                    dval = sgn_extd(instr_dict[i]['rs{0}_sgn_prefix'.format(j)],
                                             instr_dict[i]['rs{0}_val'.format(j)],self.flen,self.iflen)
                                 else:
                                     dval = (instr_dict[i]['rs{0}_val'.format(j)],width)
@@ -1301,7 +1333,7 @@ class Generator():
         total = len(instr_dict)
         end = len(instr_dict)
         if max_inst:
-            end = max_inst
+           end = max_inst
         else:
             max_inst = total
         i = 1
@@ -1355,7 +1387,7 @@ class Generator():
             dcas_profile = self.opnode['dcas_profile']
 
         n = 0
-        is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']])
+        is_int_src = any([self.opcode.endswith(x) for x in ['.x','.w','.l','.wu','.lu']]) or self.inxFlag
         src_len = xlen if self.opcode.endswith('.x') else (32 if 'w' in self.opcode else 64)
         sz = 'word' if src_len == 32 else 'dword'
         opcode = instr_dict[0]['inst']

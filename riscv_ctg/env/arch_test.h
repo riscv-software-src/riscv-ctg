@@ -86,13 +86,31 @@
   #define FLREG fld
   #define FSREG fsd
   #define FREGWIDTH 8
-  #define SIGALIGN 8
-#else 
-  #if FLEN==32
+#elif FLEN==32
     #define FLREG flw
     #define FSREG fsw
     #define FREGWIDTH 4
+  #elif FLEN==16
+    #define FLREG flh
+    #define FSREG fsh
+    #define FREGWIDTH 2
+#endif
+
+#if ZFINX==1
+  #define FLREG ld
+  #define FSREG sd
+  #define FREGWIDTH 8
+  #define FLEN 64
+  #if XLEN==64
+    #define SIGALIGN 8
+  #else
+      #define SIGALIGN 4
   #endif
+#elif ZDINX==1
+  #define FLREG LREG
+  #define FSREG SREG
+  #define FREGWIDTH 8
+  #define FLEN 64
 #endif
 
 #if FLEN>XLEN
@@ -101,7 +119,6 @@
     #define SIGALIGN REGWIDTH
 #endif
 
-
 #if SIGALIGN==8
   #define CANARY \
       .dword 0x6F5CA309E7D4B281
@@ -109,7 +126,6 @@
   #define CANARY \
       .word 0x6F5CA309 
 #endif
-
 #define MMODE_SIG 3
 #define RLENG (REGWIDTH<<3)
 
@@ -124,19 +140,32 @@
 #endif
 
 #define NAN_BOXED(__val__,__width__,__max__)    \
+    .if __width__ == 16                        ;\
+        .hword __val__                         ;\
+    .endif                                     ;\
     .if __width__ == 32                        ;\
         .word __val__                          ;\
-    .else                                      ;\
+    .endif                                     ;\
+    .if __width__ == 64                        ;\
         .dword __val__                         ;\
     .endif                                     ;\
-    .if __max__ > __width__                    ;\
-        .set pref_bytes,(__max__-__width__)/32 ;\
+    .if __max__ > __width__ 		               ;\
+    	.if __width__ == 16                      ;\
+         .set pref_bytes,(__max__-__width__)/16;\
+      .else				                             ;\
+         .set pref_bytes,(__max__-__width__)/32;\
+    	.endif                                   ;\         
     .else                                      ;\
         .set pref_bytes, 0                     ;\
     .endif                                     ;\
     .rept pref_bytes                           ;\
-        .word 0xffffffff                       ;\
+        .if __width__ == 16                    ;\
+		      .hword 0xffff                        ;\
+        .else				                           ;\
+		      .word 0xffffffff                     ;\
+    	  .endif                                 ;\   
     .endr                                      ;
+
 
 
 #define ZERO_EXTEND(__val__,__width__,__max__)  \
@@ -1284,9 +1313,16 @@ RVTEST_SIGUPD_F(swreg,destreg,flagreg)
       inst destreg, x2,imm; \
       )
 
+// Tests for instructions with single (rd/rs1) register operand.
+#define TEST_CU_OP( inst, destreg, correctval, val2, swreg, offset, testreg) \
+    TEST_CASE(testreg, destreg, correctval, swreg, offset, \
+      LI(destreg, MASK_XLEN(val2)); \
+      inst destreg; \
+      )
 //Tests for instructions with a single register operand
-#define TEST_RD_OP(inst, destreg, reg1, correctval, val1, swreg, offset, testreg) \
+#define TEST_RD_OP(inst, destreg,reg1, correctval, val1, swreg, offset, testreg) \
   TEST_CMV_OP(inst, destreg, reg1, correctval, val1, swreg, offset, testreg)
+
 
 #define TEST_CBRANCH_OP(inst, tempreg, reg2, val2, imm, label, swreg, offset) \
     LI(reg2, MASK_XLEN(val2))                  ;\

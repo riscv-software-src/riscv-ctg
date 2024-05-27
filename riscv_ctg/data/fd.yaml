@@ -1532,7 +1532,7 @@ flw:
     sz: '4'
     val_template: "''"
     load_instr: "flw"
-  rs1_op_data: *all_regs_mx0 
+  rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   xlen: [32,64]
   std_op:
@@ -1709,6 +1709,929 @@ fcvt.s.lu:
     fcsr_val: $fcsr*/
     TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
 
+
+flh:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '4'
+    val_template: "''"
+    load_instr: "flh"
+  rs1_op_data: *all_regs_mx0 
+  rd_op_data: *all_fregs
+  xlen: [32,64]
+  std_op:
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  formattype: 'iformat'
+  ea_align_data: '[0,1,2,3]'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode:$inst op1:$rs1; dest:$rd; immval:$imm_val; align:$ea_align; flagreg:$flagreg
+    TEST_LOAD_F($swreg,$testreg,$fcsr,$rs1,$rd,$imm_val,$inst,$ea_align,$flagreg)
+
+fsgnj.h:
+ sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    
+
+fsgnjn.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset;  fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fsgnjx.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fmadd.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 3
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'r4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val;
+    testreg:$testreg; fcsr_val:$fcsr */
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fmax.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fnmadd.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 3
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+    - IFD_Zicsr
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'r4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val;
+    testreg:$testreg; fcsr_val:$fcsr */
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fnmsub.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 3
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+    - IFD_Zicsr
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'r4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val;
+    testreg:$testreg; fcsr_val:$fcsr */
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fsub.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
+       correctval:??; testreg:$testreg*/
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fmul.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fdiv.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fcvt.h.d:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'.dword $val;'"
+    load_instr: "ld"
+  xlen: [32,64]
+  isa: 
+    - IFD_Zicsr_Zfh
+  flen: [32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+    
+fcvt.h.s:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg) 
+
+feq.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fle.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+flt.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fsqrt.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fmsub.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 3
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'r4format'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rs3_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; op3:$rs3; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+    op3val:$rs3_val; valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val;
+    testreg:$testreg; fcsr_val:$fcsr */
+    TEST_FPR4_OP($inst, $rd, $rs1, $rs2, $rs3, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fsh:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/4'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  rs1_op_data: *all_regs_mx0
+  rs2_op_data: *all_fregs
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'sformat'
+  ea_align_data: '[0,1,2,3]'
+  rs2_val_data: '[0xABCDEF12]'
+  imm_val_data: 'gen_sign_dataset(12)'
+  template: |-
+    // $comment
+    // opcode: $inst; op1:$rs1; op2:$rs2; op2val:$rs2_val; immval:$imm_val; align:$ea_align; flagreg:$flagreg;
+    // valreg: $valaddr_reg; valoffset: $val_offset
+    TEST_STORE_F($swreg,$testreg,$fcsr,$rs1,$rs2,$imm_val,$offset,$inst,$ea_align,$flagreg,$valaddr_reg, $val_offset)
+
+fcvt.s.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fcvt.h.l:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '8'
+    val_template: "'.dword $val;'"
+    load_instr: "ld"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  std_op:
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.h.lu:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '8'
+    val_template: "'.dword $val;'"
+    load_instr: "ld"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.w.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.wu.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.d.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'.word $val;'"
+    load_instr: "lw"
+  xlen: [32,64]
+  isa: 
+    - IFD_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr */
+    TEST_FPSR_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg) 
+
+fmv.h.x:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '4'
+    val_template: "'.word $val;'"
+    load_instr: "lw"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FPIO_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+    
+fmv.x.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fadd.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32]
+  std_op:
+  formattype: 'rformat'
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val; 
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; rmval:$rm_val; fcsr: $fcsr;
+       correctval:??; testreg:$testreg 
+    */
+    TEST_FPRR_OP($inst, $rd, $rs1, $rs2, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fmin.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 2
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED_Z($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'rformat'
+  rs1_op_data: *all_fregs
+  rs2_op_data: *all_fregs
+  rd_op_data: *all_fregs
+  template: |-
+
+    // $comment
+    /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
+       valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
+       correctval:??; testreg:$testreg
+    */
+    TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fclass.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
+
+fcvt.h.w:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '4'
+    val_template: "'.word $val;'"
+    load_instr: "lw"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.h.wu:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: '4'
+    val_template: "'.word $val;'"
+    load_instr: "LREGWU"
+  xlen: [32,64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[7,0,1,2,3,4]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_regs
+  rd_op_data: *all_fregs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val: $fcsr*/
+    TEST_FPIO_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.l.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [64]
+  std_op:
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[0,1,2,3,4,7]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
+fcvt.lu.h:
+  sig:
+    stride: 2
+    sz: 'SIGALIGN'
+  val:
+    stride: 1
+    sz: 'FLEN/8'
+    val_template: "'NAN_BOXED($val,$width,FLEN)'"
+    load_instr: "FLREG"
+  xlen: [64]
+  isa: 
+    - IF_Zicsr_Zfh
+  flen: [16,32,64]
+  rm_val_data: '[0,1,2,3,4,7]'
+  fcsr_data: '[x<<5|y for x,y in itertools.product([0,1,2,3,4],range(0,2**5))]'
+  std_op:
+  formattype: 'fsrformat'
+  rs1_op_data: *all_fregs
+  rd_op_data: *all_regs
+  template: |-
+    // $comment
+    /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
+    val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
+    fcsr_val:$fcsr*/
+    TEST_FPID_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
+
 #
 # Zfa extension
 #
@@ -1734,14 +2657,12 @@ fminm.s:
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
        correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fminm.d:
   sig:
     stride: 2
@@ -1762,14 +2683,12 @@ fminm.d:
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
        correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fmaxm.s:
   sig:
     stride: 2
@@ -1791,14 +2710,12 @@ fmaxm.s:
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset; fcsr: $fcsr;
        correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fmaxm.d:
   sig:
     stride: 2
@@ -1819,14 +2736,12 @@ fmaxm.d:
   rs2_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; op2:$rs2; dest:$rd; op1val:$rs1_val; op2val:$rs2_val;
        valaddr_reg:$valaddr_reg; val_offset:$val_offset;  fcsr: $fcsr;
        correctval:??; testreg:$testreg
     */
     TEST_FPRR_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fround.s:
   sig:
     stride: 2
@@ -1848,13 +2763,11 @@ fround.s:
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fround.d:
   sig:
     stride: 2
@@ -1875,13 +2788,11 @@ fround.d:
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 froundnx.s:
   sig:
     stride: 2
@@ -1903,13 +2814,11 @@ froundnx.s:
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 froundnx.d:
   sig:
     stride: 2
@@ -1930,13 +2839,11 @@ froundnx.d:
   rs1_op_data: *all_fregs
   rd_op_data: *all_fregs
   template: |-
-
     // $comment
     /* opcode: $inst ; op1:$rs1; dest:$rd; op1val:$rs1_val; valaddr_reg:$valaddr_reg;
     val_offset:$val_offset; rmval:$rm_val; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr */
     TEST_FPSR_OP($inst, $rd, $rs1, $rm_val, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fmvh.x.d:
   sig:
     stride: 2
@@ -1961,7 +2868,6 @@ fmvh.x.d:
     val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP_NRM($inst, $rd, $rs1, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fmvp.d.x:
   sig:
     stride: 2
@@ -1987,7 +2893,6 @@ fmvp.d.x:
     val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FPIOIO_OP_NRM($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
-
 fcvtmod.w.d:
   sig:
     stride: 2
@@ -2013,7 +2918,6 @@ fcvtmod.w.d:
     val_offset:$val_offset; rmval:rtz; correctval:??; testreg:$testreg;
     fcsr_val:$fcsr*/
     TEST_FPID_OP($inst, $rd, $rs1, rtz, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg,$load_instr)
-
 fltq.s:
   sig:
     stride: 2
@@ -2040,7 +2944,6 @@ fltq.s:
     valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fltq.d:
   sig:
     stride: 2
@@ -2066,7 +2969,6 @@ fltq.d:
     valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fleq.s:
   sig:
     stride: 2
@@ -2093,7 +2995,6 @@ fleq.s:
     valaddr_reg:$valaddr_reg; val_offset:$val_offset; correctval:??; testreg:$testreg;
     fcsr_val: $fcsr*/
     TEST_FCMP_OP($inst, $rd, $rs1, $rs2, $fcsr, $correctval, $valaddr_reg, $val_offset, $flagreg, $swreg, $testreg)
-
 fleq.d:
   sig:
     stride: 2
