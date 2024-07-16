@@ -256,7 +256,7 @@ class Generator():
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
 
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","flw","fsw","fld","fsd"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","c.jalr","c.jr","flw","fsw","fld","fsd"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode

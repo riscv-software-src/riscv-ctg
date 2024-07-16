@@ -1862,6 +1862,7 @@ c.jr:
   isa: 
     - IC
   formattype: 'crformat'
+  ea_align_data: '[0,1]'
   rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
@@ -1880,6 +1881,7 @@ c.jalr:
   isa: 
     - IC
   formattype: 'crformat'
+  ea_align_data: '[0,1]' 
   rs1_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   rs2_val_data: 'gen_sign_dataset(xlen)+ gen_sp_dataset(xlen)'
   template: |-
