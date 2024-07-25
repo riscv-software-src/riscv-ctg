@@ -100,7 +100,9 @@ OPS = {
     'ppbrrformat': ['rs1', 'rs2', 'rd'],
     'prrformat': ['rs1', 'rs2', 'rd'],
     'prrrformat': ['rs1', 'rs2', 'rs3', 'rd'],
-    'dcasrformat': ['rs1', 'rs2', 'rd']
+    'dcasrformat': ['rs1', 'rs2', 'rd'],
+    'laqformat': ['rs1', 'rd'],
+    'srlformat': ['rs1', 'rs2'],
 }
 ''' Dictionary mapping instruction formats to operands used by those formats '''
 
@@ -148,7 +150,9 @@ VALS = {
     'ppbrrformat': '["rs1_val"] + simd_val_vars("rs2", xlen, 8)',
     'prrformat': '["rs1_val", "rs2_val"]',
     'prrrformat': "['rs1_val', 'rs2_val' , 'rs3_val']",
-    'dcasrformat': '["rs1_val", "rs2_val"]'
+    'dcasrformat': '["rs1_val", "rs2_val"]',
+    'laqformat': '["rs1_val"]',
+    'srlformat': '["rs1_val", "rs2_val"]'
 }
 ''' Dictionary mapping instruction formats to operand value variables used by those formats '''
 
@@ -256,7 +260,10 @@ class Generator():
         self.is_fext = is_fext
         self.is_nan_box = is_nan_box
 
-        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',"jal","beq","bge","bgeu","blt","bltu","bne","jalr","c.jalr","c.jr","flw","fsw","fld","fsd"]:
+        if opcode in ['sw', 'sh', 'sb', 'lw', 'lhu', 'lh', 'lb', 'lbu', 'ld', 'lwu', 'sd',
+                      "jal","beq","bge","bgeu","blt","bltu","bne","jalr","c.jalr","c.jr",
+                      "flw","fsw","fld","fsd",
+                      "lb.aq", "lh.aq", "lw.aq", "ld.aq", "sb.rl", "sh.rl", "sw.rl", "sd.rl"]:
             self.val_vars = self.val_vars + ['ea_align']
         self.template = opnode['template']
         self.opnode = opnode

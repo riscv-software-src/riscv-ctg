@@ -7,6 +7,9 @@ Please note the header `WIP-DEV` is to always remain indicating the changes done
 Only when a release to the main branch is done, the contents of the WIP-DEV are put under a
 versioned header while the `WIP-DEV` is left empty
 
+## [WIP-DEV] - 2024-05-08
+- Added support for Zalasr unratified extension
+
 ## [0.12.2] - 2024-03-06
 - Add Zfa support. (PR#60)
 - Initial covergroups for Zvk* instructions (PR#61)
