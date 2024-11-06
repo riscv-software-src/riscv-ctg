@@ -1,0 +1,86 @@
+# For Licence details look at https://github.com/riscv-software-src/riscv-ctg/-/blob/master/LICENSE.incore
+
+cbo.zero:
+    config:
+      - check ISA:=regex(.*I.*Zicboz.*Zicsr.*)
+    mnemonics:
+      cbo.zero: 0
+    rs1:
+      <<: *all_regs_mx0
+    val_comb:
+      abstract_comb:
+        'walking_ones("rs1_val", 12, False)': 0
+        'walking_zeros("rs1_val", 12, False)': 0
+        'uniform_random(20, 100, ["rs1_val"], [12])': 0
+
+cbo.clean:
+    config:
+      - check ISA:=regex(.*I.*Zicbom.*Zicsr.*)
+    mnemonics:
+      cbo.clean: 0
+    rs1:
+      <<: *all_regs_mx0
+    val_comb:
+      <<: [*base_rs1val_unsgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn]
+
+cbo.flush:
+    config:
+      - check ISA:=regex(.*I.*Zicbom.*Zicsr.*)
+    mnemonics:
+      cbo.flush: 0
+    rs1:
+      <<: *all_regs_mx0
+    val_comb:
+      <<: [*base_rs1val_unsgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn]
+
+cbo.inval:
+    config:
+      - check ISA:=regex(.*I.*Zicbom.*Zicsr.*)
+    mnemonics:
+      cbo.inval: 0
+    rs1:
+      <<: *all_regs_mx0
+    val_comb:
+      <<: [*base_rs1val_unsgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn]
+
+prefetch.i:
+    config:
+      - check ISA:=regex(.*I.*Zicbop.*Zicsr.*)
+    mnemonics:
+      prefetch.i: 0
+    rs1:
+      <<: *all_regs
+    val_comb:
+      <<: [*zicbop_ifmt_val_comb_unsgn, *base_rs1val_unsgn, *ifmt_base_immval11_5_sgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn, *ifmt_immval_walking_11_5]
+
+prefetch.r:
+    config:
+      - check ISA:=regex(.*I.*Zicbop.*Zicsr.*)
+    mnemonics:
+      prefetch.r: 0
+    rs1:
+      <<: *all_regs
+    val_comb:
+      <<: [*zicbop_ifmt_val_comb_unsgn, *base_rs1val_unsgn, *ifmt_base_immval11_5_sgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn, *ifmt_immval_walking_11_5]
+
+prefetch.w:
+    config:
+      - check ISA:=regex(.*I.*Zicbop.*Zicsr.*)
+    mnemonics:
+      prefetch.w: 0
+    rs1:
+      <<: *all_regs
+    val_comb:
+      <<: [*zicbop_ifmt_val_comb_unsgn, *base_rs1val_unsgn, *ifmt_base_immval11_5_sgn]
+      abstract_comb:
+        <<: [*rs1val_walking_unsgn, *ifmt_immval_walking_11_5]
