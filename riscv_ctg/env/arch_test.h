@@ -111,6 +111,11 @@
   #define FSREG SREG
   #define FREGWIDTH 8
   #define FLEN 64
+#elif ZHINX==1
+  #define FLREG lw
+  #define FSREG sw
+  #define FREGWIDTH 4
+  #define FLEN 32
 #endif
 
 #if FLEN>XLEN
